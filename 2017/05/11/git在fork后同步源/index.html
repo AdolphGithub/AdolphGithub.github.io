@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>task | adolph blog</title>
+  <title>git在fork后同步源 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="task">
-<meta property="og:url" content="http://www.blogme.club/task/index.html">
+  <meta name="description" content="1 查看本地是否有fork源git remote -v 2 如果没有，添加fork源(称为: 上游仓库)git remote add upstream http://gitlab.cloudkz.cn/xxx/yyy 3 如果本地仓库有修改，先将本地的代码commitgit add .... git commit -m &amp;apos;...&amp;apos; fetch上游仓库到本地分支(会被保存为 up">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git在fork后同步源">
+<meta property="og:url" content="http://www.blogme.club/2017/05/11/git在fork后同步源/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:updated_time" content="2017-05-10T09:55:31.401Z">
+<meta property="og:description" content="1 查看本地是否有fork源git remote -v 2 如果没有，添加fork源(称为: 上游仓库)git remote add upstream http://gitlab.cloudkz.cn/xxx/yyy 3 如果本地仓库有修改，先将本地的代码commitgit add .... git commit -m &amp;apos;...&amp;apos; fetch上游仓库到本地分支(会被保存为 up">
+<meta property="og:updated_time" content="2017-05-11T06:18:51.415Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="task">
+<meta name="twitter:title" content="git在fork后同步源">
+<meta name="twitter:description" content="1 查看本地是否有fork源git remote -v 2 如果没有，添加fork源(称为: 上游仓库)git remote add upstream http://gitlab.cloudkz.cn/xxx/yyy 3 如果本地仓库有修改，先将本地的代码commitgit add .... git commit -m &amp;apos;...&amp;apos; fetch上游仓库到本地分支(会被保存为 up">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -150,27 +154,35 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-undefined" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-git在fork后同步源" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      task
+      git在fork后同步源
     </h1>
   
 
         
-        <a href="/task/index.html" class="archive-article-date">
-  	<time datetime="2017-05-10T09:55:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-10</time>
+        <a href="/2017/05/11/git在fork后同步源/" class="archive-article-date">
+  	<time datetime="2017-05-11T06:17:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="1-查看本地是否有fork源"><a href="#1-查看本地是否有fork源" class="headerlink" title="1 查看本地是否有fork源"></a>1 查看本地是否有fork源</h3><pre><code>git remote -v
+</code></pre><h3 id="2-如果没有，添加fork源-称为-上游仓库"><a href="#2-如果没有，添加fork源-称为-上游仓库" class="headerlink" title="2 如果没有，添加fork源(称为: 上游仓库)"></a>2 如果没有，添加fork源(称为: 上游仓库)</h3><pre><code>git remote add upstream http://gitlab.cloudkz.cn/xxx/yyy
+</code></pre><h3 id="3-如果本地仓库有修改，先将本地的代码commit"><a href="#3-如果本地仓库有修改，先将本地的代码commit" class="headerlink" title="3 如果本地仓库有修改，先将本地的代码commit"></a>3 如果本地仓库有修改，先将本地的代码commit</h3><pre><code>git add ....
+git commit -m &apos;...&apos;
+</code></pre><p>fetch上游仓库到本地分支(会被保存为 upstream/master)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git fetch upstream</div></pre></td></tr></table></figure></p>
+<h3 id="4-切换到对应的分支-比如master"><a href="#4-切换到对应的分支-比如master" class="headerlink" title="4 切换到对应的分支(比如master)"></a>4 切换到对应的分支(比如master)</h3><pre><code>git checkout master
+</code></pre><h3 id="5-合并上游的更新到本地"><a href="#5-合并上游的更新到本地" class="headerlink" title="5 合并上游的更新到本地"></a>5 合并上游的更新到本地</h3><pre><code>git merge upstream/master
+</code></pre><h3 id="6-推送到自己的远程仓库"><a href="#6-推送到自己的远程仓库" class="headerlink" title="6 推送到自己的远程仓库"></a>6 推送到自己的远程仓库</h3><pre><code>git push origin master
+</code></pre>
       
 
       
@@ -199,6 +211,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -249,7 +272,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/task/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/05/11/git在fork后同步源/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -261,6 +284,16 @@
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2017/05/11/正则表达式/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">正则表达式</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 
 
@@ -294,7 +327,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
