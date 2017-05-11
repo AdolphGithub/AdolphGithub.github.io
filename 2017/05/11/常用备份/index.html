@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>adolph blog</title>
+  <title>常用备份 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/index.html">
+  <meta name="description" content="用于保存一些基本的东西,例如ubuntu上的环境搭建.git命令啊,ubuntu上一些常见错误的解决方式">
+<meta name="keywords" content="备份 ubunut git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用备份">
+<meta property="og:url" content="http://www.blogme.club/2017/05/11/常用备份/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="用于保存一些基本的东西,例如ubuntu上的环境搭建.git命令啊,ubuntu上一些常见错误的解决方式">
+<meta property="og:updated_time" content="2017-05-11T05:58:06.650Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="常用备份">
+<meta name="twitter:description" content="用于保存一些基本的东西,例如ubuntu上的环境搭建.git命令啊,ubuntu上一些常见错误的解决方式">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -149,16 +154,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-常用备份" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-常用备份" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/11/常用备份/">常用备份</a>
+    <h1 class="article-title" itemprop="name">
+      常用备份
     </h1>
   
 
@@ -171,12 +174,37 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>用于保存一些基本的东西,例如ubuntu上的环境搭建.git命令啊,ubuntu上一些常见错误的解决方式<br>
-        
-          <a class="article-more-a" href="/2017/05/11/常用备份/#more">more >></a>
-        
+        <p>用于保存一些基本的东西,例如ubuntu上的环境搭建.git命令啊,ubuntu上一些常见错误的解决方式<br><a id="more"></a></p>
+<h3 id="1-ubuntu-lamp环境搭建"><a href="#1-ubuntu-lamp环境搭建" class="headerlink" title="1 ubuntu lamp环境搭建"></a>1 ubuntu lamp环境搭建</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">apt-get install mysql-server \</div><div class="line">    mysql-client \</div><div class="line">    libssl-dev \</div><div class="line">    gcc \</div><div class="line">    g++ \</div><div class="line">    php7.0 \</div><div class="line">    php-dev \</div><div class="line">    apache2 \</div><div class="line">    libapache2-mod-php7.0 \</div><div class="line">    php7.0-fpm \</div><div class="line">    php-pear \</div><div class="line">    php7.0-common \</div><div class="line">    php7.0-gd \</div><div class="line">    php7.0-zip \</div><div class="line">    php7.0-mysql \</div><div class="line">    php7.0-mbstring \</div><div class="line">    php7.0-xml \</div><div class="line">    php7.0-mcrypt \</div><div class="line">    git \</div><div class="line">    openssh-client \</div><div class="line">    openssh-server</div></pre></td></tr></table></figure>
+<p>启用rewrite模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a2enmod rewrite</div><div class="line">a2enmod expires</div></pre></td></tr></table></figure></p>
+<p>apache 基本命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">service apache2 start	#开启apache</div><div class="line">service apache2 stop	#停止apache</div><div class="line">service apache2 restart #重启apache</div></pre></td></tr></table></figure></p>
+<p>apache目录结构<br>├── apache2.conf    #apache住配置文件<br>├── conf-available<br>├── conf-enabled    #允许的配置项<br>├── envvars<br>├── magic<br>├── mods-available<br>├── mods-enabled    #允许apache加载的模块<br>├── ports.conf    #apache开启的端口文件<br>├── sites-available<br>└── sites-enabled    #允许访问的配置</p>
+<h3 id="2-git命令"><a href="#2-git命令" class="headerlink" title="2 git命令"></a>2 git命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">git cloen 仓库地址 本地的文件夹 	#克隆仓库</div><div class="line">git diff 文件路径	#对比文件内容</div><div class="line">git branch 分支名	#创建分支</div><div class="line">git commit	#提交到本地仓库</div><div class="line">git push	#提交到远程仓库</div><div class="line">git merge 分支	#合并分支</div><div class="line">git fetch 分支	#更新</div><div class="line">git pull 分支	#拉取文件到本地</div></pre></td></tr></table></figure>
+<h3 id="3-phpstorm应用程序"><a href="#3-phpstorm应用程序" class="headerlink" title="3 phpstorm应用程序"></a>3 phpstorm应用程序</h3><p>jetbrains-phpstorm.desktop    用于保存ubuntu下phpstorm的快捷方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[Desktop Entry]</div><div class="line">Version=1.0</div><div class="line">Type=Application</div><div class="line">Name=PhpStorm</div><div class="line">Icon=/opt/phpstorm/bin/phpstorm.png</div><div class="line">Exec=&quot;/opt/phpstorm/bin/phpstorm.sh&quot; %f</div><div class="line">Comment=The Drive to Develop</div><div class="line">Categories=Development;IDE;</div><div class="line">Terminal=false</div><div class="line">StartupWMClass=jetbrains-phpstorm</div></pre></td></tr></table></figure></p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -196,84 +224,85 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/11/常用备份/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/05/11/常用备份/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
-
-
-
   
-    <article id="post-hexo创建博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/11/hexo创建博客/">hexo创建博客</a>
-    </h1>
   
-
-        
-        <a href="/2017/05/11/hexo创建博客/" class="archive-article-date">
-  	<time datetime="2017-05-11T02:16:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前不久正打算把自己的<a href="http://www.blogme.club">博  客</a>改版，偶然看到github上的hexo可以快速搭建一个博客，于是就尝试一下用hexo来搭建一个博客系统。</p>
-<h3 id="1-环境搭建"><a href="#1-环境搭建" class="headerlink" title="1 环境搭建"></a>1 环境搭建</h3><p>hexo的环境必须具备git，node，npm，只有具备了以上几个才能安装hexo。我的系统是<a href="http://www.ubuntu.com" target="_blank" rel="external">ubuntu</a>。所以以上安装就非常简单了。<br>
-        
-          <a class="article-more-a" href="/2017/05/11/hexo创建博客/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/11/hexo创建博客/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+    <a href="/2017/05/11/hexo创建博客/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">hexo创建博客</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
 
 
 
   
+  
+  
+
+  
+
   
 
 
@@ -296,8 +325,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
