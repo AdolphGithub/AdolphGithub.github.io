@@ -6,19 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>hexo创建博客 | adolph blog</title>
+  <title>php-流程图算法 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前不久正打算把自己的博  客改版，偶然看到github上的hexo可以快速搭建一个博客，于是就尝试一下用hexo来搭建一个博客系统。 1 环境搭建hexo的环境必须具备git，node，npm，只有具备了以上几个才能安装hexo。我的系统是ubuntu。所以以上安装就非常简单了。">
-<meta name="keywords" content="hexo">
+  <meta name="description" content="流程图算法最近工作中遇到了类似于流程图的，就将这个算法备份先来。以下json数据，可以得到一个流程图的数据。">
+<meta name="keywords" content="算法 php">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo创建博客">
-<meta property="og:url" content="http://www.blogme.club/2017/05/11/hexo创建博客/index.html">
+<meta property="og:title" content="php-流程图算法">
+<meta property="og:url" content="http://www.blogme.club/2017/05/19/php-流程图算法/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="前不久正打算把自己的博  客改版，偶然看到github上的hexo可以快速搭建一个博客，于是就尝试一下用hexo来搭建一个博客系统。 1 环境搭建hexo的环境必须具备git，node，npm，只有具备了以上几个才能安装hexo。我的系统是ubuntu。所以以上安装就非常简单了。">
-<meta property="og:updated_time" content="2017-05-15T09:10:09.922Z">
+<meta property="og:description" content="流程图算法最近工作中遇到了类似于流程图的，就将这个算法备份先来。以下json数据，可以得到一个流程图的数据。">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/154/103/1541034991-591e50418d5c1_articlex">
+<meta property="og:updated_time" content="2017-05-19T15:19:45.641Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo创建博客">
-<meta name="twitter:description" content="前不久正打算把自己的博  客改版，偶然看到github上的hexo可以快速搭建一个博客，于是就尝试一下用hexo来搭建一个博客系统。 1 环境搭建hexo的环境必须具备git，node，npm，只有具备了以上几个才能安装hexo。我的系统是ubuntu。所以以上安装就非常简单了。">
+<meta name="twitter:title" content="php-流程图算法">
+<meta name="twitter:description" content="流程图算法最近工作中遇到了类似于流程图的，就将这个算法备份先来。以下json数据，可以得到一个流程图的数据。">
+<meta name="twitter:image" content="https://sfault-image.b0.upaiyun.com/154/103/1541034991-591e50418d5c1_articlex">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -154,52 +156,28 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hexo创建博客" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-php-流程图算法" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      hexo创建博客
+      php-流程图算法
     </h1>
   
 
         
-        <a href="/2017/05/11/hexo创建博客/" class="archive-article-date">
-  	<time datetime="2017-05-11T02:16:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-11</time>
+        <a href="/2017/05/19/php-流程图算法/" class="archive-article-date">
+  	<time datetime="2017-05-19T14:53:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>前不久正打算把自己的<a href="http://www.blogme.club">博  客</a>改版，偶然看到github上的hexo可以快速搭建一个博客，于是就尝试一下用hexo来搭建一个博客系统。</p>
-<h3 id="1-环境搭建"><a href="#1-环境搭建" class="headerlink" title="1 环境搭建"></a>1 环境搭建</h3><p>hexo的环境必须具备git，node，npm，只有具备了以上几个才能安装hexo。我的系统是<a href="http://www.ubuntu.com" target="_blank" rel="external">ubuntu</a>。所以以上安装就非常简单了。<br><a id="more"></a></p>
-<h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><pre><code>sudo apt-get install git
-</code></pre><p>几秒后git就会安装好</p>
-<h4 id="安装node"><a href="#安装node" class="headerlink" title="安装node"></a>安装node</h4><pre><code>sudo apt-get install nodejs-legacy
-</code></pre><p>等待几秒后使用node -v来查看是否安装好了node，当然由于源的问题，ubuntu安装的node版本一般来说很低，所以我们要安装一个n模块来升级下node的版本</p>
-<h4 id="升级node"><a href="#升级node" class="headerlink" title="升级node"></a>升级node</h4><pre><code>npm install -g n
-</code></pre><p>安装好了n模块.使用n模块来升级node<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">n 7.8.0</div></pre></td></tr></table></figure></p>
-<p>等待几秒后node就会升级成7.8.0版本，当node升级成功后，npm在node安装的时候就会安装成功。如果没有npm，请使用sudo apt-get install npm</p>
-<h3 id="2-安装hexo"><a href="#2-安装hexo" class="headerlink" title="2 安装hexo"></a>2 安装hexo</h3><p>有了以上几步过后，node，git，npm都会安装成功，剩下的就开始安装hexo吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g hexo-cli</div></pre></td></tr></table></figure></p>
-<p>请等待几秒后，hexo就会安装成功，查看hexo是否安装成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo -h</div></pre></td></tr></table></figure></p>
-<h3 id="3-使用hexo"><a href="#3-使用hexo" class="headerlink" title="3 使用hexo"></a>3 使用hexo</h3><p>当我们安装好了hexo过后，我们需要在<a href="https://www.github.com" target="_blank" rel="external">github</a>创建一个仓库。这个仓库名以自己用户名命名。例如:用户名.github.io。这个仓库创建好了过后。github.io就会以你的这个生成一个域名。就是：用户名.github.io。我们将其克隆下来.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git clone 仓库地址 hexo</div><div class="line">cd hexo</div><div class="line">hexo init</div></pre></td></tr></table></figure></p>
-<p>这样我们就初始化了一个hexo项目。我们要配置一下_config.yml<br>找到其中的deploy,这项是我们提交代码时的github地址.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">	type: git</div><div class="line">	repo: github仓库地址</div></pre></td></tr></table></figure></p>
-<p>配置好了过后使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo -g</div></pre></td></tr></table></figure></p>
-<p>生成静态页面,然后使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo deploy</div></pre></td></tr></table></figure></p>
-<p>将其传递到github地址上去.剩下的就是去访问你的<a href="https://adolphgithub.github.io" target="_blank" rel="external">用户名.github.io</a>,就可以看到hexo博客的基本东西了</p>
-<h3 id="4-hexo-命令"><a href="#4-hexo-命令" class="headerlink" title="4 hexo 命令"></a>4 hexo 命令</h3><pre><code>hexo clean #清除生成的hexo静态界面
-hexo g #生成hexo静态界面
-hexo server #生成hexo本地服务。使用localhost:4000访问
-hexo new &apos;文章名&apos; #创建一篇新文件
-hexo new page &apos;页面名&apos; #创建一篇新页面
-</code></pre><h3 id="5-hexo主题"><a href="#5-hexo主题" class="headerlink" title="5 hexo主题"></a>5 hexo主题</h3><p>hexo 主题也是hexo中最吸引人的一点.找到<a href="https://hexo.io/themes/" target="_blank" rel="external">hexo主题</a>,选择你喜欢的主题.图片是预览,下面的titile是github地址.我们要github地址<br>例如我们使用Adoubi主题:地址为<a href="https://https://github.com/shinux/hexo-theme-adoubi" target="_blank" rel="external">https://github.com/shinux/hexo-theme-adoubi</a>将其下载到本地,并且解压<br>我们找到hexo的本地路径。使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv hexo-theme-adoubi hexo路径/themes/adoubi</div></pre></td></tr></table></figure></p>
-<p>编辑我们的hexo根路径的_config.yml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme: adoubi</div></pre></td></tr></table></figure></p>
-<p>然后清除，生成，预览，发布<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexo clean</div><div class="line">hexo g</div><div class="line">hexo deploy</div></pre></td></tr></table></figure></p>
-<p>就可以查看到新的hexo主题了.</p>
-<h3 id="6-附录"><a href="#6-附录" class="headerlink" title="6 附录"></a>6 附录</h3><p>├── _config.yml    #配置文件<br>├── db.json    #数据库信息<br>├── node_modules    #npm包<br>├── package.json    #npm配置文件<br>├── scaffolds<br>├── source    #页面和文章的源文件<br>└── themes    #主题文件</p>
+        <h3 id="流程图算法"><a href="#流程图算法" class="headerlink" title="流程图算法"></a>流程图算法</h3><p>最近工作中遇到了类似于流程图的，就将这个算法备份先来。以下json数据，可以得到一个流程图的数据。<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000005&quot;,&quot;next_node&quot;: &quot;0000000000000006&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000006&quot;,&quot;next_node&quot;: &quot;0000000000000007&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000006&quot;,&quot;next_node&quot;: &quot;0000000000000008&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000008&quot;,&quot;next_node&quot;: &quot;0000000000000012&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000009&quot;,&quot;next_node&quot;: &quot;0000000000000010&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000010&quot;,&quot;next_node&quot;: &quot;0000000000000011&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000014&quot;,&quot;next_node&quot;: &quot;0000000000000015&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000015&quot;,&quot;next_node&quot;: &quot;0000000000000016&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000016&quot;,&quot;next_node&quot;: &quot;0000000000000017&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000018&quot;,&quot;next_node&quot;: &quot;0000000000000019&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000020&quot;,&quot;next_node&quot;: &quot;0000000000000021&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000019&quot;,&quot;next_node&quot;: &quot;0000000000000020&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000012&quot;,&quot;next_node&quot;: &quot;0000000000000022&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000022&quot;,&quot;next_node&quot;: &quot;0000000000000023&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000023&quot;,&quot;next_node&quot;: &quot;0000000000000009&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000011&quot;,&quot;next_node&quot;: &quot;0000000000000024&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000024&quot;,&quot;next_node&quot;: &quot;0000000000000014&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000017&quot;,&quot;next_node&quot;: &quot;0000000000000025&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000025&quot;,&quot;next_node&quot;: &quot;0000000000000018&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000007&quot;,&quot;next_node&quot;: &quot;0000000000000021&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: null,&quot;next_node&quot;: &quot;0000000000000005&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000021&quot;,&quot;next_node&quot;: null&#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>其中,prev_node代表上一个节点,next_node为下一节点.如果prev_node为Null,则代表当前为第一个节点.next_node为null为最后一个节点.根据数据得到以下流程图<br><img src="https://sfault-image.b0.upaiyun.com/154/103/1541034991-591e50418d5c1_articlex" alt="avatar"><br>求当前深度最深的流程有哪些节点<br>注:节点只能向下走<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">// 这个函数用来生成数据类型。</div><div class="line">function build_graph($nodes = [])&#123;</div><div class="line">    $graph = [];</div><div class="line">    foreach($nodes as $node)&#123;</div><div class="line">	// 判断是顶级节点</div><div class="line">        if(empty($node[&apos;prev_node&apos;]))&#123;</div><div class="line">            if(!array_key_exists(&apos;root&apos;,$graph))&#123;</div><div class="line">                $graph[&apos;root&apos;]=[];</div><div class="line">            &#125;</div><div class="line">            array_push($graph[&apos;root&apos;],$node[&apos;next_node&apos;]);</div><div class="line">        &#125;else&#123;</div><div class="line">            if(!array_key_exists($node[&apos;prev_node&apos;],$graph))&#123;</div><div class="line">                $graph[$node[&apos;prev_node&apos;]] = [];</div><div class="line">            &#125;</div><div class="line">            if($node[&apos;next_node&apos;])&#123;</div><div class="line">                array_push($graph[$node[&apos;prev_node&apos;]],$node[&apos;next_node&apos;]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return $graph;</div><div class="line">&#125;</div><div class="line">// 这里将数据分组.</div><div class="line">function travel($node,$graph = [])&#123;</div><div class="line">    if(!$graph[$node])&#123;</div><div class="line">        return [$node];</div><div class="line">    &#125;</div><div class="line">    $max_nodes = [];</div><div class="line">    foreach($graph[$node] as $value)&#123;</div><div class="line">        $nodes = travel($value,$graph);</div><div class="line">        if(count($nodes) &gt; count($max_nodes))&#123;</div><div class="line">            $max_nodes = $nodes;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    array_push($max_nodes,$node);</div><div class="line">    return $max_nodes;</div><div class="line">&#125;</div><div class="line">// 原始数据.</div><div class="line">$nodes = &apos;[</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000005&quot;,&quot;next_node&quot;: &quot;0000000000000006&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000006&quot;,&quot;next_node&quot;: &quot;0000000000000007&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000006&quot;,&quot;next_node&quot;: &quot;0000000000000008&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000008&quot;,&quot;next_node&quot;: &quot;0000000000000012&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000009&quot;,&quot;next_node&quot;: &quot;0000000000000010&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000010&quot;,&quot;next_node&quot;: &quot;0000000000000011&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000014&quot;,&quot;next_node&quot;: &quot;0000000000000015&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000015&quot;,&quot;next_node&quot;: &quot;0000000000000016&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000016&quot;,&quot;next_node&quot;: &quot;0000000000000017&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000018&quot;,&quot;next_node&quot;: &quot;0000000000000019&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000020&quot;,&quot;next_node&quot;: &quot;0000000000000021&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000019&quot;,&quot;next_node&quot;: &quot;0000000000000020&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000012&quot;,&quot;next_node&quot;: &quot;0000000000000022&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000022&quot;,&quot;next_node&quot;: &quot;0000000000000023&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000023&quot;,&quot;next_node&quot;: &quot;0000000000000009&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000011&quot;,&quot;next_node&quot;: &quot;0000000000000024&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000024&quot;,&quot;next_node&quot;: &quot;0000000000000014&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000017&quot;,&quot;next_node&quot;: &quot;0000000000000025&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000025&quot;,&quot;next_node&quot;: &quot;0000000000000018&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000007&quot;,&quot;next_node&quot;: &quot;0000000000000021&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: null, &quot;next_node&quot;: &quot;0000000000000005&quot;&#125;,</div><div class="line">    &#123;&quot;prev_node&quot;: &quot;0000000000000021&quot;, &quot;next_node&quot;: null&#125;</div><div class="line">]&apos;;</div><div class="line">// 组装数据.</div><div class="line">$graph = build_graph(json_decode($nodes,true));</div><div class="line">// 得到数据.</div><div class="line">$nodes = travel(&apos;root&apos;, $graph);</div><div class="line">$nodes = array_reverse($nodes);</div><div class="line">array_shift($nodes);</div></pre></td></tr></table></figure></p>
 
       
 
@@ -234,7 +212,7 @@ hexo new page &apos;页面名&apos; #创建一篇新页面
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">算法 php</a>
         		</li>
       		
 		</ul>
@@ -290,7 +268,7 @@ hexo new page &apos;页面名&apos; #创建一篇新页面
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/05/11/hexo创建博客/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/05/19/php-流程图算法/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -304,15 +282,11 @@ hexo new page &apos;页面名&apos; #创建一篇新页面
   
 <nav id="article-nav">
   
-    <a href="/2017/05/11/常用备份/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          常用备份
-        
-      </div>
-    </a>
   
+    <a href="/2017/05/16/php-awesome/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">php awesome 备份</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
