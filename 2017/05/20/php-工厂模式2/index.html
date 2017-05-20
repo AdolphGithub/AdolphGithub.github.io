@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>工厂模式2 - 数据中心模式，狗和书一起卖 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="数据中心模式-狗和书一起卖接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。">
+  <meta name="description" content="接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。">
 <meta name="keywords" content="php 设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="工厂模式2 - 数据中心模式，狗和书一起卖">
 <meta property="og:url" content="http://www.blogme.club/2017/05/20/php-工厂模式2/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="数据中心模式-狗和书一起卖接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。">
-<meta property="og:updated_time" content="2017-05-20T08:12:20.037Z">
+<meta property="og:description" content="接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。">
+<meta property="og:updated_time" content="2017-05-20T09:41:44.482Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="工厂模式2 - 数据中心模式，狗和书一起卖">
-<meta name="twitter:description" content="数据中心模式-狗和书一起卖接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。">
+<meta name="twitter:description" content="接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -174,7 +174,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="数据中心模式-狗和书一起卖"><a href="#数据中心模式-狗和书一起卖" class="headerlink" title="数据中心模式-狗和书一起卖"></a>数据中心模式-狗和书一起卖</h3><p>接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。<br><a id="more"></a><br>首先我们先规范代码，每个商品必须要有getList()方法,想到的是interface,代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">interface Product&#123;</div><div class="line">	public function getList();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <p>接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。<br><a id="more"></a><br>首先我们先规范代码，每个商品必须要有getList()方法,想到的是interface,代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">interface Product&#123;</div><div class="line">	public function getList();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>所有的商品必须要集成接口.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">class ProductFactory&#123;</div><div class="line">	// 根据不同的对象来得到不同的类.</div><div class="line">	public static function getProduct($type)&#123;</div><div class="line">		// 变态模式产生</div><div class="line">		if($type == &apos;Book&apos;)&#123;</div><div class="line">			$type = &apos;Dog&apos;;</div><div class="line">		&#125;</div><div class="line">		if(!class_exists($type))&#123;</div><div class="line">			require ($type.&apos;.php&apos;);</div><div class="line">		&#125;</div><div class="line">		switch($type)&#123;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Book();</div><div class="line">				break;</div><div class="line">			case  &quot;Dog&quot;:</div><div class="line">				$object = new Dog();</div><div class="line">				break;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Wines();</div><div class="line">				break;</div><div class="line">		&#125;</div><div class="line">		if(is_subclass_of($obj,&apos;Product&apos;))&#123;</div><div class="line">			return $object;</div><div class="line">		&#125;else&#123;</div><div class="line">			return null;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>我们这里要引入数据中心模式，坚决不予类本身打交道。<br>这里我们创建ProductDataCenter;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class ProductDataCenter&#123;</div><div class="line">	public static $objectList = [];</div><div class="line">	public static function set($k,$v)&#123;</div><div class="line">		self::$objectList[$k]=$v;</div><div class="line">	&#125;</div><div class="line">	public static function get($k)&#123;</div><div class="line">		return self::$objectList[$k];</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>我们改造工厂<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">require &apos;ProductDataCenter.php&apos;;</div><div class="line">class ProductFactory&#123;</div><div class="line">	// 根据不同的对象来得到不同的类.</div><div class="line">	public static function getProduct($type)&#123;</div><div class="line">		// 变态模式产生</div><div class="line">		if($type == &apos;Book&apos;)&#123;</div><div class="line">			$type = &apos;Dog&apos;;</div><div class="line">		&#125;</div><div class="line">		if(!class_exists($type))&#123;</div><div class="line">			require ($type.&apos;.php&apos;);</div><div class="line">		&#125;</div><div class="line">		switch($type)&#123;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Book();</div><div class="line">				break;</div><div class="line">			case  &quot;Dog&quot;:</div><div class="line">				$object = new Dog();</div><div class="line">				break;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Wines();</div><div class="line">				break;</div><div class="line">		&#125;</div><div class="line">		if(is_subclass_of($object,&apos;Product&apos;))&#123;</div><div class="line">			ProductDataCenter::set($type,$object);</div><div class="line">		&#125;else&#123;</div><div class="line">			return null;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -395,15 +395,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php 设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">php 设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
