@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>xdebug使用 | adolph blog</title>
+  <title>composer包搭建 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在PHP中,有很多第三方测试性能的工具，例如xdebug,xhprof,Krumo等等，我这里主要介绍我工作用的性能分析工具:xdebug">
-<meta name="keywords" content="php xdebug">
+  <meta name="description" content="1 composer简介composer(作曲家).php的一个包管理软件。市面上绝大部分的主流框架都在支持compsoer.是一个专门用来管理php-package的依赖关系的。直接通过composer require 包名，即可下载对应的包。即可使用compsoer.我这里主要是在本地搭建一个compsoer的库.用于将公司的一些常用的扩展,比如发短信，发邮件等等包装成一个公共库.直接通过co">
+<meta name="keywords" content="composer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="xdebug使用">
-<meta property="og:url" content="http://www.blogme.club/2017/06/07/xdebug使用/index.html">
+<meta property="og:title" content="composer包搭建">
+<meta property="og:url" content="http://www.blogme.club/2017/06/21/composer包搭建/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="在PHP中,有很多第三方测试性能的工具，例如xdebug,xhprof,Krumo等等，我这里主要介绍我工作用的性能分析工具:xdebug">
-<meta property="og:updated_time" content="2017-06-07T11:44:09.822Z">
+<meta property="og:description" content="1 composer简介composer(作曲家).php的一个包管理软件。市面上绝大部分的主流框架都在支持compsoer.是一个专门用来管理php-package的依赖关系的。直接通过composer require 包名，即可下载对应的包。即可使用compsoer.我这里主要是在本地搭建一个compsoer的库.用于将公司的一些常用的扩展,比如发短信，发邮件等等包装成一个公共库.直接通过co">
+<meta property="og:updated_time" content="2017-06-21T13:14:32.257Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xdebug使用">
-<meta name="twitter:description" content="在PHP中,有很多第三方测试性能的工具，例如xdebug,xhprof,Krumo等等，我这里主要介绍我工作用的性能分析工具:xdebug">
+<meta name="twitter:title" content="composer包搭建">
+<meta name="twitter:description" content="1 composer简介composer(作曲家).php的一个包管理软件。市面上绝大部分的主流框架都在支持compsoer.是一个专门用来管理php-package的依赖关系的。直接通过composer require 包名，即可下载对应的包。即可使用compsoer.我这里主要是在本地搭建一个compsoer的库.用于将公司的一些常用的扩展,比如发短信，发邮件等等包装成一个公共库.直接通过co">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -154,35 +154,39 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-xdebug使用" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-composer包搭建" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      xdebug使用
+      composer包搭建
     </h1>
   
 
         
-        <a href="/2017/06/07/xdebug使用/" class="archive-article-date">
-  	<time datetime="2017-06-07T11:42:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-07</time>
+        <a href="/2017/06/21/composer包搭建/" class="archive-article-date">
+  	<time datetime="2017-06-21T13:13:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在PHP中,有很多第三方测试性能的工具，例如xdebug,xhprof,Krumo等等，我这里主要介绍我工作用的性能分析工具:xdebug<br><a id="more"></a></p>
-<h3 id="1-xdebug安装"><a href="#1-xdebug安装" class="headerlink" title="1 xdebug安装"></a>1 xdebug安装</h3><p>xdebug作为php的扩展，自然而然就安装就非常简单了。<br>在ubuntu中:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt install php-xdebug</div></pre></td></tr></table></figure></p>
-<p>在windows中,请先到<a href="http://pecl.php.net" target="_blank" rel="external">pecl.php.com</a>中下载xdebug的扩展。点击<a href="http://pecl.php.net/package/xdebug" target="_blank" rel="external">这里</a>下载安装。<br>安装完成后，使用phpinfo();就可以看到xdebug的选项了。</p>
-<h3 id="2-xdebug的使用"><a href="#2-xdebug的使用" class="headerlink" title="2 xdebug的使用"></a>2 xdebug的使用</h3><p>安装好了xdebug，由于是php扩展,自然就在php.ini里面配置了。我这里只做个例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xdebug.profiler_enable = on</div><div class="line">xdebug.profiler_enable_trigger = 1</div></pre></td></tr></table></figure></p>
-<p>详细配置请参考<a href="https://xdebug.org/docs/all_settings" target="_blank" rel="external">xdebug官网</a><br>xdebug就算配置好了，重启apache。如何要使用xdebug的呢。因为有了以上配置，就会生成日志。至于日志的生成位置，请查看phpinfo()中xdebug.profiler_output_dir和xdebug.profiler_output_name<br>如果想用更好的，就要使用日志查看工具了。我这里使用的是<a href="https://github.com/jokkedk/webgrind" target="_blank" rel="external">webgrind</a>.</p>
-<h3 id="3-使用webgrind查看日志"><a href="#3-使用webgrind查看日志" class="headerlink" title="3 使用webgrind查看日志"></a>3 使用webgrind查看日志</h3><p>首先我们要找到webgrind的github仓库将这个下载下来。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://github.com/jokkedk/webgrind</div></pre></td></tr></table></figure></p>
-<p>下载下来解压过后，使用composer dump-autoload.至于我为什么要使用composer dump-autoload因为这个web应用没有引入其他的第三方库。然后使用composer serve就可以访问了。<br>访问地址为:<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>;<br>如果，8080被占用，请修改composer.json里面的scripts下的serve就可以了.</p>
-<h3 id="4-备份"><a href="#4-备份" class="headerlink" title="4 备份"></a>4 备份</h3><p>如果在ubuntu中使用webgrind，想要查看图形的话，就要安装graphviz<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt install graphviz</div></pre></td></tr></table></figure></p>
-<p>如果是老一点的ubuntu系统，就要配置一下webgrind目录下的config.php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">static $dotExecutable = &apos;/usr/bin/dot&apos;;</div></pre></td></tr></table></figure></p>
+        <h4 id="1-composer简介"><a href="#1-composer简介" class="headerlink" title="1 composer简介"></a>1 composer简介</h4><p>composer(作曲家).php的一个包管理软件。市面上绝大部分的主流框架都在支持compsoer.是一个专门用来管理php-package的依赖关系的。直接通过composer require 包名，即可下载对应的包。即可使用compsoer.我这里主要是在本地搭建一个compsoer的库.用于将公司的一些常用的扩展,比如发短信，发邮件等等包装成一个公共库.直接通过compsoer即可引入.<br><a id="more"></a></p>
+<h4 id="2-composer-参数简介"><a href="#2-composer-参数简介" class="headerlink" title="2 composer 参数简介"></a>2 composer 参数简介</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;name&quot;: &quot;kz/sms&quot;,	// 包名</div><div class="line">    &quot;description&quot;: &quot;send short message&quot;,	//描述</div><div class="line">    &quot;type&quot;: &quot;library&quot;,		// 类型，默认为包名</div><div class="line">    &quot;license&quot;: &quot;MIT&quot;,		// 许可协议</div><div class="line">    &quot;authors&quot;: [			// 作者的相关信息</div><div class="line">        &#123;</div><div class="line">            &quot;name&quot;: &quot;adolph&quot;,</div><div class="line">            &quot;email&quot;: &quot;1138027478@qq.com&quot;</div><div class="line">        &#125;</div><div class="line">    ],</div><div class="line">    &quot;autoload&quot;: &#123;			// 加载方式</div><div class="line">        &quot;psr-4&quot;: &#123;</div><div class="line">            &quot;Kz\\&quot;: &quot;src/&quot;</div><div class="line">        &#125;,</div><div class="line">        &quot;files&quot;: []</div><div class="line">    &#125;,</div><div class="line">    &quot;require&quot;: &#123;			// 依赖于哪个库</div><div class="line">        &quot;phpmailer/phpmailer&quot;: &quot;^5.2&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;repositories&quot;: &#123;		// 仓库，默认加载的仓库地址</div><div class="line">        &quot;packagist&quot;: &#123;</div><div class="line">            &quot;type&quot;: &quot;composer&quot;,</div><div class="line">            &quot;url&quot;: &quot;https://packagist.phpcomposer.com&quot;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="4-开始创建包"><a href="#4-开始创建包" class="headerlink" title="4 开始创建包"></a>4 开始创建包</h4><p>先初始话composer.json文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">composer init</div></pre></td></tr></table></figure></p>
+<p>请输入包名,描述,作者,最稳定的版本,开放协议,初始化后的文件有点类似于这种<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;name&quot;: &quot;adolph/www&quot;,</div><div class="line">    &quot;type&quot;: &quot;library&quot;,</div><div class="line">    &quot;authors&quot;: [</div><div class="line">        &#123;</div><div class="line">            &quot;name&quot;: &quot;yuyuangang&quot;,</div><div class="line">            &quot;email&quot;: &quot;1138027478@qq.com&quot;</div><div class="line">        &#125;</div><div class="line">    ],</div><div class="line">    &quot;require&quot;: &#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>即可初始完成</p>
+<h4 id="5-开始书写自己的包"><a href="#5-开始书写自己的包" class="headerlink" title="5 开始书写自己的包"></a>5 开始书写自己的包</h4><p>这一部分，你需要知道psr4协议,如果不知道psr4的协议的，请绕道.我这里只讲psr4协议的引入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&quot;autoload&quot;: &#123;</div><div class="line">        &quot;psr-4&quot;: &#123;		// 使用的协议</div><div class="line">            &quot;Kz\\&quot;: &quot;src/&quot;</div><div class="line">        &#125;,</div><div class="line">        &quot;files&quot;: []</div><div class="line">    &#125;,</div></pre></td></tr></table></figure></p>
+<p>开始写自己的第一个代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">namespace Kz;</div><div class="line"></div><div class="line">class Message</div><div class="line">&#123;</div><div class="line">    private $config = [];</div><div class="line"></div><div class="line">    protected $message = &apos;&apos;;</div><div class="line"></div><div class="line">    public function __construct($config = [])</div><div class="line">    &#123;</div><div class="line">        if(!empty($config))&#123;</div><div class="line">            $this-&gt;config = array_merge($this-&gt;config,$config);</div><div class="line">        &#125;else&#123;</div><div class="line">            $this-&gt;config[&apos;port&apos;]=&apos;21&apos;;</div><div class="line">            $this-&gt;config[&apos;host&apos;]=&apos;&apos;;</div><div class="line">            $this-&gt;config[&apos;username&apos;]=&apos;&apos;;</div><div class="line">            $this-&gt;config[&apos;password&apos;]=&apos;&apos;;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 发送邮件函数.</div><div class="line">     * @param $address  收件人地址</div><div class="line">     * @param $title    邮件标题</div><div class="line">     * @param $content  邮件内容</div><div class="line">     * @param string $name  发件人姓名</div><div class="line">     * @return bool|string</div><div class="line">     */</div><div class="line">    public function sendMail($address,$title,$content,$name=&apos;测试&apos;)&#123;</div><div class="line">        try &#123;</div><div class="line">            $mail = new \PHPMailer();</div><div class="line">            $mail-&gt;isSMTP();</div><div class="line">            $mail-&gt;CharSet=&apos;UTF-8&apos;;</div><div class="line">            $mail-&gt;SMTPAuth = true;</div><div class="line">            $mail-&gt;Port = $this-&gt;config[&apos;port&apos;];</div><div class="line">            $mail-&gt;Host = $this-&gt;config[&apos;host&apos;];</div><div class="line">            $mail-&gt;Username = $this-&gt;config[&apos;username&apos;];</div><div class="line">            $mail-&gt;Password = $this-&gt;config[&apos;password&apos;];</div><div class="line">            $mail-&gt;setFrom($this-&gt;config[&apos;username&apos;], $name);</div><div class="line">            $mail-&gt;addAddress($address);</div><div class="line">            $mail-&gt;isHTML(true);</div><div class="line">            $mail-&gt;Subject = $title;</div><div class="line">            $mail-&gt;Body    = $content;</div><div class="line">            if($mail-&gt;Send())&#123;</div><div class="line">                return true;</div><div class="line">            &#125;else&#123;</div><div class="line">                $this-&gt;message = $mail-&gt;ErrorInfo;</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line">        &#125; catch (\phpmailerException $e) &#123;</div><div class="line">            return $e-&gt;errorMessage();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 获取失败后的错误信息.</div><div class="line">     * @return string</div><div class="line">     */</div><div class="line">    public function getErrorMsg()&#123;</div><div class="line">        return $this-&gt;message;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>以上是一个类，引用了phpmailer,所以要先引入phpmailer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">composer require phpmailer/phpmailer</div></pre></td></tr></table></figure></p>
+<p>写好后，你的第一个composer包就创建完成了.剩下就需要配置引入信息了。</p>
+<h4 id="6-配置好本地的composer文件"><a href="#6-配置好本地的composer文件" class="headerlink" title="6 配置好本地的composer文件"></a>6 配置好本地的composer文件</h4><p>这里有compsoer资源库引入的类型.<br>首先，我们要禁用掉从packagist.org获取的包信息.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&quot;repositories&quot;: [</div><div class="line">      &#123;</div><div class="line">        &quot;packagist.org&quot;: false</div><div class="line">      &#125;</div><div class="line">    ]</div></pre></td></tr></table></figure></p>
+<p>如果不禁用掉，当我们几个源都没有找到自己的包的时候，他会自己去packagist.org中去找，这个是国外。国内翻墙不易，所以还是禁用掉为妙。<br>因为我们建立的包在本地，所以我们要添加一个新的包的来源。类型为path,根据路径去找我们的包。是用相对路径来找，根据当前的composer文件所在路径来找。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&quot;repositories&quot;: [</div><div class="line">      &#123;</div><div class="line">        &quot;packagist.org&quot;: false</div><div class="line">      &#125;,</div><div class="line">      &#123;</div><div class="line">        &quot;type&quot;: &quot;composer&quot;,</div><div class="line">        &quot;url&quot;: &quot;https://packagist.phpcomposer.com&quot;</div><div class="line">      &#125;,</div><div class="line">      &#123;</div><div class="line">        &quot;type&quot;: &quot;path&quot;,</div><div class="line">        &quot;url&quot;: &quot;../composer&quot;</div><div class="line">      &#125;</div><div class="line">    ]</div></pre></td></tr></table></figure></p>
+<p>以上就建立好了。试试用composer把自己建立好的包名安装下来把!</p>
+<h4 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h4><p><a href="https://getcomposer.org/doc/04-schema.md#json-schema" target="_blank" rel="external">composer文档</a></p>
 
       
 
@@ -227,7 +231,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">php xdebug</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">composer</a>
         		</li>
       		
 		</ul>
@@ -283,7 +287,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/06/07/xdebug使用/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/06/21/composer包搭建/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -297,18 +301,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/06/21/composer包搭建/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          composer包搭建
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/05/23/php-适配器模式/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">php-适配器模式</div>
+    <a href="/2017/06/07/xdebug使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">xdebug使用</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -324,8 +319,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://www.blogme.club/2017/06/07/xdebug使用/", 
-    sourceId: "xdebug使用",
+    url: "http://www.blogme.club/2017/06/21/composer包搭建/", 
+    sourceId: "composer包搭建",
     productKey: "7a087d761edd41caba8fae6866582ec4",
     target: "cloud-tie-wrapper"
   };
