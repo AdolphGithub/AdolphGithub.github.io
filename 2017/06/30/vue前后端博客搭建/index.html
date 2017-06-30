@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Tag: javascript vue | adolph blog</title>
+  <title>vue前后端博客搭建 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/tags/javascript-vue/index.html">
+  <meta name="description" content="让我来装一下，以前我自己写的博客都是采用的是前后端不分离，加上模板引擎自己写的博客。除了这个博客是用hexo搭建的.趁着我学vue刚好可以自己来实现前后端分离博客.">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue前后端博客搭建">
+<meta property="og:url" content="http://www.blogme.club/2017/06/30/vue前后端博客搭建/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="让我来装一下，以前我自己写的博客都是采用的是前后端不分离，加上模板引擎自己写的博客。除了这个博客是用hexo搭建的.趁着我学vue刚好可以自己来实现前后端分离博客.">
+<meta property="og:updated_time" content="2017-06-30T13:46:29.100Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="vue前后端博客搭建">
+<meta name="twitter:description" content="让我来装一下，以前我自己写的博客都是采用的是前后端不分离，加上模板引擎自己写的博客。除了这个博客是用hexo搭建的.趁着我学vue刚好可以自己来实现前后端分离博客.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -149,60 +154,182 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-vue前后端博客搭建" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/28/vue-cli搭建/" class="archive-article-date">
-  	<time datetime="2017-06-28T05:55:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-28</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/28/vue-cli搭建/">vue-cli搭建</a>
+    <h1 class="article-title" itemprop="name">
+      vue前后端博客搭建
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/06/30/vue前后端博客搭建/" class="archive-article-date">
+  	<time datetime="2017-06-30T13:45:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>让我来装一下，以前我自己写的博客都是采用的是前后端不分离，加上模板引擎自己写的博客。除了这个<a href="https://adolphgithub.github.io" target="_blank" rel="external">博客</a>是用hexo搭建的.趁着我学vue刚好可以自己来实现前后端分离博客.<br><a id="more"></a></p>
+<h4 id="使用vue-cli搭建自己的前端博客"><a href="#使用vue-cli搭建自己的前端博客" class="headerlink" title="使用vue-cli搭建自己的前端博客"></a>使用vue-cli搭建自己的前端博客</h4><p>使用vue-cli搭建webapp应用我在<a href="https://adolphgithub.github.io/2017/06/28/vue-cli%E6%90%AD%E5%BB%BA/#more" target="_blank" rel="external">vue-cli搭建</a>已经说过.这里不在多说.这里我就直接从后台的搭建开始把.</p>
+<h4 id="使用php搭建自己的博客后台"><a href="#使用php搭建自己的博客后台" class="headerlink" title="使用php搭建自己的博客后台"></a>使用php搭建自己的博客后台</h4><p>为撒我要使用php,那是因为我就只会这个.这里我用的是<a href="http://www.slimphp.net/" target="_blank" rel="external">slim框架</a>.国内不太火，国外还好一点.因为可以快速开发自己的后端应用.我就直接用了.既然是后端,肯定最重要的是要验证用户信息，比如每次要验证用户的token.</p>
+<h4 id="验证登录"><a href="#验证登录" class="headerlink" title="验证登录."></a>验证登录.</h4><p>首先,我们要公开登录的接口.至于如何公开,我这里打个比方,可以使用连接判断的方式.毕竟是前后端分离.后台接口判断的时候，可以用lower一点.我们这里的思路是,先判断是否有请求头是否有token,如果有token，就验证token的有效性.如果没有,但是接口地址是登录的地址.那么,我们就放过.如果以上都不是,我们就要让用户跳转到登录界面,去登录.这样,我们就能得到一个最基本的用户验证.<br>以下是实现代码的中间件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">class Auth extends Base</div><div class="line">&#123;</div><div class="line">    /**</div><div class="line">     * 中间件验证</div><div class="line">     * @param \Slim\Http\Request $request</div><div class="line">     * @param \Slim\Http\Response $response</div><div class="line">     * @param callable $next</div><div class="line">     * @return \Slim\Http\Response|static</div><div class="line">     */</div><div class="line">    public function __invoke(Request $request, Response $response, callable $next) &#123;</div><div class="line">        $token = $request-&gt;getHeader(&apos;HTTP_X-TOKEN&apos;);</div><div class="line">        // 判断是否存在token,如果不存在就跳转到login界面.</div><div class="line">        if(!empty($token))&#123;</div><div class="line">            $secret = $this-&gt;container-&gt;get(&apos;settings&apos;)[&apos;secret&apos;];</div><div class="line">            $token = array_shift($token);</div><div class="line">            $user_info = Token::token_query_user($secret,$token);</div><div class="line">            if(is_null($user_info) || $user_info === -1)&#123;</div><div class="line">                // 这里要跳转到login界面.</div><div class="line">                $ret = [&apos;status&apos;=&gt;-1,&apos;data&apos;=&gt;[&apos;url&apos;=&gt;&apos;#/login&apos;],&apos;msg&apos;=&gt;&apos;认证失效&apos;];</div><div class="line">                return $response-&gt;withJson($ret);</div><div class="line">            &#125;else&#123;</div><div class="line">                $request = $request-&gt;withAttribute(&apos;user_info&apos;,$user_info);</div><div class="line">            &#125;</div><div class="line">        &#125;else&#123;</div><div class="line">            $path = $request-&gt;getUri()-&gt;getPath();</div><div class="line">            // 这里验证不太符合规范.我就不多说了.要改的可以自己尝试着改改哦.</div><div class="line">            if(strpos($path,&apos;login&apos;) === false)&#123;</div><div class="line">                $ret = [&apos;status&apos;=&gt;-1,&apos;data&apos;=&gt;[&apos;url&apos;=&gt;&apos;#/login&apos;],&apos;msg&apos;=&gt;&apos;认证失效&apos;];</div><div class="line">                return $response-&gt;withJson($ret);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        $response = $next($request, $response);</div><div class="line">        return $response;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果不太懂slim框架,请先阅读下.其实换成thinkphp,laravel,yii的登录逻辑都可以这样尝试哦.</p>
+<h4 id="前后台通信"><a href="#前后台通信" class="headerlink" title="前后台通信"></a>前后台通信</h4><p>首先，这个接口写好过后,我们要想的是,既然是前后端分离.那要如何实现数据互通.这里要讲到一个点,跨域.通常php的处理方式.有以下几种,</p>
+<h5 id="1-关闭csrf"><a href="#1-关闭csrf" class="headerlink" title="1 关闭csrf"></a>1 关闭csrf</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 允许所有人访问</div><div class="line">$response = $response-&gt;withHeader(&apos;Access-Control-Allow-Origin&apos;, &apos;*&apos;);</div><div class="line">$response = $response-&gt;withHeader(&apos;Access-Control-Allow-Headers&apos;, &apos;Content-Type,X-Requested-With,X_Requested_With&apos;);</div><div class="line">// 允许访问的方式</div><div class="line">$response = $response-&gt;withHeader(&apos;Access-Control-Allow-Methods&apos;, &apos;GET,POST,PUT,DELETE,HEAD,PATCH,OPTIONS&apos;);</div></pre></td></tr></table></figure>
+<p>这样，我们就能通过普通的方式来访问了.</p>
+<h5 id="2-使用服务器来做代理"><a href="#2-使用服务器来做代理" class="headerlink" title="2 使用服务器来做代理."></a>2 使用服务器来做代理.</h5><p>这里,我们如果使用了vue-cli来搭建的webapp.它自带了一个<a href="http://www.expressjs.com.cn/" target="_blank" rel="external">express</a>服务器框架,这个我们就可以使用它来做代理.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">var express = require(&apos;express&apos;)</div><div class="line">var proxyMiddleware = require(&apos;http-proxy-middleware&apos;)</div><div class="line">var api = require(&apos;apijs的路径&apos;)</div><div class="line">var app = express()</div><div class="line">// 后台接口地址.统一地址.</div><div class="line">app.use(&apos;/api&apos;,api);</div><div class="line">-------------------------------------  api js -----------------------------</div><div class="line">var express = require(&apos;express&apos;);</div><div class="line">var proxy = require(&apos;http-proxy-middleware&apos;);</div><div class="line">var router = express.Router();</div><div class="line"></div><div class="line">// 设置api的访问连接.</div><div class="line">router.use(/.*/,proxy(&#123;</div><div class="line">  // 代理到那台服务器.</div><div class="line">  target:&apos;http://192.168.1.76/blog_backend/public/&apos;,  // 博客地址</div><div class="line">  // 将所有头信息一并带过去</div><div class="line">  changeOrigin:true,</div><div class="line">&#125;));</div><div class="line"></div><div class="line">module.exports = router;</div></pre></td></tr></table></figure></p>
+<h5 id="3-jsonp"><a href="#3-jsonp" class="headerlink" title="3 jsonp"></a>3 jsonp</h5><p>这个东东，我只知道概念，从来没有用过，哈哈哈.因为这个不是主流。</p>
+<h4 id="处理用户token"><a href="#处理用户token" class="headerlink" title="处理用户token"></a>处理用户token</h4><p>这里我不想多说，一般处理用户token的几种方式,1使用localStorge本地储存来存储token,然后每次发请求的时候,将token带入.2,将token放入到请求头中,每次自动带.</p>
+<h4 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h4><p>这里我只讲的是思路,至于如何去实现，就看大家的了.我这里只是例子.大家要用的框架,要用的其他东西,我不在一一讲解.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">javascript vue</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/06/30/vue前后端博客搭建/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/06/28/vue-cli搭建/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">vue-cli搭建</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://www.blogme.club/2017/06/30/vue前后端博客搭建/", 
+    sourceId: "vue前后端博客搭建",
+    productKey: "7a087d761edd41caba8fae6866582ec4",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -225,9 +352,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
