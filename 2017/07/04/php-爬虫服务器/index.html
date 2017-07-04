@@ -6,19 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>xdebug使用 | adolph blog</title>
+  <title>php-爬虫服务器 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在PHP中,有很多第三方测试性能的工具，例如xdebug,xhprof,Krumo等等，我这里主要介绍我工作用的性能分析工具:xdebug">
-<meta name="keywords" content="php xdebug">
+  <meta name="description" content="上次讲了php的一个爬虫库emdeb,那个爬虫非常简单.现在我们来讲一下国外很火的goutte.下载地址在这里.改爬虫集成了很多的可用的地方,比如css-selector,一个非常遍历的css选择器.guzzle,国外很火的一个http登录客户端.至于goutte肿么用的,我就不再多说.具体的请参考备注里面的文档.我们这里要做的是一个异步多线程爬虫.使用的框架是slim+workerman的gat">
+<meta name="keywords" content="php">
 <meta property="og:type" content="article">
-<meta property="og:title" content="xdebug使用">
-<meta property="og:url" content="http://www.blogme.club/2017/06/07/xdebug使用/index.html">
+<meta property="og:title" content="php-爬虫服务器">
+<meta property="og:url" content="http://www.blogme.club/2017/07/04/php-爬虫服务器/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="在PHP中,有很多第三方测试性能的工具，例如xdebug,xhprof,Krumo等等，我这里主要介绍我工作用的性能分析工具:xdebug">
-<meta property="og:updated_time" content="2017-06-07T11:44:09.822Z">
+<meta property="og:description" content="上次讲了php的一个爬虫库emdeb,那个爬虫非常简单.现在我们来讲一下国外很火的goutte.下载地址在这里.改爬虫集成了很多的可用的地方,比如css-selector,一个非常遍历的css选择器.guzzle,国外很火的一个http登录客户端.至于goutte肿么用的,我就不再多说.具体的请参考备注里面的文档.我们这里要做的是一个异步多线程爬虫.使用的框架是slim+workerman的gat">
+<meta property="og:image" content="http://www.blogme.club/spider_server.jpg">
+<meta property="og:image" content="http://www.blogme.club/spider_server_example.png">
+<meta property="og:updated_time" content="2017-07-04T05:51:52.713Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xdebug使用">
-<meta name="twitter:description" content="在PHP中,有很多第三方测试性能的工具，例如xdebug,xhprof,Krumo等等，我这里主要介绍我工作用的性能分析工具:xdebug">
+<meta name="twitter:title" content="php-爬虫服务器">
+<meta name="twitter:description" content="上次讲了php的一个爬虫库emdeb,那个爬虫非常简单.现在我们来讲一下国外很火的goutte.下载地址在这里.改爬虫集成了很多的可用的地方,比如css-selector,一个非常遍历的css选择器.guzzle,国外很火的一个http登录客户端.至于goutte肿么用的,我就不再多说.具体的请参考备注里面的文档.我们这里要做的是一个异步多线程爬虫.使用的框架是slim+workerman的gat">
+<meta name="twitter:image" content="http://www.blogme.club/spider_server.jpg">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -154,35 +157,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-xdebug使用" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-php-爬虫服务器" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      xdebug使用
+      php-爬虫服务器
     </h1>
   
 
         
-        <a href="/2017/06/07/xdebug使用/" class="archive-article-date">
-  	<time datetime="2017-06-07T11:42:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-07</time>
+        <a href="/2017/07/04/php-爬虫服务器/" class="archive-article-date">
+  	<time datetime="2017-07-04T05:50:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在PHP中,有很多第三方测试性能的工具，例如xdebug,xhprof,Krumo等等，我这里主要介绍我工作用的性能分析工具:xdebug<br><a id="more"></a></p>
-<h3 id="1-xdebug安装"><a href="#1-xdebug安装" class="headerlink" title="1 xdebug安装"></a>1 xdebug安装</h3><p>xdebug作为php的扩展，自然而然就安装就非常简单了。<br>在ubuntu中:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt install php-xdebug</div></pre></td></tr></table></figure></p>
-<p>在windows中,请先到<a href="http://pecl.php.net" target="_blank" rel="external">pecl.php.com</a>中下载xdebug的扩展。点击<a href="http://pecl.php.net/package/xdebug" target="_blank" rel="external">这里</a>下载安装。<br>安装完成后，使用phpinfo();就可以看到xdebug的选项了。</p>
-<h3 id="2-xdebug的使用"><a href="#2-xdebug的使用" class="headerlink" title="2 xdebug的使用"></a>2 xdebug的使用</h3><p>安装好了xdebug，由于是php扩展,自然就在php.ini里面配置了。我这里只做个例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xdebug.profiler_enable = on</div><div class="line">xdebug.profiler_enable_trigger = 1</div></pre></td></tr></table></figure></p>
-<p>详细配置请参考<a href="https://xdebug.org/docs/all_settings" target="_blank" rel="external">xdebug官网</a><br>xdebug就算配置好了，重启apache。如何要使用xdebug的呢。因为有了以上配置，就会生成日志。至于日志的生成位置，请查看phpinfo()中xdebug.profiler_output_dir和xdebug.profiler_output_name<br>如果想用更好的，就要使用日志查看工具了。我这里使用的是<a href="https://github.com/jokkedk/webgrind" target="_blank" rel="external">webgrind</a>.</p>
-<h3 id="3-使用webgrind查看日志"><a href="#3-使用webgrind查看日志" class="headerlink" title="3 使用webgrind查看日志"></a>3 使用webgrind查看日志</h3><p>首先我们要找到webgrind的github仓库将这个下载下来。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://github.com/jokkedk/webgrind</div></pre></td></tr></table></figure></p>
-<p>下载下来解压过后，使用composer dump-autoload.至于我为什么要使用composer dump-autoload因为这个web应用没有引入其他的第三方库。然后使用composer serve就可以访问了。<br>访问地址为:<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>;<br>如果，8080被占用，请修改composer.json里面的scripts下的serve就可以了.</p>
-<h3 id="4-备份"><a href="#4-备份" class="headerlink" title="4 备份"></a>4 备份</h3><p>如果在ubuntu中使用webgrind，想要查看图形的话，就要安装graphviz<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt install graphviz</div></pre></td></tr></table></figure></p>
-<p>如果是老一点的ubuntu系统，就要配置一下webgrind目录下的config.php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">static $dotExecutable = &apos;/usr/bin/dot&apos;;</div></pre></td></tr></table></figure></p>
+        <p>上次讲了php的一个爬虫库emdeb,那个爬虫非常简单.现在我们来讲一下国外很火的goutte.下载地址在<a href="https://github.com/FriendsOfPHP/Goutte" target="_blank" rel="external">这里</a>.改爬虫集成了很多的可用的地方,比如<a href="https://github.com/symfony/css-selector" target="_blank" rel="external">css-selector</a>,一个非常遍历的css选择器.<a href="https://github.com/guzzle/guzzle" target="_blank" rel="external">guzzle</a>,国外很火的一个http登录客户端.至于goutte肿么用的,我就不再多说.具体的请参考备注里面的文档.我们这里要做的是一个异步多线程爬虫.使用的框架是<a href="http://www.slimphp.net/" target="_blank" rel="external">slim</a>+<a href="http://www.workerman.net/" target="_blank" rel="external">workerman</a>的<a href="http://doc2.workerman.net/326102" target="_blank" rel="external">gatewayworker</a>框架.至于其他的,我会在项目中讲解.<br><a id="more"></a></p>
+<h3 id="爬虫架构"><a href="#爬虫架构" class="headerlink" title="爬虫架构"></a>爬虫架构</h3><p>首先,我们要先清理一下我们爬虫的架构.<br>第一,我们的爬虫不能太lower,第二,我们的爬虫要支持多线程.第三.我们的爬虫要非常有逼格.基于以上几点,我初步的架构如下.<br><img src="http://www.blogme.club/spider_server.jpg" alt="avatar"></p>
+<h3 id="入口服务器搭建"><a href="#入口服务器搭建" class="headerlink" title="入口服务器搭建"></a>入口服务器搭建</h3><p>有了框架过后就开动把.由于入口服务器这边需要用户来传递参数.我们在这里使用了同一个的gatewayworker来广播和发送消息.<br>其中gatewayworker有3个类.1gateway,register,businessworker<br>官方介绍<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Gateway类用于初始化Gateway进程。Gateway进程是暴露给客户端的让其连接的进程。所有客户端的请求都是由Gateway接收然后分发给BusinessWorker处理，同样BusinessWorker也会将要发给客户端的响应通过Gateway转发出去。</div><div class="line">Register类其实也是基于基础的Worker开发的。Gateway进程和BusinessWorker进程启动后分别向Register进程注册自己的通讯地址，Gateway进程和BusinessWorker通过Register进程得到通讯地址后，就可以建立起连接并通讯了。</div><div class="line">BusinessWorker类其实也是基于基础的Worker开发的。BusinessWorker是运行业务逻辑的进程，BusinessWorker收到Gateway转发来的事件及请求时会默认调用Events.php中的onConnect onMessage onClose方法处理事件及数据，开发者正是通过实现这些回调控制业务及流程。</div></pre></td></tr></table></figure></p>
+<p>其实实现原理是这样的.首先,一个请求到入口服务器(gateway)过后,入口服务器会到businessworker中找,当然,前提是有你需要的服务器地址.那就要先注册.<br>我们就来实现把</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line">// 项目开始文件.</div><div class="line">// 定义项目根路径.</div><div class="line">defined(&apos;ROOT_PATH&apos;) or define(&apos;ROOT_PATH&apos;,__DIR__);</div><div class="line">// 定义斜线.</div><div class="line">defined(&apos;DS&apos;) or define(&apos;DS&apos;,DIRECTORY_SEPARATOR);</div><div class="line">// 引入自动加载的文件.</div><div class="line">require ROOT_PATH . &apos;/vendor/autoload.php&apos;;</div><div class="line">$container = require ROOT_PATH . &apos;/src/bootstrap.php&apos;;</div><div class="line"></div><div class="line">\Workerman\Worker::$daemonize = $container[&apos;config&apos;][&apos;server&apos;][&apos;daemonize&apos;];</div><div class="line">\Workerman\Worker::$logFile = $container[&apos;config&apos;][&apos;server&apos;][&apos;log&apos;];</div><div class="line">\Workerman\Worker::$pidFile = $container[&apos;config&apos;][&apos;server&apos;][&apos;pid&apos;];</div><div class="line">\Workerman\Worker::$stdoutFile = $container[&apos;config&apos;][&apos;server&apos;][&apos;stdout&apos;];</div><div class="line">// 定义全局的数据端口.</div><div class="line">defined(&apos;GLOBALDTA_PORT&apos;) or define(&apos;GLOBALDTA_PORT&apos;,$container[&apos;config&apos;][&apos;server&apos;][&apos;data&apos;][&apos;port&apos;]);</div><div class="line">// 全局变量共享服务器.</div><div class="line">new GlobalData\Server(&apos;0.0.0.0&apos;,GLOBALDTA_PORT);</div><div class="line">// 开始注册服务.</div><div class="line">new \Spider\Server\Http($container);</div><div class="line">new \Spider\Server\Task($container);</div><div class="line">/*****************************************************/</div><div class="line">$register_local = sprintf(</div><div class="line">    &apos;%s:%d&apos;,</div><div class="line">    $container[&apos;config&apos;][&apos;server&apos;][&apos;register&apos;][&apos;local&apos;],</div><div class="line">    $container[&apos;config&apos;][&apos;server&apos;][&apos;register&apos;][&apos;port&apos;]</div><div class="line">);</div><div class="line">$register_lan = sprintf(</div><div class="line">    &apos;%s:%d&apos;,</div><div class="line">    $container[&apos;config&apos;][&apos;server&apos;][&apos;register&apos;][&apos;lan&apos;],</div><div class="line">    $container[&apos;config&apos;][&apos;server&apos;][&apos;register&apos;][&apos;port&apos;]</div><div class="line">);</div><div class="line"></div><div class="line">// 开启注册进程,用户进程之间的通信.</div><div class="line">// [1] register 服务必须是text协议</div><div class="line">$register = new \GatewayWorker\Register(&apos;text://&apos; . $register_local);</div><div class="line"></div><div class="line">// 开启businessworker进程.</div><div class="line">// [2] bussinessWorker 进程</div><div class="line">$bw = new \GatewayWorker\BusinessWorker();</div><div class="line">// bussinessWorker名称</div><div class="line">$bw-&gt;name = &apos;BusinessWorker&apos;;</div><div class="line">// bussinessWorker进程数量</div><div class="line">$bw-&gt;count = 4;</div><div class="line">// 服务注册地址</div><div class="line">$bw-&gt;registerAddress = $register_lan;</div><div class="line">// 设置处理业务的类为MyEvent</div><div class="line">$bw-&gt;eventHandler = &apos;\Spider\Server\Events&apos;;</div><div class="line"></div><div class="line">// [3] gateway 进程，这里使用Text协议，可以用telnet测试</div><div class="line">$gateway = new \GatewayWorker\Gateway(sprintf(</div><div class="line">    &quot;text://%s:%d&quot;,</div><div class="line">    $container[&apos;config&apos;][&apos;server&apos;][&apos;gateway&apos;][&apos;local&apos;],</div><div class="line">    $container[&apos;config&apos;][&apos;server&apos;][&apos;gateway&apos;][&apos;port&apos;]</div><div class="line">));</div><div class="line">// gateway名称，status方便查看</div><div class="line">$gateway-&gt;name = &apos;GatewayWorker&apos;;</div><div class="line">// gateway进程数</div><div class="line">$gateway-&gt;count = 4;</div><div class="line">// 本机ip，分布式部署时使用内网ip</div><div class="line">$gateway-&gt;lanIp = $container[&apos;config&apos;][&apos;server&apos;][&apos;gateway&apos;][&apos;lan&apos;];</div><div class="line">// 内部通讯起始端口，假如$gateway-&gt;count=4，起始端口为4000</div><div class="line">// 则一般会使用4000 4001 4002 4003 4个端口作为内部通讯端口</div><div class="line">$gateway-&gt;startPort = $container[&apos;config&apos;][&apos;server&apos;][&apos;gateway&apos;][&apos;start&apos;];</div><div class="line">// 服务注册地址</div><div class="line">$gateway-&gt;registerAddress = $register_lan;</div><div class="line">/*****************************************************/</div><div class="line"></div><div class="line">\Workerman\Worker::runAll();</div></pre></td></tr></table></figure>
+<p>具体实例请查看本人的仓库<a href="https://adolphgithub.github.io" target="_blank" rel="external">spider-server</a></p>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">php run.php start</div></pre></td></tr></table></figure>
+<p>效果图如下</p>
+<p><img src="http://www.blogme.club/spider_server_example.png" alt="avatar"></p>
+<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><p>workerman <a href="http://doc.workerman.net/315110" target="_blank" rel="external">文档地址</a><br>gatewayworker <a href="http://doc2.workerman.net/326102" target="_blank" rel="external">文档地址</a></p>
 
       
 
@@ -227,7 +231,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">php xdebug</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
         		</li>
       		
 		</ul>
@@ -283,7 +287,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/06/07/xdebug使用/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/07/04/php-爬虫服务器/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -297,18 +301,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/06/21/composer包搭建/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/07/04/php-爬虫服务器二/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          composer包搭建
+          php-爬虫服务器二
         
       </div>
     </a>
   
   
-    <a href="/2017/05/23/php-适配器模式/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">php-适配器模式</div>
+    <a href="/2017/06/30/vue前后端博客搭建/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">vue前后端博客搭建</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -324,8 +328,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://www.blogme.club/2017/06/07/xdebug使用/", 
-    sourceId: "xdebug使用",
+    url: "http://www.blogme.club/2017/07/04/php-爬虫服务器/", 
+    sourceId: "php-爬虫服务器",
     productKey: "7a087d761edd41caba8fae6866582ec4",
     target: "cloud-tie-wrapper"
   };
