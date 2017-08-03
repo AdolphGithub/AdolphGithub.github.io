@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="让我们来继续了解websocket，现在的浏览器默认有socket连接端,websocket.我们先来书写客户端.至于websocket的一些方法,请参考MDN websocket,以下是示例代码">
 <meta property="og:image" content="http://www.blogme.club/socket/websocket1.png">
-<meta property="og:updated_time" content="2017-08-03T10:21:26.979Z">
+<meta property="og:updated_time" content="2017-08-03T10:25:52.916Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="socket学习之旅-2撕开websocket的神秘外衣">
 <meta name="twitter:description" content="让我们来继续了解websocket，现在的浏览器默认有socket连接端,websocket.我们先来书写客户端.至于websocket的一些方法,请参考MDN websocket,以下是示例代码">
@@ -185,7 +185,7 @@
 <p>当我们连接成功过后，发现我们server服务端,并没有接收到opening消息.这里就需要我们解析客户端的消息了.</p>
 <h4 id="编码-amp-解析-消息"><a href="#编码-amp-解析-消息" class="headerlink" title="编码 &amp; 解析 消息"></a>编码 &amp; 解析 消息</h4><p>我们客户端发送过来的消息,是经过加密过后得到的$buf,我们要将起解析,这里可以去查阅文档或资料.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">//解析客户端发送给服务端的消息</div><div class="line">function getMsg($buffer) &#123;</div><div class="line">    $res = &apos;&apos;;</div><div class="line">    $len = ord($buffer[1]) &amp; 127;</div><div class="line">    if ($len === 126) &#123;</div><div class="line">        $masks = substr($buffer, 4, 4);</div><div class="line">        $data = substr($buffer, 8);</div><div class="line">    &#125; else if ($len === 127) &#123;</div><div class="line">        $masks = substr($buffer, 10, 4);</div><div class="line">        $data = substr($buffer, 14);</div><div class="line">    &#125; else &#123;</div><div class="line">        $masks = substr($buffer, 2, 4);</div><div class="line">        $data = substr($buffer, 6);</div><div class="line">    &#125;</div><div class="line">    for ($index = 0; $index &lt; strlen($data); $index++) &#123;</div><div class="line">        $res .= $data[$index] ^ $masks[$index % 4];</div><div class="line">    &#125;</div><div class="line">    return $res;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>发送给客户端的编码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">//编码发送给客户端的数据</div><div class="line">function buildMsg($msg) &#123;</div><div class="line">    $frame = [];</div><div class="line">    $frame[0] = &apos;81&apos;;</div><div class="line">    $len = strlen($msg);</div><div class="line">    if ($len &lt; 126) &#123;</div><div class="line">        $frame[1] = $len &lt; 16 ? &apos;0&apos; . dechex($len) : dechex($len);</div><div class="line">    &#125; else if ($len &lt; 65025) &#123;</div><div class="line">        $s = dechex($len);</div><div class="line">        $frame[1] = &apos;7e&apos; . str_repeat(&apos;0&apos;, 4 - strlen($s)) . $s;</div><div class="line">    &#125; else &#123;</div><div class="line">        $s = dechex($len);</div><div class="line">        $frame[1] = &apos;7f&apos; . str_repeat(&apos;0&apos;, 16 - strlen($s)) . $s;</div><div class="line">    &#125;</div><div class="line">    $data = &apos;&apos;;</div><div class="line">    $l = strlen($msg);</div><div class="line">    for ($i = 0; $i &lt; $l; $i++) &#123;</div><div class="line">        $data .= dechex(ord($msg&#123;$i&#125;));</div><div class="line">    &#125;</div><div class="line">    $frame[2] = $data;</div><div class="line">    $data = implode(&apos;&apos;, $frame);</div><div class="line">    return pack(&quot;H*&quot;, $data);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>有了这两个函数，我们就可以实现简单的socket通信了.</p>
+<p>有了这两个函数，我们就可以实现简单的socket通信了.具体实现代码,请下载<a href="http://www.blogme.club/socket/socket.zip">文件</a>.</p>
 
       
 
@@ -429,11 +429,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php 设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">php 设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -461,7 +461,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+                <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -469,7 +469,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
               <li class="article-tag-list-item">
