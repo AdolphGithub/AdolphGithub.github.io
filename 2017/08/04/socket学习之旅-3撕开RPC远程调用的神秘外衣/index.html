@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>socket学习之旅-3撕开RPC远程调用的神秘外衣 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣. 简易的rpc服务端我们先用socket来搭建一个简易的服务端123456789101112131415// socket_create AF_INET:">
+  <meta name="description" content="Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣.">
 <meta name="keywords" content="socket rpc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="socket学习之旅-3撕开RPC远程调用的神秘外衣">
 <meta property="og:url" content="http://www.blogme.club/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣. 简易的rpc服务端我们先用socket来搭建一个简易的服务端123456789101112131415// socket_create AF_INET:">
-<meta property="og:updated_time" content="2017-08-04T07:14:23.733Z">
+<meta property="og:description" content="Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣.">
+<meta property="og:updated_time" content="2017-08-04T07:15:21.182Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="socket学习之旅-3撕开RPC远程调用的神秘外衣">
-<meta name="twitter:description" content="Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣. 简易的rpc服务端我们先用socket来搭建一个简易的服务端123456789101112131415// socket_create AF_INET:">
+<meta name="twitter:description" content="Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -174,7 +174,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣.</p>
+        <p>Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣.<br><a id="more"></a></p>
 <h4 id="简易的rpc服务端"><a href="#简易的rpc服务端" class="headerlink" title="简易的rpc服务端"></a>简易的rpc服务端</h4><p>我们先用socket来搭建一个简易的服务端<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// socket_create AF_INET:地址协议  SOCK_STREAM:socket类型  SOL_TCP:地址协议</div><div class="line">$socket = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</div><div class="line">// 绑定地址</div><div class="line">socket_bind($socket,&apos;127.0.0.1&apos;,9090);</div><div class="line">// 开始监听.</div><div class="line">socket_listen($socket,5);</div><div class="line">while(true)&#123;</div><div class="line">    // 客户端.</div><div class="line">    $client = socket_accept($socket);</div><div class="line">    // 读取信息.</div><div class="line">    $buf = socket_read($client,8024);</div><div class="line"></div><div class="line">    socket_close($client);</div><div class="line">&#125;</div><div class="line">socket_close($socket);</div></pre></td></tr></table></figure></p>
 <p>在这里我们创建了一个监听本地端口9090的rpc服务端.既然是rpc,我们就要通过客户端来执行远程的调用.我们先写好基本的调用方式.</p>
 <h4 id="完善RPC服务端"><a href="#完善RPC服务端" class="headerlink" title="完善RPC服务端"></a>完善RPC服务端</h4><p>我们如果来通过远程调用呢,我的做法是这样的.首先,我们通过链接到rpc服务端,通过伪造http头的方式,url即为调用的文件.在头信息中加入exec代表要执行的方法.所以,我的服务端代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">// socket_create AF_INET:地址协议  SOCK_STREAM:socket类型  SOL_TCP:地址协议</div><div class="line">$socket = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</div><div class="line">// 绑定地址</div><div class="line">socket_bind($socket,&apos;127.0.0.1&apos;,9090);</div><div class="line">// 开始监听.</div><div class="line">socket_listen($socket,5);</div><div class="line">while(true)&#123;</div><div class="line">    // 客户端.</div><div class="line">    $client = socket_accept($socket);</div><div class="line">    // 读取信息.</div><div class="line">    $buf = socket_read($client,8024);</div><div class="line">    echo $buf;</div><div class="line">    // 用url地址来获取到我们想要调用文件的路径.</div><div class="line">    if(preg_match(&apos;/GET\s(.*)\sHTTP\/1.1/i&apos;,$buf,$matches))&#123;</div><div class="line">        // 获取要调用文件的路径</div><div class="line">        $path = &apos;.&apos;.$matches[1];</div><div class="line">        echo $path;</div><div class="line">        if(file_exists($path))&#123;</div><div class="line">            require $path;</div><div class="line">            $classes = get_declared_classes();</div><div class="line">            $new_class = end($classes);</div><div class="line">            // 我们假设在头信息中包含exec用来执行我们的方法名.</div><div class="line">            if(preg_match(&apos;/EXEC\s(.*)\s/i&apos;,$buf,$methods))&#123;</div><div class="line">                // 方法名.</div><div class="line">                $method_name = $methods[1];</div><div class="line">                // 开始调用.</div><div class="line">                $result = (new $new_class())-&gt;$method_name();</div><div class="line">            &#125;else&#123;</div><div class="line">                $result = &apos;没有找到方法名!&apos;;</div><div class="line">            &#125;</div><div class="line">        &#125;else&#123;</div><div class="line">            // 没有找到文件,无法完成调用.</div><div class="line">            $result = &apos;404&apos;;</div><div class="line">        &#125;</div><div class="line">        socket_write($client,$result);</div><div class="line">    &#125;</div><div class="line">    socket_close($client);</div><div class="line">&#125;</div><div class="line">socket_close($socket);</div></pre></td></tr></table></figure></p>
@@ -416,11 +416,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -456,7 +456,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">php xdebug</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -464,11 +464,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
+                <a href="javascript:void(0)" class="js-tag color1">php xdebug</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
               <li class="article-tag-list-item">
