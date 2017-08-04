@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>工厂模式2 - 数据中心模式，狗和书一起卖 | adolph blog</title>
+  <title>socket学习之旅-3撕开RPC远程调用的神秘外衣 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。">
-<meta name="keywords" content="php 设计模式">
+  <meta name="description" content="Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣. 简易的rpc服务端我们先用socket来搭建一个简易的服务端123456789101112131415// socket_create AF_INET:">
+<meta name="keywords" content="socket rpc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工厂模式2 - 数据中心模式，狗和书一起卖">
-<meta property="og:url" content="http://www.blogme.club/2017/05/20/php-工厂模式2/index.html">
+<meta property="og:title" content="socket学习之旅-3撕开RPC远程调用的神秘外衣">
+<meta property="og:url" content="http://www.blogme.club/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。">
-<meta property="og:updated_time" content="2017-05-20T09:41:44.482Z">
+<meta property="og:description" content="Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣. 简易的rpc服务端我们先用socket来搭建一个简易的服务端123456789101112131415// socket_create AF_INET:">
+<meta property="og:updated_time" content="2017-08-04T07:14:23.733Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="工厂模式2 - 数据中心模式，狗和书一起卖">
-<meta name="twitter:description" content="接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。">
+<meta name="twitter:title" content="socket学习之旅-3撕开RPC远程调用的神秘外衣">
+<meta name="twitter:description" content="Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣. 简易的rpc服务端我们先用socket来搭建一个简易的服务端123456789101112131415// socket_create AF_INET:">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -154,33 +154,33 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-php-工厂模式2" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-socket学习之旅-3撕开RPC远程调用的神秘外衣" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      工厂模式2 - 数据中心模式，狗和书一起卖
+      socket学习之旅-3撕开RPC远程调用的神秘外衣
     </h1>
   
 
         
-        <a href="/2017/05/20/php-工厂模式2/" class="archive-article-date">
-  	<time datetime="2017-05-20T07:50:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-20</time>
+        <a href="/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/" class="archive-article-date">
+  	<time datetime="2017-08-04T07:12:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。<br><a id="more"></a><br>首先我们先规范代码，每个商品必须要有getList()方法,想到的是interface,代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">interface Product&#123;</div><div class="line">	public function getList();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>所有的商品必须要集成接口.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">class ProductFactory&#123;</div><div class="line">	// 根据不同的对象来得到不同的类.</div><div class="line">	public static function getProduct($type)&#123;</div><div class="line">		// 变态模式产生</div><div class="line">		if($type == &apos;Book&apos;)&#123;</div><div class="line">			$type = &apos;Dog&apos;;</div><div class="line">		&#125;</div><div class="line">		if(!class_exists($type))&#123;</div><div class="line">			require ($type.&apos;.php&apos;);</div><div class="line">		&#125;</div><div class="line">		switch($type)&#123;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Book();</div><div class="line">				break;</div><div class="line">			case  &quot;Dog&quot;:</div><div class="line">				$object = new Dog();</div><div class="line">				break;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Wines();</div><div class="line">				break;</div><div class="line">		&#125;</div><div class="line">		if(is_subclass_of($obj,&apos;Product&apos;))&#123;</div><div class="line">			return $object;</div><div class="line">		&#125;else&#123;</div><div class="line">			return null;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我们这里要引入数据中心模式，坚决不予类本身打交道。<br>这里我们创建ProductDataCenter;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class ProductDataCenter&#123;</div><div class="line">	public static $objectList = [];</div><div class="line">	public static function set($k,$v)&#123;</div><div class="line">		self::$objectList[$k]=$v;</div><div class="line">	&#125;</div><div class="line">	public static function get($k)&#123;</div><div class="line">		return self::$objectList[$k];</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我们改造工厂<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">require &apos;ProductDataCenter.php&apos;;</div><div class="line">class ProductFactory&#123;</div><div class="line">	// 根据不同的对象来得到不同的类.</div><div class="line">	public static function getProduct($type)&#123;</div><div class="line">		// 变态模式产生</div><div class="line">		if($type == &apos;Book&apos;)&#123;</div><div class="line">			$type = &apos;Dog&apos;;</div><div class="line">		&#125;</div><div class="line">		if(!class_exists($type))&#123;</div><div class="line">			require ($type.&apos;.php&apos;);</div><div class="line">		&#125;</div><div class="line">		switch($type)&#123;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Book();</div><div class="line">				break;</div><div class="line">			case  &quot;Dog&quot;:</div><div class="line">				$object = new Dog();</div><div class="line">				break;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Wines();</div><div class="line">				break;</div><div class="line">		&#125;</div><div class="line">		if(is_subclass_of($object,&apos;Product&apos;))&#123;</div><div class="line">			ProductDataCenter::set($type,$object);</div><div class="line">		&#125;else&#123;</div><div class="line">			return null;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我们调用的时候,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ProductFactory::getProduct(&apos;Books&apos;);</div></pre></td></tr></table></figure></p>
-<p>我们要设置数据中心静态的魔术函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">class ProductDataCenter&#123;</div><div class="line">	public static $objectList = [];</div><div class="line">	public static function set($k,$v)&#123;</div><div class="line">		self::$objectList[$k]=$v;</div><div class="line">	&#125;</div><div class="line">	// 调用魔术函数.</div><div class="line">	public static function __callStatic($name,$arguments)&#123;</div><div class="line">		$return = [];</div><div class="line">		foreach(self::$objectList as $v)&#123;</div><div class="line">			if(method_exists($v,$name))&#123;</div><div class="line">				$ret = $v-&gt;$name($arguments);</div><div class="line">				if($ret)&#123;</div><div class="line">					$return[] = $ret;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		if(count($ret))&#123;</div><div class="line">			return $ret;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>思考:支持字符串和数组的方式来创建。</p>
+        <p>Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣.</p>
+<h4 id="简易的rpc服务端"><a href="#简易的rpc服务端" class="headerlink" title="简易的rpc服务端"></a>简易的rpc服务端</h4><p>我们先用socket来搭建一个简易的服务端<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// socket_create AF_INET:地址协议  SOCK_STREAM:socket类型  SOL_TCP:地址协议</div><div class="line">$socket = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</div><div class="line">// 绑定地址</div><div class="line">socket_bind($socket,&apos;127.0.0.1&apos;,9090);</div><div class="line">// 开始监听.</div><div class="line">socket_listen($socket,5);</div><div class="line">while(true)&#123;</div><div class="line">    // 客户端.</div><div class="line">    $client = socket_accept($socket);</div><div class="line">    // 读取信息.</div><div class="line">    $buf = socket_read($client,8024);</div><div class="line"></div><div class="line">    socket_close($client);</div><div class="line">&#125;</div><div class="line">socket_close($socket);</div></pre></td></tr></table></figure></p>
+<p>在这里我们创建了一个监听本地端口9090的rpc服务端.既然是rpc,我们就要通过客户端来执行远程的调用.我们先写好基本的调用方式.</p>
+<h4 id="完善RPC服务端"><a href="#完善RPC服务端" class="headerlink" title="完善RPC服务端"></a>完善RPC服务端</h4><p>我们如果来通过远程调用呢,我的做法是这样的.首先,我们通过链接到rpc服务端,通过伪造http头的方式,url即为调用的文件.在头信息中加入exec代表要执行的方法.所以,我的服务端代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">// socket_create AF_INET:地址协议  SOCK_STREAM:socket类型  SOL_TCP:地址协议</div><div class="line">$socket = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</div><div class="line">// 绑定地址</div><div class="line">socket_bind($socket,&apos;127.0.0.1&apos;,9090);</div><div class="line">// 开始监听.</div><div class="line">socket_listen($socket,5);</div><div class="line">while(true)&#123;</div><div class="line">    // 客户端.</div><div class="line">    $client = socket_accept($socket);</div><div class="line">    // 读取信息.</div><div class="line">    $buf = socket_read($client,8024);</div><div class="line">    echo $buf;</div><div class="line">    // 用url地址来获取到我们想要调用文件的路径.</div><div class="line">    if(preg_match(&apos;/GET\s(.*)\sHTTP\/1.1/i&apos;,$buf,$matches))&#123;</div><div class="line">        // 获取要调用文件的路径</div><div class="line">        $path = &apos;.&apos;.$matches[1];</div><div class="line">        echo $path;</div><div class="line">        if(file_exists($path))&#123;</div><div class="line">            require $path;</div><div class="line">            $classes = get_declared_classes();</div><div class="line">            $new_class = end($classes);</div><div class="line">            // 我们假设在头信息中包含exec用来执行我们的方法名.</div><div class="line">            if(preg_match(&apos;/EXEC\s(.*)\s/i&apos;,$buf,$methods))&#123;</div><div class="line">                // 方法名.</div><div class="line">                $method_name = $methods[1];</div><div class="line">                // 开始调用.</div><div class="line">                $result = (new $new_class())-&gt;$method_name();</div><div class="line">            &#125;else&#123;</div><div class="line">                $result = &apos;没有找到方法名!&apos;;</div><div class="line">            &#125;</div><div class="line">        &#125;else&#123;</div><div class="line">            // 没有找到文件,无法完成调用.</div><div class="line">            $result = &apos;404&apos;;</div><div class="line">        &#125;</div><div class="line">        socket_write($client,$result);</div><div class="line">    &#125;</div><div class="line">    socket_close($client);</div><div class="line">&#125;</div><div class="line">socket_close($socket);</div></pre></td></tr></table></figure></p>
+<h4 id="rpc客户端"><a href="#rpc客户端" class="headerlink" title="rpc客户端"></a>rpc客户端</h4><p>通过服务端的书写,客户端我们要伪造http头信息.我这里只是一个简单的伪造<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// 创建客户端.</div><div class="line">$client = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</div><div class="line">// 链接上我们的服务端.</div><div class="line">socket_connect($client,&apos;127.0.0.1&apos;,9090);</div><div class="line">// 仿造一次http访问</div><div class="line">$content = &apos;GET /new/File.php HTTP/1.1&apos;.PHP_EOL;</div><div class="line">$content .= &apos;EXEC method&apos;.PHP_EOL.PHP_EOL;</div><div class="line">// 发送消息.</div><div class="line">socket_write($client,$content);</div><div class="line">// 读取返回结果.</div><div class="line">$buf = socket_read($client,8024);</div><div class="line">echo $buf;</div><div class="line">socket_close($client);</div></pre></td></tr></table></figure></p>
+<p>通过以上代码，我们可以理解了rpc远程调用的原理.我们通过伪造http头的方式调用了/new/File.php这个文件.同时调用了里面的method方法.然后得到结果集.就是所谓的RPC远程调用!</p>
+<h4 id="具体实现代码"><a href="#具体实现代码" class="headerlink" title="具体实现代码"></a>具体实现代码</h4><p><a href="http://www.blogme.club/socket/rpc.zip">点击此处下载</a></p>
 
       
 
@@ -225,7 +225,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php 设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">socket rpc</a>
         		</li>
       		
 		</ul>
@@ -281,7 +281,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/05/20/php-工厂模式2/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -295,18 +295,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/05/23/php-适配器模式/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          php-适配器模式
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/05/20/php-工厂模式1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">工厂模式-程序员,书,和狗</div>
+    <a href="/2017/08/03/socket学习之旅-2撕开websocket的神秘外衣/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">socket学习之旅-2撕开websocket的神秘外衣</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -322,8 +313,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://www.blogme.club/2017/05/20/php-工厂模式2/", 
-    sourceId: "php-工厂模式2",
+    url: "http://www.blogme.club/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/", 
+    sourceId: "socket学习之旅-3撕开RPC远程调用的神秘外衣",
     productKey: "7a087d761edd41caba8fae6866582ec4",
     target: "cloud-tie-wrapper"
   };
