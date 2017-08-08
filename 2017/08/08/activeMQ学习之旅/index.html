@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>socket学习之旅-3撕开RPC远程调用的神秘外衣 | adolph blog</title>
+  <title>activeMQ学习之旅 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣.">
-<meta name="keywords" content="socket rpc">
+  <meta name="description" content="安装jdk1sudo apt install openjdk-8-jre 安装好jdk过后,配置一下一下jdk环境即可.当然ubuntu是不需要配置这些的.自带的优越感有木有…….">
+<meta name="keywords" content="activeMQ">
 <meta property="og:type" content="article">
-<meta property="og:title" content="socket学习之旅-3撕开RPC远程调用的神秘外衣">
-<meta property="og:url" content="http://www.blogme.club/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/index.html">
+<meta property="og:title" content="activeMQ学习之旅">
+<meta property="og:url" content="http://www.blogme.club/2017/08/08/activeMQ学习之旅/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣.">
-<meta property="og:updated_time" content="2017-08-04T07:15:21.182Z">
+<meta property="og:description" content="安装jdk1sudo apt install openjdk-8-jre 安装好jdk过后,配置一下一下jdk环境即可.当然ubuntu是不需要配置这些的.自带的优越感有木有…….">
+<meta property="og:updated_time" content="2017-08-08T07:25:17.002Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="socket学习之旅-3撕开RPC远程调用的神秘外衣">
-<meta name="twitter:description" content="Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣.">
+<meta name="twitter:title" content="activeMQ学习之旅">
+<meta name="twitter:description" content="安装jdk1sudo apt install openjdk-8-jre 安装好jdk过后,配置一下一下jdk环境即可.当然ubuntu是不需要配置这些的.自带的优越感有木有…….">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -154,33 +154,35 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-socket学习之旅-3撕开RPC远程调用的神秘外衣" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-activeMQ学习之旅" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      socket学习之旅-3撕开RPC远程调用的神秘外衣
+      activeMQ学习之旅
     </h1>
   
 
         
-        <a href="/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/" class="archive-article-date">
-  	<time datetime="2017-08-04T07:12:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-04</time>
+        <a href="/2017/08/08/activeMQ学习之旅/" class="archive-article-date">
+  	<time datetime="2017-08-08T07:24:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣.<br><a id="more"></a></p>
-<h4 id="简易的rpc服务端"><a href="#简易的rpc服务端" class="headerlink" title="简易的rpc服务端"></a>简易的rpc服务端</h4><p>我们先用socket来搭建一个简易的服务端<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// socket_create AF_INET:地址协议  SOCK_STREAM:socket类型  SOL_TCP:地址协议</div><div class="line">$socket = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</div><div class="line">// 绑定地址</div><div class="line">socket_bind($socket,&apos;127.0.0.1&apos;,9090);</div><div class="line">// 开始监听.</div><div class="line">socket_listen($socket,5);</div><div class="line">while(true)&#123;</div><div class="line">    // 客户端.</div><div class="line">    $client = socket_accept($socket);</div><div class="line">    // 读取信息.</div><div class="line">    $buf = socket_read($client,8024);</div><div class="line"></div><div class="line">    socket_close($client);</div><div class="line">&#125;</div><div class="line">socket_close($socket);</div></pre></td></tr></table></figure></p>
-<p>在这里我们创建了一个监听本地端口9090的rpc服务端.既然是rpc,我们就要通过客户端来执行远程的调用.我们先写好基本的调用方式.</p>
-<h4 id="完善RPC服务端"><a href="#完善RPC服务端" class="headerlink" title="完善RPC服务端"></a>完善RPC服务端</h4><p>我们如果来通过远程调用呢,我的做法是这样的.首先,我们通过链接到rpc服务端,通过伪造http头的方式,url即为调用的文件.在头信息中加入exec代表要执行的方法.所以,我的服务端代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">// socket_create AF_INET:地址协议  SOCK_STREAM:socket类型  SOL_TCP:地址协议</div><div class="line">$socket = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</div><div class="line">// 绑定地址</div><div class="line">socket_bind($socket,&apos;127.0.0.1&apos;,9090);</div><div class="line">// 开始监听.</div><div class="line">socket_listen($socket,5);</div><div class="line">while(true)&#123;</div><div class="line">    // 客户端.</div><div class="line">    $client = socket_accept($socket);</div><div class="line">    // 读取信息.</div><div class="line">    $buf = socket_read($client,8024);</div><div class="line">    echo $buf;</div><div class="line">    // 用url地址来获取到我们想要调用文件的路径.</div><div class="line">    if(preg_match(&apos;/GET\s(.*)\sHTTP\/1.1/i&apos;,$buf,$matches))&#123;</div><div class="line">        // 获取要调用文件的路径</div><div class="line">        $path = &apos;.&apos;.$matches[1];</div><div class="line">        echo $path;</div><div class="line">        if(file_exists($path))&#123;</div><div class="line">            require $path;</div><div class="line">            $classes = get_declared_classes();</div><div class="line">            $new_class = end($classes);</div><div class="line">            // 我们假设在头信息中包含exec用来执行我们的方法名.</div><div class="line">            if(preg_match(&apos;/EXEC\s(.*)\s/i&apos;,$buf,$methods))&#123;</div><div class="line">                // 方法名.</div><div class="line">                $method_name = $methods[1];</div><div class="line">                // 开始调用.</div><div class="line">                $result = (new $new_class())-&gt;$method_name();</div><div class="line">            &#125;else&#123;</div><div class="line">                $result = &apos;没有找到方法名!&apos;;</div><div class="line">            &#125;</div><div class="line">        &#125;else&#123;</div><div class="line">            // 没有找到文件,无法完成调用.</div><div class="line">            $result = &apos;404&apos;;</div><div class="line">        &#125;</div><div class="line">        socket_write($client,$result);</div><div class="line">    &#125;</div><div class="line">    socket_close($client);</div><div class="line">&#125;</div><div class="line">socket_close($socket);</div></pre></td></tr></table></figure></p>
-<h4 id="rpc客户端"><a href="#rpc客户端" class="headerlink" title="rpc客户端"></a>rpc客户端</h4><p>通过服务端的书写,客户端我们要伪造http头信息.我这里只是一个简单的伪造<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// 创建客户端.</div><div class="line">$client = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</div><div class="line">// 链接上我们的服务端.</div><div class="line">socket_connect($client,&apos;127.0.0.1&apos;,9090);</div><div class="line">// 仿造一次http访问</div><div class="line">$content = &apos;GET /new/File.php HTTP/1.1&apos;.PHP_EOL;</div><div class="line">$content .= &apos;EXEC method&apos;.PHP_EOL.PHP_EOL;</div><div class="line">// 发送消息.</div><div class="line">socket_write($client,$content);</div><div class="line">// 读取返回结果.</div><div class="line">$buf = socket_read($client,8024);</div><div class="line">echo $buf;</div><div class="line">socket_close($client);</div></pre></td></tr></table></figure></p>
-<p>通过以上代码，我们可以理解了rpc远程调用的原理.我们通过伪造http头的方式调用了/new/File.php这个文件.同时调用了里面的method方法.然后得到结果集.就是所谓的RPC远程调用!</p>
-<h4 id="具体实现代码"><a href="#具体实现代码" class="headerlink" title="具体实现代码"></a>具体实现代码</h4><p><a href="http://www.blogme.club/socket/rpc.zip">点击此处下载</a></p>
+        <h4 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt install openjdk-8-jre</div></pre></td></tr></table></figure>
+<p>安装好jdk过后,配置一下一下jdk环境即可.当然ubuntu是不需要配置这些的.自带的优越感有木有…….<br><a id="more"></a></p>
+<h4 id="下载activemq"><a href="#下载activemq" class="headerlink" title="下载activemq"></a>下载activemq</h4><p>根据版本下载activemq在,<a href="http://archive.apache.org/dist/activemq" target="_blank" rel="external">下载地址</a>,我下载的版本是<a href="http://archive.apache.org/dist/activemq/5.13.3/apache-activemq-5.13.3-bin.tar.gz" target="_blank" rel="external">apache-activemq-5.13.3-bin.tar.gz</a>.下载完成后直接解压.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar zxvf apache-activemq-5.13.3-bin.tar.gz</div></pre></td></tr></table></figure></p>
+<h4 id="运行activemq"><a href="#运行activemq" class="headerlink" title="运行activemq"></a>运行activemq</h4><p>解压后,在apache-activemq-5.13.3/bin有执行文件.activemq<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./activemq start</div></pre></td></tr></table></figure></p>
+<p>即可运行activemq</p>
+<h4 id="如何查看activemq"><a href="#如何查看activemq" class="headerlink" title="如何查看activemq"></a>如何查看activemq</h4><p>直接在浏览器中输入0.0.0.0:8161即可查看</p>
+<h4 id="文件夹"><a href="#文件夹" class="headerlink" title="文件夹"></a>文件夹</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">├── activemq-all-5.13.3.jar       // java开发所需要的包</div><div class="line">├── bin						   // 执行文件夹</div><div class="line">├── conf						  // 配置文件</div><div class="line">├── data					  // 数据文件</div><div class="line">├── docs					  // 基本文档</div><div class="line">├── examples				  // 例子</div><div class="line">├── lib						  // 核心文件</div><div class="line">├── LICENSE</div><div class="line">├── NOTICE</div><div class="line">├── README.txt</div><div class="line">├── tmp</div><div class="line">├── webapps</div><div class="line">└── webapps-demo</div></pre></td></tr></table></figure>
+<h4 id="安装php-stomp扩展"><a href="#安装php-stomp扩展" class="headerlink" title="安装php-stomp扩展"></a>安装php-stomp扩展</h4><p>根据版本查找不同的stomp扩展，pecl官网上的<a href="http://pecl.php.net/package/stomp" target="_blank" rel="external">具体地址</a>.请根据不同的php版本下载stomp扩展.我这里是ubuntu的下载.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pecl install stomp</div></pre></td></tr></table></figure></p>
+<p>等待请输入下yes就可以了.具体的调用方式,请参看dll里面的文档.</p>
 
       
 
@@ -225,7 +227,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">socket rpc</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">activeMQ</a>
         		</li>
       		
 		</ul>
@@ -281,7 +283,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/08/08/activeMQ学习之旅/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -295,18 +297,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/08/05/socket学习之旅-4使用workerman做mysql代理/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          socket学习之旅-4使用workerman做mysql代理
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/08/03/socket学习之旅-2撕开websocket的神秘外衣/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">socket学习之旅-2撕开websocket的神秘外衣</div>
+    <a href="/2017/08/05/socket学习之旅-4使用workerman做mysql代理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">socket学习之旅-4使用workerman做mysql代理</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -322,8 +315,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://www.blogme.club/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/", 
-    sourceId: "socket学习之旅-3撕开RPC远程调用的神秘外衣",
+    url: "http://www.blogme.club/2017/08/08/activeMQ学习之旅/", 
+    sourceId: "activeMQ学习之旅",
     productKey: "7a087d761edd41caba8fae6866582ec4",
     target: "cloud-tie-wrapper"
   };
