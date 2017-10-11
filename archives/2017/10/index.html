@@ -6,19 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>vue | adolph blog</title>
+  <title>Archives: 2017/10 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="初学Vue由于公司界面的前端是用vue来写的，最近要接手公司的项目，所以没有办法，只能学习vue了。以下是用来见证我的学习过程。">
-<meta name="keywords" content="vue javascript">
-<meta property="og:type" content="article">
-<meta property="og:title" content="vue">
-<meta property="og:url" content="http://www.blogme.club/2017/06/22/vue/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="adolph blog">
+<meta property="og:url" content="http://www.blogme.club/archives/2017/10/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="初学Vue由于公司界面的前端是用vue来写的，最近要接手公司的项目，所以没有办法，只能学习vue了。以下是用来见证我的学习过程。">
-<meta property="og:updated_time" content="2017-06-28T05:53:37.161Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vue">
-<meta name="twitter:description" content="初学Vue由于公司界面的前端是用vue来写的，最近要接手公司的项目，所以没有办法，只能学习vue了。以下是用来见证我的学习过程。">
+<meta name="twitter:title" content="adolph blog">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -154,78 +149,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-vue" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      vue
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/10/11/vuex入门/" class="archive-article-date">
+  	<time datetime="2017-10-11T02:31:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-11</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/10/11/vuex入门/">vuex入门</a>
     </h1>
   
 
-        
-        <a href="/2017/06/22/vue/" class="archive-article-date">
-  	<time datetime="2017-06-22T08:11:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="初学Vue"><a href="#初学Vue" class="headerlink" title="初学Vue"></a>初学Vue</h3><p>由于公司界面的前端是用vue来写的，最近要接手公司的项目，所以没有办法，只能学习vue了。以下是用来见证我的学习过程。<br><a id="more"></a></p>
-<h4 id="1-1-安装Vue"><a href="#1-1-安装Vue" class="headerlink" title="1.1 安装Vue"></a>1.1 安装Vue</h4><p>vue的安装有两种方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1 : &lt;script src=&quot;vue.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</div><div class="line">2 : npm install vue</div></pre></td></tr></table></figure></p>
-<p>初学Vue最好直接引入vuejs.如果是进阶的,可以使用npm 安装</p>
-<h4 id="1-2-实例"><a href="#1-2-实例" class="headerlink" title="1.2 实例"></a>1.2 实例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var vm = new Vue(&#123;</div><div class="line">	el: &apos;#id&apos;,	// 所需要选择的元素</div><div class="line">	data:&#123;&#125;,	// 所需要渲染或者绑定的数据</div><div class="line">	mothods:&#123;&#125;,// 所绑定的方法</div><div class="line">	filters:&#123;&#125;	// 过滤所需要的方式</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>所有vue的实例都可以通过用以下的方式来得到所需要的属性和方式.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vm.$data = data;</div><div class="line">vm.$methods.方法名(参数)</div><div class="line">...</div></pre></td></tr></table></figure></p>
-<h4 id="1-3-模板语法"><a href="#1-3-模板语法" class="headerlink" title="1.3 模板语法"></a>1.3 模板语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&#123;&#123; message &#125;&#125;		// 文本</div><div class="line">&lt;div v-html=&quot;rawHtml&quot;&gt;&lt;/div&gt;		// 使用html方式渲染</div><div class="line">&lt;div v-bind:id=&apos;变量名&apos;&gt;&lt;/div&gt;		// 动态id标签，所有的标签属性皆可以用这种方式来获取</div><div class="line">&#123;&#123; ok ? &apos;Yes&apos;:&apos;No&apos; &#125;&#125;	// 使用javascript表达式</div><div class="line">&lt;!-- 这是语句，不是表达式 --&gt;</div><div class="line">&#123;&#123; var a = 1 &#125;&#125;</div><div class="line">&lt;!-- 流控制也不会生效，请使用三元表达式 --&gt;</div><div class="line">&#123;&#123; if (ok) &#123; return message &#125; &#125;&#125;</div><div class="line">&lt;p v-if=&quot;seen&quot;&gt;Now you see me&lt;/p&gt;// 判断seen 如果为真就显示,不为真就不显示</div><div class="line">&lt;p v-on:click=&quot;doSomething&quot;&gt;&lt;/p&gt;	// 注册点击事件,回调的方法是doSomething</div><div class="line">&lt;a v-bind:href=&quot;url&quot; /&gt; 		// 这里 href 是参数，告知 v-bind 指令将该元素的 href 属性与表达式 url 的值绑定。</div><div class="line">&lt;a v-bind:id=&quot;rawId | formatId&quot; /&gt; // 过滤，使用filters下面的方法将id传进去作为第一个参数</div><div class="line">&lt;a v-bind:id=&quot;rawId | formatId(&apos;arg1&apos;,arg2)&quot; /&gt;// 过滤,将rawId传到第一个参数,&apos;arg1&apos;为第二个参数,arg2是第三个参数</div><div class="line">&lt;a :href=&quot;url&quot;&gt;&lt;/a&gt;			// 这里是缩写</div><div class="line">&lt;a @click=&quot;doSomething&quot;&gt;&lt;/a&gt;	// 这里是事件缩写</div></pre></td></tr></table></figure>
-<h4 id="1-4-computed-计算属性"><a href="#1-4-computed-计算属性" class="headerlink" title="1.4 computed 计算属性"></a>1.4 computed 计算属性</h4><p>实例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;example&quot;&gt;这里是原始数据: &#123;&#123; result &#125;&#125;&lt;/div&gt;</div><div class="line">&lt;div class=&quot;example&quot;&gt;这里是计算后得到的数据:&#123;&#123; reverseResult &#125;&#125;&lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">	var app = new Vue(</div><div class="line">		el:&apos;#app&apos;,</div><div class="line">		data:&#123;</div><div class="line">			result:&apos;原始数据&apos;</div><div class="line">		&#125;,</div><div class="line">		computed:&#123;</div><div class="line">			reverseResult:function()&#123;</div><div class="line">				return this.result.split(&apos;&apos;).reverse().join(&apos;&apos;);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>备注:<br>computed与methods的区别:methods实时获取，computed有数据缓存<br>computed与watch的区别:watch不会用来做数据的联动，computed用来做数据联动,以下是实例,当我们改变lastName的值的时候要改动fullName，就必须要在watch声明,在我的理解中,当数据发生变动时，才会去触发watch里面的以变量名为函数名的函数.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">var container = new Vue(&#123;</div><div class="line">	el:&apos;#container&apos;,</div><div class="line">	data:&#123;</div><div class="line">		firstName:&apos;Foo&apos;,</div><div class="line">		lastName:&apos;Bar&apos;,</div><div class="line">		fullName:&apos;Foo Bar&apos;</div><div class="line">	&#125;,</div><div class="line">	watch:&#123;</div><div class="line">		firstName:function(val)&#123;</div><div class="line">			this.fullName = val + &apos; &apos; + this.lastName;</div><div class="line">		&#125;,</div><div class="line">		lastName:function(val)&#123;</div><div class="line">			this.fullName = this.firstName + &apos;&apos; + val;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">//	computed:&#123;</div><div class="line">//		fullName:function()&#123;</div><div class="line">//			return this.firstName + &apos; &apos; + this.lastName;</div><div class="line">//		&#125;</div><div class="line">//	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h5 id="1-4-1-get-set"><a href="#1-4-1-get-set" class="headerlink" title="1.4.1  get set"></a>1.4.1  get set</h5><p>当我们在浏览器中,使用container.fullName = ‘test test’,其中firstName和lastName也会被改变<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">var container = new Vue(&#123;</div><div class="line">	el:&apos;#container&apos;,</div><div class="line">	data:&#123;</div><div class="line">		firstName:&apos;Foo&apos;,</div><div class="line">		lastName:&apos;Bar&apos;</div><div class="line">	&#125;,</div><div class="line">	computd:&#123;</div><div class="line">		fullName:&#123;</div><div class="line">			get:function()&#123;</div><div class="line">				return this.firstName + &apos; &apos; + this.lastName;</div><div class="line">			&#125;,</div><div class="line">			set:function(newValue)&#123;</div><div class="line">				var new = newValue.split(&apos; &apos;);</div><div class="line">				this.firstName = new[0];</div><div class="line">				this.lastName = new.pop();</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h4 id="1-4-2-watcher"><a href="#1-4-2-watcher" class="headerlink" title="1.4.2 watcher"></a>1.4.2 watcher</h4><p>观察有点类似于监控变量的一个函数，当变量的值有改动过后，就会调用以变量名为函数的函数。是一个事件监听器。</p>
-<h3 id="1-5-class-和-style-的绑定"><a href="#1-5-class-和-style-的绑定" class="headerlink" title="1.5 class 和 style 的绑定"></a>1.5 class 和 style 的绑定</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;container&quot;&gt;</div><div class="line">        &lt;div v-bind:class=&quot;&#123; active:isActive &#125;&quot;&gt;&lt;/div&gt;</div><div class="line">        &lt;div v-bind:class=&quot;object&quot;&gt;&lt;/div&gt;</div><div class="line">        &lt;div v-bind:class=&quot;get_class&quot;&gt;&lt;/div&gt;</div><div class="line">        &lt;div v-bind:class=&quot;[activeClass,errorClass]&quot;&gt;&lt;/div&gt;</div><div class="line">        &lt;div v-bind:class=&quot;[ isActive ? &apos;active&apos;:&apos;error&apos; ]&quot;&gt;&lt;/div&gt;</div><div class="line">        &lt;my-component v-bind:class=&quot;&#123; active:isActive &#125;&quot;&gt;&lt;/my-component&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;script src=&quot;vue.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script&gt;</div><div class="line">        Vue.component(&apos;my-component&apos;,&#123;</div><div class="line">            template:&apos;&lt;p class=&quot;foo bar&quot;&gt;Hi&lt;/p&gt;&apos;</div><div class="line">        &#125;);</div><div class="line">        var container = new Vue(&#123;</div><div class="line">            el:&apos;#container&apos;,</div><div class="line">            data:&#123;</div><div class="line">                isActive:true,</div><div class="line">                object:&#123;</div><div class="line">                    active:true,</div><div class="line">                &#125;,</div><div class="line">                activeClass:&apos;active&apos;,</div><div class="line">                errorClass:&apos;this&apos;</div><div class="line">            &#125;,</div><div class="line">            computed:&#123;</div><div class="line">                get_class:function()&#123;</div><div class="line">                    return &#123;</div><div class="line">                        active:true</div><div class="line">                    &#125;;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &lt;/script&gt;</div></pre></td></tr></table></figure>
-<h3 id="1-6-条件渲染"><a href="#1-6-条件渲染" class="headerlink" title="1.6 条件渲染"></a>1.6 条件渲染</h3><p>实例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;container&quot;&gt;</div><div class="line">        &lt;h1 v-if=&quot;ok&quot;&gt;yes&lt;/h1&gt;</div><div class="line">        &lt;h1 v-else&gt;no&lt;/h1&gt;</div><div class="line">        &lt;template v-if=&quot;ok&quot;&gt;</div><div class="line">            &lt;h1&gt;title&lt;/h1&gt;</div><div class="line">            &lt;p&gt;Paragraph 1&lt;/p&gt;</div><div class="line">            &lt;p&gt;Paragraph 2&lt;/p&gt;</div><div class="line">        &lt;/template&gt;</div><div class="line">        &lt;template v-else&gt;</div><div class="line">            &lt;h1&gt;title&lt;/h1&gt;</div><div class="line">            &lt;p&gt;no answer&lt;/p&gt;</div><div class="line">        &lt;/template&gt;</div><div class="line">        &lt;div v-if=&quot;type === &apos;A&apos;&quot;&gt;</div><div class="line">            A</div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div v-else-if=&quot;type === &apos;B&apos;&quot;&gt;</div><div class="line">            B</div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div v-else-if=&quot;type === &apos;C&apos;&quot;&gt;</div><div class="line">            C</div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div v-else&gt;D&lt;/div&gt;</div><div class="line">        &lt;div&gt;</div><div class="line">            &lt;template v-if=&quot;loginType === &apos;username&apos;&quot;&gt;</div><div class="line">                &lt;label&gt;Username&lt;/label&gt;</div><div class="line">                &lt;input placeholder=&quot;Enter your username&quot; type=&quot;text&quot;&gt;</div><div class="line">            &lt;/template&gt;</div><div class="line">            &lt;template v-else&gt;</div><div class="line">                &lt;label&gt;Email&lt;/label&gt;</div><div class="line">                &lt;input type=&quot;text&quot; placeholder=&quot;Enter your email address&quot;&gt;</div><div class="line">            &lt;/template&gt;</div><div class="line">            &lt;button type=&quot;button&quot; v-on:click=&quot;change&quot;&gt;Toggle login type&lt;/button&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div&gt;</div><div class="line">            &lt;template v-if=&quot;login&quot;&gt;</div><div class="line">                &lt;label&gt;Username&lt;/label&gt;</div><div class="line">                &lt;input placeholder=&quot;Enter your username&quot; type=&quot;text&quot; key=&quot;username&quot;&gt;</div><div class="line">            &lt;/template&gt;</div><div class="line">            &lt;template v-else&gt;</div><div class="line">                &lt;label&gt;Email&lt;/label&gt;</div><div class="line">                &lt;input type=&quot;text&quot; placeholder=&quot;Enter your email address&quot; key=&quot;email&quot;&gt;</div><div class="line">            &lt;/template&gt;</div><div class="line">            &lt;button type=&quot;button&quot; v-on:click=&quot;changeText&quot;&gt;Toggle login type&lt;/button&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;script src=&quot;vue.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script&gt;</div><div class="line">        var container = new Vue(&#123;</div><div class="line">            el:&apos;#container&apos;,</div><div class="line">            data:&#123;</div><div class="line">                ok:true,</div><div class="line">                type:&apos;A&apos;,</div><div class="line">                loginType:&apos;username&apos;,</div><div class="line">                login:true</div><div class="line">            &#125;,</div><div class="line">            methods:&#123;</div><div class="line">                change:function()&#123;</div><div class="line">                    if(this.loginType == &apos;email&apos;)&#123;</div><div class="line">                        this.loginType = &apos;username&apos;;</div><div class="line">                    &#125;else&#123;</div><div class="line">                        this.loginType = &apos;email&apos;;</div><div class="line">                    &#125;</div><div class="line">                &#125;,</div><div class="line">                changeText:function()&#123;</div><div class="line">                    if(this.login == true)&#123;</div><div class="line">                        this.login = false;</div><div class="line">                    &#125;else&#123;</div><div class="line">                        this.login = true;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>备注:<br>v-if 和 v-show:v-show是要将元素渲染出来,在将其用于简单的css切换。而v-if则是直接从程序渲染.注意， v-show 不支持 template语法，也不支持 v-else。</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/alipay.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/weixin.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -237,109 +190,95 @@
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/06/22/vue/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
   
-<nav id="article-nav">
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/10/11/vue-cli多页面配置/" class="archive-article-date">
+  	<time datetime="2017-10-11T02:29:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-11</time>
+</a>
+        </div>
+    	 
   
-    <a href="/2017/06/28/vue-cli搭建/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          vue-cli搭建
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2017/06/21/composer包搭建/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">composer包搭建</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-  
-  
-  
-  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-<script>
-  var cloudTieConfig = {
-    url: "http://www.blogme.club/2017/06/22/vue/", 
-    sourceId: "vue",
-    productKey: "7a087d761edd41caba8fae6866582ec4",
-    target: "cloud-tie-wrapper"
-  };
-</script>
-<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/10/11/vue-cli多页面配置/">vue-cli多页面配置</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">vue javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/10/11/浏览器兼容性/" class="archive-article-date">
+  	<time datetime="2017-10-11T02:27:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-11</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/10/11/浏览器兼容性/">浏览器兼容性</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
   
+  
+    </div></section>
+  
+
+    
 
 
           </div>
@@ -362,8 +301,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
