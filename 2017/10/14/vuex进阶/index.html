@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>工厂模式2 - 数据中心模式，狗和书一起卖 | adolph blog</title>
+  <title>vuex进阶 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。">
-<meta name="keywords" content="php 设计模式">
+  <meta name="description" content="vuex的入门,在前面我已经说了.这次我们来试试进阶.封装一下mutation,getter,state等一些基本状态.具体的项目的在我的github仓库.">
+<meta name="keywords" content="vue javascript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工厂模式2 - 数据中心模式，狗和书一起卖">
-<meta property="og:url" content="http://www.blogme.club/2017/05/20/php-工厂模式2/index.html">
+<meta property="og:title" content="vuex进阶">
+<meta property="og:url" content="http://www.blogme.club/2017/10/14/vuex进阶/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。">
-<meta property="og:updated_time" content="2017-05-20T09:41:44.482Z">
+<meta property="og:description" content="vuex的入门,在前面我已经说了.这次我们来试试进阶.封装一下mutation,getter,state等一些基本状态.具体的项目的在我的github仓库.">
+<meta property="og:updated_time" content="2017-10-14T09:13:44.922Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="工厂模式2 - 数据中心模式，狗和书一起卖">
-<meta name="twitter:description" content="接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。">
+<meta name="twitter:title" content="vuex进阶">
+<meta name="twitter:description" content="vuex的入门,在前面我已经说了.这次我们来试试进阶.封装一下mutation,getter,state等一些基本状态.具体的项目的在我的github仓库.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -154,33 +154,38 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-php-工厂模式2" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-vuex进阶" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      工厂模式2 - 数据中心模式，狗和书一起卖
+      vuex进阶
     </h1>
   
 
         
-        <a href="/2017/05/20/php-工厂模式2/" class="archive-article-date">
-  	<time datetime="2017-05-20T07:50:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-20</time>
+        <a href="/2017/10/14/vuex进阶/" class="archive-article-date">
+  	<time datetime="2017-10-14T09:12:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-14</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。<br><a id="more"></a><br>首先我们先规范代码，每个商品必须要有getList()方法,想到的是interface,代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">interface Product&#123;</div><div class="line">	public function getList();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>所有的商品必须要集成接口.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">class ProductFactory&#123;</div><div class="line">	// 根据不同的对象来得到不同的类.</div><div class="line">	public static function getProduct($type)&#123;</div><div class="line">		// 变态模式产生</div><div class="line">		if($type == &apos;Book&apos;)&#123;</div><div class="line">			$type = &apos;Dog&apos;;</div><div class="line">		&#125;</div><div class="line">		if(!class_exists($type))&#123;</div><div class="line">			require ($type.&apos;.php&apos;);</div><div class="line">		&#125;</div><div class="line">		switch($type)&#123;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Book();</div><div class="line">				break;</div><div class="line">			case  &quot;Dog&quot;:</div><div class="line">				$object = new Dog();</div><div class="line">				break;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Wines();</div><div class="line">				break;</div><div class="line">		&#125;</div><div class="line">		if(is_subclass_of($obj,&apos;Product&apos;))&#123;</div><div class="line">			return $object;</div><div class="line">		&#125;else&#123;</div><div class="line">			return null;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我们这里要引入数据中心模式，坚决不予类本身打交道。<br>这里我们创建ProductDataCenter;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class ProductDataCenter&#123;</div><div class="line">	public static $objectList = [];</div><div class="line">	public static function set($k,$v)&#123;</div><div class="line">		self::$objectList[$k]=$v;</div><div class="line">	&#125;</div><div class="line">	public static function get($k)&#123;</div><div class="line">		return self::$objectList[$k];</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我们改造工厂<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">require &apos;ProductDataCenter.php&apos;;</div><div class="line">class ProductFactory&#123;</div><div class="line">	// 根据不同的对象来得到不同的类.</div><div class="line">	public static function getProduct($type)&#123;</div><div class="line">		// 变态模式产生</div><div class="line">		if($type == &apos;Book&apos;)&#123;</div><div class="line">			$type = &apos;Dog&apos;;</div><div class="line">		&#125;</div><div class="line">		if(!class_exists($type))&#123;</div><div class="line">			require ($type.&apos;.php&apos;);</div><div class="line">		&#125;</div><div class="line">		switch($type)&#123;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Book();</div><div class="line">				break;</div><div class="line">			case  &quot;Dog&quot;:</div><div class="line">				$object = new Dog();</div><div class="line">				break;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Wines();</div><div class="line">				break;</div><div class="line">		&#125;</div><div class="line">		if(is_subclass_of($object,&apos;Product&apos;))&#123;</div><div class="line">			ProductDataCenter::set($type,$object);</div><div class="line">		&#125;else&#123;</div><div class="line">			return null;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我们调用的时候,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ProductFactory::getProduct(&apos;Books&apos;);</div></pre></td></tr></table></figure></p>
-<p>我们要设置数据中心静态的魔术函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">class ProductDataCenter&#123;</div><div class="line">	public static $objectList = [];</div><div class="line">	public static function set($k,$v)&#123;</div><div class="line">		self::$objectList[$k]=$v;</div><div class="line">	&#125;</div><div class="line">	// 调用魔术函数.</div><div class="line">	public static function __callStatic($name,$arguments)&#123;</div><div class="line">		$return = [];</div><div class="line">		foreach(self::$objectList as $v)&#123;</div><div class="line">			if(method_exists($v,$name))&#123;</div><div class="line">				$ret = $v-&gt;$name($arguments);</div><div class="line">				if($ret)&#123;</div><div class="line">					$return[] = $ret;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		if(count($ret))&#123;</div><div class="line">			return $ret;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>思考:支持字符串和数组的方式来创建。</p>
+        <p>vuex的入门,在前面我已经说了.这次我们来试试进阶.封装一下mutation,getter,state等一些基本状态.具体的项目的在我的<a href="https://github.com/AdolphGithub/vue-blog/frontend" target="_blank" rel="external">github仓库</a>.<br><a id="more"></a></p>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>在vuex引入的时候.Vue.use(Vuex);我们来创建一个简单的store.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">export default new Vue.store(&#123;</div><div class="line">	state: &#123; user:&#123;&#125; &#125;,</div><div class="line">	mutations: &#123;&#125;,</div><div class="line">	getters: &#123;</div><div class="line">		user: (state) =&gt; &#123;</div><div class="line">			return state.user;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>这样就创建了一个简单的store.其中.state是我们用来保存数据的变量.getters是我们用来获取数据的方法.</p>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><p>这里的state是一个共有的状态.类似于变量的仓库.但是如果变量多了.这个值就显得非常庞大.这里,我们要将其单独的独立出来.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">export default &#123;</div><div class="line">	user: &#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="getters"><a href="#getters" class="headerlink" title="getters"></a>getters</h3><p>在用vuex的时候,我们经常要使用this.$store.state来获取具体的状态值.而我们要每次去获取一次值的时候.难道都要写这么长一串么.还好vuex给我们提供了一些获取值的getter.就来封装一下成独立的文件.store/getters.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export const user = (state) =&gt; state.user;</div></pre></td></tr></table></figure></p>
+<p>这里我们就封装好了一个getter.这里的意思是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">export const user = function(state)&#123;</div><div class="line">	return state.user;</div><div class="line">&#125;.bind(this);</div></pre></td></tr></table></figure></p>
+<p>这样就懂了哈.我们这个就是一个单独的文件,到时只需要按需引入即可.</p>
+<h3 id="mutations"><a href="#mutations" class="headerlink" title="mutations"></a>mutations</h3><p>mutations是我们用来设置state的值的.这里我们直接将其独立出来,封装成一个单独的文件.<br>store/mutations.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">export default &#123;</div><div class="line">	set_user : (state,user) =&gt; &#123;</div><div class="line">		state.user = user;</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>actions这里也可以这么封装.</p>
+<h3 id="修改store"><a href="#修改store" class="headerlink" title="修改store"></a>修改store</h3><p>我们这里封装好了成为了一个独立的文件.这里,我们就将这里文件引入即可.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">----- store/index.js -----</div><div class="line">import Vue from &apos;vue&apos;;</div><div class="line">import Vuex from  &apos;vuex&apos;;</div><div class="line"></div><div class="line">import * as getters from &apos;./getters&apos;;</div><div class="line">import * as actions from &apos;./actions&apos;;</div><div class="line">import state from &apos;./state&apos;;</div><div class="line">import mutations from &apos;./mutations&apos;;</div><div class="line"></div><div class="line">Vue.use(Vuex);</div><div class="line"></div><div class="line">export default new Vuex.Store(&#123;</div><div class="line">	getters,</div><div class="line">	state,</div><div class="line">	actions,</div><div class="line">	mutations</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h3 id="vuex语法糖"><a href="#vuex语法糖" class="headerlink" title="vuex语法糖"></a>vuex语法糖</h3><p>语法糖只是为了我们方便调用vuex的一些基本操作.例如获取数据.设置数据等.以下是一个例子.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">import &#123;mapMutations,mapGetters,mapActions&#125; from &apos;vuex&apos;;</div><div class="line">export default &#123;</div><div class="line">	name: &apos;example&apos;,</div><div class="line">	created()&#123;</div><div class="line">		// 设置用户</div><div class="line">		this.setUser(&#123;&apos;name&apos;:&apos;user&apos;&#125;);</div><div class="line">		// 获取用户</div><div class="line">		this.user;</div><div class="line">	&#125;,</div><div class="line">	methods: &#123;</div><div class="line">		...mapMutations(&#123;</div><div class="line">			setUser: &apos;set_user&apos;</div><div class="line">		&#125;)</div><div class="line">	&#125;,</div><div class="line">	computed: &#123;</div><div class="line">		...mapGetters(</div><div class="line">			[&apos;user&apos;]</div><div class="line">		)</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>至于为什么要将mapGetters放到computed计算属性上.引入计算属性是实时变化的.只要检测到内存变化就会更新.如果放在data上.就不会将这种变化映射到全局.</p>
 
       
 
@@ -225,7 +230,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php 设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">vue javascript</a>
         		</li>
       		
 		</ul>
@@ -281,7 +286,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/05/20/php-工厂模式2/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/10/14/vuex进阶/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -295,18 +300,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/05/23/php-适配器模式/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          php-适配器模式
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/05/20/php-工厂模式1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">工厂模式-程序员,书,和狗</div>
+    <a href="/2017/10/11/vuex入门/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">vuex入门</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -322,8 +318,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://www.blogme.club/2017/05/20/php-工厂模式2/", 
-    sourceId: "php-工厂模式2",
+    url: "http://www.blogme.club/2017/10/14/vuex进阶/", 
+    sourceId: "vuex进阶",
     productKey: "7a087d761edd41caba8fae6866582ec4",
     target: "cloud-tie-wrapper"
   };
