@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Tag: javascript vue | adolph blog</title>
+  <title>git获取改动文件 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/tags/javascript-vue/index.html">
+  <meta name="description" content="今天遇到一个新问题,以前在用git的时候没有遇到过的.将最新的版本中,修改的代码提出来.以前在部署的时候,直接用git pull origin master就直接拖下来了.但是这次的虚拟机不同.没有git.不可能将每次改的代码都全部打包.然后上传上去.维护太麻烦了.如何解决这种问题.">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git获取改动文件">
+<meta property="og:url" content="http://www.blogme.club/2017/10/18/git获取改动文件/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="今天遇到一个新问题,以前在用git的时候没有遇到过的.将最新的版本中,修改的代码提出来.以前在部署的时候,直接用git pull origin master就直接拖下来了.但是这次的虚拟机不同.没有git.不可能将每次改的代码都全部打包.然后上传上去.维护太麻烦了.如何解决这种问题.">
+<meta property="og:updated_time" content="2017-10-18T14:02:08.305Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="git获取改动文件">
+<meta name="twitter:description" content="今天遇到一个新问题,以前在用git的时候没有遇到过的.将最新的版本中,修改的代码提出来.以前在部署的时候,直接用git pull origin master就直接拖下来了.但是这次的虚拟机不同.没有git.不可能将每次改的代码都全部打包.然后上传上去.维护太麻烦了.如何解决这种问题.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -149,60 +154,176 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-git获取改动文件" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/28/vue-cli搭建/" class="archive-article-date">
-  	<time datetime="2017-06-28T05:55:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-28</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/28/vue-cli搭建/">vue-cli搭建</a>
+    <h1 class="article-title" itemprop="name">
+      git获取改动文件
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/10/18/git获取改动文件/" class="archive-article-date">
+  	<time datetime="2017-10-18T14:00:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天遇到一个新问题,以前在用git的时候没有遇到过的.将最新的版本中,修改的代码提出来.以前在部署的时候,直接用git pull origin master就直接拖下来了.但是这次的虚拟机不同.没有git.不可能将每次改的代码都全部打包.然后上传上去.维护太麻烦了.如何解决这种问题.<br><a id="more"></a></p>
+<h4 id="plan-1"><a href="#plan-1" class="headerlink" title="plan 1"></a>plan 1</h4><p>对比两个分支.然后直接去复制文件.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git diff 分支名1 分支名2</div></pre></td></tr></table></figure></p>
+<p>这样就需要手动的去复制文件.但是如果改动较多,对于复制的人来说是一种大麻烦.<br>本着懒人思想,有没有可能更方便的呢.</p>
+<h4 id="plan-2"><a href="#plan-2" class="headerlink" title="plan 2"></a>plan 2</h4><p>我们看一下git diff的帮助<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git diff --help</div></pre></td></tr></table></figure></p>
+<p>找到其中一项<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">--name-only</div><div class="line">           Show only names of changed files.</div></pre></td></tr></table></figure></p>
+<p>得到所有的改动文件的名字.这就好办了,直接用压缩命令来搞定他<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git diff 分支名1 分支名2 --name-only | xargs zip 路径/文件名</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">javascript vue</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/10/18/git获取改动文件/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/10/14/vuex进阶/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">vuex进阶</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://www.blogme.club/2017/10/18/git获取改动文件/", 
+    sourceId: "git获取改动文件",
+    productKey: "7a087d761edd41caba8fae6866582ec4",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -225,9 +346,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
