@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Tag: php 设计模式 | adolph blog</title>
+  <title>ubuntu上QQ的终极方案 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/tags/php-设计模式/index.html">
+  <meta name="description" content="最近由于工作的时候,经常要用到QQ,对于在ubuntu上的我来说,真的是一种尴尬.这篇文档主要记录在ubuntu上如何使用QQ. webQQwebQQ.腾讯官方推出来的webQQ.仅仅用于普通的聊天.发送文件这些非常不好使.老尴尬了. chromeQQchromeQQ,基于腾讯官方出来的QQ,用途可想而知.webQQ实现不了的,chromeQQ也搞不定.所以这个一样的坑. pidgin这个不用说了">
+<meta name="keywords" content="ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu上QQ的终极方案">
+<meta property="og:url" content="http://www.blogme.club/2017/11/21/ubuntu上QQ的终极方案/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="最近由于工作的时候,经常要用到QQ,对于在ubuntu上的我来说,真的是一种尴尬.这篇文档主要记录在ubuntu上如何使用QQ. webQQwebQQ.腾讯官方推出来的webQQ.仅仅用于普通的聊天.发送文件这些非常不好使.老尴尬了. chromeQQchromeQQ,基于腾讯官方出来的QQ,用途可想而知.webQQ实现不了的,chromeQQ也搞不定.所以这个一样的坑. pidgin这个不用说了">
+<meta property="og:updated_time" content="2017-11-21T13:45:08.584Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="ubuntu上QQ的终极方案">
+<meta name="twitter:description" content="最近由于工作的时候,经常要用到QQ,对于在ubuntu上的我来说,真的是一种尴尬.这篇文档主要记录在ubuntu上如何使用QQ. webQQwebQQ.腾讯官方推出来的webQQ.仅仅用于普通的聊天.发送文件这些非常不好使.老尴尬了. chromeQQchromeQQ,基于腾讯官方出来的QQ,用途可想而知.webQQ实现不了的,chromeQQ也搞不定.所以这个一样的坑. pidgin这个不用说了">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -149,136 +154,182 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-ubuntu上QQ的终极方案" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ubuntu上QQ的终极方案
+    </h1>
+  
+
+        
+        <a href="/2017/11/21/ubuntu上QQ的终极方案/" class="archive-article-date">
+  	<time datetime="2017-11-21T13:44:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-21</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近由于工作的时候,经常要用到QQ,对于在ubuntu上的我来说,真的是一种尴尬.这篇文档主要记录在ubuntu上如何使用QQ.</p>
+<h3 id="webQQ"><a href="#webQQ" class="headerlink" title="webQQ"></a>webQQ</h3><p>webQQ.腾讯官方推出来的webQQ.仅仅用于普通的聊天.发送文件这些非常不好使.老尴尬了.</p>
+<h3 id="chromeQQ"><a href="#chromeQQ" class="headerlink" title="chromeQQ"></a>chromeQQ</h3><p>chromeQQ,基于腾讯官方出来的QQ,用途可想而知.webQQ实现不了的,chromeQQ也搞不定.所以这个一样的坑.</p>
+<h3 id="pidgin"><a href="#pidgin" class="headerlink" title="pidgin"></a>pidgin</h3><p>这个不用说了.在ubuntu上的一款及时聊天软件.这个有webQQ协议,同样,基于webQQ改的.不用说了.</p>
+<h3 id="wine"><a href="#wine" class="headerlink" title="wine"></a>wine</h3><p>使用wine来运行windows程序,这个老厉害了.但是,要配置环境,而且网上很多教程都是QQ国际版.跟不上QQ的版本.不过基于以上的算是不错的了.同样,配置麻烦.</p>
+<h3 id="终极方案"><a href="#终极方案" class="headerlink" title="终极方案"></a>终极方案</h3><p>最近在github上找到一款终极方案.基于wine的,别人已经配置好了.可以使用QQ轻聊版7.9最新的哦.QQ版本最新的哦.而且安装方便.<br>以下记录我的安装过程.</p>
+<h4 id="32位架构"><a href="#32位架构" class="headerlink" title="32位架构"></a>32位架构</h4><p>如果ubunt系统是64位的,就要开始这步,启用32的架构,不然使用不起哦.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo dpkg --add-architecture i386</div></pre></td></tr></table></figure></p>
+<h4 id="安装winehq"><a href="#安装winehq" class="headerlink" title="安装winehq"></a>安装winehq</h4><p>这一步,哥哥些直接敲吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget https://dl.winehq.org/wine-builds/Release.key -- 下载密钥 --</div><div class="line">sudo apt-key add Release.key -- 添加密钥 --</div><div class="line">sudo apt-add-repository https://dl.winehq.org/wine-builds/ubuntu/ -- 添加软件源 -- </div><div class="line">sudo apt-get update -- 更新软件 --</div><div class="line">sudo apt-get install --install-recommends winehq-stable -- 开始安装 --</div></pre></td></tr></table></figure></p>
+<h4 id="安装winetricks"><a href="#安装winetricks" class="headerlink" title="安装winetricks"></a>安装winetricks</h4><p>至于如何要安装这个,哥们,如果不想安装了QQ后输入不了就安装这个吧,不然你会后悔的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks    -- 下载winetricks --</div><div class="line">chmod +x winetricks	-- 加执行权限	--</div><div class="line">sudo cp winetricks /usr/local/bin  -- 复制进系统,以便可执行 --</div></pre></td></tr></table></figure></p>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>找个目录来clone这个项目吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/askme765cs/Wine-QQ.git</div></pre></td></tr></table></figure></p>
+<p>然后进入这个文件夹,想用哪个版本的QQ就直接进那个目录,运行install.sh即可安装好.<br>注意,由于执行的时候需要极高的权限,请使用sudo,例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ./install.sh</div></pre></td></tr></table></figure></p>
+<p>祝大家早日用上QQ哦</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/23/php-适配器模式/" class="archive-article-date">
-  	<time datetime="2017-05-23T14:18:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/23/php-适配器模式/">php-适配器模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php 设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ubuntu</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/11/21/ubuntu上QQ的终极方案/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/20/php-工厂模式2/" class="archive-article-date">
-  	<time datetime="2017-05-20T07:50:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-20</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/20/php-工厂模式2/">工厂模式2 - 数据中心模式，狗和书一起卖</a>
-    </h1>
+  
+    <a href="/2017/10/18/git获取改动文件/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">git获取改动文件</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://www.blogme.club/2017/11/21/ubuntu上QQ的终极方案/", 
+    sourceId: "ubuntu上QQ的终极方案",
+    productKey: "7a087d761edd41caba8fae6866582ec4",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php 设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/20/php-工厂模式1/" class="archive-article-date">
-  	<time datetime="2017-05-20T07:33:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/20/php-工厂模式1/">工厂模式-程序员,书,和狗</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php 设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -301,9 +352,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
