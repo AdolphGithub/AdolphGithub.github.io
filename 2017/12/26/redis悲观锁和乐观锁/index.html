@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>gnome踩坑记 | adolph blog</title>
+  <title>redis悲观锁和乐观锁 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="gnome3和unity一直是ubuntu的两大桌面程序.自从ubuntu17.10后弃用unity过后,就将gnome改成主流的桌面程序.这里我将介绍从unity转到gnome3的过程,并且安装arc-theme.">
-<meta name="keywords" content="ubuntu">
+  <meta name="description" content="最近,由于参加面试了,MD,被ajk的面试官问了一句,在大并发情况下,数据库有哪些处理方案,列举一二,瞬间我就懵圈了,由于用得不多,就忘的差不多.本着是知识就要复习一下,我就重新来倒腾一下.这里这个版本是redis版本.">
+<meta name="keywords" content="redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="gnome踩坑记">
-<meta property="og:url" content="http://www.blogme.club/2017/09/10/gnome踩坑记/index.html">
+<meta property="og:title" content="redis悲观锁和乐观锁">
+<meta property="og:url" content="http://www.blogme.club/2017/12/26/redis悲观锁和乐观锁/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="gnome3和unity一直是ubuntu的两大桌面程序.自从ubuntu17.10后弃用unity过后,就将gnome改成主流的桌面程序.这里我将介绍从unity转到gnome3的过程,并且安装arc-theme.">
-<meta property="og:updated_time" content="2017-09-10T12:35:14.361Z">
+<meta property="og:description" content="最近,由于参加面试了,MD,被ajk的面试官问了一句,在大并发情况下,数据库有哪些处理方案,列举一二,瞬间我就懵圈了,由于用得不多,就忘的差不多.本着是知识就要复习一下,我就重新来倒腾一下.这里这个版本是redis版本.">
+<meta property="og:updated_time" content="2017-12-26T07:08:54.517Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="gnome踩坑记">
-<meta name="twitter:description" content="gnome3和unity一直是ubuntu的两大桌面程序.自从ubuntu17.10后弃用unity过后,就将gnome改成主流的桌面程序.这里我将介绍从unity转到gnome3的过程,并且安装arc-theme.">
+<meta name="twitter:title" content="redis悲观锁和乐观锁">
+<meta name="twitter:description" content="最近,由于参加面试了,MD,被ajk的面试官问了一句,在大并发情况下,数据库有哪些处理方案,列举一二,瞬间我就懵圈了,由于用得不多,就忘的差不多.本着是知识就要复习一下,我就重新来倒腾一下.这里这个版本是redis版本.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -154,38 +154,34 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-gnome踩坑记" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-redis悲观锁和乐观锁" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      gnome踩坑记
+      redis悲观锁和乐观锁
     </h1>
   
 
         
-        <a href="/2017/09/10/gnome踩坑记/" class="archive-article-date">
-  	<time datetime="2017-09-10T12:32:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-10</time>
+        <a href="/2017/12/26/redis悲观锁和乐观锁/" class="archive-article-date">
+  	<time datetime="2017-12-26T07:07:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-26</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>gnome3和unity一直是ubuntu的两大桌面程序.自从ubuntu17.10后弃用unity过后,就将gnome改成主流的桌面程序.这里我将介绍从unity转到gnome3的过程,并且安装arc-theme.<br><a id="more"></a></p>
-<h4 id="1-安装gnome"><a href="#1-安装gnome" class="headerlink" title="1 安装gnome"></a>1 安装gnome</h4><p>如果很多人看到csdn上,ubuntu16.04安装gnome3+arc主题.这个就是一个坑了.首先,我们先在原有基础上安装gnome3是很简单的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install gnome-shell ubuntu-gnome-desktop</div></pre></td></tr></table></figure></p>
-<p>等待安装完成即可,在这里,安装gnome-shell时,要选择gdm3,不要问为什么,如果不选择这项,那么恭喜你,下次开机还是unity</p>
-<h4 id="2-安装gnome-session-flashback"><a href="#2-安装gnome-session-flashback" class="headerlink" title="2 安装gnome-session-flashback"></a>2 安装gnome-session-flashback</h4><p>开机重启后,如果还是没有gnome3的图标啊,什么都没有改变,就安装gnome-session-flashback<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt install gnome-session-flashback</div></pre></td></tr></table></figure></p>
-<p>安装好过后请重启<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo reboot</div></pre></td></tr></table></figure></p>
-<p>或者选择菜单重启等</p>
-<h4 id="3-安装gnome管理工具"><a href="#3-安装gnome管理工具" class="headerlink" title="3 安装gnome管理工具"></a>3 安装gnome管理工具</h4><p>在unity下有tweak-tool管理工具,同时,gnome下也有这套.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install gnome-tweak-tool</div></pre></td></tr></table></figure></p>
-<h4 id="4-如何选择unity和gnome3"><a href="#4-如何选择unity和gnome3" class="headerlink" title="4 如何选择unity和gnome3"></a>4 如何选择unity和gnome3</h4><p>安装完成后,我们发现还是unity的dash(左侧导航栏),并不是gnome的dash.最关键的一步来了,我们卸载掉unity<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt remove unity</div></pre></td></tr></table></figure></p>
-<p>卸载完成后,重启,即可看到正常的图标和界面了.</p>
-<h4 id="5-安装arc-theme主题"><a href="#5-安装arc-theme主题" class="headerlink" title="5 安装arc-theme主题"></a>5 安装arc-theme主题</h4><p>arc是一套扁平化主题,非常nice.经常看到有很多人要安装这套主题.特献上安装方式.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo add-apt-repository ppa:noobslab/themes	//添加主题源</div><div class="line">sudo apt-get update 	// 更新</div><div class="line">sudo apt-get install arc-theme 	// 安装</div></pre></td></tr></table></figure></p>
-<p>安装好过后,使用gnome-tweak-tool即可使用该主题</p>
-<h4 id="6-推荐"><a href="#6-推荐" class="headerlink" title="6 推荐"></a>6 推荐</h4><p>推荐一些gnome的扩展<br><a href="https://www.maketecheasier.com/10-of-the-best-gnome-shell-extensions/" target="_blank" rel="external">gnome extension top 10</a></p>
+        <p>最近,由于参加面试了,MD,被ajk的面试官问了一句,在大并发情况下,数据库有哪些处理方案,列举一二,瞬间我就懵圈了,由于用得不多,就忘的差不多.本着是知识就要复习一下,我就重新来倒腾一下.这里这个版本是redis版本.<br><a id="more"></a></p>
+<h4 id="redis悲观锁"><a href="#redis悲观锁" class="headerlink" title="redis悲观锁"></a>redis悲观锁</h4><p>先谈一下什么叫悲观锁.悲观就是持保守态度,在每次拿数据的时候,都会认为别人在同一时间要来操作,于是我就上锁,不让其他操作.等到操作完毕,在释放出来.为什么要用悲观锁.假如,我们有一个库存的缓存.缓存3个小时,如果在2.59分左右,有大量用户来操作,这个时候由于数据缓存的丢失,就将直接查询数据库,这个时候,大量用户一来,就会造成雪崩.所以,这个时候就需要用悲观锁了.</p>
+<h4 id="实现悲观锁"><a href="#实现悲观锁" class="headerlink" title="实现悲观锁"></a>实现悲观锁</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">// 悲观锁示例</div><div class="line">class LockExample</div><div class="line">&#123;</div><div class="line">    protected $_redis;</div><div class="line">    public function __construct()</div><div class="line">    &#123;</div><div class="line">        // 链接redis-server</div><div class="line">        $this-&gt;_redis = new Redis();</div><div class="line">        $this-&gt;_redis-&gt;connect(&apos;127.0.0.1&apos;,6379);</div><div class="line">    &#125;</div><div class="line">    // 获取锁</div><div class="line">    public function lock($key = &apos;&apos;,$expire = 5)</div><div class="line">    &#123;</div><div class="line">        // 设置锁,存在就返回0,如果不存在就返回1</div><div class="line">        $is_lock = $this-&gt;_redis-&gt;setnx($key,time() + $expire);</div><div class="line">        if(!$is_lock)</div><div class="line">        &#123;</div><div class="line">            // 获取有效期</div><div class="line">            $expire_time = $this-&gt;_redis-&gt;get($key);</div><div class="line">            // 判断是否过期</div><div class="line">            if(time() &gt; $expire_time)</div><div class="line">            &#123;</div><div class="line">                // 获取就删除锁,同时,增加一个新锁</div><div class="line">                $this-&gt;unlock($key);</div><div class="line">                $is_lock = $this-&gt;_redis-&gt;setnx($key,time() + $expire);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return $is_lock ? true : false;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public function unlock($key = &apos;&apos;)</div><div class="line">    &#123;</div><div class="line">        return $this-&gt;_redis-&gt;del($key);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$lock = new LockExample();</div><div class="line">$lock_key = &apos;lock_key&apos;;</div><div class="line">if($lock-&gt;lock($lock_key))</div><div class="line">&#123;</div><div class="line">    // 这里是你要作的事情</div><div class="line">    // 释放锁. 模拟操作</div><div class="line">    echo &apos;操作成功&apos;;</div><div class="line">    sleep(100);</div><div class="line">    $lock-&gt;unlock($lock_key);</div><div class="line">&#125;</div><div class="line">else</div><div class="line">&#123;</div><div class="line">    echo &apos;操作失败&apos;;</div><div class="line">    // 没有设置成功,你要作的事情.</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>同时复制一份,同时访问两个文件,就能看到一个设置成功.一个直接设置失败.</p>
+<h4 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h4><p>跟悲观锁相反,悲观锁持保守态度,乐观锁持乐观态度,操作的时候就认为只会自己操作,就不会上锁,其他操作也会操作成功.在redis中,用watch和multi来实现.</p>
+<h4 id="乐观锁实例"><a href="#乐观锁实例" class="headerlink" title="乐观锁实例"></a>乐观锁实例</h4><p>这里我们需要两个文件来试一下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">$redis = new Redis();</div><div class="line">$redis-&gt;connect(&apos;127.0.0.1&apos;,6379);</div><div class="line">$lock_key = &apos;lock&apos;;</div><div class="line">$redis-&gt;set($lock_key,30);</div><div class="line">// 获取设置的值.</div><div class="line">$str = $redis-&gt;get($lock_key);</div><div class="line">echo &apos;值:&apos; . $str . &quot;\n&quot;;</div><div class="line">// 观察乐观锁</div><div class="line">$redis-&gt;watch($lock_key);</div><div class="line">// 开启事务</div><div class="line">$redis-&gt;multi();</div><div class="line">// 自增到32</div><div class="line">$redis-&gt;incr($lock_key);</div><div class="line">$redis-&gt;incr($lock_key);</div><div class="line">echo &apos;我这里暂停20秒让别人操作&apos;;</div><div class="line">sleep(20);</div><div class="line">// 提交事务,如果值有改变,就会修改失败</div><div class="line">$redis-&gt;exec();</div><div class="line">$str = $redis-&gt;get($lock_key);</div><div class="line">echo &apos;值:&apos; . $str . &quot;\n&quot;;</div></pre></td></tr></table></figure></p>
+<p>文件2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$redis = new Redis();</div><div class="line">$redis-&gt;connect(&apos;127.0.0.1&apos;,6379);</div><div class="line">$lock_key = &apos;lock&apos;;</div><div class="line">// 自增5次</div><div class="line">$redis-&gt;incr($lock_key);</div><div class="line">$redis-&gt;incr($lock_key);</div><div class="line">$redis-&gt;incr($lock_key);</div><div class="line">$redis-&gt;incr($lock_key);</div><div class="line">$redis-&gt;incr($lock_key);</div></pre></td></tr></table></figure></p>
+<p>运行文件1,文件2.你会发现一个事情,lock的值为35,失去了两次.所以这就是乐观锁.通过观察来查看是否有修改,有修改就直接修改失败.</p>
 
       
 
@@ -230,7 +226,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ubuntu</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
         		</li>
       		
 		</ul>
@@ -286,7 +282,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/09/10/gnome踩坑记/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/12/26/redis悲观锁和乐观锁/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -300,18 +296,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/10/11/浏览器兼容性/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          浏览器兼容性
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/08/09/activeMQ学习之旅2-函数介绍和简单集群配置/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">activeMQ学习之旅2-函数介绍和简单集群配置</div>
+    <a href="/2017/12/22/Walle配置-最详细的安装/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Walle配置-最详细的安装</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -326,7 +313,7 @@
   
 
   
-  <div id="SOHUCS" sid="gnome踩坑记" ></div> 
+  <div id="SOHUCS" sid="redis悲观锁和乐观锁" ></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
