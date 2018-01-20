@@ -6,19 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>浏览器兼容性 | adolph blog</title>
+  <title>Tag: http | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="历来浏览器的快速发展导致了css的兼容性很差,就兼容性提供一些兼容性的解决思路.">
-<meta name="keywords" content="css">
-<meta property="og:type" content="article">
-<meta property="og:title" content="浏览器兼容性">
-<meta property="og:url" content="http://www.blogme.club/2017/10/11/浏览器兼容性/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="adolph blog">
+<meta property="og:url" content="http://www.blogme.club/tags/http/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="历来浏览器的快速发展导致了css的兼容性很差,就兼容性提供一些兼容性的解决思路.">
-<meta property="og:updated_time" content="2017-10-11T02:29:23.122Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浏览器兼容性">
-<meta name="twitter:description" content="历来浏览器的快速发展导致了css的兼容性很差,就兼容性提供一些兼容性的解决思路.">
+<meta name="twitter:title" content="adolph blog">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -154,303 +149,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-浏览器兼容性" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      浏览器兼容性
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/01/20/cookie跨域/" class="archive-article-date">
+  	<time datetime="2018-01-20T08:32:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-20</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/01/20/cookie跨域/">cookie跨域</a>
     </h1>
   
 
-        
-        <a href="/2017/10/11/浏览器兼容性/" class="archive-article-date">
-  	<time datetime="2017-10-11T02:27:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>历来浏览器的快速发展导致了css的兼容性很差,就兼容性提供一些兼容性的解决思路.<br><a id="more"></a></p>
-<h3 id="浏览器不支持该特性"><a href="#浏览器不支持该特性" class="headerlink" title="浏览器不支持该特性"></a>浏览器不支持该特性</h3><h4 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h4><ol>
-<li>ui 降级</li>
-<li>可以使用效果稍微差一些的替代方案</li>
-<li>可以使用javascript让浏览器支持<br> html5shim.js 支持新标签<br> DD_belatedPNG.js 让IE6支持半透明png图片</li>
-<li>更换实现方式<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4></li>
-<li>不同浏览器使用不同样式<pre><code>1. @supports    兼容性 
-2. 浏览器hack原理 
-    1. 同一个属性值覆盖前面书写的值
-    2. 对浏览器无效的属性(值)会被忽略
-    3. 条件注释
-3. 浏览器的怪癖
-    1. IE6 不支持两个类选择器直接组合,还会认_(下划线)的样式
-    2. IE7和IE6 会认以*开头的样式
-    3. IE6-8不支持:root选择器. IE6-8以\9的样式为正常样式
-</code></pre></li>
-<li>CSS2 选择器兼容性<ol>
-<li>IE6不支持多个类直接组合,处理好选择器的选择器</li>
-<li>IE6 不支持父子、兄弟选择器</li>
-<li>IE6不支持属性选择器</li>
-<li>IE6-7不支持伪元素 改变实现方式</li>
-<li>IE6不支持某些伪类.非链接不能用:hover、:active,使用a嵌套</li>
-<li>IE6-7不支持:focus伪类,使用javascript来解决</li>
-<li>IE6不支持first-child,给第一个元素添加first元素</li>
-</ol>
-</li>
-<li>CSS3 选择器兼容性<br> CSS3 大部分选择器兼容性是IE9+,移动端支持绝大多数CSS3选择器</li>
-<li>CSS2 属性<ol>
-<li>IE6不支持min/max-width/height<br> 解决方案:<pre><code>用下划线_height来解决min-height
-max-width/height 用javascript来解决
-</code></pre></li>
-<li>IE6不支持position:fixed<br> 解决方案:<pre><code>.go-top{position:fixed;_position:absolute;bottom:0;right:0;}
-</code></pre></li>
-<li>IE6-7不支持块级元素inline-block<br> 解决方案:<pre><code>行级元素支持,块级元素不支持
-&gt; .selector{display:inline-block;*display:inline;*zoom:1;}
-</code></pre></li>
-<li>IE6-7不支持display:table<br> 解决方案:<pre><code>使用float或inline-block布局
-</code></pre></li>
-</ol>
-</li>
-<li>CSS3 属性<ol>
-<li>IE6-9 不支持</li>
-<li>IE8部分支持<ol>
-<li>支持<ol>
-<li>box-sizing</li>
-<li>outline</li>
-</ol>
-</li>
-<li>不支持<ol>
-<li>background-size<br> 推荐在IE8及一下使用固定宽高布局</li>
-<li>border-radius</li>
-<li>box-shadow</li>
-<li>opacity<br> 使用filter:alpha(opacity=50)</li>
-<li>rgba、hsl、hsla<br> 一般情况下,使用相近的不透明颜色替代<br> alpha可以通过增加额外元素,并设置透明度实现</li>
-<li>rem/vh/vw/calc<br> 降级为固定宽度</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>IE9基本都支持<ol>
-<li>不支持<ol>
-<li>transition与animation<br> 解决方案:<pre><code>可以接受的降级
-实在不行，就用javascript
-</code></pre></li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>media query<ol>
-<li>基本的媒体(all/print/screen/speech)都支持</li>
-<li>媒体特性(width/height/orientation)IE9及以上<br> 还是建议IE8及一下使用固定宽度布局</li>
-</ol>
-</li>
-<li>浏览器前缀<ol>
-<li>Chrome/Safari/Opera:-webkit-</li>
-<li>Microsoft: -ms-</li>
-<li>Mozilla: -moz-</li>
-<li>解决方法<a href="http://autoprefixer.github.io/" target="_blank" rel="external">Autoprefixer</a></li>
-</ol>
-</li>
-<li>语义化标签<br> 解决方案:使用html5shiv.js来解决<h3 id="某些特定条件下触发浏览器BUG"><a href="#某些特定条件下触发浏览器BUG" class="headerlink" title="某些特定条件下触发浏览器BUG"></a>某些特定条件下触发浏览器BUG</h3><h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h4></li>
-<li>IE6 下半透明png显示不正确<br> 解决方案: DD_belatedPNG.js</li>
-<li>IE6 浮动元素双边距<br> 解决方案:_display:inline;</li>
-<li>hasLayout<br> 解决方案:zoom:1</li>
-<li>IE模式<ol>
-<li>浏览器模式<ol>
-<li>切换渲染引擎、javascript引擎和http请求的UserAgent</li>
-<li>兼容模式相当于使用IE7的引擎</li>
-</ol>
-</li>
-<li>文本模式<ol>
-<li>切换文档模式,及渲染引擎和javascript引擎</li>
-</ol>
-</li>
-<li>指定IE模式<ol>
-<li>DocType 有无控制是否进入怪异模式</li>
-<li>meta标签控制进入哪种文档模式<ol>
-<li>&lt; meta http-equiv=”X-UA-Compatible” content=”IE=7”/&gt;</li>
-<li>&lt; meta http-equiv=”X-UA-Compatible” content=”IE=edge”/&gt;</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>测试兼容性<ol>
-<li>虚拟机</li>
-<li>BrowserStack </li>
-</ol>
-</li>
-<li>polyfill<ol>
-<li>使用代码帮助浏览器实现它尚未支持的特性</li>
-<li>使用(未来)标准写法</li>
-<li>CSS polyfills<ol>
-<li>selectivizr</li>
-<li>CSS3 PIE</li>
-<li>box-sizing-polyfill</li>
-<li>flexibility</li>
-<li>cssSandpaper</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/alipay.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/weixin.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/10/11/浏览器兼容性/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/10/11/vue-cli多页面配置/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          vue-cli多页面配置
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/09/10/gnome踩坑记/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">gnome踩坑记</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-  
-  
+    </div></section>
   
 
-  
-  <div id="SOHUCS" sid="浏览器兼容性" ></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = "cytl0R24B"; 
-var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
-  
-
-  
+    
 
 
           </div>
@@ -482,9 +234,9 @@ window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="tex
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
