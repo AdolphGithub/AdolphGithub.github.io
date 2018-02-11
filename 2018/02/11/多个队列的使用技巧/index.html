@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>php-视频转码-ffmpeg | adolph blog</title>
+  <title>队列优化 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="新需求要弄视频转码，我一下子就懵圈了。PHP还可以视频转码？一下子就颠覆了。不过PHP是最好的语言。在国外的网站上翻阅文档后,PHP实际上是用了ffmpeg来执行转码任务。于是就开始了我的入坑之旅。">
-<meta name="keywords" content="php ffmpeg">
+  <meta name="description" content="近期看到一个问题,如何高速高效的发布微信模板消息.客户消息.如果说只有一个定时任务,发送.这个肯定是远远不够的.我们现在通过yii来模拟下,如何高效的来发布模板消息.">
+<meta name="keywords" content="php redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="php-视频转码-ffmpeg">
-<meta property="og:url" content="http://www.blogme.club/2017/05/11/php-视频转码/index.html">
+<meta property="og:title" content="队列优化">
+<meta property="og:url" content="http://www.blogme.club/2018/02/11/多个队列的使用技巧/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="新需求要弄视频转码，我一下子就懵圈了。PHP还可以视频转码？一下子就颠覆了。不过PHP是最好的语言。在国外的网站上翻阅文档后,PHP实际上是用了ffmpeg来执行转码任务。于是就开始了我的入坑之旅。">
-<meta property="og:updated_time" content="2017-05-11T07:56:42.279Z">
+<meta property="og:description" content="近期看到一个问题,如何高速高效的发布微信模板消息.客户消息.如果说只有一个定时任务,发送.这个肯定是远远不够的.我们现在通过yii来模拟下,如何高效的来发布模板消息.">
+<meta property="og:updated_time" content="2018-02-11T07:39:37.011Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="php-视频转码-ffmpeg">
-<meta name="twitter:description" content="新需求要弄视频转码，我一下子就懵圈了。PHP还可以视频转码？一下子就颠覆了。不过PHP是最好的语言。在国外的网站上翻阅文档后,PHP实际上是用了ffmpeg来执行转码任务。于是就开始了我的入坑之旅。">
+<meta name="twitter:title" content="队列优化">
+<meta name="twitter:description" content="近期看到一个问题,如何高速高效的发布微信模板消息.客户消息.如果说只有一个定时任务,发送.这个肯定是远远不够的.我们现在通过yii来模拟下,如何高效的来发布模板消息.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -154,42 +154,213 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-php-视频转码" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-多个队列的使用技巧" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      php-视频转码-ffmpeg
+      队列优化
     </h1>
   
 
         
-        <a href="/2017/05/11/php-视频转码/" class="archive-article-date">
-  	<time datetime="2017-05-11T07:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-11</time>
+        <a href="/2018/02/11/多个队列的使用技巧/" class="archive-article-date">
+  	<time datetime="2018-02-11T07:36:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>新需求要弄视频转码，我一下子就懵圈了。PHP还可以视频转码？一下子就颠覆了。不过PHP是最好的语言。在国外的网站上翻阅文档后,PHP实际上是用了ffmpeg来执行转码任务。于是就开始了我的入坑之旅。<br><a id="more"></a></p>
-<h3 id="1-FFMpeg环境"><a href="#1-FFMpeg环境" class="headerlink" title="1 FFMpeg环境"></a>1 FFMpeg环境</h3><p>由于我的系统是ubuntu,所以这些安装对于我来说都很简单。我们要安装ffmpeg的环境。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div><div class="line">sudo apt-get -y install autoconf automake build-essential libass-dev libfreetype6-dev \</div><div class="line">  libsdl2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev \</div><div class="line">  libxcb-xfixes0-dev pkg-config texinfo zlib1g-dev</div></pre></td></tr></table></figure></p>
-<p>这一步基本没有问题</p>
-<h3 id="2-资源下载目录"><a href="#2-资源下载目录" class="headerlink" title="2 资源下载目录"></a>2 资源下载目录</h3><p>创建自己的ffmpeg，用于统一管理下载资源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir ~/ffmpeg_source</div></pre></td></tr></table></figure></p>
-<h3 id="3-安装必要资源"><a href="#3-安装必要资源" class="headerlink" title="3 安装必要资源"></a>3 安装必要资源</h3><h4 id="yasm"><a href="#yasm" class="headerlink" title="yasm"></a>yasm</h4><pre><code>sudo apt-get install yasm
-</code></pre><h4 id="libx264"><a href="#libx264" class="headerlink" title="libx264"></a>libx264</h4><pre><code>sudo apt-get install libx264-dev
-</code></pre><h4 id="libx265"><a href="#libx265" class="headerlink" title="libx265"></a>libx265</h4><pre><code>sudo apt-get install libx265-dev
-</code></pre><h4 id="libfdk-aac"><a href="#libfdk-aac" class="headerlink" title="libfdk-aac"></a>libfdk-aac</h4><pre><code>sudo apt-get install libfdk-aac-dev
-</code></pre><h4 id="libmp3lame"><a href="#libmp3lame" class="headerlink" title="libmp3lame"></a>libmp3lame</h4><pre><code>sudo apt-get install libmp3lame-dev
-</code></pre><h4 id="libopus"><a href="#libopus" class="headerlink" title="libopus"></a>libopus</h4><pre><code>sudo apt-get install libopus-dev
-</code></pre><h4 id="libvpx"><a href="#libvpx" class="headerlink" title="libvpx"></a>libvpx</h4><pre><code>sudo apt-get install libvpx-dev
-</code></pre><p>当我们安装完了这些必要资源后，就可以开始安装ffmpeg了</p>
-<h3 id="4-安装ffmpeg"><a href="#4-安装ffmpeg" class="headerlink" title="4 安装ffmpeg"></a>4 安装ffmpeg</h3><p>我们先切换到我们创建的资源目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd ~/ffmpeg_source</div></pre></td></tr></table></figure></p>
-<p>下载源码包并解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2</div><div class="line">tar xjvf ffmpeg-snapshot.tar.bz2</div><div class="line">cd ffmpeg</div></pre></td></tr></table></figure></p>
-<p>开始编译安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">PATH=&quot;$HOME/bin:$PATH&quot; PKG_CONFIG_PATH=&quot;$HOME/ffmpeg_build/lib/pkgconfig&quot;  ./configure \</div><div class="line">  --prefix=&quot;$HOME/ffmpeg_build&quot; \</div><div class="line">  --pkg-config-flags=&quot;--static&quot; \</div><div class="line">  --extra-cflags=&quot;-I$HOME/ffmpeg_build/include&quot; \</div><div class="line">  --extra-ldflags=&quot;-L$HOME/ffmpeg_build/lib&quot; \</div><div class="line">  --bindir=&quot;$HOME/bin&quot; \</div><div class="line">  --enable-gpl \</div><div class="line">  --enable-libass \</div><div class="line">  --enable-libfdk-aac \</div><div class="line">  --enable-libfreetype \</div><div class="line">  --enable-libmp3lame \</div><div class="line">  --enable-libopus \</div><div class="line">  --enable-libtheora \</div><div class="line">  --enable-libvorbis \</div><div class="line">  --enable-libvpx \</div><div class="line">  --enable-libx264 \</div><div class="line">  --enable-nonfree</div><div class="line">PATH=&quot;$HOME/bin:$PATH&quot; make</div><div class="line">make install</div></pre></td></tr></table></figure></p>
-<p>以上就是安装的全部过程，安装完成后输入ffmpeg就可以看到基本信息。</p>
+        <p>近期看到一个问题,<a href="https://segmentfault.com/q/1010000013250036/a-1020000013255994" target="_blank" rel="external">如何高速高效的发布微信模板消息.客户消息</a>.如果说只有一个定时任务,发送.这个肯定是远远不够的.我们现在通过yii来模拟下,如何高效的来发布模板消息.<br><a id="more"></a></p>
+<h3 id="理解队列"><a href="#理解队列" class="headerlink" title="理解队列"></a>理解队列</h3><p>在开发中,队列一般都是先进先出,后进后出.排队入场的.首先,我们要有一个队列表.这里,我用数据库来模拟下吧.新建一个队列表.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE `queue` (</div><div class="line">  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT &apos;自增ID&apos;,</div><div class="line">  `name` varchar(100) DEFAULT &apos;&apos; COMMENT &apos;名称&apos;,</div><div class="line">  `status` tinyint(1) DEFAULT &apos;0&apos; COMMENT &apos;0:未处理,1:处理完成&apos;,</div><div class="line">  `created_time` timestamp NULL DEFAULT &apos;0000-00-00 00:00:00&apos; COMMENT &apos;创建时间&apos;,</div><div class="line">  `updated_time` timestamp NULL DEFAULT &apos;0000-00-00 00:00:00&apos; COMMENT &apos;更新时间&apos;,</div><div class="line">  PRIMARY KEY (`id`)</div><div class="line">) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT=&apos;队列表&apos;;</div></pre></td></tr></table></figure></p>
+<p>这个表很简单,只是模拟一下.我们处理完一条任务,就将status的值改为1,就代表处理完毕了.这个就这么简单.</p>
+<h3 id="伪造数据"><a href="#伪造数据" class="headerlink" title="伪造数据"></a>伪造数据</h3><p>既然有了这个表,那我们就要伪造数据了.首先,先来了解我们的环境.测试环境是php7.1.12,mysql5.7.11,yii2.好了,以上就是我们的环境了.既然要弄这个,我就直接弄一个console module来单独处理.额,不懂,请查看这个–&gt;<a href="http://www.yiichina.com/doc/guide/2.0/structure-modules" target="_blank" rel="external">yii2模块搭建</a>,具体的我就不说了.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">namespace app\modules\console\controllers;</div><div class="line"></div><div class="line">use app\models\Queue;</div><div class="line">use Faker\Factory;</div><div class="line">use yii\console\Controller;</div><div class="line"></div><div class="line">class QueueController extends Controller</div><div class="line">&#123;</div><div class="line">    /**</div><div class="line">     * 生成假数据.</div><div class="line">     */</div><div class="line">    public function actionGen()</div><div class="line">    &#123;</div><div class="line">        $data = [];</div><div class="line">        $now = date(&apos;Y-m-d H:i:s&apos;);</div><div class="line">        $faker = Factory::create();</div><div class="line">        for($i =0; $i &lt; 5000;$i++)</div><div class="line">        &#123;</div><div class="line">            $data[] = [</div><div class="line">                &apos;name&apos;=&gt;$faker-&gt;name(),</div><div class="line">                &apos;status&apos;=&gt;0,</div><div class="line">                &apos;created_time&apos;=&gt;$now,</div><div class="line">                &apos;updated_time&apos;=&gt;$now,</div><div class="line">            ];</div><div class="line">        &#125;</div><div class="line">        $ret = Queue::getDb()-&gt;createCommand()</div><div class="line">            -&gt;batchInsert(Queue::tableName(),array_keys($data[0]),$data)</div><div class="line">            -&gt;execute();</div><div class="line">        if($ret)</div><div class="line">        &#123;</div><div class="line">            $this-&gt;stdout(&apos;insert successful&apos;);</div><div class="line">        &#125;</div><div class="line">        else</div><div class="line">        &#123;</div><div class="line">            $this-&gt;stderr(&apos;insert error&apos;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">php yii console/queue/gen</div></pre></td></tr></table></figure></p>
+<p>以上代码运行一次就生成5000条假数据.是不是特别爽.当然,看你咯.</p>
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>我们先用以上代码生成50W的假数据,一次循环就可以搞定了.其余我就不多说.有了50W的队列,开始有点庞大了.但是不影响我们的队列.<br>我们先写非常low的写法.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">    * 运行队列.</div><div class="line">    */</div><div class="line">   public function actionRun()</div><div class="line">   &#123;</div><div class="line">       $list = Queue::find()-&gt;where([&apos;status&apos;=&gt;0])-&gt;limit(10)</div><div class="line">           -&gt;all();</div><div class="line"></div><div class="line">       if(count($list))</div><div class="line">       &#123;</div><div class="line">           foreach($list as $key =&gt; $value)</div><div class="line">           &#123;</div><div class="line">               $value[&apos;status&apos;] = 1;</div><div class="line">               $value-&gt;save(0);</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       else</div><div class="line">       &#123;</div><div class="line">           // 没有数据需要处理.</div><div class="line">           $this-&gt;stderr(&apos;no data to handle&apos;);</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>不可否认,题主的就是这种逻辑,不过比我多处理一些而已.好了.来理解一下,我们通过运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">php yii console/queue/run</div></pre></td></tr></table></figure></p>
+<p>来执行队列,一次10条,这里有50W的数据.MD,这不是要累死么.所以,我们要多弄几个队列同时执行.难道就多写几次corntab么.答案是否定的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">* * * * * php yii console/queue/run</div><div class="line">* * * * * php yii console/queue/run</div><div class="line">* * * * * php yii console/queue/run</div><div class="line">* * * * * php yii console/queue/run</div><div class="line">* * * * * php yii console/queue/run</div><div class="line">* * * * * php yii console/queue/run</div></pre></td></tr></table></figure></p>
+<p>以上就执行了多次.如果同时执行,问题来了,一次全部抓取过来的有10条.那么,同时运行的时候,如果id为1的数据就被10个队列读取.这不是坑死了,这不是我们想要的.队列就是一个商品,如果说,商品足够,消费不够.那么,我们就增加消费者,但不能让消费者同时搞一个吧.所以,我们要特殊处理一下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">	public $multi = 0;  // 每次的特殊值,</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 运行队列.</div><div class="line">     */</div><div class="line">    public function actionRun()</div><div class="line">    &#123;近期看到一个问题,[如何高速高效的发布微信模板消息.客户消息](https://segmentfault.com/q/1010000013250036/a-1020000013255994).如果说只有一个定时任务,发送.这个肯定是远远不够的.我们现在通过yii来模拟下,如何高效的来发布模板消息.</div><div class="line">### 理解队列</div><div class="line">在开发中,队列一般都是先进先出,后进后出.排队入场的.首先,我们要有一个队列表.这里,我用数据库来模拟下吧.新建一个队列表.</div></pre></td></tr></table></figure></p>
+<p>CREATE TABLE <code>queue</code> (<br>  <code>id</code> int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT ‘自增ID’,<br>  <code>name</code> varchar(100) DEFAULT ‘’ COMMENT ‘名称’,<br>  <code>status</code> tinyint(1) DEFAULT ‘0’ COMMENT ‘0:未处理,1:处理完成’,<br>  <code>created_time</code> timestamp NULL DEFAULT ‘0000-00-00 00:00:00’ COMMENT ‘创建时间’,<br>  <code>updated_time</code> timestamp NULL DEFAULT ‘0000-00-00 00:00:00’ COMMENT ‘更新时间’,<br>  PRIMARY KEY (<code>id</code>)<br>) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT=’队列表’;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">这个表很简单,只是模拟一下.我们处理完一条任务,就将status的值改为1,就代表处理完毕了.这个就这么简单.</div><div class="line">### 伪造数据</div><div class="line">既然有了这个表,那我们就要伪造数据了.首先,先来了解我们的环境.测试环境是php7.1.12,mysql5.7.11,yii2.好了,以上就是我们的环境了.既然要弄这个,我就直接弄一个console module来单独处理.额,不懂,请查看这个--&gt;[yii2模块搭建](http://www.yiichina.com/doc/guide/2.0/structure-modules),具体的我就不说了.</div></pre></td></tr></table></figure></p>
+<p>namespace app\modules\console\controllers;</p>
+<p>use app\models\Queue;<br>use Faker\Factory;<br>use yii\console\Controller;</p>
+<p>class QueueController extends Controller<br>{<br>    /**</p>
+<pre><code> * 生成假数据.
+ */
+public function actionGen()
+{
+    $data = [];
+    $now = date(&apos;Y-m-d H:i:s&apos;);
+    $faker = Factory::create();
+    for($i =0; $i &lt; 5000;$i++)
+    {
+        $data[] = [
+            &apos;name&apos;=&gt;$faker-&gt;name(),
+            &apos;status&apos;=&gt;0,
+            &apos;created_time&apos;=&gt;$now,
+            &apos;updated_time&apos;=&gt;$now,
+        ];
+    }
+    $ret = Queue::getDb()-&gt;createCommand()
+        -&gt;batchInsert(Queue::tableName(),array_keys($data[0]),$data)
+        -&gt;execute();
+    if($ret)
+    {
+        $this-&gt;stdout(&apos;insert successful&apos;);
+    }
+    else
+    {
+        $this-&gt;stderr(&apos;insert error&apos;);
+    }
+}
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">运行</div></pre></td></tr></table></figure></p>
+<p>php yii console/queue/gen<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">以上代码运行一次就生成5000条假数据.是不是特别爽.当然,看你咯.</div><div class="line">### 队列</div><div class="line">我们先用以上代码生成50W的假数据,一次循环就可以搞定了.其余我就不多说.有了50W的队列,开始有点庞大了.但是不影响我们的队列.</div><div class="line">我们先写非常low的写法.</div></pre></td></tr></table></figure></p>
+<pre><code>/**
+ * 运行队列.
+ */
+public function actionRun()
+{
+    $list = Queue::find()-&gt;where([&apos;status&apos;=&gt;0])-&gt;limit(10)
+        -&gt;all();
+
+    if(count($list))
+    {
+        foreach($list as $key =&gt; $value)
+        {
+            $value[&apos;status&apos;] = 1;
+            $value-&gt;save(0);
+        }
+    }
+    else
+    {
+        // 没有数据需要处理.
+        $this-&gt;stderr(&apos;no data to handle&apos;);
+    }
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">不可否认,题主的就是这种逻辑,不过比我多处理一些而已.好了.来理解一下,我们通过运行</div></pre></td></tr></table></figure>
+<p>php yii console/queue/run<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">来执行队列,一次10条,这里有50W的数据.MD,这不是要累死么.所以,我们要多弄几个队列同时执行.难道就多写几次corntab么.答案是否定的.</div></pre></td></tr></table></figure></p>
+<ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li>php yii console/queue/run</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li>php yii console/queue/run</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li>php yii console/queue/run</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li>php yii console/queue/run</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li>php yii console/queue/run</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li>php yii console/queue/run<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">以上就执行了多次.如果同时执行,问题来了,一次全部抓取过来的有10条.那么,同时运行的时候,如果id为1的数据就被10个队列读取.这不是坑死了,这不是我们想要的.队列就是一个商品,如果说,商品足够,消费不够.那么,我们就增加消费者,但不能让消费者同时搞一个吧.所以,我们要特殊处理一下.</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>public $multi = 0;  // 每次的特殊值,</p>
+<p>/**</p>
+<ul>
+<li><p>运行队列.<br>*/<br>public function actionRun()<br>{<br> $list = Queue::find()-&gt;where([‘status’=&gt;0])-&gt;limit(100)</p>
+<pre><code>-&gt;all();
+</code></pre><p> if(count($list))<br> {</p>
+<pre><code>$data = [];
+foreach ($list as $key =&gt; $value)
+{
+    if(($value[&apos;id&apos;] % 10) == $this-&gt;multi)
+    {
+        array_push($data,$value);
+    }
+}
+if(count($data))
+{
+    foreach($data as $key =&gt; $value)
+    {
+        $value[&apos;status&apos;] = 1;
+        $value-&gt;save(0);
+    }
+}
+$this-&gt;stdout(&apos;it\&apos;s over&apos;);
+</code></pre><p> }<br> else<br> {</p>
+<pre><code>// 没有数据需要处理.
+$this-&gt;stderr(&apos;no data to handle&apos;);
+</code></pre><p> }<br>}</p>
+</li>
+</ul>
+<p>public function options($actionID)<br>{</p>
+<pre><code>return array_merge(parent::options($actionID),[
+    &apos;multi&apos;
+]);
+</code></pre><p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">对id来求模,如果id % 10等于我们传递的multi的话,那么,我们就认为这个是有效的.执行的时候,我们就通过对multi设置来觉得我们指定哪些id来执行队列,就实现了队列的分批.</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>php yii console/queue/run –multi=0    —%10==0<br>php yii console/queue/run –multi=1    —%10==1<br>php yii console/queue/run –multi=2    —%10==2<br>php yii console/queue/run –multi=3    —%10==3<br>php yii console/queue/run –multi=4    —%10==4<br>php yii console/queue/run –multi=5    —%10==5<br>php yii console/queue/run –multi=6    —%10==6<br>php yii console/queue/run –multi=7    —%10==7<br>php yii console/queue/run –multi=8    —%10==8<br>php yii console/queue/run –multi=9    —%10==9<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">这一下子就在原来的基础上增加了9个消费者,速度一下就提升了.当然,这里只讲队列,不弄其他的东西.都是一些基本的处理方案.</div><div class="line">        $list = Queue::find()-&gt;where([&apos;status&apos;=&gt;0])-&gt;limit(100)</div><div class="line">            -&gt;all();</div><div class="line"></div><div class="line">        if(count($list))</div><div class="line">        &#123;</div><div class="line">            $data = [];</div><div class="line">            foreach ($list as $key =&gt; $value)</div><div class="line">            &#123;</div><div class="line">                if(($value[&apos;id&apos;] % 10) == $this-&gt;multi)</div><div class="line">                &#123;</div><div class="line">                    array_push($data,$value);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            if(count($data))</div><div class="line">            &#123;</div><div class="line">                foreach($data as $key =&gt; $value)</div><div class="line">                &#123;</div><div class="line">                    $value[&apos;status&apos;] = 1;</div><div class="line">                    $value-&gt;save(0);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            $this-&gt;stdout(&apos;it\&apos;s over&apos;);</div><div class="line">        &#125;</div><div class="line">        else</div><div class="line">        &#123;</div><div class="line">            // 没有数据需要处理.</div><div class="line">            $this-&gt;stderr(&apos;no data to handle&apos;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public function options($actionID)</div><div class="line">    &#123;</div><div class="line">        return array_merge(parent::options($actionID),[</div><div class="line">            &apos;multi&apos;</div><div class="line">        ]);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>对id来求模,如果id % 10等于我们传递的multi的话,那么,我们就认为这个是有效的.执行的时候,我们就通过对multi设置来觉得我们指定哪些id来执行队列,就实现了队列的分批.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">php yii console/queue/run --multi=0	---%10==0</div><div class="line">php yii console/queue/run --multi=1	---%10==1</div><div class="line">php yii console/queue/run --multi=2	---%10==2</div><div class="line">php yii console/queue/run --multi=3	---%10==3</div><div class="line">php yii console/queue/run --multi=4	---%10==4</div><div class="line">php yii console/queue/run --multi=5	---%10==5</div><div class="line">php yii console/queue/run --multi=6	---%10==6</div><div class="line">php yii console/queue/run --multi=7	---%10==7</div><div class="line">php yii console/queue/run --multi=8	---%10==8</div><div class="line">php yii console/queue/run --multi=9	---%10==9</div></pre></td></tr></table></figure></p>
+<p>这一下子就在原来的基础上增加了9个消费者,速度一下就提升了.当然,这里只讲队列,不弄其他的东西.都是一些基本的处理方案.</p>
 
       
 
@@ -234,7 +405,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">php ffmpeg</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">php redis</a>
         		</li>
       		
 		</ul>
@@ -290,7 +461,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/05/11/php-视频转码/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2018/02/11/多个队列的使用技巧/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -304,18 +475,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/05/11/php-视频转码-2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          php-视频转码-2
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/05/11/php-爬虫-embed/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">php-爬虫-embed</div>
+    <a href="/2018/01/20/cookie跨域/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">cookie跨域</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -330,7 +492,7 @@
   
 
   
-  <div id="SOHUCS" sid="php-视频转码" ></div> 
+  <div id="SOHUCS" sid="多个队列的使用技巧" ></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
