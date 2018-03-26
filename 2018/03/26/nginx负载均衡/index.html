@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Tag: hexo | adolph blog</title>
+  <title>nginx负载均衡 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/tags/hexo/index.html">
+  <meta name="description" content="nginx,常用的webserver服务器.高并发的东西,哈哈哈哈.说起nginx负载均衡,很多人都知道.其实一个简单的nginx负载均衡只需要以下几步就可以了.">
+<meta name="keywords" content="nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx负载均衡">
+<meta property="og:url" content="http://www.blogme.club/2018/03/26/nginx负载均衡/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="nginx,常用的webserver服务器.高并发的东西,哈哈哈哈.说起nginx负载均衡,很多人都知道.其实一个简单的nginx负载均衡只需要以下几步就可以了.">
+<meta property="og:updated_time" content="2018-03-26T08:59:07.030Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="nginx负载均衡">
+<meta name="twitter:description" content="nginx,常用的webserver服务器.高并发的东西,哈哈哈哈.说起nginx负载均衡,很多人都知道.其实一个简单的nginx负载均衡只需要以下几步就可以了.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -149,60 +154,177 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-nginx负载均衡" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/11/hexo创建博客/" class="archive-article-date">
-  	<time datetime="2017-05-11T02:16:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-11</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/11/hexo创建博客/">hexo创建博客</a>
+    <h1 class="article-title" itemprop="name">
+      nginx负载均衡
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/03/26/nginx负载均衡/" class="archive-article-date">
+  	<time datetime="2018-03-26T08:57:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>nginx,常用的webserver服务器.高并发的东西,哈哈哈哈.说起nginx负载均衡,很多人都知道.其实一个简单的nginx负载均衡只需要以下几步就可以了.<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">upstream mydocker&#123;</div><div class="line">    server 192.158.0.3:80;</div><div class="line">    server 192.158.0.4:80;</div><div class="line">&#125;</div><div class="line">server &#123;</div><div class="line">    listen       80;</div><div class="line">    server_name  mydocker;</div><div class="line">    location / &#123;</div><div class="line">	proxy_set_header Host $host;</div><div class="line">        proxy_set_header X-Real-IP $remote_addr;</div><div class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</div><div class="line">        proxy_buffering off;</div><div class="line">        proxy_pass http://mydocker;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>以上就可以开启一个nginx配置.但是这个只是最简单的.下面我们就来讲讲nginx负载均衡的五种方式.</p>
+<h4 id="轮询"><a href="#轮询" class="headerlink" title="轮询"></a>轮询</h4><p>上面的那个配置就是轮询,根据服务器的和请求时间分配到不同的后端服务器,如果后端服务器直接挂掉了,能自动剔除.但是有几点缺点,无法保存服务器状态,session.这个就很坑了,如果你在服务器1上有登录状态.nginx直接给你转发到服务器2上,你就很尴尬了.所以有了下面这种</p>
+<h4 id="IP-hash"><a href="#IP-hash" class="headerlink" title="IP_hash"></a>IP_hash</h4><p>基本配置如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">upstream mydocker&#123;</div><div class="line">    ip_hash;</div><div class="line">    server 192.158.0.3:80;</div><div class="line">    server 192.158.0.4:80;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>根据每个请求访问的ip和hash结果来分配.这样就能分配道一个固定的服务器了.就不用担心session丢失的情况了.同理,还有一种跟这个是差不多的.</p>
+<h3 id="url-hash-第三方库"><a href="#url-hash-第三方库" class="headerlink" title="url_hash(第三方库)"></a>url_hash(第三方库)</h3><p>按照访问的url的hash结果来分配,跟ip hash结果一致.不过可以指定使用不一样的hash算法.如果后端服务器为缓存的时候,这个访问要比IPhash要快更多.下面是基本配置.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">upstream mydocker&#123;</div><div class="line">    hash $request_uri;</div><div class="line">    hash_method crc32; // 指定hash算法.</div><div class="line">    server 192.158.0.3:80;</div><div class="line">    server 192.158.0.4:80;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="fair-第三方"><a href="#fair-第三方" class="headerlink" title="fair(第三方)"></a>fair(第三方)</h3><p>这个厉害了,按照后端服务器的响应时间来分配请求,根据响应的时间短者优先.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">upstream mydocker&#123;</div><div class="line">    server 192.158.0.3:80;</div><div class="line">    server 192.158.0.4:80;</div><div class="line">    fail;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="weight"><a href="#weight" class="headerlink" title="weight"></a>weight</h3><p>这个是权重,权重高的优化.这个是基于轮询的.weight和访问比率成正比,用于后端服务器性能不均的情况.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">upstream mydocker&#123;</div><div class="line">    server 192.158.0.3:80 weight=10;</div><div class="line">    server 192.158.0.4:80 weight=5;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>以上就是nginx负载均衡的5中方式.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2018/03/26/nginx负载均衡/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/02/11/多个队列的使用技巧/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">队列优化</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+  <div id="SOHUCS" sid="nginx负载均衡" ></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+  
+
+  
 
 
           </div>
@@ -234,9 +356,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
