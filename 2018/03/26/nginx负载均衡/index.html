@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://www.blogme.club/2018/03/26/nginx负载均衡/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="nginx,常用的webserver服务器.高并发的东西,哈哈哈哈.说起nginx负载均衡,很多人都知道.其实一个简单的nginx负载均衡只需要以下几步就可以了.">
-<meta property="og:updated_time" content="2018-03-26T08:59:07.030Z">
+<meta property="og:updated_time" content="2018-03-26T09:06:51.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx负载均衡">
 <meta name="twitter:description" content="nginx,常用的webserver服务器.高并发的东西,哈哈哈哈.说起nginx负载均衡,很多人都知道.其实一个简单的nginx负载均衡只需要以下几步就可以了.">
@@ -180,7 +180,7 @@
 <h4 id="IP-hash"><a href="#IP-hash" class="headerlink" title="IP_hash"></a>IP_hash</h4><p>基本配置如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">upstream mydocker&#123;</div><div class="line">    ip_hash;</div><div class="line">    server 192.158.0.3:80;</div><div class="line">    server 192.158.0.4:80;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>根据每个请求访问的ip和hash结果来分配.这样就能分配道一个固定的服务器了.就不用担心session丢失的情况了.同理,还有一种跟这个是差不多的.</p>
 <h3 id="url-hash-第三方库"><a href="#url-hash-第三方库" class="headerlink" title="url_hash(第三方库)"></a>url_hash(第三方库)</h3><p>按照访问的url的hash结果来分配,跟ip hash结果一致.不过可以指定使用不一样的hash算法.如果后端服务器为缓存的时候,这个访问要比IPhash要快更多.下面是基本配置.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">upstream mydocker&#123;</div><div class="line">    hash $request_uri;</div><div class="line">    hash_method crc32; // 指定hash算法.</div><div class="line">    server 192.158.0.3:80;</div><div class="line">    server 192.158.0.4:80;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="fair-第三方"><a href="#fair-第三方" class="headerlink" title="fair(第三方)"></a>fair(第三方)</h3><p>这个厉害了,按照后端服务器的响应时间来分配请求,根据响应的时间短者优先.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">upstream mydocker&#123;</div><div class="line">    server 192.158.0.3:80;</div><div class="line">    server 192.158.0.4:80;</div><div class="line">    fail;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="fair-第三方"><a href="#fair-第三方" class="headerlink" title="fair(第三方)"></a>fair(第三方)</h3><p>这个厉害了,按照后端服务器的响应时间来分配请求,根据响应的时间短者优先.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">upstream mydocker&#123;</div><div class="line">    server 192.158.0.3:80;</div><div class="line">    server 192.158.0.4:80;</div><div class="line">    fair;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="weight"><a href="#weight" class="headerlink" title="weight"></a>weight</h3><p>这个是权重,权重高的优化.这个是基于轮询的.weight和访问比率成正比,用于后端服务器性能不均的情况.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">upstream mydocker&#123;</div><div class="line">    server 192.158.0.3:80 weight=10;</div><div class="line">    server 192.158.0.4:80 weight=5;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>以上就是nginx负载均衡的5中方式.</p>
 
@@ -425,11 +425,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
+                <a href="javascript:void(0)" class="js-tag color5">http</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -437,11 +437,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">http</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -457,11 +457,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php</a>
+                <a href="javascript:void(0)" class="js-tag color4">php 设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php 设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -473,11 +473,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">socket</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color2">socket</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -485,19 +485,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -509,11 +505,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
             
             <div class="clearfix"></div>
