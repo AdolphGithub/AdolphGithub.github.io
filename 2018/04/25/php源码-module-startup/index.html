@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Archives: 2018/1 | adolph blog</title>
+  <title>php源码-module-startup | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/archives/2018/01/index.html">
+  <meta name="description" content="这次来聊聊php_module_startup,这个跟php的执行流程有关,php执行大概流程可以从php-cli的流程看出来">
+<meta name="keywords" content="php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php源码-module-startup">
+<meta property="og:url" content="http://www.blogme.club/2018/04/25/php源码-module-startup/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="这次来聊聊php_module_startup,这个跟php的执行流程有关,php执行大概流程可以从php-cli的流程看出来">
+<meta property="og:updated_time" content="2018-04-25T09:26:42.626Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="php源码-module-startup">
+<meta name="twitter:description" content="这次来聊聊php_module_startup,这个跟php的执行流程有关,php执行大概流程可以从php-cli的流程看出来">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -149,60 +154,177 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-php源码-module-startup" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/01/20/cookie跨域/" class="archive-article-date">
-  	<time datetime="2018-01-20T08:32:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/20/cookie跨域/">cookie跨域</a>
+    <h1 class="article-title" itemprop="name">
+      php源码-module-startup
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/04/25/php源码-module-startup/" class="archive-article-date">
+  	<time datetime="2018-04-25T09:25:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这次来聊聊php_module_startup,这个跟php的执行流程有关,php执行大概流程可以从<a href="http://www.blogme.club/2018/04/25/php%E6%BA%90%E7%A0%81-cli%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/#more">php-cli的流程</a>看出来<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">php_module_startup() -&gt; php_request_startup() -&gt; php_execute_script() -&gt; php_request_shutdown() -&gt; php_module_shutdown()</div></pre></td></tr></table></figure></p>
+<p>从模块启动-&gt;响应触发-&gt;解析脚本-&gt;响应关闭-&gt;模块关闭.一个大致的流程就出来了.</p>
+<h4 id="module-startup"><a href="#module-startup" class="headerlink" title="module_startup"></a>module_startup</h4><p>这个我们上次说了cli流程时,这里跳过了.因为涉及太多.我们这个来分析一下这个函数.具体的函数位置在/main/main.c,首先,有这样一个结构体,zend_module_entry,在整个执行流程过程中, 这个结构包含大量的信息，告诉Zend引擎关于扩展的依赖关系，版本，回调以及其他关键数据.详情请查看<a href="http://php.net/manual/zh/internals2.structure.modstruct.php" target="_blank" rel="external">官方文档</a>.这个结构过后会执行这个函数sapi_initialize_empty_request,初始化一个空的请求.然后是激活sapi.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sapi_initialize_empty_request();	<span class="comment">// 初始化一个空请求.</span></div><div class="line">sapi_activate();	<span class="comment">// 激活sapi</span></div></pre></td></tr></table></figure></p>
+<h4 id="sapi-activate"><a href="#sapi-activate" class="headerlink" title="sapi_activate"></a>sapi_activate</h4><p>激活sapi,在这个函数中会设置post请求的handler等,这个关闭是在module_startup启动完成后,就会直接调用,在main.c大约在2286行代码会找到这句.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sapi_deactivate();</div></pre></td></tr></table></figure></p>
+<p>在sapi_activate执行完成过后,继续往下会看到这两个函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">php_output_startup();	// 启用php的输入输出.</div><div class="line">...</div><div class="line">gc_globals_ctor();	// 初始化垃圾回收器.</div></pre></td></tr></table></figure></p>
+<h4 id="zend-startup"><a href="#zend-startup" class="headerlink" title="zend_startup"></a>zend_startup</h4><p>当我们以上执行完成后,会遇到这个函数<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zend_startup();</div></pre></td></tr></table></figure></p>
+<p>该函数主要用于启动Zend引擎.或许你们听说过这个东东,如果要学习PHP源码,必须就要学习这个.</p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>接下来就是注册常量等一些操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">php_output_register_constants();</div><div class="line">php_rfc1867_register_constants();</div><div class="line">...</div><div class="line">REGISTER_INI_ENTRIES();	</div><div class="line">php_startup_auto_globals(); // 注册php核心ini配置和zend ini变量到EG</div><div class="line">...</div><div class="line">php_startup_auto_globals();	// 启动全局常量,例如$_GET,$_POST...</div><div class="line">...</div><div class="line">php_ini_register_extensions(); // 注册扩展</div><div class="line">zend_startup_modules();	// 调用扩展的PHP_MINT函数.</div><div class="line">zend_startup_extensions(); // 调用扩展的startup</div><div class="line">...</div><div class="line">php_disable_functions();	// 禁止使用的方法</div><div class="line">php_disable_classes();	// 禁止使用的类名</div></pre></td></tr></table></figure></p>
+<p>剩下的就是各个sapi的执行流程往下走.就完成了整个php的执行.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2018/04/25/php源码-module-startup/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/04/25/php源码-cli执行流程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">php源码-cli执行流程</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+  <div id="SOHUCS" sid="php源码-module-startup" ></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+  
+
+  
 
 
           </div>
@@ -234,8 +356,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
