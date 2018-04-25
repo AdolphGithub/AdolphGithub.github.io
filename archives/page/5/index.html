@@ -6,19 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>activeMQ学习之旅2-函数介绍和简单集群配置 | adolph blog</title>
+  <title>Archives | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ActiveMQ 是Apache出品，最流行的，能力强劲的开源消息总线。而我们将通过调用phpstomp扩展来讲解基本的调用,使用stomp类和一些方法.">
-<meta name="keywords" content="activeMQ">
-<meta property="og:type" content="article">
-<meta property="og:title" content="activeMQ学习之旅2-函数介绍和简单集群配置">
-<meta property="og:url" content="http://www.blogme.club/2017/08/09/activeMQ学习之旅2-函数介绍和简单集群配置/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="adolph blog">
+<meta property="og:url" content="http://www.blogme.club/archives/page/5/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="ActiveMQ 是Apache出品，最流行的，能力强劲的开源消息总线。而我们将通过调用phpstomp扩展来讲解基本的调用,使用stomp类和一些方法.">
-<meta property="og:updated_time" content="2017-08-09T10:48:40.126Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="activeMQ学习之旅2-函数介绍和简单集群配置">
-<meta name="twitter:description" content="ActiveMQ 是Apache出品，最流行的，能力强劲的开源消息总线。而我们将通过调用phpstomp扩展来讲解基本的调用,使用stomp类和一些方法.">
+<meta name="twitter:title" content="adolph blog">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -154,187 +149,63 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-activeMQ学习之旅2-函数介绍和简单集群配置" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      activeMQ学习之旅2-函数介绍和简单集群配置
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/05/11/hexo创建博客/" class="archive-article-date">
+  	<time datetime="2017-05-11T02:16:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-11</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/05/11/hexo创建博客/">hexo创建博客</a>
     </h1>
   
 
-        
-        <a href="/2017/08/09/activeMQ学习之旅2-函数介绍和简单集群配置/" class="archive-article-date">
-  	<time datetime="2017-08-09T10:42:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>ActiveMQ 是Apache出品，最流行的，能力强劲的开源消息总线。而我们将通过调用phpstomp扩展来讲解基本的调用,使用stomp类和一些方法.<br><a id="more"></a></p>
-<h4 id="stomp类"><a href="#stomp类" class="headerlink" title="stomp类"></a>stomp类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Stomp &#123;</div><div class="line">	/* 方法 */</div><div class="line">	public bool abort ( string $transaction_id [, array $headers ] ) // 回滚事务</div><div class="line">	public bool ack ( mixed $msg [, array $headers ] )	// 阅读消息</div><div class="line">	public bool begin ( string $transaction_id [, array $headers ] )	// 开启事务</div><div class="line">	public bool commit ( string $transaction_id [, array $headers ] )	// 提交事务</div><div class="line">	public __construct ([ string $broker = ini_get(&quot;stomp.default_broker_uri&quot;) [, string $username [, string $password [, array $headers ]]]] )	// 构造函数</div><div class="line">	public bool __destruct ( void )</div><div class="line">	public string error ( void )	// 错误消息</div><div class="line">	public array getReadTimeout ( void )	// 获取读取时间</div><div class="line">	public string getSessionId ( void )	// 获取此次的sessionid</div><div class="line">	public bool hasFrame ( void )	// 是否有未读消息</div><div class="line">	public stompframe readFrame ([ string $class_name = &quot;stompFrame&quot; ] )	// 获取一条未读消息</div><div class="line">	public bool send ( string $destination , mixed $msg [, array $headers ] )	// 发送一条消息道客户端</div><div class="line">	public void setReadTimeout ( int $seconds [, int $microseconds ] )	// 设置读取时间</div><div class="line">	public bool subscribe ( string $destination [, array $headers ] )	// 订阅</div><div class="line">	public bool unsubscribe ( string $destination [, array $headers ] )	// 取消订阅</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="queue-amp-topic的区别"><a href="#queue-amp-topic的区别" class="headerlink" title="queue &amp; topic的区别"></a>queue &amp; topic的区别</h4><p>queue是一对一消息传送,如果包含了多个订阅者,则需排队订阅.topic则是一对多消息订阅.可以同时的推送多个消息在订阅者上.但是,订阅者必须是在线状态.如果消息推送时,订阅者不在,则该订阅者无法获取该消息.<br>如何判断是一个队列还是一个主题,则根据订阅的时候传递的是queue和topic来确定.</p>
-<h4 id="activemq集群简单设置"><a href="#activemq集群简单设置" class="headerlink" title="activemq集群简单设置"></a>activemq集群简单设置</h4><p>三种方式:<br>1.共享文件系统：使用共享文件系统来做Master/slave集群<br>2.共享数据库的方式：所有消息读写其实都是数据库操作，性能完全取决于数据库性能<br>3.基于zookeeper的主从（levelDB Master/Slave）:基于zookeeper来选举出一个master，其他节点自动作为slave实时同步消息<br>官网说明:<a href="http://activemq.apache.org/masterslave.html" target="_blank" rel="external">http://activemq.apache.org/masterslave.html</a><br>这里只介绍共享文件系统</p>
-<h4 id="activemq-共享文件系统"><a href="#activemq-共享文件系统" class="headerlink" title="activemq 共享文件系统"></a>activemq 共享文件系统</h4><p>安装相应工具<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install nfs-utils rpcbind</div></pre></td></tr></table></figure></p>
-<p>1、(NFS(Network File System)即网络文件系统)<br>2、rpcbind是一个RPC服务,主要是在nfs共享时候负责通知客户端,服务器的nfs端口号的<br>启动服务(两个都要启动)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service rpcbind start</div><div class="line">service nfs start</div></pre></td></tr></table></figure></p>
-<p>设置共享文件夹<br>首先我们创建一个文件夹譬如 叫做<br>mqshare (课程中创建在/mqshare)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vi /etc/exports   // 编辑这个文件,加入一行 </div><div class="line">/mqshare  *(rw,sync, no_root_squash)  &lt;!--代表共享 /mqshare 这个文件夹 rw代表可读、可写。sync代表同步--&gt;</div><div class="line">exportfs -r   // 生效命令</div></pre></td></tr></table></figure></p>
-<p>然后执行showmount -e  可以查看 当前被共享的文件夹列表<br>这里主服务器就搞定了</p>
-<h4 id="修改配置-访问方"><a href="#修改配置-访问方" class="headerlink" title="修改配置(访问方)"></a>修改配置(访问方)</h4><p>前面装的那些东西依然要安装<br>1、在你喜欢的地方创建一个文件夹  譬如叫 myshare(课程中创建在/myshare中)<br>2、挂载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mount -t nfs 192.168.222.130:/mqshare  /myshare</div></pre></td></tr></table></figure></p>
-<p>这样你操作myshare中增加数据 ，另外一台机器的mqshare就会同步<br>修改配置<br>找到conf/下面的activemq.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> &lt;persistenceAdapter&gt;</div><div class="line">        &lt;kahaDB directory=&quot;这里改成你的共享文件夹地址&quot;/&gt;  </div><div class="line">&lt;/persistenceAdapter&gt;</div></pre></td></tr></table></figure></p>
-<p>然后重启就可以了.<br>接下来问题来了<br>我们在使用PHP的stomp扩展时，使用的是stomp 1.0协议<br>然而看这里 <a href="http://activemq.apache.org/cms/stomp-support.html" target="_blank" rel="external">http://activemq.apache.org/cms/stomp-support.html</a><br>残酷的现实告诉我们。要么等，要么我们只能用java了<br>至于java代码我会放在下面仅供参考<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">import org.apache.activemq.ActiveMQConnection;</div><div class="line">import org.apache.activemq.spring.ActiveMQConnectionFactory;</div><div class="line">import javax.jms.*;</div><div class="line"></div><div class="line">public class main &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws JMSException &#123;</div><div class="line">       // String broker = &quot;tcp://192.168.222.129:61616&quot;; //端口不一样了哦，使用的并不是 stomp协议</div><div class="line"></div><div class="line">        String broker=&quot;failover:(tcp://192.168.222.129:61616,tcp://192.168.222.130:61616)&quot;;</div><div class="line">        ActiveMQConnectionFactory factory=new ActiveMQConnectionFactory();</div><div class="line">        factory.setBrokerURL(broker);</div><div class="line">        Connection connection= (Connection) factory.createConnection(ActiveMQConnection.DEFAULT_USER,ActiveMQConnection.DEFAULT_PASSWORD);</div><div class="line">        try &#123;</div><div class="line">            connection.start();</div><div class="line">            Session session= connection.createSession(true,Session.AUTO_ACKNOWLEDGE);</div><div class="line">            Destination destination=session.createQueue(&quot;java_queue&quot;);//创建一个queue 注意不需要写成/queue/java_queue</div><div class="line">            MessageProducer producer= session.createProducer(destination);</div><div class="line">            TextMessage msg=session.createTextMessage(&quot;java 测试消息2222&quot;);</div><div class="line">            producer.send(msg);</div><div class="line">            System.out.println(&quot;发送成功&quot;);</div><div class="line">            session.commit();</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">            System.out.println(e.getMessage());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/alipay.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/weixin.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">activeMQ</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/08/09/activeMQ学习之旅2-函数介绍和简单集群配置/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/09/10/gnome踩坑记/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          gnome踩坑记
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/08/08/activeMQ学习之旅/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">activeMQ学习之旅</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-  
-  
+    </div></section>
   
 
-  
-  <div id="SOHUCS" sid="activeMQ学习之旅2-函数介绍和简单集群配置" ></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = "cytl0R24B"; 
-var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
-  
-
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/archives/page/4/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="page-number current">5</span>
+    </nav>
   
 
 
@@ -367,8 +238,8 @@ window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="tex
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
