@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>php源码-准备工作 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="用PHP也有三年了,原生也有一段时间.但是对于PHP来说,了解也仅仅是一些而已.对于一个优秀的PHP程序员来说,源码是必不可少的.所以我也加入到这其中了.但是,以上是需要有要求的.对C有一定了解.不了解C的人来阅读有一定的困难度.下面我们来做一下前期的准备工作.本文环境:centos7 简易安装要阅读源码,就必须要会安装PHP.这里的安装是指源码编译安装,因为在阅读过程中,会经常查看源码.查看运行">
+  <meta name="description" content="用PHP也有三年了,原生也有一段时间.但是对于PHP来说,了解也仅仅是一些而已.对于一个优秀的PHP程序员来说,源码是必不可少的.所以我也加入到这其中了.但是,以上是需要有要求的.对C有一定了解.不了解C的人来阅读有一定的困难度.下面我们来做一下前期的准备工作.本文环境:centos7">
 <meta name="keywords" content="php">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php源码-准备工作">
 <meta property="og:url" content="http://www.blogme.club/2018/04/25/php源码-准备工作/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="用PHP也有三年了,原生也有一段时间.但是对于PHP来说,了解也仅仅是一些而已.对于一个优秀的PHP程序员来说,源码是必不可少的.所以我也加入到这其中了.但是,以上是需要有要求的.对C有一定了解.不了解C的人来阅读有一定的困难度.下面我们来做一下前期的准备工作.本文环境:centos7 简易安装要阅读源码,就必须要会安装PHP.这里的安装是指源码编译安装,因为在阅读过程中,会经常查看源码.查看运行">
-<meta property="og:updated_time" content="2018-04-25T04:04:23.163Z">
+<meta property="og:description" content="用PHP也有三年了,原生也有一段时间.但是对于PHP来说,了解也仅仅是一些而已.对于一个优秀的PHP程序员来说,源码是必不可少的.所以我也加入到这其中了.但是,以上是需要有要求的.对C有一定了解.不了解C的人来阅读有一定的困难度.下面我们来做一下前期的准备工作.本文环境:centos7">
+<meta property="og:updated_time" content="2018-04-25T04:05:57.035Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php源码-准备工作">
-<meta name="twitter:description" content="用PHP也有三年了,原生也有一段时间.但是对于PHP来说,了解也仅仅是一些而已.对于一个优秀的PHP程序员来说,源码是必不可少的.所以我也加入到这其中了.但是,以上是需要有要求的.对C有一定了解.不了解C的人来阅读有一定的困难度.下面我们来做一下前期的准备工作.本文环境:centos7 简易安装要阅读源码,就必须要会安装PHP.这里的安装是指源码编译安装,因为在阅读过程中,会经常查看源码.查看运行">
+<meta name="twitter:description" content="用PHP也有三年了,原生也有一段时间.但是对于PHP来说,了解也仅仅是一些而已.对于一个优秀的PHP程序员来说,源码是必不可少的.所以我也加入到这其中了.但是,以上是需要有要求的.对C有一定了解.不了解C的人来阅读有一定的困难度.下面我们来做一下前期的准备工作.本文环境:centos7">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -174,7 +174,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>用PHP也有三年了,原生也有一段时间.但是对于PHP来说,了解也仅仅是一些而已.对于一个优秀的PHP程序员来说,源码是必不可少的.所以我也加入到这其中了.但是,以上是需要有要求的.对C有一定了解.不了解C的人来阅读有一定的困难度.下面我们来做一下前期的准备工作.本文环境:centos7</p>
+        <p>用PHP也有三年了,原生也有一段时间.但是对于PHP来说,了解也仅仅是一些而已.对于一个优秀的PHP程序员来说,源码是必不可少的.所以我也加入到这其中了.但是,以上是需要有要求的.对C有一定了解.不了解C的人来阅读有一定的困难度.下面我们来做一下前期的准备工作.本文环境:centos7<br><a id="more"></a></p>
 <h4 id="简易安装"><a href="#简易安装" class="headerlink" title="简易安装"></a>简易安装</h4><p>要阅读源码,就必须要会安装PHP.这里的安装是指源码编译安装,因为在阅读过程中,会经常查看源码.查看运行过程等.所以,让我们初步来尝试编译安装.<br>安装前,我们要先安装gcc编译php源码.有就跳过此步.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install gcc</div></pre></td></tr></table></figure></p>
 <p>先获取源码,我这里是直接获取官方的源代码.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git clone https://git.php.net/repository/php-src.git</div><div class="line">cd php-src</div><div class="line">git checkout PHP-7.0.12	// 切换php版本</div></pre></td></tr></table></figure></p>
 <p>如果没有GIT,那还是安装一个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install git</div></pre></td></tr></table></figure></p>
@@ -443,19 +443,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -171,18 +171,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>用PHP也有三年了,原生也有一段时间.但是对于PHP来说,了解也仅仅是一些而已.对于一个优秀的PHP程序员来说,源码是必不可少的.所以我也加入到这其中了.但是,以上是需要有要求的.对C有一定了解.不了解C的人来阅读有一定的困难度.下面我们来做一下前期的准备工作.本文环境:centos7</p>
-<h4 id="简易安装"><a href="#简易安装" class="headerlink" title="简易安装"></a>简易安装</h4><p>要阅读源码,就必须要会安装PHP.这里的安装是指源码编译安装,因为在阅读过程中,会经常查看源码.查看运行过程等.所以,让我们初步来尝试编译安装.<br>安装前,我们要先安装gcc编译php源码.有就跳过此步.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install gcc</div></pre></td></tr></table></figure></p>
-<p>先获取源码,我这里是直接获取官方的源代码.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git clone https://git.php.net/repository/php-src.git</div><div class="line">cd php-src</div><div class="line">git checkout PHP-7.0.12	// 切换php版本</div></pre></td></tr></table></figure></p>
-<p>如果没有GIT,那还是安装一个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install git</div></pre></td></tr></table></figure></p>
-<p>在安装前要生成配置.官网用了autoconf,所以我们要安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install autoconf</div></pre></td></tr></table></figure></p>
-<p>同时在安装过程中还需要libxml2,所以还需要安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum install libxml2-devel \</div><div class="line">	libxml2</div></pre></td></tr></table></figure></p>
-<p>开始简单的编译<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">./buildconf &amp;&amp; configure --prefix=/usr/local/php --disable-debug --enable-fpm  // --prefix 为安装路径,开启fpm,开启debug</div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure></p>
-<p>以上就安装好了,初始化配置,复制命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cp ./php.ini-development  /usr/local/php7/lib/php.ini</div><div class="line">cp /usr/local/php7/bin/php /usr/local/bin/</div></pre></td></tr></table></figure></p>
-<p>完成了php的安装.</p>
-<h4 id="gdb-源码调试利器"><a href="#gdb-源码调试利器" class="headerlink" title="gdb 源码调试利器"></a>gdb 源码调试利器</h4><p>为撒要用gdb,要调试流程的时候,总不可能一直去编译吧.所以我们就用gdb.安装非常方便<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install gdb</div></pre></td></tr></table></figure></p>
-<p>就完成了.让我们愉快的阅读源码吧!</p>
-
+        <p>用PHP也有三年了,原生也有一段时间.但是对于PHP来说,了解也仅仅是一些而已.对于一个优秀的PHP程序员来说,源码是必不可少的.所以我也加入到这其中了.但是,以上是需要有要求的.对C有一定了解.不了解C的人来阅读有一定的困难度.下面我们来做一下前期的准备工作.本文环境:centos7<br>
+        
+          <a class="article-more-a" href="/2018/04/25/php源码-准备工作/#more">more >></a>
+        
       
 
       
@@ -879,19 +871,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
