@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Archives: 2017/5 | adolph blog</title>
+  <title>php源码-cli执行流程.md | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/archives/2017/05/page/2/index.html">
+  <meta name="description" content="当我们执行php index.php这种控制台命令发生了什么.让我们来看看,用gdb来试试.">
+<meta name="keywords" content="php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php源码-cli执行流程.md">
+<meta property="og:url" content="http://www.blogme.club/2018/04/25/php源码-cli执行流程/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="当我们执行php index.php这种控制台命令发生了什么.让我们来看看,用gdb来试试.">
+<meta property="og:updated_time" content="2018-04-25T07:02:59.187Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="php源码-cli执行流程.md">
+<meta name="twitter:description" content="当我们执行php index.php这种控制台命令发生了什么.让我们来看看,用gdb来试试.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -149,101 +154,182 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-php源码-cli执行流程" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/11/常用备份/" class="archive-article-date">
-  	<time datetime="2017-05-11T05:36:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-11</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/11/常用备份/">常用备份</a>
+    <h1 class="article-title" itemprop="name">
+      php源码-cli执行流程.md
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/04/25/php源码-cli执行流程/" class="archive-article-date">
+  	<time datetime="2018-04-25T07:02:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当我们执行php index.php这种控制台命令发生了什么.让我们来看看,用gdb来试试.<br><a id="more"></a></p>
+<h4 id="php-cli执行流程"><a href="#php-cli执行流程" class="headerlink" title="php cli执行流程"></a>php cli执行流程</h4><p>首先,cli是单进程模式.意味着处理完请求后就直接关闭.so,它的执行流程就比较简单.其先后经历了module startup,request startup,execute sript,request shutdown,module shutdown,其中关键点如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">main() -&gt; php_cli_startup() -&gt; do_cli() -&gt; php_module_shutdown()</div></pre></td></tr></table></figure></p>
+<h4 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h4><p>学过C的都是每个入口都有一个main函数.这个函数就在/sapi/php/php_cli.c中.用gdb调试一下就可以查看出来.运行一下以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">gdb --args php -r &quot;echo &apos;hello world&apos;;&quot;</div><div class="line">break main // 在main函数设置断点</div><div class="line">n // 步进</div></pre></td></tr></table></figure></p>
+<p>不太懂gdb的建议先去看一下文档.<br>其中在main函数中初始化了sapi_module_struct,这个结构主要用来存放SAPI信息的.在解析命令行参数.以下是结构体的大概描述,篇幅过程不再讲述.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">sapi_module_struct</span> &#123;</span></div><div class="line">	<span class="keyword">char</span> *name;	<span class="comment">// 当前运行模式 cli,fpm</span></div><div class="line">	<span class="keyword">char</span> *pretty_name;	<span class="comment">// 全称,</span></div><div class="line"></div><div class="line">	<span class="keyword">int</span> (*startup)(struct _sapi_module_struct *sapi_module);	<span class="comment">// startup指针函数,指向了对应模式下的,例如cli下就是php_cli_startup</span></div><div class="line">	<span class="keyword">int</span> (*shutdown)(struct _sapi_module_struct *sapi_module);	<span class="comment">// shutdown指针函数,关闭sapi</span></div><div class="line"></div><div class="line">	<span class="keyword">int</span> (*activate)(<span class="keyword">void</span>);	<span class="comment">// 请求,初始化函数</span></div><div class="line">	<span class="keyword">int</span> (*deactivate)(<span class="keyword">void</span>);	<span class="comment">// 请求收尾函数</span></div><div class="line"></div><div class="line">	<span class="keyword">size_t</span> (*ub_write)(<span class="keyword">const</span> <span class="keyword">char</span> *str, <span class="keyword">size_t</span> str_length);	<span class="comment">// 数据输出</span></div><div class="line">	<span class="keyword">void</span> (*flush)(<span class="keyword">void</span> *server_context);	<span class="comment">// flush</span></div><div class="line">	<span class="keyword">zend_stat_t</span> *(*get_stat)(<span class="keyword">void</span>);</div><div class="line">	<span class="keyword">char</span> *(*getenv)(<span class="keyword">char</span> *name, <span class="keyword">size_t</span> name_len);</div><div class="line"></div><div class="line">	<span class="keyword">void</span> (*sapi_error)(<span class="keyword">int</span> type, <span class="keyword">const</span> <span class="keyword">char</span> *error_msg, ...);	<span class="comment">// 错误处理</span></div><div class="line"></div><div class="line">	<span class="keyword">int</span> (*header_handler)(sapi_header_struct *sapi_header, sapi_header_op_enum op, sapi_headers_struct *sapi_headers);	<span class="comment">// 调用header()函数处理的handler,cli下是个空函数</span></div><div class="line">	<span class="keyword">int</span> (*send_headers)(sapi_headers_struct *sapi_headers);	<span class="comment">// 发送header函数</span></div><div class="line">	<span class="keyword">void</span> (*send_header)(sapi_header_struct *sapi_header, <span class="keyword">void</span> *server_context);</div><div class="line"></div><div class="line">	<span class="keyword">size_t</span> (*read_post)(<span class="keyword">char</span> *buffer, <span class="keyword">size_t</span> count_bytes);	<span class="comment">// 读取post出具</span></div><div class="line">	<span class="keyword">char</span> *(*read_cookies)(<span class="keyword">void</span>);	<span class="comment">// 读取cookie数据</span></div><div class="line">	</div><div class="line">	<span class="keyword">void</span> (*register_server_variables)(zval *track_vars_array);	<span class="comment">// 向$_SERVER注册变量</span></div><div class="line">	<span class="keyword">void</span> (*log_message)(<span class="keyword">char</span> *message);	<span class="comment">// 消息日志</span></div><div class="line">	<span class="keyword">double</span> (*get_request_time)(<span class="keyword">void</span>);	<span class="comment">// 获取请求时间</span></div><div class="line">	....</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>剩下就开始用while来解析参数,我们常用的php -h,php -S等一些特殊解析.就启动我们的sapi_startup,当然这里不算真正的启动.</p>
+<h4 id="php-cli-startup"><a href="#php-cli-startup" class="headerlink" title="php_cli_startup"></a>php_cli_startup</h4><p>这个在哪里启动的,来看一下下面这句,看看注解<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">/* startup after we get the above ini override se we get things right */</div><div class="line">	if (sapi_module-&gt;startup(sapi_module) == FAILURE) &#123;</div><div class="line">		/* there is no way to see if we must call zend_ini_deactivate()</div><div class="line">		 * since we cannot check if EG(ini_directives) has been initialised</div><div class="line">		 * because the executor&apos;s constructor does not set initialize it.</div><div class="line">		 * Apart from that there seems no need for zend_ini_deactivate() yet.</div><div class="line">		 * So we goto out_err.*/</div><div class="line">		exit_status = 1;</div><div class="line">		goto out;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>来确保我们得到的配置是否正确,说明这句话是用来用来检查是否启动成功的.说明,启动过后会返回一个FAILURE,来表明是否启动成功.这个在cli模式下就是php_cli_startup.在这里面就调用了一个函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">static int php_cli_startup(sapi_module_struct *sapi_module) /* &#123;&#123;&#123; */</div><div class="line">&#123;</div><div class="line">	if (php_module_startup(sapi_module, NULL, 0)==FAILURE) &#123;</div><div class="line">		return FAILURE;</div><div class="line">	&#125;</div><div class="line">	return SUCCESS;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>php_module_startup函数,来启动我们的cli.这个里面下次在说明.</p>
+<h4 id="do-cli"><a href="#do-cli" class="headerlink" title="do_cli()"></a>do_cli()</h4><p>接下来就执行到这段代码,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">zend_first_try &#123;</div><div class="line">#ifndef PHP_CLI_WIN32_NO_CONSOLE</div><div class="line">		if (sapi_module == &amp;cli_sapi_module) &#123;</div><div class="line">#endif</div><div class="line">			exit_status = do_cli(argc, argv);</div><div class="line">#ifndef PHP_CLI_WIN32_NO_CONSOLE</div><div class="line">		&#125; else &#123;</div><div class="line">			exit_status = do_cli_server(argc, argv);</div><div class="line">		&#125;</div><div class="line">#endif</div><div class="line">	&#125; zend_end_try();</div></pre></td></tr></table></figure></p>
+<p>这段代码,先判断了sapi_module == &amp;cli_sapi_module的地址.就证明是否是cli,如果是,就执行了do_cli函数.do_cli就完成请求的处理.</p>
+<h4 id="request-startup"><a href="#request-startup" class="headerlink" title="request startup"></a>request startup</h4><p>在do_cli函数中,我们会看到一些常用的命令,例如最开始的-r指令,都将在这里解析出来.这里面有一个很重要的结构体,zend_file_handle,用来存放文件相关信息,例如我们执行php index.php就存放到这里.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">typedef struct _zend_file_handle &#123;</div><div class="line">	union &#123;</div><div class="line">		int           fd;	// 文件描述符</div><div class="line">		FILE          *fp;	// 文件句柄</div><div class="line">		zend_stream   stream;	// zend 封装的stream</div><div class="line">	&#125; handle;</div><div class="line">	const char        *filename;	// 文件路径 指针.</div><div class="line">	zend_string       *opened_path;	// 用于区分类型.</div><div class="line">	zend_stream_type  type;</div><div class="line">	zend_bool free_filename;</div><div class="line">&#125; zend_file_handle;</div></pre></td></tr></table></figure></p>
+<p>当上面初始化完成过后,就执行到下面这句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if (php_request_startup()==FAILURE) &#123;</div><div class="line">	*arg_excp = arg_free;</div><div class="line">	fclose(file_handle.handle.fp);</div><div class="line">	PUTS(&quot;Could not startup.\n&quot;);</div><div class="line">	goto err;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>就执行php_request_startup,就开始处理脚本,当然,我们用的-r指令就不在这里.往下执行,就是我们的一个switch<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">switch (behavior) &#123;</div><div class="line">		case PHP_MODE_STANDARD:</div><div class="line">			...</div><div class="line">			break;</div><div class="line">		case PHP_MODE_LINT:</div><div class="line">			...</div><div class="line">			break;</div><div class="line">		case PHP_MODE_STRIP:</div><div class="line">			...</div><div class="line">			goto out;</div><div class="line">			break;</div><div class="line">		case PHP_MODE_HIGHLIGHT:</div><div class="line">			...</div><div class="line">			break;</div><div class="line">		case PHP_MODE_CLI_DIRECT:</div><div class="line">			...</div><div class="line">			break;</div><div class="line">		case PHP_MODE_PROCESS_STDIN:</div><div class="line">			...</div><div class="line">			break;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在这个switch中,case PHP_MODE_CLI_DIRECT是用解析-r之类的参数的.剩下就是执行对应的php_request_shutdown,完成响应并返回.</p>
+<h4 id="php-module-shutdown"><a href="#php-module-shutdown" class="headerlink" title="php_module_shutdown"></a>php_module_shutdown</h4><p>在do_cli执行完成后,就执行此函数来释放内存并结束运行.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">备份 ubunut git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2018/04/25/php源码-cli执行流程/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/11/hexo创建博客/" class="archive-article-date">
-  	<time datetime="2017-05-11T02:16:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-11</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/11/hexo创建博客/">hexo创建博客</a>
-    </h1>
+  
+    <a href="/2018/04/25/php源码-准备工作/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">php源码-准备工作</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
+  <div id="SOHUCS" sid="php源码-cli执行流程" ></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2017/05/">&laquo; Prev</a><a class="page-number" href="/archives/2017/05/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -276,8 +362,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
