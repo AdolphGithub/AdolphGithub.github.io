@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Tag: vue javascript | adolph blog</title>
+  <title>php源码-fpm | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/tags/vue-javascript/index.html">
+  <meta name="description" content="我们在开发中,最常用的sapi有两个,一个cli,一个fpm.前面我们对cli的执行流程有一了一个大致的了解,今天来探讨一下fpm的执行过程,以及fpm跟cli之间的区别在哪里.">
+<meta name="keywords" content="php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php源码-fpm">
+<meta property="og:url" content="http://www.blogme.club/2018/04/26/php源码-fpm/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="我们在开发中,最常用的sapi有两个,一个cli,一个fpm.前面我们对cli的执行流程有一了一个大致的了解,今天来探讨一下fpm的执行过程,以及fpm跟cli之间的区别在哪里.">
+<meta property="og:updated_time" content="2018-04-26T05:48:20.678Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="php源码-fpm">
+<meta name="twitter:description" content="我们在开发中,最常用的sapi有两个,一个cli,一个fpm.前面我们对cli的执行流程有一了一个大致的了解,今天来探讨一下fpm的执行过程,以及fpm跟cli之间的区别在哪里.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -149,174 +154,191 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-php源码-fpm" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      php源码-fpm
+    </h1>
+  
+
+        
+        <a href="/2018/04/26/php源码-fpm/" class="archive-article-date">
+  	<time datetime="2018-04-26T05:47:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-26</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们在开发中,最常用的sapi有两个,一个cli,一个fpm.前面我们对cli的执行流程有一了一个大致的了解,今天来探讨一下fpm的执行过程,以及fpm跟cli之间的区别在哪里.<br><a id="more"></a></p>
+<h4 id="fpm"><a href="#fpm" class="headerlink" title="fpm"></a>fpm</h4><p>想了解fpm,就先了解一下fpm在整个请求过程中担当一个什么样的角色.当客户端通过http请求到nginx,nginx处理我们的http请求,将我们的解析结果通过fastcgi交给我们的fpm.fpm处理完成过后将结果返回给我们的nginx,nginx在将结果返回给客户端.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">browser	=&gt;	nginx	---- fsatcgi ----&gt;	fpm</div><div class="line">browser	&lt;=	nginx	&lt;============		fpm</div></pre></td></tr></table></figure></p>
+<p>以上就是大致的流程,从上面看,fpm实现了对脚本的处理.但是这个是错误,fpm是多进程,实际上只是实现了对进程的管理,也就是master.然后当请求进来时,是由我们的worker来具体执行的了.所以说,fpm只是一个进程管理器.</p>
+<h4 id="基本实现"><a href="#基本实现" class="headerlink" title="基本实现"></a>基本实现</h4><p>概括来说，fpm的实现就是创建一个master进程，在master进程中创建并监听socket，然后fork出多个子进程，这些子进程各自accept请求.其中最明显的标志是在php-fpm.conf通过pool name来申明一个worker<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">; 申明一个名称为www的worker</div><div class="line">[www]</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<p>来通过进程看一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">4 S root      1068     1  0  80   0 - 113617 -     09:49 ?        00:00:00 php-fpm: master process (/etc/php/7.1/fpm/php-fpm.conf)</div><div class="line">5 S www-data  1160  1068  0  80   0 - 113847 -     09:49 ?        00:00:00 php-fpm: pool www</div><div class="line">5 S www-data  1161  1068  0  80   0 - 113789 -     09:49 ?        00:00:00 php-fpm: pool www</div></pre></td></tr></table></figure></p>
+<p>在源码中,一个worker pool 是通过fpm_worker_pool_s这个结构体来实现,具体位置在/sapi/fpm/fpm/fpm_worker_pool.h中21行左右定义的.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">fpm_worker_pool_s</span> &#123;</span></div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">fpm_worker_pool_s</span> *<span class="title">next</span>;</span></div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">fpm_worker_pool_config_s</span> *<span class="title">config</span>;</span></div><div class="line">	<span class="keyword">char</span> *user, *home;									<span class="comment">/* for setting env USER and HOME */</span></div><div class="line">	<span class="keyword">enum</span> fpm_address_domain listen_address_domain;</div><div class="line">	<span class="keyword">int</span> listening_socket;</div><div class="line">	<span class="keyword">int</span> set_uid, set_gid;								<span class="comment">/* config uid and gid */</span></div><div class="line">	<span class="keyword">int</span> socket_uid, socket_gid, socket_mode;</div><div class="line"></div><div class="line">	<span class="comment">/* runtime */</span></div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">fpm_child_s</span> *<span class="title">children</span>;</span></div><div class="line">	<span class="keyword">int</span> running_children;</div><div class="line">	<span class="keyword">int</span> idle_spawn_rate;</div><div class="line">	<span class="keyword">int</span> warn_max_children;</div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> 0</span></div><div class="line">	<span class="keyword">int</span> warn_lq;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">fpm_scoreboard_s</span> *<span class="title">scoreboard</span>;</span></div><div class="line">	<span class="keyword">int</span> log_fd;</div><div class="line">	<span class="keyword">char</span> **limit_extensions;</div><div class="line"></div><div class="line">	<span class="comment">/* for ondemand PM */</span></div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">fpm_event_s</span> *<span class="title">ondemand_event</span>;</span></div><div class="line">	<span class="keyword">int</span> socket_event_set;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> HAVE_FPM_ACL</span></div><div class="line">	<span class="keyword">void</span> *socket_acl;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h4 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h4><p>先找到main,位于/sapi/fpm/fpm/fpm_main.c,从cli的执行流程和php_module_startup的执行流程可以看出大致的执行流程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">php_module_startup  =&gt; sapi_activate  =&gt;  注册基本的常量等函数   =&gt;  php_request_startup =&gt; php_execute_script =&gt; php_request_shutdown =&gt; php_module_shutdown</div></pre></td></tr></table></figure></p>
+<p>让我们来看看fpm的执行<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></div><div class="line">&#123;</div><div class="line">	sapi_startup(&amp;cgi_sapi_module);	<span class="comment">// 注册SAPI:将全局变量sapi_module设置为cgi_sapi_module</span></div><div class="line">	...</div><div class="line">	fcgi_init();	<span class="comment">// 初始化fastcgi协议</span></div><div class="line">	...</div><div class="line">	<span class="comment">// 这里初始化fpm</span></div><div class="line">	<span class="keyword">if</span> (<span class="number">0</span> &gt; fpm_init(argc, argv, fpm_config ? fpm_config : CGIG(fpm_config), fpm_prefix, fpm_pid, test_conf, php_allow_to_run_as_root, force_daemon, force_stderr)) &#123;</div><div class="line">		...</div><div class="line">	&#125;</div><div class="line">	...</div><div class="line">	<span class="keyword">if</span> (cgi_sapi_module.startup(&amp;cgi_sapi_module) == FAILURE) &#123;	<span class="comment">// 启动模块</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> ZTS</span></div><div class="line">		tsrm_shutdown();</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">		<span class="keyword">return</span> FPM_EXIT_SOFTWARE;</div><div class="line">	&#125;</div><div class="line">	...</div><div class="line">	fcgi_fd = fpm_run(&amp;max_requests);	<span class="comment">// 解析执行fpm获取worker进程,master将不再执行下面.</span></div><div class="line">	...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面有几个关键函数,startup这个是module_startup启动模块.sapi_startup,注册sapi为全局的.fcgi_init初始化fastcgi协议.这里我们最主要看fpm_init和fpm_run</p>
+<h4 id="fpm-init"><a href="#fpm-init" class="headerlink" title="fpm_init"></a>fpm_init</h4><p>fpm初始化.因为fpm跟cli是不一样的,cli单进程,每次都要全部走一次流程.而fpm则不同,只初始化一次,有请求过来就交给worker.所以这个是不一样的.让我们来梳理一下源码.fpm_init<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">fpm_init</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv, <span class="keyword">char</span> *config, <span class="keyword">char</span> *prefix, <span class="keyword">char</span> *pid, <span class="keyword">int</span> test_conf, <span class="keyword">int</span> run_as_root, <span class="keyword">int</span> force_daemon, <span class="keyword">int</span> force_stderr)</span> <span class="comment">/* &#123;&#123;&#123; */</span></span></div><div class="line">&#123;</div><div class="line">	fpm_globals.argc = argc;</div><div class="line">	fpm_globals.argv = argv;</div><div class="line">	<span class="keyword">if</span> (config &amp;&amp; *config) &#123;</div><div class="line">		fpm_globals.config = strdup(config);</div><div class="line">	&#125;</div><div class="line">	fpm_globals.prefix = prefix;</div><div class="line">	fpm_globals.pid = pid;</div><div class="line">	fpm_globals.run_as_root = run_as_root;</div><div class="line">	fpm_globals.force_stderr = force_stderr;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> (<span class="number">0</span> &gt; fpm_php_init_main()           ||</div><div class="line">	    <span class="number">0</span> &gt; fpm_stdio_init_main()         ||</div><div class="line">	    <span class="number">0</span> &gt; fpm_conf_init_main(test_conf, force_daemon) ||	<span class="comment">// 解析php-fpm.conf配置为每个worker分配一个fpm_worker_pool_s结构</span></div><div class="line">	    <span class="number">0</span> &gt; fpm_unix_init_main()          ||</div><div class="line">	    <span class="number">0</span> &gt; fpm_scoreboard_init_main()    ||	<span class="comment">// 分配用于记录的worker进程运行信息的结构</span></div><div class="line">	    <span class="number">0</span> &gt; fpm_pctl_init_main()          ||</div><div class="line">	    <span class="number">0</span> &gt; fpm_env_init_main()           ||</div><div class="line">	    <span class="number">0</span> &gt; fpm_signals_init_main()       ||	<span class="comment">// 创建一个管道,用于处理信号事件</span></div><div class="line">	    <span class="number">0</span> &gt; fpm_children_init_main()      ||</div><div class="line">	    <span class="number">0</span> &gt; fpm_sockets_init_main()       ||	<span class="comment">// 创建每个worker_pool的socket套接字</span></div><div class="line">	    <span class="number">0</span> &gt; fpm_worker_pool_init_main()   ||</div><div class="line">	    <span class="number">0</span> &gt; fpm_event_init_main()) &#123;	<span class="comment">// 启用master事件管理</span></div><div class="line">		<span class="keyword">if</span> (fpm_globals.test_successful) &#123;</div><div class="line">			<span class="built_in">exit</span>(FPM_EXIT_OK);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			zlog(ZLOG_ERROR, <span class="string">"FPM initialization failed"</span>);</div><div class="line">			<span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">if</span> (<span class="number">0</span> &gt; fpm_conf_write_pid()) &#123;</div><div class="line">		zlog(ZLOG_ERROR, <span class="string">"FPM initialization failed"</span>);</div><div class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">	&#125;</div><div class="line">	fpm_stdio_init_final();</div><div class="line">	zlog(ZLOG_NOTICE, <span class="string">"fpm is running, pid %d"</span>, (<span class="keyword">int</span>) fpm_globals.parent_pid);</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行了这几个重要的初始化过后，接下来就执行了我们的fpm_run函数.</p>
+<h4 id="fpm-run"><a href="#fpm-run" class="headerlink" title="fpm_run"></a>fpm_run</h4><p>这个环节要fork我们的worker进程,看一下源代码<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">fpm_run</span><span class="params">(<span class="keyword">int</span> *max_requests)</span> <span class="comment">/* &#123;&#123;&#123; */</span></span></div><div class="line">&#123;</div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">fpm_worker_pool_s</span> *<span class="title">wp</span>;</span></div><div class="line"></div><div class="line">	<span class="comment">// 编译worker pool</span></div><div class="line">	<span class="keyword">for</span> (wp = fpm_worker_all_pools; wp; wp = wp-&gt;next) &#123;</div><div class="line">		<span class="keyword">int</span> is_parent;</div><div class="line">		<span class="comment">//调用fpm_children_make() fork子进程</span></div><div class="line">		is_parent = fpm_children_create_initial(wp);</div><div class="line">		<span class="keyword">if</span> (!is_parent) &#123;</div><div class="line">			<span class="comment">// fork 出的worker进程</span></div><div class="line">			<span class="keyword">goto</span> run_child;</div><div class="line">		&#125;</div><div class="line">		<span class="comment">/* handle error */</span></div><div class="line">		<span class="keyword">if</span> (is_parent == <span class="number">2</span>) &#123;</div><div class="line">			fpm_pctl(FPM_PCTL_STATE_TERMINATING, FPM_PCTL_ACTION_SET);</div><div class="line">			fpm_event_loop(<span class="number">1</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">// master进入event循环,不在往下走.</span></div><div class="line">	fpm_event_loop(<span class="number">0</span>);</div><div class="line">run_child:</div><div class="line">	fpm_cleanups_run(FPM_CLEANUP_CHILD);</div><div class="line">	*max_requests = fpm_globals.max_requests;</div><div class="line">	<span class="keyword">return</span> fpm_globals.listening_socket;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个环节会fork我们的worker进程,同时master进程会进入到event里面,不在往下走.返回的是监听的套接字.这里我们就将监听的套接返回回去了.接下来就是我们的worker进程来处理对应的响应</p>
+<h4 id="worker请求处理"><a href="#worker请求处理" class="headerlink" title="worker请求处理"></a>worker请求处理</h4><p>worker处理大致分为以下阶段:</p>
+<ul>
+<li>等待请求,worker进程阻塞在fcgi_accept_request</li>
+<li>解析请求,fastcgi被worker接收后,开始接收并解析请求数据.直到request数据完全到达.</li>
+<li>请求初始化</li>
+<li>执行PHP脚本,php_execute_script</li>
+<li>关闭请求,php_request_shutdown<br>让我们来看下代码.<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">fcgi_fd = fpm_run(&amp;max_requests);</div><div class="line">...</div><div class="line">request = fpm_init_request(fcgi_fd);</div><div class="line">zend_first_try &#123;</div><div class="line">		<span class="comment">// 等待请求</span></div><div class="line">		<span class="keyword">while</span> (EXPECTED(fcgi_accept_request(request) &gt;= <span class="number">0</span>)) &#123;</div><div class="line">			...</div><div class="line">			<span class="comment">// 解析请求</span></div><div class="line">			init_request_info();</div><div class="line">			fpm_request_info();</div><div class="line">			<span class="comment">// 请求初始化</span></div><div class="line">			<span class="keyword">if</span> (UNEXPECTED(php_request_startup() == FAILURE)) &#123;</div><div class="line">				fcgi_finish_request(request, <span class="number">1</span>);</div><div class="line">				SG(server_context) = <span class="literal">NULL</span>;</div><div class="line">				php_module_shutdown();</div><div class="line">				<span class="keyword">return</span> FPM_EXIT_SOFTWARE;</div><div class="line">			&#125;</div><div class="line">			...</div><div class="line">			<span class="comment">// 执行请求</span></div><div class="line">			fpm_request_executing();</div><div class="line">			<span class="comment">// 执行脚本</span></div><div class="line">			php_execute_script(&amp;file_handle);</div><div class="line"></div><div class="line">fastcgi_request_done:</div><div class="line">			...</div><div class="line">			<span class="comment">// 请求结束.</span></div><div class="line">			fpm_request_end();</div><div class="line">			...</div><div class="line">			<span class="comment">// 关闭请求</span></div><div class="line">			php_request_shutdown((<span class="keyword">void</span> *) <span class="number">0</span>);</div><div class="line">			...</div><div class="line">		&#125;</div><div class="line">		<span class="comment">// 销毁解析请求</span></div><div class="line">		fcgi_destroy_request(request);</div><div class="line">		<span class="comment">// 关闭fastcgi</span></div><div class="line">		fcgi_shutdown();</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (cgi_sapi_module.php_ini_path_override) &#123;</div><div class="line">			<span class="built_in">free</span>(cgi_sapi_module.php_ini_path_override);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span> (cgi_sapi_module.ini_entries) &#123;</div><div class="line">			<span class="built_in">free</span>(cgi_sapi_module.ini_entries);</div><div class="line">		&#125;</div><div class="line">	&#125; zend_catch &#123;</div><div class="line">		exit_status = FPM_EXIT_SOFTWARE;</div><div class="line">	&#125; zend_end_try();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>当我们的worker处理完成过后,就完成了整个请求的处理.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/14/vuex进阶/" class="archive-article-date">
-  	<time datetime="2017-10-14T09:12:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/14/vuex进阶/">vuex进阶</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">vue javascript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2018/04/26/php源码-fpm/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/11/vuex入门/" class="archive-article-date">
-  	<time datetime="2017-10-11T02:31:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-11</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/11/vuex入门/">vuex入门</a>
-    </h1>
+  
+    <a href="/2018/04/25/php源码-module-startup/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">php源码-module-startup</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">vue javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/11/vue-cli多页面配置/" class="archive-article-date">
-  	<time datetime="2017-10-11T02:29:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/11/vue-cli多页面配置/">vue-cli多页面配置</a>
-    </h1>
+  <div id="SOHUCS" sid="php源码-fpm" ></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">vue javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/22/vue/" class="archive-article-date">
-  	<time datetime="2017-06-22T08:11:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/22/vue/">vue</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">vue javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -348,9 +370,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
