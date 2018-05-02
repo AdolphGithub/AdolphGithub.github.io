@@ -6,21 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>socket学习之旅-2撕开websocket的神秘外衣 | adolph blog</title>
+  <title>php源码-master进程管理1 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="让我们来继续了解websocket，现在的浏览器默认有socket连接端,websocket.我们先来书写客户端.至于websocket的一些方法,请参考MDN websocket,以下是示例代码">
-<meta name="keywords" content="socket">
+  <meta name="description" content="在fpm我们了解到,fpm通过初始化一次流程,然后master进程让worker进程来处理发来的请求.那master是通过什么来管理我们的worker进程的呢.想要了解这个,就先来理解一下我们的三种不同的进程管理模式.">
+<meta name="keywords" content="php">
 <meta property="og:type" content="article">
-<meta property="og:title" content="socket学习之旅-2撕开websocket的神秘外衣">
-<meta property="og:url" content="http://www.blogme.club/2017/08/03/socket学习之旅-2撕开websocket的神秘外衣/index.html">
+<meta property="og:title" content="php源码-master进程管理1">
+<meta property="og:url" content="http://www.blogme.club/2018/05/02/php源码-master进程管理1/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="让我们来继续了解websocket，现在的浏览器默认有socket连接端,websocket.我们先来书写客户端.至于websocket的一些方法,请参考MDN websocket,以下是示例代码">
-<meta property="og:image" content="http://www.blogme.club/socket/websocket1.png">
-<meta property="og:updated_time" content="2017-08-03T10:25:52.916Z">
+<meta property="og:description" content="在fpm我们了解到,fpm通过初始化一次流程,然后master进程让worker进程来处理发来的请求.那master是通过什么来管理我们的worker进程的呢.想要了解这个,就先来理解一下我们的三种不同的进程管理模式.">
+<meta property="og:updated_time" content="2018-05-02T07:11:25.124Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="socket学习之旅-2撕开websocket的神秘外衣">
-<meta name="twitter:description" content="让我们来继续了解websocket，现在的浏览器默认有socket连接端,websocket.我们先来书写客户端.至于websocket的一些方法,请参考MDN websocket,以下是示例代码">
-<meta name="twitter:image" content="http://www.blogme.club/socket/websocket1.png">
+<meta name="twitter:title" content="php源码-master进程管理1">
+<meta name="twitter:description" content="在fpm我们了解到,fpm通过初始化一次流程,然后master进程让worker进程来处理发来的请求.那master是通过什么来管理我们的worker进程的呢.想要了解这个,就先来理解一下我们的三种不同的进程管理模式.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -156,36 +154,48 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-socket学习之旅-2撕开websocket的神秘外衣" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-php源码-master进程管理1" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      socket学习之旅-2撕开websocket的神秘外衣
+      php源码-master进程管理1
     </h1>
   
 
         
-        <a href="/2017/08/03/socket学习之旅-2撕开websocket的神秘外衣/" class="archive-article-date">
-  	<time datetime="2017-08-03T10:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-03</time>
+        <a href="/2018/05/02/php源码-master进程管理1/" class="archive-article-date">
+  	<time datetime="2018-05-02T07:09:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-02</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>让我们来继续了解websocket，现在的浏览器默认有socket连接端,websocket.我们先来书写客户端.至于websocket的一些方法,请参考<a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSocket" target="_blank" rel="external">MDN websocket</a>,以下是示例代码<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">    &lt;title&gt;Title&lt;/title&gt;</div><div class="line">    &lt;script&gt;</div><div class="line">        var socket = new WebSocket(&apos;ws://localhost:9090&apos;);</div><div class="line"></div><div class="line">        socket.onopen = function(event)&#123;</div><div class="line">            socket.send(&apos;opening&apos;);</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        socket.onmessage = function(event)&#123;</div><div class="line">            console.log(&apos;收到消息&apos;,event);</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        socket.onclose = function(event)&#123;</div><div class="line">            console.log(&apos;关闭监听&apos;,event);</div><div class="line">        &#125;;</div><div class="line">        function send()&#123;</div><div class="line">            socket.send(&apos;发送消息!&apos;);</div><div class="line">            console.log(1);</div><div class="line">        &#125;</div><div class="line">    &lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;button type=&quot;button&quot; onclick=&quot;send()&quot;&gt;发送消息&lt;/button&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
-<p>当我们访问这段html时,同时开启socket服务端,以下是我们服务端的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">$socket_resource = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</div><div class="line"></div><div class="line">socket_bind($socket_resource,&apos;127.0.0.1&apos;,9090) or die(&apos;error&apos;);</div><div class="line"></div><div class="line">socket_listen($socket_resource,5);</div><div class="line">while(true)&#123;</div><div class="line">    $client = socket_accept($socket_resource);</div><div class="line"></div><div class="line">    $buf = socket_read($client,8024);</div><div class="line">    echo $buf;</div><div class="line"></div><div class="line">    socket_write($client,&apos;404&apos;);</div><div class="line"></div><div class="line">    socket_close($client);</div><div class="line">&#125;</div><div class="line">socket_close($socket_resource);</div></pre></td></tr></table></figure></p>
-<p>,会在console控制台得到以下错误<br><img src="http://www.blogme.club/socket/websocket1.png" alt="socket错误" title="socket错误"></p>
-<h4 id="连接服务端时出现什么鬼"><a href="#连接服务端时出现什么鬼" class="headerlink" title="连接服务端时出现什么鬼"></a>连接服务端时出现什么鬼</h4><p>握手错误,说明我们在连接socket服务端时还有一次握手.其中握手分为几个版本，这里我主要介绍chrome.客户端请求web socket连接时，会向服务器端发送握手请求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 创建socket客户端,并连接</div><div class="line">var socket = new WebSocket(&apos;ws://localhost:9090&apos;);</div></pre></td></tr></table></figure></p>
-<p>请求的内容如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">GET / HTTP/1.1</div><div class="line">Host: localhost:9090</div><div class="line">Connection: Upgrade</div><div class="line">Pragma: no-cache</div><div class="line">Cache-Control: no-cache</div><div class="line">Upgrade: websocket</div><div class="line">Origin: http://localhost</div><div class="line">Sec-WebSocket-Version: 13</div><div class="line">User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.109 Safari/537.36</div><div class="line">Accept-Encoding: gzip, deflate, br</div><div class="line">Accept-Language: zh-CN,zh;q=0.8</div><div class="line">Sec-WebSocket-Key: Bhd79la7Ms8oC2RPZUIhAg==</div><div class="line">Sec-WebSocket-Extensions: permessage-deflate; client_max_window_bits</div></pre></td></tr></table></figure></p>
-<p>在握手时,客户端给我们发了一个Sec-WebSocket-Key这个头信息,这个是用来加密的.我们要获取这段字符串将其连接上’258EAFA5-E914-47DA-95CA-C5AB0DC85B11’后在用sha1和base64_encode加密在返回.有点类似于token<br>具体代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">$socket_resource = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</div><div class="line"></div><div class="line">socket_bind($socket_resource,&apos;127.0.0.1&apos;,9090) or die(&apos;error&apos;);</div><div class="line"></div><div class="line">socket_listen($socket_resource,5);</div><div class="line">while(true)&#123;</div><div class="line">    $client = socket_accept($socket_resource);</div><div class="line"></div><div class="line">    $buf = socket_read($client,8024);</div><div class="line">    // 开始判断进行加密.</div><div class="line">    $buf=socket_read($client,8024);</div><div class="line">    if (preg_match(&quot;/Sec-WebSocket-Key: (.*)\r\n/i&quot;,$buf,$match)) &#123;</div><div class="line">        $key = base64_encode(sha1($match[1] . &apos;258EAFA5-E914-47DA-95CA-C5AB0DC85B11&apos;,true));</div><div class="line">        $res= &quot;HTTP/1.1 101 Switching Protocol&quot;.PHP_EOL</div><div class="line">            .&quot;Upgrade: WebSocket&quot;.PHP_EOL</div><div class="line">            .&quot;Connection: Upgrade&quot;.PHP_EOL</div><div class="line">            .&quot;WebSocket-Location: ws://127.0.0.1:9090&quot;.PHP_EOL</div><div class="line">            .&quot;Sec-WebSocket-Accept: &quot; . $key .PHP_EOL.PHP_EOL  ;//注意这里，需要两个换行</div><div class="line"></div><div class="line">        socket_write($client, $res, strlen($res));//握手成功</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    socket_close($client);</div><div class="line">&#125;</div><div class="line">socket_close($socket_resource);</div></pre></td></tr></table></figure></p>
-<p>当我们连接成功过后，发现我们server服务端,并没有接收到opening消息.这里就需要我们解析客户端的消息了.</p>
-<h4 id="编码-amp-解析-消息"><a href="#编码-amp-解析-消息" class="headerlink" title="编码 &amp; 解析 消息"></a>编码 &amp; 解析 消息</h4><p>我们客户端发送过来的消息,是经过加密过后得到的$buf,我们要将起解析,这里可以去查阅文档或资料.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">//解析客户端发送给服务端的消息</div><div class="line">function getMsg($buffer) &#123;</div><div class="line">    $res = &apos;&apos;;</div><div class="line">    $len = ord($buffer[1]) &amp; 127;</div><div class="line">    if ($len === 126) &#123;</div><div class="line">        $masks = substr($buffer, 4, 4);</div><div class="line">        $data = substr($buffer, 8);</div><div class="line">    &#125; else if ($len === 127) &#123;</div><div class="line">        $masks = substr($buffer, 10, 4);</div><div class="line">        $data = substr($buffer, 14);</div><div class="line">    &#125; else &#123;</div><div class="line">        $masks = substr($buffer, 2, 4);</div><div class="line">        $data = substr($buffer, 6);</div><div class="line">    &#125;</div><div class="line">    for ($index = 0; $index &lt; strlen($data); $index++) &#123;</div><div class="line">        $res .= $data[$index] ^ $masks[$index % 4];</div><div class="line">    &#125;</div><div class="line">    return $res;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>发送给客户端的编码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">//编码发送给客户端的数据</div><div class="line">function buildMsg($msg) &#123;</div><div class="line">    $frame = [];</div><div class="line">    $frame[0] = &apos;81&apos;;</div><div class="line">    $len = strlen($msg);</div><div class="line">    if ($len &lt; 126) &#123;</div><div class="line">        $frame[1] = $len &lt; 16 ? &apos;0&apos; . dechex($len) : dechex($len);</div><div class="line">    &#125; else if ($len &lt; 65025) &#123;</div><div class="line">        $s = dechex($len);</div><div class="line">        $frame[1] = &apos;7e&apos; . str_repeat(&apos;0&apos;, 4 - strlen($s)) . $s;</div><div class="line">    &#125; else &#123;</div><div class="line">        $s = dechex($len);</div><div class="line">        $frame[1] = &apos;7f&apos; . str_repeat(&apos;0&apos;, 16 - strlen($s)) . $s;</div><div class="line">    &#125;</div><div class="line">    $data = &apos;&apos;;</div><div class="line">    $l = strlen($msg);</div><div class="line">    for ($i = 0; $i &lt; $l; $i++) &#123;</div><div class="line">        $data .= dechex(ord($msg&#123;$i&#125;));</div><div class="line">    &#125;</div><div class="line">    $frame[2] = $data;</div><div class="line">    $data = implode(&apos;&apos;, $frame);</div><div class="line">    return pack(&quot;H*&quot;, $data);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>有了这两个函数，我们就可以实现简单的socket通信了.具体实现代码,请下载<a href="http://www.blogme.club/socket/socket.zip">文件</a>.</p>
+        <p>在fpm我们了解到,fpm通过初始化一次流程,然后master进程让worker进程来处理发来的请求.那master是通过什么来管理我们的worker进程的呢.想要了解这个,就先来理解一下我们的三种不同的进程管理模式.<br><a id="more"></a></p>
+<h3 id="进程管理模式"><a href="#进程管理模式" class="headerlink" title="进程管理模式"></a>进程管理模式</h3><p>在你的fpm.conf这个里面,有一项是来说明哪种管理进程的方式.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pm = dynamic</div></pre></td></tr></table></figure></p>
+<p>这个是默认的处理方式,一共有三种.</p>
+<ul>
+<li>static</li>
+<li>dynamic</li>
+<li>ondemand<h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4>静态处理方式,通过初始化时直接fork出pm.max_children的进程数.以后将不再fork出对应的worker进程<h4 id="dynamic"><a href="#dynamic" class="headerlink" title="dynamic"></a>dynamic</h4>动态模式,这个是默认的模式,初始化时,将直接fork出配置pm.start_servers的进程数,然后如果请求过多处理不过来,将在fork出新的worker进程.参考的是pm.min_sqare_servers,如果master发现空闲的worker数超过了pm.max_spare_servers,就直接kill掉对应的worker进程.最后总的worker进程不会超过pm.max_children进程数.<h4 id="ondemand"><a href="#ondemand" class="headerlink" title="ondemand"></a>ondemand</h4>这个跟传统的cgi模式很相似,当有请求来的时候,才创建worker进程.如果worker进程数过多超过了pm.max_children则会杀掉worker进程.如果空闲时间超过了pm.process_idle_timeout时,也会杀掉worker进程.<br>了解了这三个模式,就可以来看看master是如何管理进程的了.<h3 id="信号事件"><a href="#信号事件" class="headerlink" title="信号事件"></a>信号事件</h3>当master进入到fpm_run函数时,将不在往下执行,就执行了里面的fpm_event_loop事件循环.我们来看看这里面有什么<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">static struct fpm_event_s signal_fd_event;</div><div class="line">fpm_event_set(&amp;signal_fd_event, fpm_signals_get_fd(), FPM_EV_READ, &amp;fpm_got_signal, NULL); // 设置事件监听,事件的触发类型和事件的处理函数</div><div class="line">fpm_event_add(&amp;signal_fd_event, 0);	// 注册事件到队列.</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在这里我们使用了fpm_signals_get_fd来获取sp[0].那sp[0]是在哪里定义的,我们回头来看看fpm_init函数</p>
+<h3 id="fpm-init"><a href="#fpm-init" class="headerlink" title="fpm_init"></a>fpm_init</h3><p>这个函数中,会调用一个fpm_signals_init_main并设置了sig_handler来处理对应的回调处理.就将我们的对应的信号写入打sp[1]中.前面我们这里获取了sp[0].</p>
+<h3 id="signal事件处理"><a href="#signal事件处理" class="headerlink" title="signal事件处理"></a>signal事件处理</h3><p>前面我们获取了sp[0],当sp[0]可读时,将会回调fpm_got_signal进行处理.fpm_got_signal根据不同的信号执行不同的处理</p>
+<ul>
+<li>SIGINT/SIGTERM/SIGQUIT 退出fpm,当mster收到信号过后,将向所有的worker进程发送退出信号.通过worker退出,然后master在退出</li>
+<li>SIGUSR1 重新加载日志文件</li>
+<li>SIGUSR2 重启fpm</li>
+<li>SIGCHLD 这个信号是worker进程退出时 操作系统发送给master进程,这个进程为僵尸进程.它只保留最小的内核数据结构.方便父进程来查询和调用对应的wait或者waitpid方式.然后master检查是否需要重新启动进程.<h3 id="fpm-pctl-perform-idle-server-maintenance-heartbeat"><a href="#fpm-pctl-perform-idle-server-maintenance-heartbeat" class="headerlink" title="fpm_pctl_perform_idle_server_maintenance_heartbeat"></a>fpm_pctl_perform_idle_server_maintenance_heartbeat</h3>这个这么长的一串函数名,实际就干了一件事情,注册一个定时器.这个定时器用来定期检查worker进程数.<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">void fpm_pctl_perform_idle_server_maintenance_heartbeat(struct fpm_event_s *ev, short which, void *arg) /* &#123;&#123;&#123; */</div><div class="line">&#123;</div><div class="line">	static struct fpm_event_s heartbeat;</div><div class="line">	struct timeval now;</div><div class="line"></div><div class="line">	if (fpm_globals.parent_pid != getpid()) &#123;</div><div class="line">		return; /* sanity check */</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	// 定时器触发时回调逻辑</div><div class="line">	//  设置定时器,回调函数,回调函数也是本身</div><div class="line">	// 这个下面的只执行一次.</div><div class="line">	fpm_event_set_timer(&amp;heartbeat, FPM_EV_PERSIST, &amp;fpm_pctl_perform_idle_server_maintenance_heartbeat, NULL);</div><div class="line">	// 注册定时器.每个多少毫秒触发一次</div><div class="line">	fpm_event_add(&amp;heartbeat, FPM_IDLE_SERVER_MAINTENANCE_HEARTBEAT);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>当我们注册了过后在来看看我们的处理逻辑<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// 确认是一个定时事件</div><div class="line">if (which == FPM_EV_TIMEOUT) &#123;</div><div class="line">	fpm_clock_get(&amp;now);</div><div class="line">	if (fpm_pctl_can_spawn_children()) &#123;	// 检查master当前状态是否正常,</div><div class="line">		// 具体的处理逻辑</div><div class="line">		fpm_pctl_perform_idle_server_maintenance(&amp;now);</div><div class="line">		if (fpm_globals.is_child) &#123;</div><div class="line">			return;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	return;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>fpm_pctl_perform_idle_server_maintenance主要针对dynamic和ondemand两种模式,检查的过程就是遍历所有的worker pool,根据不同策略来进行不同的处理.</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>人懒,就先看到这里.下次再来详细的看如何处理每个worker的.</p>
 
       
 
@@ -230,7 +240,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
         		</li>
       		
 		</ul>
@@ -286,7 +296,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/08/03/socket学习之旅-2撕开websocket的神秘外衣/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2018/05/02/php源码-master进程管理1/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -300,18 +310,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          socket学习之旅-3撕开RPC远程调用的神秘外衣
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/08/03/socket学习之旅-1如何打电话/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">socket学习之旅:1如何打电话</div>
+    <a href="/2018/04/26/php源码-fpm/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">php源码-fpm</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -326,7 +327,7 @@
   
 
   
-  <div id="SOHUCS" sid="socket学习之旅-2撕开websocket的神秘外衣" ></div> 
+  <div id="SOHUCS" sid="php源码-master进程管理1" ></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
