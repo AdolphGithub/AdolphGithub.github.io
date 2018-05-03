@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>任务计划 | adolph blog</title>
+  <title>php源码-embed | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="防止自己忘记,记录一些自己的学习计划,以及自己平常用的一些工具库 近期计划1 activeMQ学习activeMQ,并且知道原理. 2 redis 复习redis复习,掌握更深层次的东西 3 php 复习复习php,掌握更牢固的php知识 4 html+css5复习html+css5,每个星期至少3个界面,防止自己忘记html+css5 5 javascript复习学习javascript高级特性">
-<meta property="og:type" content="website">
-<meta property="og:title" content="任务计划">
-<meta property="og:url" content="http://www.blogme.club/task/index.html">
+  <meta name="description" content="我们前面看了php的最主要的两种sapi,cli和fpm.其实还有一些sapi,但是我们在用php开发时最常用的sapi就是cli和fpm,当然,cgi也在用.只是用得太少了.我们已经知道了大概的流程了.对于如何给第三方程序提供一个php功能呢,这里我们就要用到php内置的另外一个sapi,embed,下面我们就来看看那embed的执行过程.">
+<meta name="keywords" content="php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php源码-embed">
+<meta property="og:url" content="http://www.blogme.club/2018/05/03/php源码-embed/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="防止自己忘记,记录一些自己的学习计划,以及自己平常用的一些工具库 近期计划1 activeMQ学习activeMQ,并且知道原理. 2 redis 复习redis复习,掌握更深层次的东西 3 php 复习复习php,掌握更牢固的php知识 4 html+css5复习html+css5,每个星期至少3个界面,防止自己忘记html+css5 5 javascript复习学习javascript高级特性">
-<meta property="og:updated_time" content="2017-08-08T07:22:51.338Z">
+<meta property="og:description" content="我们前面看了php的最主要的两种sapi,cli和fpm.其实还有一些sapi,但是我们在用php开发时最常用的sapi就是cli和fpm,当然,cgi也在用.只是用得太少了.我们已经知道了大概的流程了.对于如何给第三方程序提供一个php功能呢,这里我们就要用到php内置的另外一个sapi,embed,下面我们就来看看那embed的执行过程.">
+<meta property="og:updated_time" content="2018-05-03T07:20:17.666Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="任务计划">
-<meta name="twitter:description" content="防止自己忘记,记录一些自己的学习计划,以及自己平常用的一些工具库 近期计划1 activeMQ学习activeMQ,并且知道原理. 2 redis 复习redis复习,掌握更深层次的东西 3 php 复习复习php,掌握更牢固的php知识 4 html+css5复习html+css5,每个星期至少3个界面,防止自己忘记html+css5 5 javascript复习学习javascript高级特性">
+<meta name="twitter:title" content="php源码-embed">
+<meta name="twitter:description" content="我们前面看了php的最主要的两种sapi,cli和fpm.其实还有一些sapi,但是我们在用php开发时最常用的sapi就是cli和fpm,当然,cgi也在用.只是用得太少了.我们已经知道了大概的流程了.对于如何给第三方程序提供一个php功能呢,这里我们就要用到php内置的另外一个sapi,embed,下面我们就来看看那embed的执行过程.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -153,36 +154,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-undefined" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-php源码-embed" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      任务计划
+      php源码-embed
     </h1>
   
 
         
-        <a href="/task/index.html" class="archive-article-date">
-  	<time datetime="2017-05-10T09:55:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-10</time>
+        <a href="/2018/05/03/php源码-embed/" class="archive-article-date">
+  	<time datetime="2018-05-03T07:18:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>防止自己忘记,记录一些自己的学习计划,以及自己平常用的一些工具库</p>
-<h3 id="近期计划"><a href="#近期计划" class="headerlink" title="近期计划"></a>近期计划</h3><h4 id="1-activeMQ"><a href="#1-activeMQ" class="headerlink" title="1 activeMQ"></a>1 activeMQ</h4><p>学习activeMQ,并且知道原理.</p>
-<h4 id="2-redis-复习"><a href="#2-redis-复习" class="headerlink" title="2 redis 复习"></a>2 redis 复习</h4><p>redis复习,掌握更深层次的东西</p>
-<h4 id="3-php-复习"><a href="#3-php-复习" class="headerlink" title="3 php 复习"></a>3 php 复习</h4><p>复习php,掌握更牢固的php知识</p>
-<h4 id="4-html-css5"><a href="#4-html-css5" class="headerlink" title="4 html+css5"></a>4 html+css5</h4><p>复习html+css5,每个星期至少3个界面,防止自己忘记html+css5</p>
-<h4 id="5-javascript复习"><a href="#5-javascript复习" class="headerlink" title="5 javascript复习"></a>5 javascript复习</h4><p>学习javascript高级特性,打好牢固的基础.同时做好<a href="http://www.codewars.com" target="_blank" rel="external">试题</a>.</p>
-<h4 id="6-javascript-framework"><a href="#6-javascript-framework" class="headerlink" title="6 javascript framework"></a>6 javascript framework</h4><p>开始学习jacascript框架,nodejs,vue</p>
-<h4 id="7-webpack"><a href="#7-webpack" class="headerlink" title="7 webpack"></a>7 webpack</h4><p>学习javascript打包工具</p>
-<h4 id="8-grunt"><a href="#8-grunt" class="headerlink" title="8 grunt"></a>8 grunt</h4><p>学习javascript打包工具</p>
-<h3 id="工具库"><a href="#工具库" class="headerlink" title="工具库"></a>工具库</h3><p>自己的工具库</p>
+        <p>我们前面看了php的最主要的两种sapi,cli和fpm.其实还有一些sapi,但是我们在用php开发时最常用的sapi就是cli和fpm,当然,cgi也在用.只是用得太少了.我们已经知道了大概的流程了.对于如何给第三方程序提供一个php功能呢,这里我们就要用到php内置的另外一个sapi,embed,下面我们就来看看那embed的执行过程.<br><a id="more"></a></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>我们如何来编译这个sapi,在我们执行编译命令的时候,使用–enable-embed=[shared|static]就可以来启用,默认为shared共享库.然后在php的安装目录/lib看到一个新生成的头文件.这样我们就可以使用这个sapi了.</p>
+<h3 id="php-embed-init"><a href="#php-embed-init" class="headerlink" title="php_embed_init"></a>php_embed_init</h3><p>我们编译了php并开启了embed这个sapi.我们来看看embed这个sapi的代码.在sapi/embed/php_embed.c这个里面.有一个php_embed_init函数来看看这个函数.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function">EMBED_SAPI_API <span class="keyword">int</span> <span class="title">php_embed_init</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></div><div class="line">&#123;</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> ZTS</span></div><div class="line">	<span class="comment">// 启动sapi</span></div><div class="line">	tsrm_startup(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="literal">NULL</span>);</div><div class="line">	(<span class="keyword">void</span>)ts_resource(<span class="number">0</span>);</div><div class="line">	ZEND_TSRMLS_CACHE_UPDATE();</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> ZEND_SIGNALS</span></div><div class="line">	zend_signal_startup();</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">	<span class="comment">// 初始化php模块</span></div><div class="line">	sapi_startup(&amp;php_embed_module);</div><div class="line">	...</div><div class="line">	<span class="comment">// 启动模块</span></div><div class="line">	<span class="keyword">if</span> (php_embed_module.startup(&amp;php_embed_module)==FAILURE) &#123;</div><div class="line">		<span class="keyword">return</span> FAILURE;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="comment">// 请求request startup 阶段...</span></div><div class="line">	<span class="keyword">if</span> (php_request_startup()==FAILURE) &#123;</div><div class="line">		php_module_shutdown();</div><div class="line">		<span class="keyword">return</span> FAILURE;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	SG(headers_sent) = <span class="number">1</span>;</div><div class="line">	SG(request_info).no_headers = <span class="number">1</span>;</div><div class="line">	php_register_variable(<span class="string">"PHP_SELF"</span>, <span class="string">"-"</span>, <span class="literal">NULL</span>);</div><div class="line"></div><div class="line">	<span class="keyword">return</span> SUCCESS;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在这个函数中,经历最重要的两个部分,module_startup(模块启动阶段),request_startup(请求启动阶段).这两个阶段我们在前面的module_startup介绍过.意思就是embed已经帮我们处理到了request_startup,剩下的我们只需要写处理 就可以啦.</p>
+<h3 id="php-embed-shutdown"><a href="#php-embed-shutdown" class="headerlink" title="php_embed_shutdown"></a>php_embed_shutdown</h3><p>跟init所对应,主要完成php的结尾工作,前面已经帮我们做好了模块启动和请求启动阶段,这个就帮我们完成请求后的处理的.来看一下代码<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function">EMBED_SAPI_API <span class="keyword">void</span> <span class="title">php_embed_shutdown</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="comment">// 关闭请求</span></div><div class="line">	php_request_shutdown((<span class="keyword">void</span> *) <span class="number">0</span>);</div><div class="line">	<span class="comment">// 模块关闭</span></div><div class="line">	php_module_shutdown();</div><div class="line">	<span class="comment">// 关闭sapi</span></div><div class="line">	sapi_shutdown();</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> ZTS</span></div><div class="line">	<span class="comment">// 关闭sapi</span></div><div class="line">	tsrm_shutdown();</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">	<span class="keyword">if</span> (php_embed_module.ini_entries) &#123;</div><div class="line">		<span class="built_in">free</span>(php_embed_module.ini_entries);</div><div class="line">		php_embed_module.ini_entries = <span class="literal">NULL</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>那如何来写这个供其他调用.下面我们就来试试</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>根据上面的来说,我们需要在自己的编写的C文件中加入php_embed_init()和php_embed_shutdown函数.来试试<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// test.c</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sapi/embed/php_embed.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> ** argv)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="comment">// 创建一个file_handle结构体.</span></div><div class="line">	zend_file_handle file_handle;</div><div class="line">	<span class="comment">// 初始化embed sapi等一些其他操作.</span></div><div class="line">	php_embed_init(argc,argv);</div><div class="line">	<span class="comment">// 指定文件类型和文件名.</span></div><div class="line">	file_handle.type = ZEND_HANDLE_FILENAME;</div><div class="line">	file_handle.filename = <span class="string">"call.php"</span>;</div><div class="line">	<span class="comment">// 解析脚本</span></div><div class="line">	php_execute_script(&amp;file_handle);</div><div class="line">	<span class="comment">// 关闭.</span></div><div class="line">	php_embed_shutdown();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在这里面我们调用了一个call.php这个文件,但是我们还没有创建,我们先来创建对应的文件<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// call.php</span></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">my_func</span><span class="params">($a,$b)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">return</span> $a + $b;</div><div class="line">&#125;</div><div class="line"><span class="keyword">echo</span> my_func(<span class="number">100</span>,<span class="number">200</span>);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
+<p>创建好了,我们用gcc开始编译.先指定我们的php的安装路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">gcc -o my_test ./test.c \</div><div class="line">	-I /usr/local/php7/include/php/ \</div><div class="line">	-I /usr/local/php7/include/php/include/ \</div><div class="line">	-I /usr/local/php7/include/php/main/ \</div><div class="line">	-I /usr/local/php7/include/php/TSRM/ \</div><div class="line">	-I /usr/local/php7/inlcude/php/Zend/ \</div><div class="line">	-L /usr/local/php7/lib \</div><div class="line">	-lphp7 \</div><div class="line">	-Wl,--repath /usr/local/php7/lib/</div></pre></td></tr></table></figure></p>
+<p>其中/usr/local/php7是我们的php安装目录,如果,你的安装目录为其他目录请自行替换.上面命令执行完成后会生成一个my_test的执行文件,直接./my_test执行就会得到300.至此,我们就完成了embed.基于php的扩展</p>
 
       
 
@@ -222,6 +223,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -272,7 +284,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/task/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2018/05/03/php源码-embed/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -284,6 +296,16 @@
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/02/php源码-master进程管理2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">php源码-master进程管理2</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 
 
@@ -293,7 +315,7 @@
   
 
   
-  <div id="SOHUCS" sid="undefined" ></div> 
+  <div id="SOHUCS" sid="php源码-embed" ></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -335,7 +357,7 @@ window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="tex
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
