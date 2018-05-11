@@ -8,21 +8,21 @@
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>浏览器缓存 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在我们开发网站的时候往往对网站的性能有极高的需求,当然,外包的除外哈.我见过的外包对效率要求特别高.对代码质量以及性能要求都不是很高.所以这里就不说明太多.高性能就意味着要使用各式各样的缓存,后台redis/memcached缓存等,前台就是浏览器缓存.什么是浏览器缓存.简单来说,就是浏览器继续使用从服务器上的内容,而不去使用服务器上的内容.那如何使用呢,在使用之前,我们先来讲讲浏览器刷新机制.&amp;">
+  <meta name="description" content="在我们开发网站的时候往往对网站的性能有极高的需求,当然,外包的除外哈.我见过的外包对效率要求特别高.对代码质量以及性能要求都不是很高.所以这里就不说明太多.高性能就意味着要使用各式各样的缓存,后台redis/memcached缓存等,前台就是浏览器缓存.什么是浏览器缓存.简单来说,就是浏览器继续使用从服务器上的内容,而不去使用服务器上的内容.那如何使用呢,在使用之前,我们先来讲讲浏览器刷新机制.">
 <meta name="keywords" content="前端 cache php">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浏览器缓存">
 <meta property="og:url" content="http://www.blogme.club/2018/05/11/浏览器缓存/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="在我们开发网站的时候往往对网站的性能有极高的需求,当然,外包的除外哈.我见过的外包对效率要求特别高.对代码质量以及性能要求都不是很高.所以这里就不说明太多.高性能就意味着要使用各式各样的缓存,后台redis/memcached缓存等,前台就是浏览器缓存.什么是浏览器缓存.简单来说,就是浏览器继续使用从服务器上的内容,而不去使用服务器上的内容.那如何使用呢,在使用之前,我们先来讲讲浏览器刷新机制.&amp;">
+<meta property="og:description" content="在我们开发网站的时候往往对网站的性能有极高的需求,当然,外包的除外哈.我见过的外包对效率要求特别高.对代码质量以及性能要求都不是很高.所以这里就不说明太多.高性能就意味着要使用各式各样的缓存,后台redis/memcached缓存等,前台就是浏览器缓存.什么是浏览器缓存.简单来说,就是浏览器继续使用从服务器上的内容,而不去使用服务器上的内容.那如何使用呢,在使用之前,我们先来讲讲浏览器刷新机制.">
 <meta property="og:image" content="http://www.blogme.club/example/last-modified.png">
 <meta property="og:image" content="http://www.blogme.club/example/last-modified-2.png">
 <meta property="og:image" content="http://www.blogme.club/example/etag-1.png">
 <meta property="og:image" content="http://www.blogme.club/example/etag-2.png">
-<meta property="og:updated_time" content="2018-05-11T05:15:59.465Z">
+<meta property="og:updated_time" content="2018-05-11T05:18:08.534Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器缓存">
-<meta name="twitter:description" content="在我们开发网站的时候往往对网站的性能有极高的需求,当然,外包的除外哈.我见过的外包对效率要求特别高.对代码质量以及性能要求都不是很高.所以这里就不说明太多.高性能就意味着要使用各式各样的缓存,后台redis/memcached缓存等,前台就是浏览器缓存.什么是浏览器缓存.简单来说,就是浏览器继续使用从服务器上的内容,而不去使用服务器上的内容.那如何使用呢,在使用之前,我们先来讲讲浏览器刷新机制.&amp;">
+<meta name="twitter:description" content="在我们开发网站的时候往往对网站的性能有极高的需求,当然,外包的除外哈.我见过的外包对效率要求特别高.对代码质量以及性能要求都不是很高.所以这里就不说明太多.高性能就意味着要使用各式各样的缓存,后台redis/memcached缓存等,前台就是浏览器缓存.什么是浏览器缓存.简单来说,就是浏览器继续使用从服务器上的内容,而不去使用服务器上的内容.那如何使用呢,在使用之前,我们先来讲讲浏览器刷新机制.">
 <meta name="twitter:image" content="http://www.blogme.club/example/last-modified.png">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
@@ -179,7 +179,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在我们开发网站的时候往往对网站的性能有极高的需求,当然,外包的除外哈.我见过的外包对效率要求特别高.对代码质量以及性能要求都不是很高.所以这里就不说明太多.高性能就意味着要使用各式各样的缓存,后台redis/memcached缓存等,前台就是浏览器缓存.什么是浏览器缓存.简单来说,就是浏览器继续使用从服务器上的内容,而不去使用服务器上的内容.那如何使用呢,在使用之前,我们先来讲讲浏览器刷新机制.<br>&lt;– more –&gt;</p>
+        <p>在我们开发网站的时候往往对网站的性能有极高的需求,当然,外包的除外哈.我见过的外包对效率要求特别高.对代码质量以及性能要求都不是很高.所以这里就不说明太多.高性能就意味着要使用各式各样的缓存,后台redis/memcached缓存等,前台就是浏览器缓存.什么是浏览器缓存.简单来说,就是浏览器继续使用从服务器上的内容,而不去使用服务器上的内容.那如何使用呢,在使用之前,我们先来讲讲浏览器刷新机制.<br><a id="more"></a></p>
 <h3 id="浏览器刷新"><a href="#浏览器刷新" class="headerlink" title="浏览器刷新"></a>浏览器刷新</h3><p>常见的浏览器刷新有如下几个,Ctrl+F5,Ctrl+R,F5,还有个就是转到,前进.不要认为前进就不是刷新了.其实这个是错误的.下面我们来讲讲这几个区别.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Ctrl + F5:</div><div class="line">	这个在开发过程中,经常使用,为什么说呢,Ctrl+F5为强制刷新,让浏览器不遵守缓存协议,强制的全部重新在服务器上去请求.所有资源都全部重新的去请求.</div><div class="line">Ctrl + R|F5:</div><div class="line">	让浏览器遵守缓存协议,例如last-modified,etag等这些.如果这是服务端返回的是304就认为没有修改,就会直接调用之前的内容.具体的等下面在讲解.用户最多的操作</div><div class="line">前进-&gt;:</div><div class="line">	还有类似于这种操作,就是输入浏览器直接回车.浏览器会将代码Expires的并且没有过期的全部使用,以最少的请求去请求浏览器.就不用担心这种也是强制刷新了.</div></pre></td></tr></table></figure></p>
 <p>下面我们就来讲讲一些常见的用了浏览器缓存的例子.</p>
 <h3 id="Last-modified"><a href="#Last-modified" class="headerlink" title="Last-modified"></a>Last-modified</h3><p>在我们浏览网站的时候,经常能看到这个头部信息,这个头部信息是用来记录最后一次的修改时间.如果网站响应的头部信息有这个,那么下次访问的时候,浏览器会带上一个这样的标识<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">If-Modified-Since:时间</div></pre></td></tr></table></figure></p>
@@ -448,11 +448,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color5">http</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">http</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -472,11 +472,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -512,15 +512,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">php xdebug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">php xdebug</a>
               </li>
              
               <li class="article-tag-list-item">
