@@ -6,14 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Archives | adolph blog</title>
+  <title>浏览器缓存 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/archives/page/3/index.html">
+  <meta name="description" content="在我们开发网站的时候往往对网站的性能有极高的需求,当然,外包的除外哈.我见过的外包对效率要求特别高.对代码质量以及性能要求都不是很高.所以这里就不说明太多.高性能就意味着要使用各式各样的缓存,后台redis/memcached缓存等,前台就是浏览器缓存.什么是浏览器缓存.简单来说,就是浏览器继续使用从服务器上的内容,而不去使用服务器上的内容.那如何使用呢,在使用之前,我们先来讲讲浏览器刷新机制.&amp;">
+<meta name="keywords" content="前端 cache php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器缓存">
+<meta property="og:url" content="http://www.blogme.club/2018/05/11/浏览器缓存/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="在我们开发网站的时候往往对网站的性能有极高的需求,当然,外包的除外哈.我见过的外包对效率要求特别高.对代码质量以及性能要求都不是很高.所以这里就不说明太多.高性能就意味着要使用各式各样的缓存,后台redis/memcached缓存等,前台就是浏览器缓存.什么是浏览器缓存.简单来说,就是浏览器继续使用从服务器上的内容,而不去使用服务器上的内容.那如何使用呢,在使用之前,我们先来讲讲浏览器刷新机制.&amp;">
+<meta property="og:image" content="http://www.blogme.club/example/last-modified.png">
+<meta property="og:image" content="http://www.blogme.club/example/last-modified-2.png">
+<meta property="og:image" content="http://www.blogme.club/example/etag-1.png">
+<meta property="og:image" content="http://www.blogme.club/example/etag-2.png">
+<meta property="og:updated_time" content="2018-05-11T05:15:59.465Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="浏览器缓存">
+<meta name="twitter:description" content="在我们开发网站的时候往往对网站的性能有极高的需求,当然,外包的除外哈.我见过的外包对效率要求特别高.对代码质量以及性能要求都不是很高.所以这里就不说明太多.高性能就意味着要使用各式各样的缓存,后台redis/memcached缓存等,前台就是浏览器缓存.什么是浏览器缓存.简单来说,就是浏览器继续使用从服务器上的内容,而不去使用服务器上的内容.那如何使用呢,在使用之前,我们先来讲讲浏览器刷新机制.&amp;">
+<meta name="twitter:image" content="http://www.blogme.club/example/last-modified.png">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -149,405 +159,186 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-浏览器缓存" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      浏览器缓存
+    </h1>
+  
+
+        
+        <a href="/2018/05/11/浏览器缓存/" class="archive-article-date">
+  	<time datetime="2018-05-11T05:14:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-11</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在我们开发网站的时候往往对网站的性能有极高的需求,当然,外包的除外哈.我见过的外包对效率要求特别高.对代码质量以及性能要求都不是很高.所以这里就不说明太多.高性能就意味着要使用各式各样的缓存,后台redis/memcached缓存等,前台就是浏览器缓存.什么是浏览器缓存.简单来说,就是浏览器继续使用从服务器上的内容,而不去使用服务器上的内容.那如何使用呢,在使用之前,我们先来讲讲浏览器刷新机制.<br>&lt;– more –&gt;</p>
+<h3 id="浏览器刷新"><a href="#浏览器刷新" class="headerlink" title="浏览器刷新"></a>浏览器刷新</h3><p>常见的浏览器刷新有如下几个,Ctrl+F5,Ctrl+R,F5,还有个就是转到,前进.不要认为前进就不是刷新了.其实这个是错误的.下面我们来讲讲这几个区别.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Ctrl + F5:</div><div class="line">	这个在开发过程中,经常使用,为什么说呢,Ctrl+F5为强制刷新,让浏览器不遵守缓存协议,强制的全部重新在服务器上去请求.所有资源都全部重新的去请求.</div><div class="line">Ctrl + R|F5:</div><div class="line">	让浏览器遵守缓存协议,例如last-modified,etag等这些.如果这是服务端返回的是304就认为没有修改,就会直接调用之前的内容.具体的等下面在讲解.用户最多的操作</div><div class="line">前进-&gt;:</div><div class="line">	还有类似于这种操作,就是输入浏览器直接回车.浏览器会将代码Expires的并且没有过期的全部使用,以最少的请求去请求浏览器.就不用担心这种也是强制刷新了.</div></pre></td></tr></table></figure></p>
+<p>下面我们就来讲讲一些常见的用了浏览器缓存的例子.</p>
+<h3 id="Last-modified"><a href="#Last-modified" class="headerlink" title="Last-modified"></a>Last-modified</h3><p>在我们浏览网站的时候,经常能看到这个头部信息,这个头部信息是用来记录最后一次的修改时间.如果网站响应的头部信息有这个,那么下次访问的时候,浏览器会带上一个这样的标识<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">If-Modified-Since:时间</div></pre></td></tr></table></figure></p>
+<p>然后服务端可以根据这个来判断是不是应该可以直接使用缓存.当然,一般动态的网页是很少用这种的,因为不存在传统意义上的最后的修改时间.一般会用于静态网站长时间不修改文件的内容等.我们来做一个简单示例.<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="comment">// 判断是否含有这个最后一次修改时间,如果有,就强制使用304,让浏览器使用缓存.并终止程序.</span></div><div class="line"><span class="keyword">if</span> (array_key_exists(<span class="string">'HTTP_IF_MODIFIED_SINCE'</span>, $_SERVER)) &#123;</div><div class="line">	header(<span class="string">'HTTP/1.1 304 Not Modified'</span>);</div><div class="line">	<span class="keyword">exit</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 添加最后一次的修改时间</span></div><div class="line">header(<span class="string">'Last-Modified: '</span> . gmdate(<span class="string">'D, d M Y H:i:s'</span>) . <span class="string">' GMT'</span>);</div><div class="line"><span class="keyword">echo</span> date(<span class="string">'Y-m-d H:i:s'</span>);</div></pre></td></tr></table></figure></p>
+<p>这里的做法虽然并不合理,没有判断时间,只要存在就使用缓存.这仅仅是为了看下效果,开发程序时应该有更好的做法.让我们来看看效果.我们把这个命令成index.php,放在localhost执行的地址,让我们来看看<br><img src="http://www.blogme.club/example/last-modified.png" alt="last-modifyed" title="last-modifyed"><br>第一次访问,浏览器得到的last-modified这个响应头,我们来看看请求头和响应头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">--Response Headers--</div><div class="line">Connection:keep-alive</div><div class="line">Content-Encoding:gzip</div><div class="line">Content-Type:text/html; charset=UTF-8</div><div class="line">Date:Fri, 11 May 2018 02:19:51 GMT</div><div class="line">Last-Modified:Fri, 11 May 2018 01:37:15 GMT</div><div class="line">Server:nginx/1.9.15 (Ubuntu)</div><div class="line">Transfer-Encoding:chunked</div><div class="line">--Request Headers--</div><div class="line">Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</div><div class="line">Accept-Encoding:gzip, deflate, br</div><div class="line">Accept-Language:zh-CN,zh;q=0.9</div><div class="line">Cache-Control:no-cache</div><div class="line">Connection:keep-alive</div><div class="line">Host:localhost</div><div class="line">Pragma:no-cache</div><div class="line">Upgrade-Insecure-Requests:1</div><div class="line">User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36</div></pre></td></tr></table></figure></p>
+<p>从上面可以看出,对于第一次访问的网站,浏览器并没有缓存.然后当我们再次使用了F5过来,在来看看<br><img src="http://www.blogme.club/example/last-modified-2.png" alt="last-modified-2" title="last-modified-2"><br>这里我们的程序代码是直接退出程序,没有任何输出,那为什么还有这个输出,这个正式因为浏览器读取自己的缓存.让我们看看响应头.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">--Response Headers--</div><div class="line">Connection:keep-alive</div><div class="line">Date:Fri, 11 May 2018 02:26:57 GMT</div><div class="line">Server:nginx/1.9.15 (Ubuntu)</div></pre></td></tr></table></figure></p>
+<p>这里仅有简单的几行,指明了web服务器和系统,再来看看请求头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</div><div class="line">Accept-Encoding:gzip, deflate, br</div><div class="line">Accept-Language:zh-CN,zh;q=0.9</div><div class="line">Cache-Control:max-age=0</div><div class="line">Connection:keep-alive</div><div class="line">Host:localhost</div><div class="line">If-Modified-Since:Fri, 11 May 2018 01:37:15 GMT</div><div class="line">Upgrade-Insecure-Requests:1</div><div class="line">User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36</div></pre></td></tr></table></figure></p>
+<p>添加了一个If-Modified-Since,让我们来判断有效期,这个就是让我们来判断是否使用浏览器缓存的一个标识.所以这个就让我们的浏览器强制使用了缓存.</p>
+<h3 id="Etag"><a href="#Etag" class="headerlink" title="Etag"></a>Etag</h3><p>这个头又是用来干嘛的,这个又是跟浏览器协商的另一种方法,它于前面的last-modified非常相似,但是它没有用文件的最后修改时间,而是用一段编码俩标记内容,这个编码并没有强制要求,但是我们通常用一个文件内容的md5来作为Etag.一个原则就是,如果一个内容的Etag没有变化,那么这个内容也一定没有更新.让我们来弄一个简单的示例.<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$date = date(<span class="string">'Y-m-d'</span>);	<span class="comment">// 我们这里用当前的日期来代替文件md5</span></div><div class="line"><span class="comment">// 判断请求头中是否存在if-none-match,如果存在就去判断md5,如果值一样,就返回304</span></div><div class="line"><span class="keyword">if</span> (array_key_exists(<span class="string">'HTTP_IF_NONE_MATCH'</span>, $_SERVER)</div><div class="line">	&amp;&amp; $_SERVER[<span class="string">'HTTP_IF_NONE_MATCH'</span>] == <span class="string">'W/"'</span> . md5($date) . <span class="string">'"'</span>) &#123;</div><div class="line">	header(<span class="string">'HTTP/1.1 304 Not Modified'</span>);</div><div class="line">	<span class="keyword">exit</span>;	<span class="comment">// 退出</span></div><div class="line">&#125;</div><div class="line"><span class="comment">// 添加请求头.</span></div><div class="line">header(<span class="string">'Etag: "'</span> . md5($date) . <span class="string">'"'</span>);</div><div class="line"><span class="keyword">echo</span> date(<span class="string">'Y-m-d H:i:s'</span>);</div></pre></td></tr></table></figure></p>
+<p>这里我们的程序代码是跟我们用last-modified是一样的.对于我们来说,也是不合理的,只是用来当成示例而已方便理解.让我们来看看执行效果.<br><img src="http://www.blogme.club/example/etag-1.png" alt="etag-1" title="etag-1"><br>第一次都是强制请求,如果前面的没有处理,就先Ctrl+F5,这里就先说明这个.具体的部署还是跟上一步的步骤一样.让我们看看响应头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">--Response Headers--</div><div class="line">Connection:keep-alive</div><div class="line">Content-Encoding:gzip</div><div class="line">Content-Type:text/html; charset=UTF-8</div><div class="line">Date:Fri, 11 May 2018 02:45:07 GMT</div><div class="line">Etag:W/&quot;64ddf4c4fbf56a689c963872a8325370&quot;</div><div class="line">Server:nginx/1.9.15 (Ubuntu)</div><div class="line">Transfer-Encoding:chunked</div></pre></td></tr></table></figure></p>
+<p>在响应头里面增加一项,Etag,当然这个是我们的程序输出的.用程序控制的.我们来看看F5过后的结果<br><img src="http://www.blogme.club/example/etag-2.png" alt="etag-2" title="etag-2"><br>我们看见响应头中多了一个If-None-Match这个跟我们上一个请求的Etag值是一样的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">--Request Headers--</div><div class="line">Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</div><div class="line">Accept-Encoding:gzip, deflate, br</div><div class="line">Accept-Language:zh-CN,zh;q=0.9</div><div class="line">Cache-Control:max-age=0</div><div class="line">Connection:keep-alive</div><div class="line">Host:localhost</div><div class="line">If-None-Match:W/&quot;64ddf4c4fbf56a689c963872a8325370&quot;</div><div class="line">Upgrade-Insecure-Requests:1</div><div class="line">User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36</div></pre></td></tr></table></figure></p>
+<p>这个对于我们来说,在程序中我们也是直接停止了,并且报出304的状态码,但是浏览器还是作出反映了,将以前的值拿过来用了.这个就是我们的Etag</p>
+<h3 id="Etag和Last-Modified"><a href="#Etag和Last-Modified" class="headerlink" title="Etag和Last-Modified"></a>Etag和Last-Modified</h3><p>既然这两个都是用来作用浏览器缓存的.那谁的优先级高呢,其实没有优化级,根据我们服务的处理来的.我们如果优先处理Etag那就Etag值高,优先处理Last-Modified就Last-Modified高.</p>
+<h3 id="另一种不同的Expires"><a href="#另一种不同的Expires" class="headerlink" title="另一种不同的Expires"></a>另一种不同的Expires</h3><p>上面两种方式已经说明了,但是我们还是会经常看到,在我们退出浏览器过后,再次访问这个网站的时候,还是读取的缓存.显然,我们上面两种都不行的.不信你试试.这里我们就介绍另外一种,Expires,我们先来例子<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$stream = file_get_contents(<span class="string">'./etag-1.png'</span>);</div><div class="line">$seconds_to_cache = <span class="number">3600</span>;</div><div class="line">$ts = gmdate(<span class="string">"D, d M Y H:i:s"</span>, time() + $seconds_to_cache) . <span class="string">" GMT"</span>;</div><div class="line">header(<span class="string">'Content-Type: image/png'</span>);</div><div class="line">header(<span class="string">"Expires: $ts"</span>);</div><div class="line"><span class="keyword">echo</span> $stream;</div></pre></td></tr></table></figure></p>
+<p>当我们第一次访问的时候,用localhost访问时,会得到一张图片.并且缓存1个小时,然后我们退出浏览器.并修改代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">exit(&apos;111111&apos;);</div><div class="line">$stream = file_get_contents(&apos;./etag-1.png&apos;);</div><div class="line">$seconds_to_cache = 3600;</div><div class="line">$ts = gmdate(&quot;D, d M Y H:i:s&quot;, time() + $seconds_to_cache) . &quot; GMT&quot;;</div><div class="line">header(&apos;Content-Type: image/png&apos;);</div><div class="line">header(&quot;Expires: $ts&quot;);</div><div class="line">echo $stream;</div></pre></td></tr></table></figure></p>
+<p>然后在访问时,依然会得到我们的图片,并没有得到我们所谓的6个1.这个图片已经被浏览器缓存下来了.Expires是绝对时间.同理还有一个相对的,Cache-Control这里我就不演示,可以自己根据代码来作出演示即可.</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>我们根据以上的得出如下结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Last-Modified -&gt; If-Modified-Since	// 浏览器缓存于当前会话</div><div class="line">Etags -&gt; If-Modified-Since // 浏览器缓存当前会话</div><div class="line">Expires	// 关闭后也有效</div><div class="line">Cache-Control	// 关闭后也有效</div></pre></td></tr></table></figure></p>
+<p>我们可以根据不同的场景应用不同的缓存机制了.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/11/vuex入门/" class="archive-article-date">
-  	<time datetime="2017-10-11T02:31:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/11/vuex入门/">vuex入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">vue javascript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端 cache php</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2018/05/11/浏览器缓存/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/11/vue-cli多页面配置/" class="archive-article-date">
-  	<time datetime="2017-10-11T02:29:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-11</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/11/vue-cli多页面配置/">vue-cli多页面配置</a>
-    </h1>
+  
+    <a href="/2018/05/04/redis主从和哨兵配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">redis主从和哨兵配置</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">vue javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/11/浏览器兼容性/" class="archive-article-date">
-  	<time datetime="2017-10-11T02:27:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/11/浏览器兼容性/">浏览器兼容性</a>
-    </h1>
+  <div id="SOHUCS" sid="浏览器缓存" ></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/10/gnome踩坑记/" class="archive-article-date">
-  	<time datetime="2017-09-10T12:32:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/10/gnome踩坑记/">gnome踩坑记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ubuntu</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/09/activeMQ学习之旅2-函数介绍和简单集群配置/" class="archive-article-date">
-  	<time datetime="2017-08-09T10:42:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/09/activeMQ学习之旅2-函数介绍和简单集群配置/">activeMQ学习之旅2-函数介绍和简单集群配置</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">activeMQ</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/08/activeMQ学习之旅/" class="archive-article-date">
-  	<time datetime="2017-08-08T07:24:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/08/activeMQ学习之旅/">activeMQ学习之旅</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">activeMQ</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/05/socket学习之旅-4使用workerman做mysql代理/" class="archive-article-date">
-  	<time datetime="2017-08-05T09:21:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/05/socket学习之旅-4使用workerman做mysql代理/">socket学习之旅-4使用workerman做mysql代理</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/" class="archive-article-date">
-  	<time datetime="2017-08-04T07:12:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/">socket学习之旅-3撕开RPC远程调用的神秘外衣</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">socket rpc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/03/socket学习之旅-2撕开websocket的神秘外衣/" class="archive-article-date">
-  	<time datetime="2017-08-03T10:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/03/socket学习之旅-2撕开websocket的神秘外衣/">socket学习之旅-2撕开websocket的神秘外衣</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/03/socket学习之旅-1如何打电话/" class="archive-article-date">
-  	<time datetime="2017-08-03T01:50:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/03/socket学习之旅-1如何打电话/">socket学习之旅:1如何打电话</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="page-number" href="/archives/page/5/">5</a><a class="extend next" rel="next" href="/archives/page/4/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -580,8 +371,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
