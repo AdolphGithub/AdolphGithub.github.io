@@ -6,19 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>mysql的悲观锁和乐观锁 | adolph blog</title>
+  <title>为什么宁愿吃生活的苦,也不愿吃学习的苦 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前面一章我们讲了redis的悲观锁和乐观锁,依靠是redis自身的语句,同理.mysql也要依靠自身的锁机制才能完成我们需要的效果.">
-<meta name="keywords" content="mysql">
+  <meta name="description" content="你想成为幸福的人吗？但愿你首先学会吃得起苦。记住一句话：即便艰难，学习仍是改变的最好方式。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql的悲观锁和乐观锁">
-<meta property="og:url" content="http://www.blogme.club/2017/12/26/mysql的悲观锁和乐观锁/index.html">
+<meta property="og:title" content="为什么宁愿吃生活的苦,也不愿吃学习的苦">
+<meta property="og:url" content="http://www.blogme.club/2018/07/18/宁愿吃生活的苦-也不愿吃学习的苦/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="前面一章我们讲了redis的悲观锁和乐观锁,依靠是redis自身的语句,同理.mysql也要依靠自身的锁机制才能完成我们需要的效果.">
-<meta property="og:updated_time" content="2017-12-26T09:28:03.341Z">
+<meta property="og:description" content="你想成为幸福的人吗？但愿你首先学会吃得起苦。记住一句话：即便艰难，学习仍是改变的最好方式。">
+<meta property="og:updated_time" content="2018-07-18T05:28:52.911Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mysql的悲观锁和乐观锁">
-<meta name="twitter:description" content="前面一章我们讲了redis的悲观锁和乐观锁,依靠是redis自身的语句,同理.mysql也要依靠自身的锁机制才能完成我们需要的效果.">
+<meta name="twitter:title" content="为什么宁愿吃生活的苦,也不愿吃学习的苦">
+<meta name="twitter:description" content="你想成为幸福的人吗？但愿你首先学会吃得起苦。记住一句话：即便艰难，学习仍是改变的最好方式。">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -154,38 +153,85 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-mysql的悲观锁和乐观锁" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-宁愿吃生活的苦-也不愿吃学习的苦" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      mysql的悲观锁和乐观锁
+      为什么宁愿吃生活的苦,也不愿吃学习的苦
     </h1>
   
 
         
-        <a href="/2017/12/26/mysql的悲观锁和乐观锁/" class="archive-article-date">
-  	<time datetime="2017-12-26T09:26:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-26</time>
+        <a href="/2018/07/18/宁愿吃生活的苦-也不愿吃学习的苦/" class="archive-article-date">
+  	<time datetime="2018-07-18T05:16:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>前面一章我们讲了redis的悲观锁和乐观锁,依靠是redis自身的语句,同理.mysql也要依靠自身的锁机制才能完成我们需要的效果.<br><a id="more"></a></p>
-<h4 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h4><p>在mysql中,悲观锁的实现需要使用select…for…update,这个是为什么呢.因为在mysql中,使用了select for update这种语句,这样会将查询到的结果集全部加上锁.这下厉害了,所以我们在使用悲观锁的时候,口头约定一定要使用唯一或者主键索引.这样才能锁住一行.在mysql中,如果我们使用了这个语句,还得将mysql自动的autocommit关闭,不然我们更新后就自动提交了,就使用不到锁机制了.使用以下sql语句,只有这样我们手动提交才能让后面的来继续操作.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">set autocommit = 0</div></pre></td></tr></table></figure></p>
-<h4 id="实现悲观锁"><a href="#实现悲观锁" class="headerlink" title="实现悲观锁"></a>实现悲观锁</h4><p>悲观锁和乐观锁一般要用到两个文件,模拟多个用户操作.这样才能很好的看出效果.<br>文件1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$pdo = new PDO(&apos;mysql:host=localhost;dbname=lock&apos;,&apos;root&apos;,&apos;root&apos;);</div><div class="line">// 给查询的数据加锁</div><div class="line">$sql = &apos;select * from `lock` where id = 1 FOR UPDATE&apos;;</div><div class="line">// 为什么要关闭呢,因为执行一个更新操作后,mysql会立刻将结果进行提交.</div><div class="line">$pdo-&gt;exec(&apos;set autocommit=0&apos;);</div><div class="line">echo &quot;设置自动提交&quot;;</div><div class="line">// 开始事务.</div><div class="line">$pdo-&gt;beginTransaction();</div><div class="line">$resource = $pdo-&gt;query($sql);</div><div class="line">echo &quot;让其他人去操作这个数据\n&quot;;</div><div class="line">sleep(20);</div><div class="line">$sql2 = &apos;update `lock` set status = 1 where id = 1&apos;;</div><div class="line">$pdo-&gt;exec($sql2);</div><div class="line">// 手动提交事务.</div><div class="line">$pdo-&gt;commit();</div></pre></td></tr></table></figure></p>
-<p>文件2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$pdo = new PDO(&apos;mysql:host=localhost;dbname=lock&apos;,&apos;root&apos;,&apos;root&apos;);</div><div class="line">// 直接去更新数据.</div><div class="line">$sql2 = &apos;update `lock` set status = 1 where id = 1 and status = 0&apos;;</div><div class="line">if($pdo-&gt;exec($sql2))</div><div class="line">&#123;</div><div class="line">    echo &quot;更新成功\n&quot;;</div><div class="line">&#125;</div><div class="line">else</div><div class="line">&#123;</div><div class="line">    echo &quot;更新失败\n&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>当文件1在操作的时候,我们加了悲观锁.只有等文件1提交完成过后,文件2的才能继续操作,不然文件2也会卡住.这个就是悲观锁.只要上了锁,就要等我操作完成才行.</p>
-<h4 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h4><p>在mysql中,实现乐观锁很简单.因为很多框架都自带了,updated_at这个字段,用这个字段来判断.我们先得到数据.然后模拟卡顿,更新的时候,判断updated_at是不是原来的那个字段就行了.</p>
-<h4 id="实现乐观锁"><a href="#实现乐观锁" class="headerlink" title="实现乐观锁"></a>实现乐观锁</h4><p>同理,我们还是需要两个文件模拟多个人操作.<br>文件1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">$pdo = new PDO(&apos;mysql:host=localhost;dbname=lock&apos;,&apos;root&apos;,&apos;root&apos;);</div><div class="line">// 设置字符集</div><div class="line">$pdo-&gt;query(&apos;SET NAMES utf8&apos;);</div><div class="line">// 查询id=1的数据.</div><div class="line">$resource = $pdo-&gt;query(&apos;select * from `lock` where id = 1&apos;);</div><div class="line">$result = [];</div><div class="line">foreach ($resource as $key=&gt;$value)&#123;</div><div class="line">    array_push($result,$value);</div><div class="line">&#125;</div><div class="line">// 得到第一行</div><div class="line">$row = array_shift($result);</div><div class="line"></div><div class="line">$sql = &apos;update `lock` set status = 1,updated_at = &quot;&apos;.date(&apos;Y-m-d H:i:s&apos;).&apos;&quot; where id = 1 and updated_at = &apos;.&quot;&apos;&#123;$row[&apos;updated_at&apos;]&#125;&apos;&quot;;</div><div class="line">echo &apos;让别人去执行&apos; . &quot;\n&quot;;</div><div class="line">sleep(20);</div><div class="line">if($pdo-&gt;exec($sql))</div><div class="line">&#123;</div><div class="line">    echo &apos;更新成功&apos;. &quot;\n&quot;;</div><div class="line">&#125;</div><div class="line">else</div><div class="line">&#123;</div><div class="line">    echo &apos;更新失败&apos;. &quot;\n&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>文件2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$pdo = new PDO(&apos;mysql:host=localhost;dbname=lock&apos;,&apos;root&apos;,&apos;root&apos;);</div><div class="line">$sql = &apos;update `lock` set status = 1,updated_at = &quot;&apos;.date(&apos;Y-m-d H:i:s&apos;).&apos;&quot; where id = 1&apos;;</div><div class="line">if($pdo-&gt;exec($sql))</div><div class="line">&#123;</div><div class="line">    echo &quot;更新成功\n&quot;;</div><div class="line">&#125;</div><div class="line">else</div><div class="line">&#123;</div><div class="line">    echo &quot;更新失败\n&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>当我们执行文件1时,先把数据取到了,如果文件2中更新后,时间变了,我们就不更新数据就行了.这个就非常简单的乐观锁.</p>
-<h4 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h4><p>以上代码使用了pdo,请自行安装pdo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pecl install pdo</div></pre></td></tr></table></figure></p>
-<p>OR<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt isntall php版本-pdo</div></pre></td></tr></table></figure></p>
-<p>建表语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE `lock` (</div><div class="line">  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT &apos;自增ID&apos;,</div><div class="line">  `name` varchar(255) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;姓名&apos;,</div><div class="line">  `status` tinyint(1) NOT NULL DEFAULT &apos;0&apos; COMMENT &apos;0:未操作,1:操作&apos;,</div><div class="line">  `updated_at` timestamp NOT NULL DEFAULT &apos;0000-00-00 00:00:00&apos; ON UPDATE CURRENT_TIMESTAMP COMMENT &apos;更新时间&apos;,</div><div class="line">  PRIMARY KEY (`id`)</div><div class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</div></pre></td></tr></table></figure></p>
+        <p>你想成为幸福的人吗？但愿你首先学会吃得起苦。记住一句话：即便艰难，学习仍是改变的最好方式。<br><a id="more"></a></p>
+<h3 id="为什么大多数人宁愿吃生活的苦，也不愿吃学习的苦？"><a href="#为什么大多数人宁愿吃生活的苦，也不愿吃学习的苦？" class="headerlink" title="为什么大多数人宁愿吃生活的苦，也不愿吃学习的苦？"></a>为什么大多数人宁愿吃生活的苦，也不愿吃学习的苦？</h3><blockquote>
+<p>记得小时候上学，学校每次放月假，爷爷就去车站接我回家。那时家里离车站远，需要骑着车子来回。一路上我们彼此相对无语，等到爷爷骑不动了，我们就这么一前一后推着车子走着，记得爷爷常常和我说：“吃得苦中苦，方为人上人，你日后要好生读书。”那时的我未解其意，只是默默记在心里，望着不远处稻田里的乡亲们弯腰割麦俯首插秧，我觉着他们太辛苦了。</p>
+<p>几年过去了，我考入了省城上大学，学了这个城市最热门也最富前景的工程造价专业。<br>后来，我走进实习单位， 工地的环境有多么糟糕自不必多说，晴天尘土飞扬骄阳似火，雨天泥泞不堪污水四溢。物质世界的贫瘠尚可以忍受，然而精神世界的荒芜会随着时间慢慢消磨你的梦想和纯真。</p>
+<p>后来，我选择去了深圳，在那里我终于找到了自己热爱的行业，眼前陌生的一切都让我感到兴奋和欢愉。人工智能、自动驾驶、虚拟现实、风投、天使轮这些名词让我看到了世界的另一面。越是不断地拓宽知识面，越是觉得自己知识储备量的贫瘠与荒凉。</p>
+<p>也正是在这样日积月累的积累过程中，我发现人与人的差距被迅速地拉开，当我这几年再次回到曾经生活的地方，发现很多人的思维模式还停留在几年前，脑海里停留的信息和映像早已跟不上这个时代的变化。</p>
+<p>他们宁愿选择每月靠家里人给零花钱度日，也不愿选择自食其力谋一份工作；他们宁愿选择把时间浪费在和小商贩砍价，也想不到多花一块钱去学习新知识。曾经在知乎上看到一个问题，问的是：</p>
+<h4 id="为什么大多数人宁愿吃生活的苦，也不愿吃学习的苦？-1"><a href="#为什么大多数人宁愿吃生活的苦，也不愿吃学习的苦？-1" class="headerlink" title="为什么大多数人宁愿吃生活的苦，也不愿吃学习的苦？"></a>为什么大多数人宁愿吃生活的苦，也不愿吃学习的苦？</h4><p>知乎中一位点赞最高的答主是这样回答的：</p>
+<p>“生活的苦难可以被疲劳麻痹，被娱乐转移，无论如何只要还生存着，行尸走肉也可以得过且过，最终习以为常，可以称之为钝化。学习的痛苦在于，你始终要保持敏锐的触感，保持清醒的认知，丰沛的感情，这不妨叫锐化。”<br>生活的“苦”大多是可重复性的。</p>
+<p>而人的适应能力非常强，持续地经历同样的苦时间久了，痛苦的体验和效应会逐渐减弱，让人进入习惯性无助的状态。这种状态虽然不是特别舒服，但久而久之也不会特别难以忍受。</p>
+<p>但是学习的“苦”是非重复性的。</p>
+<p>学习本就是认知边界不断扩宽的过程，需要你主动思考和汲取，而学习的内容往往是循序渐进，不如生活的痛苦那样重复，所以你无法进入麻木的状态，而是需要不断面对新的知识和学习目标。</p>
+<p>前者可以通过眼前的娱乐来自我麻痹，让自己对痛苦的感知渐渐丧失。而后者却只能在长久的学习积累中，慢慢感受到知识带来的好处和力量。</p>
+<p>一个是眼前伸手可得的欢愉，一个是延迟满足感的精进过程。</p>
+<p>毫无疑问，大多数人会选择前者，毕竟这个世界愿意主动给自己找罪受的人总是少数。</p>
+<h3 id="所有觉得学习苦的人，大多是没有挨过现实的耳光"><a href="#所有觉得学习苦的人，大多是没有挨过现实的耳光" class="headerlink" title="所有觉得学习苦的人，大多是没有挨过现实的耳光"></a>所有觉得学习苦的人，大多是没有挨过现实的耳光</h3><p>最近看到了一篇关于在校大学生的报道，即将面临大学毕业的老岳，在高中时就是一个十分标准的网瘾少年。</p>
+<p>高考之前，爸妈为了防止他分心，连手机、电脑，甚至电视都不给碰。</p>
+<p>上了大学后觉得放松了，想把以前没有玩够的游戏都玩回来。在游戏里建了群，为了把群发展好，他把越来越多的时间花在了游戏里。</p>
+<p>大一时逃了一节课之后，发现大学管得并不严，胆子大了于是就有了第二次逃课，从此接二连三一发不可收拾。天天在寝室蓬头垢面玩游戏，外卖盒堆了一地，期末挂科也成了常态。</p>
+<p>当室友拿到了满意的offer时，除了游戏没有任何爱好的他，连毕业都成了问题。</p>
+<p>虚拟世界里的游戏虽然精彩，但是现实生活里会有更高的要求。</p>
+<p>游戏里的情节尚可以提前设计，然而现实却是用一生的时间去体验。</p>
+<p>曾经有考生在高考时交了白卷，在高考后她曾试图出门打工，但学历不高，加上没什么专业技能，找工作的路异常艰辛，发出“压力特别大，老觉得对不起父母”的感慨。</p>
+<p>后来几经周折，这名考生进入了一家技校就读。回忆高考，她坦言“现在觉着有点可笑。”</p>
+<p>不想读书，觉着读书辛苦？现实的生活会诚实地告诉他们，不读书的人生会更苦。</p>
+<p>穷则思变，真正苦到一定程度了，人自然会自发地挣扎起来改变现状，对于有些背负着沉重生活的人来讲，学习才是脱离生活苦难又轻松又有用的途径。</p>
+<p>没有谁愿意吃真正的生活里的“苦”，归根到底还是因为大多数人的生活还没有足够的糟糕。</p>
+<p>有时候学习的那种“苦”和沉重粗砺的生活比起来，真的不算什么。</p>
+<p>有学者说：</p>
+<p>“那些长期处于稀缺状态的穷人，培养出了短缺头脑模式，其判断力和认知能力会因过于关注眼前问题而大大降低，而没有多余带宽来考虑投资和长远发展事宜。”</p>
+<h3 id="生活的痛苦使人麻痹，学习的痛苦让人清醒-；过去不按思维而生活，终将有一天要按照生活而思维"><a href="#生活的痛苦使人麻痹，学习的痛苦让人清醒-；过去不按思维而生活，终将有一天要按照生活而思维" class="headerlink" title="生活的痛苦使人麻痹，学习的痛苦让人清醒 ；过去不按思维而生活，终将有一天要按照生活而思维"></a>生活的痛苦使人麻痹，学习的痛苦让人清醒 ；过去不按思维而生活，终将有一天要按照生活而思维</h3><p>痛苦之所以不被人喜欢，大多数是因为人们从不会思考自己为何痛苦。</p>
+<p>然而，这世上还有另一种痛苦是，对这个世界产生了失望的情绪，然后把自己对这个世界的失望，当作是自己本该如此，甚至误以为这就是吃苦的好处。</p>
+<p>我总觉得苦难的意义，在于我们更好地去思考人生为何如此苦难，就像有人曾说：未经省察的人生，从不值得一过。</p>
+<p>如果没有经过思索和自省，苦难终究只是苦难而已，没有任何意义。</p>
+<p>有些人，年轻时总觉得学不学习无关紧要，反正自己体力好得很，只要自己身体好就能混口饭吃。</p>
+<p>他们终将会明白，那些为了讨生活不得已而吃的苦，就是当年不吃学习苦的代价。</p>
+<p>学习的苦，是枯燥的苦，是短期没有回报的苦，这种苦看得见，摸得着，谁都不愿吃。</p>
+<p>生活的苦，是绝望的苦，是长期没有出路的苦，这种苦看不见，摸不着，谁都不想吃。</p>
+<p>我从不喜欢自讨苦吃，如果我能通过学习和自我提升避免遇见这些痛苦的经历，我有什么理由不去学习？</p>
+<p>生活其实并不苦，苦的是那个不知苦也不知如何避免吃苦的人生。</p>
+<p>学习其实并不苦，苦的是早已被生活消磨掉的好奇心和敢于对未来报有期望的勇气。</p>
+<h3 id="必须吃生活的苦，客观上限制了学习的条件"><a href="#必须吃生活的苦，客观上限制了学习的条件" class="headerlink" title="必须吃生活的苦，客观上限制了学习的条件"></a>必须吃生活的苦，客观上限制了学习的条件</h3><p>不得不承认一个更现实问题的存在：通过学习改变命运越来越难，所以很多人选择不吃学习的苦。</p>
+<p>素质教育的压力下，课外教育的投入，也成了竞争力的资本。有能力得到更优质教育资源的家庭，在良好的循环中，生活的苦相对增量只会更少。</p>
+<p>同样的时间内，有条件的人可以把资源用在提升自我，而资源相对匮乏的人，时间已经全都用在了应付生活的苦上。</p>
+<p>美国作家芭芭拉·艾伦瑞克为了探求贫穷的真相，隐姓埋名，体验低薪阶层如何生活。</p>
+<p>她去了不同的城市，换了零售、清洁、老人服务等六种工作，最后发现自己陷入困局：</p>
+<p>因为没钱，要住在偏远的地方 → 花费大量时间在上班路上 → 用于提升自己的学习时间和发现更好工作的机会越来越少 → 想要做更多兼职来应对生活的成本 → 沦为工作机器，心理崩溃，选择放弃……</p>
+<p>吃生活的苦，耗尽了时间、钱财、精力，让人没了吃学习的苦的机会。</p>
+<p>而这种现状越加深，越会让人从环境找问题，而非自身。</p>
+<p>生活的苦，也有质量之分。有一些苦让人从自身寻找问题，选择利用反省的思维方式；另外一些，逼着人从环境找理由，陷于可能存在的威胁中，无法站在跳脱的角度进行反省。</p>
+<h3 id="即便艰难-，学习仍是改变的最好方式"><a href="#即便艰难-，学习仍是改变的最好方式" class="headerlink" title="即便艰难 ，学习仍是改变的最好方式"></a>即便艰难 ，学习仍是改变的最好方式</h3><p>没有选择吃学习的苦，在很大程度上会让人吃到更多生活上的苦。</p>
+<p>有人在知乎提了一个问题：假设房间里有100个人，他们从18岁时带着100元钱的初始资金玩游戏，每一轮，每个人都拿出一元随机给另一个人，一直玩到65岁，最后100个人的财富分布会怎样的？</p>
+<p>游戏运行17000次后，社会财富的分配比例是：top10%的富人掌握着大约30%的财富，top20%的富人掌握着大约50%的财富，60%的人财富缩水到100元以下。</p>
+<p>这结果从侧面验证了“二八定律”：80%的财富掌握在20%的人手中。</p>
+<p>那么，努力的人生会更好吗？</p>
+<p>假设这些玩家中有10人比别人加倍努力，获得1%的竞争优势，即赢得收益的概率比别人高出1%。</p>
+<p>游戏的模拟结果是，10位努力玩家中，9位进入了富人的top20。</p>
+<p>在你没有背景、没有资源、不能拼爹的情况下，只能通过学习改变自己的命运！请记住：即便艰难，学习仍是改变的最好方式。</p>
+</blockquote>
 
       
 
@@ -225,17 +271,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -286,7 +321,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/12/26/mysql的悲观锁和乐观锁/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2018/07/18/宁愿吃生活的苦-也不愿吃学习的苦/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -300,18 +335,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/01/20/cookie跨域/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          cookie跨域
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/12/26/redis悲观锁和乐观锁/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">redis悲观锁和乐观锁</div>
+    <a href="/2018/07/18/lazyload原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">lazyload原理</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -326,7 +352,7 @@
   
 
   
-  <div id="SOHUCS" sid="mysql的悲观锁和乐观锁" ></div> 
+  <div id="SOHUCS" sid="宁愿吃生活的苦-也不愿吃学习的苦" ></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
