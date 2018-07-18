@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Tag: 前端 cache php | adolph blog</title>
+  <title>lazyload原理 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/tags/前端-cache-php/index.html">
+  <meta name="description" content="在我们的网站开发过程中,常常都有一些列表需要我们来处理.例如一些图片.在这个时候,假使我们这个界面的图片非常多.如果用户一进入到该界面,就会出现卡顿的情况.这个时候就需要我们的前端和后端同时进行优化.而常见的优化手段就是lazyload(懒加载)技术.我们这里就来讲讲这个技术的实现.仅需20行代码.">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lazyload原理">
+<meta property="og:url" content="http://www.blogme.club/2018/07/18/lazyload原理/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="在我们的网站开发过程中,常常都有一些列表需要我们来处理.例如一些图片.在这个时候,假使我们这个界面的图片非常多.如果用户一进入到该界面,就会出现卡顿的情况.这个时候就需要我们的前端和后端同时进行优化.而常见的优化手段就是lazyload(懒加载)技术.我们这里就来讲讲这个技术的实现.仅需20行代码.">
+<meta property="og:updated_time" content="2018-07-18T01:37:09.293Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="lazyload原理">
+<meta name="twitter:description" content="在我们的网站开发过程中,常常都有一些列表需要我们来处理.例如一些图片.在这个时候,假使我们这个界面的图片非常多.如果用户一进入到该界面,就会出现卡顿的情况.这个时候就需要我们的前端和后端同时进行优化.而常见的优化手段就是lazyload(懒加载)技术.我们这里就来讲讲这个技术的实现.仅需20行代码.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -149,60 +154,173 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-lazyload原理" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/11/浏览器缓存/" class="archive-article-date">
-  	<time datetime="2018-05-11T05:14:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-11</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/11/浏览器缓存/">浏览器缓存</a>
+    <h1 class="article-title" itemprop="name">
+      lazyload原理
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/07/18/lazyload原理/" class="archive-article-date">
+  	<time datetime="2018-07-18T01:20:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在我们的网站开发过程中,常常都有一些列表需要我们来处理.例如一些图片.在这个时候,假使我们这个界面的图片非常多.如果用户一进入到该界面,就会出现卡顿的情况.这个时候就需要我们的前端和后端同时进行优化.而常见的优化手段就是lazyload(懒加载)技术.我们这里就来讲讲这个技术的实现.仅需20行代码.<br><a id="more"></a></p>
+<h4 id="why"><a href="#why" class="headerlink" title="why"></a>why</h4><p>为什么需要lazyload,前面我已经讲了场景.这里讲一下原因.当用户进入页面时,一个页面的图片如果很多.且超出了屏幕的高度.那用户进来实际也就只看得到屏幕里面的图片.而多余的图片,我们可以通过滚动的形势在进行加载.所以,用户进来的时候,就不需要加载多余的图片,从而达到我们优化的目的.</p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>既然是图片,img标签.那么如果我们通过对src的赋值来加载我们的图片.从而达到我们的目的.当屏幕滚动时,我们通过js对src的赋值.就完成了对图片的加载.</p>
+<h4 id="简单实现"><a href="#简单实现" class="headerlink" title="简单实现"></a>简单实现</h4><p>首先我们要准备一个界面.一个img超多且超出了屏幕的高度.如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</div><div class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</div><div class="line">    &lt;title&gt;lazyload&lt;/title&gt;</div><div class="line">    &lt;style&gt;</div><div class="line">        .lazyload&#123;height: 200px;&#125;</div><div class="line">    &lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg1.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg2.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg3.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg4.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg5.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg6.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg7.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg8.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg9.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg10.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg11.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg12.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg13.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg14.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg15.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg16.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg17.jpg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg18.jpg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&lt;img data-src=&quot;./img/timg19.jpeg&quot; class=&quot;lazyload&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;script src=&quot;lazyload.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<p>在我们的lazyload样式中,是需要我们用懒加载来加载的图片.其次,我们将要加载的地址放到daa-src属性中,方便我们拿取该属性.在前面我们了解了原理,我们来手动实现一个,如下<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> actual_height = <span class="built_in">window</span>.scrollY + <span class="built_in">window</span>.innerHeight,  <span class="comment">// 实际高度</span></div><div class="line">    other_imgs = [];	<span class="comment">// 保存未加载的图片</span></div><div class="line"><span class="comment">// 获取所有的图片.</span></div><div class="line"><span class="keyword">var</span> imgs = <span class="built_in">document</span>.querySelectorAll(<span class="string">'.lazyload'</span>);</div><div class="line"><span class="comment">// 第一次首屏加载.</span></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,len = imgs.length; i &lt; len; i++)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(imgs[i].offsetTop &lt;= actual_height)</div><div class="line">    &#123;</div><div class="line">        imgs[i].src = imgs[i].getAttribute(<span class="string">'data-src'</span>);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        other_imgs.push(imgs[i]);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 注册滚动事件</span></div><div class="line"><span class="built_in">window</span>.onscroll = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> height = <span class="built_in">window</span>.scrollY + <span class="built_in">window</span>.innerHeight;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> other_imgs)&#123;</div><div class="line">    	<span class="comment">// 当图片距离上面的高度小于当前的高度,我们就要加载该图片.</span></div><div class="line">        <span class="keyword">if</span>(other_imgs[i].offsetTop &lt;= height)&#123;</div><div class="line">            other_imgs[i].src = other_imgs[i].getAttribute(<span class="string">'data-src'</span>);</div><div class="line">            <span class="keyword">delete</span> other_imgs[i];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端 cache php</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2018/07/18/lazyload原理/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/05/11/浏览器缓存/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浏览器缓存</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+  <div id="SOHUCS" sid="lazyload原理" ></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+  
+
+  
 
 
           </div>
@@ -234,9 +352,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
