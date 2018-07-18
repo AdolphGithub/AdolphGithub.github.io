@@ -6,18 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Walle配置-最详细的安装 | adolph blog</title>
+  <title>Tag: 生活 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Walle 一个web部署系统工具，配置简单、功能完善、界面流畅、开箱即用！支持git、svn版本管理，支持各种web代码发布，PHP，Python，JAVA等代码的发布、回滚，可以通过web来一键完成。以下是安装教程.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Walle配置-最详细的安装">
-<meta property="og:url" content="http://www.blogme.club/2017/12/22/Walle配置-最详细的安装/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="adolph blog">
+<meta property="og:url" content="http://www.blogme.club/tags/生活/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="Walle 一个web部署系统工具，配置简单、功能完善、界面流畅、开箱即用！支持git、svn版本管理，支持各种web代码发布，PHP，Python，JAVA等代码的发布、回滚，可以通过web来一键完成。以下是安装教程.">
-<meta property="og:updated_time" content="2017-12-27T13:03:56.982Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Walle配置-最详细的安装">
-<meta name="twitter:description" content="Walle 一个web部署系统工具，配置简单、功能完善、界面流畅、开箱即用！支持git、svn版本管理，支持各种web代码发布，PHP，Python，JAVA等代码的发布、回滚，可以通过web来一键完成。以下是安装教程.">
+<meta name="twitter:title" content="adolph blog">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -153,195 +149,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Walle配置-最详细的安装" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      Walle配置-最详细的安装
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/07/18/宁愿吃生活的苦-也不愿吃学习的苦/" class="archive-article-date">
+  	<time datetime="2018-07-18T05:16:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-18</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/07/18/宁愿吃生活的苦-也不愿吃学习的苦/">为什么宁愿吃生活的苦,也不愿吃学习的苦</a>
     </h1>
   
 
-        
-        <a href="/2017/12/22/Walle配置-最详细的安装/" class="archive-article-date">
-  	<time datetime="2017-12-22T04:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Walle 一个web部署系统工具，配置简单、功能完善、界面流畅、开箱即用！支持git、svn版本管理，支持各种web代码发布，PHP，Python，JAVA等代码的发布、回滚，可以通过web来一键完成。以下是安装教程.<br><a id="more"></a></p>
-<h3 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Bash(git、ssh)Bash(git、ssh)	// 意味着不支持win、mac的zsh</div><div class="line">LNMP/LAMP(php5.4+)	// 意味着不支持win、mac的zsh</div><div class="line">// php需要开启pdo_mysql，exec函数执行</div><div class="line">Composer // 如果国内环境安装极慢，可以直接下载vendor解压到项目根目录</div><div class="line">ansible</div></pre></td></tr></table></figure>
-<h4 id="Bash"><a href="#Bash" class="headerlink" title="Bash"></a>Bash</h4><p>这个默认的linux用自带的就行了,如果说是win,请自行查找解决方案.这里的是linux安装,本人用的电脑系统为ubuntu.这个Bash为Unix shell脚本的命令.linux都有自带的.</p>
-<h4 id="LNMP-LAMP"><a href="#LNMP-LAMP" class="headerlink" title="LNMP/LAMP"></a>LNMP/LAMP</h4><p>如果说是ubuntu,请自行查找我以前的<a href="https://adolphgithub.github.io/2017/05/11/%E5%B8%B8%E7%94%A8%E5%A4%87%E4%BB%BD/" target="_blank" rel="external">博客的备份</a>,如果你实在是不会安装,没有问题.<a href="https://oneinstack.com/" target="_blank" rel="external">OneinStack</a>您的一键环境安装包.<a href="https://oneinstack.com/install/" target="_blank" rel="external">图形化教程</a>,是如此方便.当然,如果你用windows也不介意.<a href="http://www.phpstudy.net/" target="_blank" rel="external">phpstudy</a>,<a href="http://www.wampserver.com/en/" target="_blank" rel="external">wamp</a>,这些都可以的.</p>
-<h4 id="Composer"><a href="#Composer" class="headerlink" title="Composer"></a>Composer</h4><p>windows下请先配置<a href="http://blog.csdn.net/small_rice_/article/details/45268451" target="_blank" rel="external">php的环境变量</a>.然后在下载<a href="https://getcomposer.org/Composer-Setup.exe" target="_blank" rel="external">composer.exe</a>,双击就可以安装.linux就查看下教程.ubuntu就用以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install composer</div></pre></td></tr></table></figure></p>
-<h4 id="ansible"><a href="#ansible" class="headerlink" title="ansible"></a>ansible</h4><p>linux直接根据自己的系统,自行查找命令.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">yum install ansible # RHEL/CentOS/Fedora</div><div class="line"></div><div class="line">apt-get install ansible # Debian/Ubuntu</div><div class="line"></div><div class="line">emerge -avt ansible  # Gentoo/Funtoo</div><div class="line"></div><div class="line">pip install ansible # will also install  paramiko PyYAML jinja2</div></pre></td></tr></table></figure></p>
-<p>很可惜,window就自己去查看python的一键环境安装和pip安装,不过我推荐<a href="https://www.activestate.com/activepython/downloads" target="_blank" rel="external">ActivePython</a>官方包下载.执行安装pip.</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>先克隆项目<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone git@github.com:meolu/walle-web.git</div></pre></td></tr></table></figure></p>
-<p>切换到目录中,并配置mysql文件权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd walle-web</div><div class="line">vi config/web.php # 设置mysql连接</div></pre></td></tr></table></figure></p>
-<p>使用composer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">composer install  # 如果缺少bower-asset的话， 先安装：composer global require &quot;fxp/composer-asset-plugin:*&quot;</div></pre></td></tr></table></figure></p>
-<p>执行脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./yii walle/setup   # 初始化项目</div></pre></td></tr></table></figure></p>
-<p>如果执行脚本不行,请使用以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">php yii walle/setup</div></pre></td></tr></table></figure></p>
-<p>以上全部执行过后,请自行配置域名,根目录为./walle-web/web/.如果出现登录界面就表示安装成功了.</p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>我这里只讲git部署,如果是svn,请换成git.现在是git时代了.<br><a href="http://www.walle-web.io/docs/git-configuration.html" target="_blank" rel="external">详细的文档这里有了</a>,我这里就讲一下其中的深坑.</p>
-<h4 id="一个坑"><a href="#一个坑" class="headerlink" title="一个坑"></a>一个坑</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">宿主机代码检出检测出错，请确认把php进程用户&#123;user&#125;的ssh-key加入git的deploy-keys列表。</div></pre></td></tr></table></figure>
-<p>ssh密钥,在linux中,使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa</div></pre></td></tr></table></figure></p>
-<p>就可以生成密钥.这个密钥位置在~/.ssh/id_rsa.pub中.<br>然后将这里面的值添加到gitlab|github|gitee,你git仓库地址中.当然,地址你也可以这么填写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://用户名:密码@git仓库地址</div></pre></td></tr></table></figure></p>
-<p>git仓库地址不要HTTPS哦</p>
-<h4 id="第二个坑"><a href="#第二个坑" class="headerlink" title="第二个坑"></a>第二个坑</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">目标机器检测出错，请确认php进程www-data用户ssh-key加入目标机器的adolph用户ssh-key信任列表。</div></pre></td></tr></table></figure>
-<p>首先确认一下你的php进程的管理用户.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ps aux|grep php</div></pre></td></tr></table></figure></p>
-<p>我这里是www-data.所以我这里就要生成www-data的key,使用以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo -u 用户名 ssh-keygen -t rsa</div></pre></td></tr></table></figure></p>
-<p>找到用户名所属目录~/.ssh/如果是apache用户.www-data就在/var/www/.ssh下面,具体的请自行查找对应的目录.<br>修改用户的权限.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd 对应目录下/.ssh/</div><div class="line">chmod 600 id_rsa</div><div class="line">chmod 600 id_rsa.pub</div></pre></td></tr></table></figure></p>
-<p>如果不行就提高权限.<br>然后执行以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-copy-id -i id_rsa.pub 目标机用户名@目标机的IP地址</div></pre></td></tr></table></figure></p>
-<p>当然目标机也必须要有ssh哈,不然就安装一个.<br>输入密码后,尝试一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">su php进程管理用户名</div><div class="line">ssh 目标机用户名@目标机的IP地址</div></pre></td></tr></table></figure></p>
-<p>能免密码登录就OK了.<br>当然,如果不能切换php进程管理用户名,请先设置密码.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo passwd 用户名</div></pre></td></tr></table></figure></p>
-<p>修改密码,并且设置一下管理目录.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/passwd</div></pre></td></tr></table></figure></p>
-<p>将改用户名后面的/usr/sbin/bologin改成/bin/bash,就可以登录用户了.</p>
-<h4 id="第三个坑"><a href="#第三个坑" class="headerlink" title="第三个坑"></a>第三个坑</h4><p>当我们使用ssh-copy-id命令后,用ssh 目标机用户名@目标机IP地址,还是要输入密码,我们要修改配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim /etc/ssh/sshd_config</div><div class="line">StrictModes yes  // 改成no</div></pre></td></tr></table></figure></p>
-<p>以上修改就行了</p>
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">生活</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
-      
+          
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/alipay.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/weixin.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/12/22/Walle配置-最详细的安装/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/12/26/redis悲观锁和乐观锁/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          redis悲观锁和乐观锁
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/11/21/ubuntu上QQ的终极方案/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ubuntu上QQ的终极方案</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-  
-  
+    </div></section>
   
 
-  
-  <div id="SOHUCS" sid="Walle配置-最详细的安装" ></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = "cytl0R24B"; 
-var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
-  
-
-  
+    
 
 
           </div>
@@ -373,9 +234,9 @@ window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="tex
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
