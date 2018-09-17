@@ -8,16 +8,17 @@
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>supervisor | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我们在开发中,经常会遇到一种需要我们用console,并且还不能中断的脚本.例如php的swoft,虽然这些某些实现了以后台进程运行的形式.但还是有些没有.对此,我们需要的就是一个进程管理.在这里,我这里就是我常用的supervisor;">
+  <meta name="description" content="我们在开发中,经常会遇到一种需要我们用console,并且还不能中断的脚本.例如php的swoft,虽然这些某些实现了以后台进程运行的形式.但还是有些没有.对此,我们需要的就是一个进程管理.当进程挂掉后自动重启进程.在这里,我这里就是我常用的supervisor">
+<meta name="keywords" content="supervisor">
 <meta property="og:type" content="article">
 <meta property="og:title" content="supervisor">
 <meta property="og:url" content="http://www.blogme.club/2018/09/17/supervisor/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="我们在开发中,经常会遇到一种需要我们用console,并且还不能中断的脚本.例如php的swoft,虽然这些某些实现了以后台进程运行的形式.但还是有些没有.对此,我们需要的就是一个进程管理.在这里,我这里就是我常用的supervisor;">
-<meta property="og:updated_time" content="2018-09-17T01:51:25.756Z">
+<meta property="og:description" content="我们在开发中,经常会遇到一种需要我们用console,并且还不能中断的脚本.例如php的swoft,虽然这些某些实现了以后台进程运行的形式.但还是有些没有.对此,我们需要的就是一个进程管理.当进程挂掉后自动重启进程.在这里,我这里就是我常用的supervisor">
+<meta property="og:updated_time" content="2018-09-17T01:55:42.899Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="supervisor">
-<meta name="twitter:description" content="我们在开发中,经常会遇到一种需要我们用console,并且还不能中断的脚本.例如php的swoft,虽然这些某些实现了以后台进程运行的形式.但还是有些没有.对此,我们需要的就是一个进程管理.在这里,我这里就是我常用的supervisor;">
+<meta name="twitter:description" content="我们在开发中,经常会遇到一种需要我们用console,并且还不能中断的脚本.例如php的swoft,虽然这些某些实现了以后台进程运行的形式.但还是有些没有.对此,我们需要的就是一个进程管理.当进程挂掉后自动重启进程.在这里,我这里就是我常用的supervisor">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -173,7 +174,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我们在开发中,经常会遇到一种需要我们用console,并且还不能中断的脚本.例如php的swoft,虽然这些某些实现了以后台进程运行的形式.但还是有些没有.对此,我们需要的就是一个进程管理.在这里,我这里就是我常用的supervisor;<br><a id="more"></a></p>
+        <p>我们在开发中,经常会遇到一种需要我们用console,并且还不能中断的脚本.例如php的swoft,虽然这些某些实现了以后台进程运行的形式.但还是有些没有.对此,我们需要的就是一个进程管理.当进程挂掉后自动重启进程.在这里,我这里就是我常用的supervisor<br><a id="more"></a></p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>目前,安装superisored的方式有两种<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install supervisor // ubuntu</div><div class="line">// or</div><div class="line">sudo pip install  supervisor</div></pre></td></tr></table></figure></p>
 <p>由于个人的PC为ubuntu,所以.我常用的是第一种.</p>
 <h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>安装过后,有些是没有默认的配置的.当然,用ubuntu安装的会有哦.如果没有配置,则需要执行以下命令<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo_supervisord_conf &gt; /etc/supervisord.conf</div></pre></td></tr></table></figure></p>
@@ -220,6 +221,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">supervisor</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -412,15 +424,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -432,7 +448,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -444,15 +460,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -468,15 +480,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">socket</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">socket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">socket rpc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">supervisor</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -488,15 +504,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">php xdebug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color1">php xdebug</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -504,15 +516,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">css</a>
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
