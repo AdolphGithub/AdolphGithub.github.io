@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>php源码-embed | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2018/05/03/php源码-embed/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="我们前面看了php的最主要的两种sapi,cli和fpm.其实还有一些sapi,但是我们在用php开发时最常用的sapi就是cli和fpm,当然,cgi也在用.只是用得太少了.我们已经知道了大概的流程了.对于如何给第三方程序提供一个php功能呢,这里我们就要用到php内置的另外一个sapi,embed,下面我们就来看看那embed的执行过程.">
-<meta property="og:updated_time" content="2018-05-03T07:20:17.666Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-03T07:20:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php源码-embed">
 <meta name="twitter:description" content="我们前面看了php的最主要的两种sapi,cli和fpm.其实还有一些sapi,但是我们在用php开发时最常用的sapi就是cli和fpm,当然,cgi也在用.只是用得太少了.我们已经知道了大概的流程了.对于如何给第三方程序提供一个php功能呢,这里我们就要用到php内置的另外一个sapi,embed,下面我们就来看看那embed的执行过程.">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-php源码-embed" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-php源码-embed" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -176,13 +177,13 @@
       
         <p>我们前面看了php的最主要的两种sapi,cli和fpm.其实还有一些sapi,但是我们在用php开发时最常用的sapi就是cli和fpm,当然,cgi也在用.只是用得太少了.我们已经知道了大概的流程了.对于如何给第三方程序提供一个php功能呢,这里我们就要用到php内置的另外一个sapi,embed,下面我们就来看看那embed的执行过程.<br><a id="more"></a></p>
 <h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>我们如何来编译这个sapi,在我们执行编译命令的时候,使用–enable-embed=[shared|static]就可以来启用,默认为shared共享库.然后在php的安装目录/lib看到一个新生成的头文件.这样我们就可以使用这个sapi了.</p>
-<h3 id="php-embed-init"><a href="#php-embed-init" class="headerlink" title="php_embed_init"></a>php_embed_init</h3><p>我们编译了php并开启了embed这个sapi.我们来看看embed这个sapi的代码.在sapi/embed/php_embed.c这个里面.有一个php_embed_init函数来看看这个函数.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function">EMBED_SAPI_API <span class="keyword">int</span> <span class="title">php_embed_init</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></div><div class="line">&#123;</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> ZTS</span></div><div class="line">	<span class="comment">// 启动sapi</span></div><div class="line">	tsrm_startup(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="literal">NULL</span>);</div><div class="line">	(<span class="keyword">void</span>)ts_resource(<span class="number">0</span>);</div><div class="line">	ZEND_TSRMLS_CACHE_UPDATE();</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> ZEND_SIGNALS</span></div><div class="line">	zend_signal_startup();</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">	<span class="comment">// 初始化php模块</span></div><div class="line">	sapi_startup(&amp;php_embed_module);</div><div class="line">	...</div><div class="line">	<span class="comment">// 启动模块</span></div><div class="line">	<span class="keyword">if</span> (php_embed_module.startup(&amp;php_embed_module)==FAILURE) &#123;</div><div class="line">		<span class="keyword">return</span> FAILURE;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="comment">// 请求request startup 阶段...</span></div><div class="line">	<span class="keyword">if</span> (php_request_startup()==FAILURE) &#123;</div><div class="line">		php_module_shutdown();</div><div class="line">		<span class="keyword">return</span> FAILURE;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	SG(headers_sent) = <span class="number">1</span>;</div><div class="line">	SG(request_info).no_headers = <span class="number">1</span>;</div><div class="line">	php_register_variable(<span class="string">"PHP_SELF"</span>, <span class="string">"-"</span>, <span class="literal">NULL</span>);</div><div class="line"></div><div class="line">	<span class="keyword">return</span> SUCCESS;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="php-embed-init"><a href="#php-embed-init" class="headerlink" title="php_embed_init"></a>php_embed_init</h3><p>我们编译了php并开启了embed这个sapi.我们来看看embed这个sapi的代码.在sapi/embed/php_embed.c这个里面.有一个php_embed_init函数来看看这个函数.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">EMBED_SAPI_API <span class="keyword">int</span> <span class="title">php_embed_init</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> ZTS</span></span><br><span class="line">	<span class="comment">// 启动sapi</span></span><br><span class="line">	tsrm_startup(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="literal">NULL</span>);</span><br><span class="line">	(<span class="keyword">void</span>)ts_resource(<span class="number">0</span>);</span><br><span class="line">	ZEND_TSRMLS_CACHE_UPDATE();</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> ZEND_SIGNALS</span></span><br><span class="line">	zend_signal_startup();</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="comment">// 初始化php模块</span></span><br><span class="line">	sapi_startup(&amp;php_embed_module);</span><br><span class="line">	...</span><br><span class="line">	<span class="comment">// 启动模块</span></span><br><span class="line">	<span class="keyword">if</span> (php_embed_module.startup(&amp;php_embed_module)==FAILURE) &#123;</span><br><span class="line">		<span class="keyword">return</span> FAILURE;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 请求request startup 阶段...</span></span><br><span class="line">	<span class="keyword">if</span> (php_request_startup()==FAILURE) &#123;</span><br><span class="line">		php_module_shutdown();</span><br><span class="line">		<span class="keyword">return</span> FAILURE;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	SG(headers_sent) = <span class="number">1</span>;</span><br><span class="line">	SG(request_info).no_headers = <span class="number">1</span>;</span><br><span class="line">	php_register_variable(<span class="string">"PHP_SELF"</span>, <span class="string">"-"</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>在这个函数中,经历最重要的两个部分,module_startup(模块启动阶段),request_startup(请求启动阶段).这两个阶段我们在前面的module_startup介绍过.意思就是embed已经帮我们处理到了request_startup,剩下的我们只需要写处理 就可以啦.</p>
-<h3 id="php-embed-shutdown"><a href="#php-embed-shutdown" class="headerlink" title="php_embed_shutdown"></a>php_embed_shutdown</h3><p>跟init所对应,主要完成php的结尾工作,前面已经帮我们做好了模块启动和请求启动阶段,这个就帮我们完成请求后的处理的.来看一下代码<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function">EMBED_SAPI_API <span class="keyword">void</span> <span class="title">php_embed_shutdown</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="comment">// 关闭请求</span></div><div class="line">	php_request_shutdown((<span class="keyword">void</span> *) <span class="number">0</span>);</div><div class="line">	<span class="comment">// 模块关闭</span></div><div class="line">	php_module_shutdown();</div><div class="line">	<span class="comment">// 关闭sapi</span></div><div class="line">	sapi_shutdown();</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> ZTS</span></div><div class="line">	<span class="comment">// 关闭sapi</span></div><div class="line">	tsrm_shutdown();</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">	<span class="keyword">if</span> (php_embed_module.ini_entries) &#123;</div><div class="line">		<span class="built_in">free</span>(php_embed_module.ini_entries);</div><div class="line">		php_embed_module.ini_entries = <span class="literal">NULL</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="php-embed-shutdown"><a href="#php-embed-shutdown" class="headerlink" title="php_embed_shutdown"></a>php_embed_shutdown</h3><p>跟init所对应,主要完成php的结尾工作,前面已经帮我们做好了模块启动和请求启动阶段,这个就帮我们完成请求后的处理的.来看一下代码<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">EMBED_SAPI_API <span class="keyword">void</span> <span class="title">php_embed_shutdown</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// 关闭请求</span></span><br><span class="line">	php_request_shutdown((<span class="keyword">void</span> *) <span class="number">0</span>);</span><br><span class="line">	<span class="comment">// 模块关闭</span></span><br><span class="line">	php_module_shutdown();</span><br><span class="line">	<span class="comment">// 关闭sapi</span></span><br><span class="line">	sapi_shutdown();</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> ZTS</span></span><br><span class="line">	<span class="comment">// 关闭sapi</span></span><br><span class="line">	tsrm_shutdown();</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="keyword">if</span> (php_embed_module.ini_entries) &#123;</span><br><span class="line">		<span class="built_in">free</span>(php_embed_module.ini_entries);</span><br><span class="line">		php_embed_module.ini_entries = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>那如何来写这个供其他调用.下面我们就来试试</p>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>根据上面的来说,我们需要在自己的编写的C文件中加入php_embed_init()和php_embed_shutdown函数.来试试<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// test.c</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sapi/embed/php_embed.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> ** argv)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="comment">// 创建一个file_handle结构体.</span></div><div class="line">	zend_file_handle file_handle;</div><div class="line">	<span class="comment">// 初始化embed sapi等一些其他操作.</span></div><div class="line">	php_embed_init(argc,argv);</div><div class="line">	<span class="comment">// 指定文件类型和文件名.</span></div><div class="line">	file_handle.type = ZEND_HANDLE_FILENAME;</div><div class="line">	file_handle.filename = <span class="string">"call.php"</span>;</div><div class="line">	<span class="comment">// 解析脚本</span></div><div class="line">	php_execute_script(&amp;file_handle);</div><div class="line">	<span class="comment">// 关闭.</span></div><div class="line">	php_embed_shutdown();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在这里面我们调用了一个call.php这个文件,但是我们还没有创建,我们先来创建对应的文件<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// call.php</span></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">my_func</span><span class="params">($a,$b)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">return</span> $a + $b;</div><div class="line">&#125;</div><div class="line"><span class="keyword">echo</span> my_func(<span class="number">100</span>,<span class="number">200</span>);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
-<p>创建好了,我们用gcc开始编译.先指定我们的php的安装路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">gcc -o my_test ./test.c \</div><div class="line">	-I /usr/local/php7/include/php/ \</div><div class="line">	-I /usr/local/php7/include/php/include/ \</div><div class="line">	-I /usr/local/php7/include/php/main/ \</div><div class="line">	-I /usr/local/php7/include/php/TSRM/ \</div><div class="line">	-I /usr/local/php7/inlcude/php/Zend/ \</div><div class="line">	-L /usr/local/php7/lib \</div><div class="line">	-lphp7 \</div><div class="line">	-Wl,--repath /usr/local/php7/lib/</div></pre></td></tr></table></figure></p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>根据上面的来说,我们需要在自己的编写的C文件中加入php_embed_init()和php_embed_shutdown函数.来试试<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// test.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sapi/embed/php_embed.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> ** argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// 创建一个file_handle结构体.</span></span><br><span class="line">	zend_file_handle file_handle;</span><br><span class="line">	<span class="comment">// 初始化embed sapi等一些其他操作.</span></span><br><span class="line">	php_embed_init(argc,argv);</span><br><span class="line">	<span class="comment">// 指定文件类型和文件名.</span></span><br><span class="line">	file_handle.type = ZEND_HANDLE_FILENAME;</span><br><span class="line">	file_handle.filename = <span class="string">"call.php"</span>;</span><br><span class="line">	<span class="comment">// 解析脚本</span></span><br><span class="line">	php_execute_script(&amp;file_handle);</span><br><span class="line">	<span class="comment">// 关闭.</span></span><br><span class="line">	php_embed_shutdown();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里面我们调用了一个call.php这个文件,但是我们还没有创建,我们先来创建对应的文件<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// call.php</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">my_func</span><span class="params">($a,$b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> $a + $b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> my_func(<span class="number">100</span>,<span class="number">200</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>创建好了,我们用gcc开始编译.先指定我们的php的安装路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">gcc -o my_test ./test.c \</span><br><span class="line">	-I /usr/local/php7/include/php/ \</span><br><span class="line">	-I /usr/local/php7/include/php/include/ \</span><br><span class="line">	-I /usr/local/php7/include/php/main/ \</span><br><span class="line">	-I /usr/local/php7/include/php/TSRM/ \</span><br><span class="line">	-I /usr/local/php7/inlcude/php/Zend/ \</span><br><span class="line">	-L /usr/local/php7/lib \</span><br><span class="line">	-lphp7 \</span><br><span class="line">	-Wl,--repath /usr/local/php7/lib/</span><br></pre></td></tr></table></figure></p>
 <p>其中/usr/local/php7是我们的php安装目录,如果,你的安装目录为其他目录请自行替换.上面命令执行完成后会生成一个my_test的执行文件,直接./my_test执行就会得到300.至此,我们就完成了embed.基于php的扩展</p>
 
       
@@ -324,7 +325,7 @@
   
 
   
-  <div id="SOHUCS" sid="php源码-embed" ></div> 
+  <div id="SOHUCS" sid="php源码-embed"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -439,11 +440,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -455,15 +456,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -507,11 +512,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -523,6 +528,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -531,19 +540,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -551,7 +556,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

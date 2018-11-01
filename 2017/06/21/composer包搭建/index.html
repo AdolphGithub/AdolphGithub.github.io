@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>composer包搭建 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/06/21/composer包搭建/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="1 composer简介composer(作曲家).php的一个包管理软件。市面上绝大部分的主流框架都在支持compsoer.是一个专门用来管理php-package的依赖关系的。直接通过composer require 包名，即可下载对应的包。即可使用compsoer.我这里主要是在本地搭建一个compsoer的库.用于将公司的一些常用的扩展,比如发短信，发邮件等等包装成一个公共库.直接通过co">
-<meta property="og:updated_time" content="2017-06-21T13:14:32.258Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-21T13:14:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="composer包搭建">
 <meta name="twitter:description" content="1 composer简介composer(作曲家).php的一个包管理软件。市面上绝大部分的主流框架都在支持compsoer.是一个专门用来管理php-package的依赖关系的。直接通过composer require 包名，即可下载对应的包。即可使用compsoer.我这里主要是在本地搭建一个compsoer的库.用于将公司的一些常用的扩展,比如发短信，发邮件等等包装成一个公共库.直接通过co">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-composer包搭建" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-composer包搭建" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -175,18 +176,18 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h4 id="1-composer简介"><a href="#1-composer简介" class="headerlink" title="1 composer简介"></a>1 composer简介</h4><p>composer(作曲家).php的一个包管理软件。市面上绝大部分的主流框架都在支持compsoer.是一个专门用来管理php-package的依赖关系的。直接通过composer require 包名，即可下载对应的包。即可使用compsoer.我这里主要是在本地搭建一个compsoer的库.用于将公司的一些常用的扩展,比如发短信，发邮件等等包装成一个公共库.直接通过compsoer即可引入.<br><a id="more"></a></p>
-<h4 id="2-composer-参数简介"><a href="#2-composer-参数简介" class="headerlink" title="2 composer 参数简介"></a>2 composer 参数简介</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;name&quot;: &quot;kz/sms&quot;,	// 包名</div><div class="line">    &quot;description&quot;: &quot;send short message&quot;,	//描述</div><div class="line">    &quot;type&quot;: &quot;library&quot;,		// 类型，默认为包名</div><div class="line">    &quot;license&quot;: &quot;MIT&quot;,		// 许可协议</div><div class="line">    &quot;authors&quot;: [			// 作者的相关信息</div><div class="line">        &#123;</div><div class="line">            &quot;name&quot;: &quot;adolph&quot;,</div><div class="line">            &quot;email&quot;: &quot;1138027478@qq.com&quot;</div><div class="line">        &#125;</div><div class="line">    ],</div><div class="line">    &quot;autoload&quot;: &#123;			// 加载方式</div><div class="line">        &quot;psr-4&quot;: &#123;</div><div class="line">            &quot;Kz\\&quot;: &quot;src/&quot;</div><div class="line">        &#125;,</div><div class="line">        &quot;files&quot;: []</div><div class="line">    &#125;,</div><div class="line">    &quot;require&quot;: &#123;			// 依赖于哪个库</div><div class="line">        &quot;phpmailer/phpmailer&quot;: &quot;^5.2&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;repositories&quot;: &#123;		// 仓库，默认加载的仓库地址</div><div class="line">        &quot;packagist&quot;: &#123;</div><div class="line">            &quot;type&quot;: &quot;composer&quot;,</div><div class="line">            &quot;url&quot;: &quot;https://packagist.phpcomposer.com&quot;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="4-开始创建包"><a href="#4-开始创建包" class="headerlink" title="4 开始创建包"></a>4 开始创建包</h4><p>先初始话composer.json文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">composer init</div></pre></td></tr></table></figure></p>
-<p>请输入包名,描述,作者,最稳定的版本,开放协议,初始化后的文件有点类似于这种<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;name&quot;: &quot;adolph/www&quot;,</div><div class="line">    &quot;type&quot;: &quot;library&quot;,</div><div class="line">    &quot;authors&quot;: [</div><div class="line">        &#123;</div><div class="line">            &quot;name&quot;: &quot;yuyuangang&quot;,</div><div class="line">            &quot;email&quot;: &quot;1138027478@qq.com&quot;</div><div class="line">        &#125;</div><div class="line">    ],</div><div class="line">    &quot;require&quot;: &#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="2-composer-参数简介"><a href="#2-composer-参数简介" class="headerlink" title="2 composer 参数简介"></a>2 composer 参数简介</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;name&quot;: &quot;kz/sms&quot;,	// 包名</span><br><span class="line">    &quot;description&quot;: &quot;send short message&quot;,	//描述</span><br><span class="line">    &quot;type&quot;: &quot;library&quot;,		// 类型，默认为包名</span><br><span class="line">    &quot;license&quot;: &quot;MIT&quot;,		// 许可协议</span><br><span class="line">    &quot;authors&quot;: [			// 作者的相关信息</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;adolph&quot;,</span><br><span class="line">            &quot;email&quot;: &quot;1138027478@qq.com&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;autoload&quot;: &#123;			// 加载方式</span><br><span class="line">        &quot;psr-4&quot;: &#123;</span><br><span class="line">            &quot;Kz\\&quot;: &quot;src/&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;files&quot;: []</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;require&quot;: &#123;			// 依赖于哪个库</span><br><span class="line">        &quot;phpmailer/phpmailer&quot;: &quot;^5.2&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;repositories&quot;: &#123;		// 仓库，默认加载的仓库地址</span><br><span class="line">        &quot;packagist&quot;: &#123;</span><br><span class="line">            &quot;type&quot;: &quot;composer&quot;,</span><br><span class="line">            &quot;url&quot;: &quot;https://packagist.phpcomposer.com&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-开始创建包"><a href="#4-开始创建包" class="headerlink" title="4 开始创建包"></a>4 开始创建包</h4><p>先初始话composer.json文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer init</span><br></pre></td></tr></table></figure></p>
+<p>请输入包名,描述,作者,最稳定的版本,开放协议,初始化后的文件有点类似于这种<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;name&quot;: &quot;adolph/www&quot;,</span><br><span class="line">    &quot;type&quot;: &quot;library&quot;,</span><br><span class="line">    &quot;authors&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;yuyuangang&quot;,</span><br><span class="line">            &quot;email&quot;: &quot;1138027478@qq.com&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;require&quot;: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>即可初始完成</p>
-<h4 id="5-开始书写自己的包"><a href="#5-开始书写自己的包" class="headerlink" title="5 开始书写自己的包"></a>5 开始书写自己的包</h4><p>这一部分，你需要知道psr4协议,如果不知道psr4的协议的，请绕道.我这里只讲psr4协议的引入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&quot;autoload&quot;: &#123;</div><div class="line">        &quot;psr-4&quot;: &#123;		// 使用的协议</div><div class="line">            &quot;Kz\\&quot;: &quot;src/&quot;</div><div class="line">        &#125;,</div><div class="line">        &quot;files&quot;: []</div><div class="line">    &#125;,</div></pre></td></tr></table></figure></p>
-<p>开始写自己的第一个代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">namespace Kz;</div><div class="line"></div><div class="line">class Message</div><div class="line">&#123;</div><div class="line">    private $config = [];</div><div class="line"></div><div class="line">    protected $message = &apos;&apos;;</div><div class="line"></div><div class="line">    public function __construct($config = [])</div><div class="line">    &#123;</div><div class="line">        if(!empty($config))&#123;</div><div class="line">            $this-&gt;config = array_merge($this-&gt;config,$config);</div><div class="line">        &#125;else&#123;</div><div class="line">            $this-&gt;config[&apos;port&apos;]=&apos;21&apos;;</div><div class="line">            $this-&gt;config[&apos;host&apos;]=&apos;&apos;;</div><div class="line">            $this-&gt;config[&apos;username&apos;]=&apos;&apos;;</div><div class="line">            $this-&gt;config[&apos;password&apos;]=&apos;&apos;;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 发送邮件函数.</div><div class="line">     * @param $address  收件人地址</div><div class="line">     * @param $title    邮件标题</div><div class="line">     * @param $content  邮件内容</div><div class="line">     * @param string $name  发件人姓名</div><div class="line">     * @return bool|string</div><div class="line">     */</div><div class="line">    public function sendMail($address,$title,$content,$name=&apos;测试&apos;)&#123;</div><div class="line">        try &#123;</div><div class="line">            $mail = new \PHPMailer();</div><div class="line">            $mail-&gt;isSMTP();</div><div class="line">            $mail-&gt;CharSet=&apos;UTF-8&apos;;</div><div class="line">            $mail-&gt;SMTPAuth = true;</div><div class="line">            $mail-&gt;Port = $this-&gt;config[&apos;port&apos;];</div><div class="line">            $mail-&gt;Host = $this-&gt;config[&apos;host&apos;];</div><div class="line">            $mail-&gt;Username = $this-&gt;config[&apos;username&apos;];</div><div class="line">            $mail-&gt;Password = $this-&gt;config[&apos;password&apos;];</div><div class="line">            $mail-&gt;setFrom($this-&gt;config[&apos;username&apos;], $name);</div><div class="line">            $mail-&gt;addAddress($address);</div><div class="line">            $mail-&gt;isHTML(true);</div><div class="line">            $mail-&gt;Subject = $title;</div><div class="line">            $mail-&gt;Body    = $content;</div><div class="line">            if($mail-&gt;Send())&#123;</div><div class="line">                return true;</div><div class="line">            &#125;else&#123;</div><div class="line">                $this-&gt;message = $mail-&gt;ErrorInfo;</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line">        &#125; catch (\phpmailerException $e) &#123;</div><div class="line">            return $e-&gt;errorMessage();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 获取失败后的错误信息.</div><div class="line">     * @return string</div><div class="line">     */</div><div class="line">    public function getErrorMsg()&#123;</div><div class="line">        return $this-&gt;message;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>以上是一个类，引用了phpmailer,所以要先引入phpmailer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">composer require phpmailer/phpmailer</div></pre></td></tr></table></figure></p>
+<h4 id="5-开始书写自己的包"><a href="#5-开始书写自己的包" class="headerlink" title="5 开始书写自己的包"></a>5 开始书写自己的包</h4><p>这一部分，你需要知道psr4协议,如果不知道psr4的协议的，请绕道.我这里只讲psr4协议的引入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;autoload&quot;: &#123;</span><br><span class="line">        &quot;psr-4&quot;: &#123;		// 使用的协议</span><br><span class="line">            &quot;Kz\\&quot;: &quot;src/&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;files&quot;: []</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure></p>
+<p>开始写自己的第一个代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">namespace Kz;</span><br><span class="line"></span><br><span class="line">class Message</span><br><span class="line">&#123;</span><br><span class="line">    private $config = [];</span><br><span class="line"></span><br><span class="line">    protected $message = &apos;&apos;;</span><br><span class="line"></span><br><span class="line">    public function __construct($config = [])</span><br><span class="line">    &#123;</span><br><span class="line">        if(!empty($config))&#123;</span><br><span class="line">            $this-&gt;config = array_merge($this-&gt;config,$config);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            $this-&gt;config[&apos;port&apos;]=&apos;21&apos;;</span><br><span class="line">            $this-&gt;config[&apos;host&apos;]=&apos;&apos;;</span><br><span class="line">            $this-&gt;config[&apos;username&apos;]=&apos;&apos;;</span><br><span class="line">            $this-&gt;config[&apos;password&apos;]=&apos;&apos;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 发送邮件函数.</span><br><span class="line">     * @param $address  收件人地址</span><br><span class="line">     * @param $title    邮件标题</span><br><span class="line">     * @param $content  邮件内容</span><br><span class="line">     * @param string $name  发件人姓名</span><br><span class="line">     * @return bool|string</span><br><span class="line">     */</span><br><span class="line">    public function sendMail($address,$title,$content,$name=&apos;测试&apos;)&#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            $mail = new \PHPMailer();</span><br><span class="line">            $mail-&gt;isSMTP();</span><br><span class="line">            $mail-&gt;CharSet=&apos;UTF-8&apos;;</span><br><span class="line">            $mail-&gt;SMTPAuth = true;</span><br><span class="line">            $mail-&gt;Port = $this-&gt;config[&apos;port&apos;];</span><br><span class="line">            $mail-&gt;Host = $this-&gt;config[&apos;host&apos;];</span><br><span class="line">            $mail-&gt;Username = $this-&gt;config[&apos;username&apos;];</span><br><span class="line">            $mail-&gt;Password = $this-&gt;config[&apos;password&apos;];</span><br><span class="line">            $mail-&gt;setFrom($this-&gt;config[&apos;username&apos;], $name);</span><br><span class="line">            $mail-&gt;addAddress($address);</span><br><span class="line">            $mail-&gt;isHTML(true);</span><br><span class="line">            $mail-&gt;Subject = $title;</span><br><span class="line">            $mail-&gt;Body    = $content;</span><br><span class="line">            if($mail-&gt;Send())&#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                $this-&gt;message = $mail-&gt;ErrorInfo;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (\phpmailerException $e) &#123;</span><br><span class="line">            return $e-&gt;errorMessage();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取失败后的错误信息.</span><br><span class="line">     * @return string</span><br><span class="line">     */</span><br><span class="line">    public function getErrorMsg()&#123;</span><br><span class="line">        return $this-&gt;message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上是一个类，引用了phpmailer,所以要先引入phpmailer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer require phpmailer/phpmailer</span><br></pre></td></tr></table></figure></p>
 <p>写好后，你的第一个composer包就创建完成了.剩下就需要配置引入信息了。</p>
-<h4 id="6-配置好本地的composer文件"><a href="#6-配置好本地的composer文件" class="headerlink" title="6 配置好本地的composer文件"></a>6 配置好本地的composer文件</h4><p>这里有compsoer资源库引入的类型.<br>首先，我们要禁用掉从packagist.org获取的包信息.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&quot;repositories&quot;: [</div><div class="line">      &#123;</div><div class="line">        &quot;packagist.org&quot;: false</div><div class="line">      &#125;</div><div class="line">    ]</div></pre></td></tr></table></figure></p>
-<p>如果不禁用掉，当我们几个源都没有找到自己的包的时候，他会自己去packagist.org中去找，这个是国外。国内翻墙不易，所以还是禁用掉为妙。<br>因为我们建立的包在本地，所以我们要添加一个新的包的来源。类型为path,根据路径去找我们的包。是用相对路径来找，根据当前的composer文件所在路径来找。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&quot;repositories&quot;: [</div><div class="line">      &#123;</div><div class="line">        &quot;packagist.org&quot;: false</div><div class="line">      &#125;,</div><div class="line">      &#123;</div><div class="line">        &quot;type&quot;: &quot;composer&quot;,</div><div class="line">        &quot;url&quot;: &quot;https://packagist.phpcomposer.com&quot;</div><div class="line">      &#125;,</div><div class="line">      &#123;</div><div class="line">        &quot;type&quot;: &quot;path&quot;,</div><div class="line">        &quot;url&quot;: &quot;../composer&quot;</div><div class="line">      &#125;</div><div class="line">    ]</div></pre></td></tr></table></figure></p>
+<h4 id="6-配置好本地的composer文件"><a href="#6-配置好本地的composer文件" class="headerlink" title="6 配置好本地的composer文件"></a>6 配置好本地的composer文件</h4><p>这里有compsoer资源库引入的类型.<br>首先，我们要禁用掉从packagist.org获取的包信息.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;repositories&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;packagist.org&quot;: false</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br></pre></td></tr></table></figure></p>
+<p>如果不禁用掉，当我们几个源都没有找到自己的包的时候，他会自己去packagist.org中去找，这个是国外。国内翻墙不易，所以还是禁用掉为妙。<br>因为我们建立的包在本地，所以我们要添加一个新的包的来源。类型为path,根据路径去找我们的包。是用相对路径来找，根据当前的composer文件所在路径来找。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&quot;repositories&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;packagist.org&quot;: false</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;type&quot;: &quot;composer&quot;,</span><br><span class="line">        &quot;url&quot;: &quot;https://packagist.phpcomposer.com&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;type&quot;: &quot;path&quot;,</span><br><span class="line">        &quot;url&quot;: &quot;../composer&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br></pre></td></tr></table></figure></p>
 <p>以上就建立好了。试试用composer把自己建立好的包名安装下来把!</p>
-<h4 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h4><p><a href="https://getcomposer.org/doc/04-schema.md#json-schema" target="_blank" rel="external">composer文档</a></p>
+<h4 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h4><p><a href="https://getcomposer.org/doc/04-schema.md#json-schema" target="_blank" rel="noopener">composer文档</a></p>
 
       
 
@@ -327,7 +328,7 @@
   
 
   
-  <div id="SOHUCS" sid="composer包搭建" ></div> 
+  <div id="SOHUCS" sid="composer包搭建"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -442,11 +443,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -458,15 +459,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -510,11 +515,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -526,6 +531,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -534,19 +543,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -554,7 +559,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

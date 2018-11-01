@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>socket学习之旅:1如何打电话 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/08/03/socket学习之旅-1如何打电话/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="socket用于实时聊天，长链接，异步链接等等所需要的扩展。具体的文档地址:socket.在我的理解中，socket是用来通信的.">
-<meta property="og:updated_time" content="2017-08-03T04:19:21.656Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-08-03T04:19:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="socket学习之旅:1如何打电话">
 <meta name="twitter:description" content="socket用于实时聊天，长链接，异步链接等等所需要的扩展。具体的文档地址:socket.在我的理解中，socket是用来通信的.">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-socket学习之旅-1如何打电话" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-socket学习之旅-1如何打电话" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -174,11 +175,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>socket用于实时聊天，长链接，异步链接等等所需要的扩展。具体的文档地址:<a href="http://php.net/manual/zh/ref.sockets.php" target="_blank" rel="external">socket</a>.在我的理解中，socket是用来通信的.<br><a id="more"></a></p>
+        <p>socket用于实时聊天，长链接，异步链接等等所需要的扩展。具体的文档地址:<a href="http://php.net/manual/zh/ref.sockets.php" target="_blank" rel="noopener">socket</a>.在我的理解中，socket是用来通信的.<br><a id="more"></a></p>
 <h4 id="理解socket通信"><a href="#理解socket通信" class="headerlink" title="理解socket通信"></a>理解socket通信</h4><p>如何来理解socket通信呢,我这里来个假设。假设甲乙两个都有个电话,甲要打电话给乙,首要要知道乙的电话号码(套接字 通信节点),但是呢,乙的电话号码必须是开机的,这样乙才能接听到甲的电话.当然了,乙(服务端)可以同时接收多个电话.乙在通过甲的电话号码(套接字),跟甲说事情.所以甲乙都必须知道对方的电话号码(套接字).当甲挂电话的时候，就完成了一次通信!</p>
-<h4 id="函数介绍"><a href="#函数介绍" class="headerlink" title="函数介绍"></a>函数介绍</h4><p>具体的文档，请参考<a href="http://php.net/manual/zh/ref.sockets.php" target="_blank" rel="external">socket</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">----------------------------   服务端    --------------------------------</div><div class="line">	resource socket_create(int $domain,int $type,int protocol)  // 购买电话</div><div class="line">	bool socket_bind(resource $socket,string $address[, int $port=0]) // 绑定电话号码</div><div class="line">	bool socket_listen(resource $socket[, int $backlog = 0]) // 开始,监听socket链接</div><div class="line">----------------------------   客户端    --------------------------------</div><div class="line">	resource socket_accept ( resource $socket ) // 有人打入电话</div><div class="line">	string  socket_read(resource $socket,int $length [, int $type=PHP_BINARY_READ]) // 读取对话消息</div><div class="line">	int socket_write ( resource $socket , string $buffer [, int $length ] ) // 发送对话消息</div><div class="line">	void socket_close(resource $socket) // 关闭对话 别忘记挂电话，否则就欠费了</div></pre></td></tr></table></figure></p>
-<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>服务端<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">// 购买电话机</div><div class="line">$socket = socket_create(AF_INT，SOCK_STREAM,SOL_TCP);</div><div class="line">// 绑定电话号码</div><div class="line">socket_bind($socket,&apos;127.0.0.1&apos;,9090);</div><div class="line">// 开机</div><div class="line">socket_listen($socket,5);</div><div class="line">while(true)&#123;</div><div class="line">	// 开始打电话</div><div class="line">	$client = socket_accept($socket);</div><div class="line">	// 开始读取消息</div><div class="line">	$buf = socket_read($client,1024);</div><div class="line">	echo $buf;</div><div class="line">	// 发送消息</div><div class="line">	socket_write($client,&apos;i am server&apos;);</div><div class="line">	// 关闭客户端</div><div class="line">	socket_close($client);</div><div class="line">&#125;</div><div class="line">// 服务端关机</div><div class="line">socket_close($socket);</div></pre></td></tr></table></figure></p>
-<p>执行php server.php,然后在127.0.0.1:9090中就可以看到server的运行了.<br>客户端<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// 购买电话机</div><div class="line">$socket = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</div><div class="line">// 开始打电话</div><div class="line">socket_connect($socket,&apos;127.0.0.1&apos;,9090);</div><div class="line">// 开始发送消息</div><div class="line">socket_write($socket,&apos;i am client&apos;);</div><div class="line">// 读取消息</div><div class="line">$buf = socket_read($socket,1024);</div><div class="line">echo $buf;</div><div class="line">socket_close($socket);</div></pre></td></tr></table></figure></p>
+<h4 id="函数介绍"><a href="#函数介绍" class="headerlink" title="函数介绍"></a>函数介绍</h4><p>具体的文档，请参考<a href="http://php.net/manual/zh/ref.sockets.php" target="_blank" rel="noopener">socket</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">----------------------------   服务端    --------------------------------</span><br><span class="line">	resource socket_create(int $domain,int $type,int protocol)  // 购买电话</span><br><span class="line">	bool socket_bind(resource $socket,string $address[, int $port=0]) // 绑定电话号码</span><br><span class="line">	bool socket_listen(resource $socket[, int $backlog = 0]) // 开始,监听socket链接</span><br><span class="line">----------------------------   客户端    --------------------------------</span><br><span class="line">	resource socket_accept ( resource $socket ) // 有人打入电话</span><br><span class="line">	string  socket_read(resource $socket,int $length [, int $type=PHP_BINARY_READ]) // 读取对话消息</span><br><span class="line">	int socket_write ( resource $socket , string $buffer [, int $length ] ) // 发送对话消息</span><br><span class="line">	void socket_close(resource $socket) // 关闭对话 别忘记挂电话，否则就欠费了</span><br></pre></td></tr></table></figure></p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>服务端<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 购买电话机</span><br><span class="line">$socket = socket_create(AF_INT，SOCK_STREAM,SOL_TCP);</span><br><span class="line">// 绑定电话号码</span><br><span class="line">socket_bind($socket,&apos;127.0.0.1&apos;,9090);</span><br><span class="line">// 开机</span><br><span class="line">socket_listen($socket,5);</span><br><span class="line">while(true)&#123;</span><br><span class="line">	// 开始打电话</span><br><span class="line">	$client = socket_accept($socket);</span><br><span class="line">	// 开始读取消息</span><br><span class="line">	$buf = socket_read($client,1024);</span><br><span class="line">	echo $buf;</span><br><span class="line">	// 发送消息</span><br><span class="line">	socket_write($client,&apos;i am server&apos;);</span><br><span class="line">	// 关闭客户端</span><br><span class="line">	socket_close($client);</span><br><span class="line">&#125;</span><br><span class="line">// 服务端关机</span><br><span class="line">socket_close($socket);</span><br></pre></td></tr></table></figure></p>
+<p>执行php server.php,然后在127.0.0.1:9090中就可以看到server的运行了.<br>客户端<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 购买电话机</span><br><span class="line">$socket = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</span><br><span class="line">// 开始打电话</span><br><span class="line">socket_connect($socket,&apos;127.0.0.1&apos;,9090);</span><br><span class="line">// 开始发送消息</span><br><span class="line">socket_write($socket,&apos;i am client&apos;);</span><br><span class="line">// 读取消息</span><br><span class="line">$buf = socket_read($socket,1024);</span><br><span class="line">echo $buf;</span><br><span class="line">socket_close($socket);</span><br></pre></td></tr></table></figure></p>
 <p>运行php client.php,即可在控制台看到i am client,表示有人连接进来了,同时,也可以看到i am server.这个欢迎字符.</p>
 
       
@@ -320,7 +321,7 @@
   
 
   
-  <div id="SOHUCS" sid="socket学习之旅-1如何打电话" ></div> 
+  <div id="SOHUCS" sid="socket学习之旅-1如何打电话"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -435,11 +436,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -451,15 +452,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -503,11 +508,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -519,6 +524,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -527,19 +536,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -547,7 +552,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

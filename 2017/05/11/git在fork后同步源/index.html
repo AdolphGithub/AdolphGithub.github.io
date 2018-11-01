@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>git在fork后同步源 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/05/11/git在fork后同步源/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="在github上，我们需要同步的更新代码，就需要用到fork，建立连接。在fork之后同步更新代码。">
-<meta property="og:updated_time" content="2017-05-11T06:25:13.452Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-05-11T06:25:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git在fork后同步源">
 <meta name="twitter:description" content="在github上，我们需要同步的更新代码，就需要用到fork，建立连接。在fork之后同步更新代码。">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-git在fork后同步源" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-git在fork后同步源" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -179,7 +180,7 @@
 </code></pre><h3 id="2-如果没有，添加fork源-称为-上游仓库"><a href="#2-如果没有，添加fork源-称为-上游仓库" class="headerlink" title="2 如果没有，添加fork源(称为: 上游仓库)"></a>2 如果没有，添加fork源(称为: 上游仓库)</h3><pre><code>git remote add upstream http://gitlab.cloudkz.cn/xxx/yyy
 </code></pre><h3 id="3-如果本地仓库有修改，先将本地的代码commit"><a href="#3-如果本地仓库有修改，先将本地的代码commit" class="headerlink" title="3 如果本地仓库有修改，先将本地的代码commit"></a>3 如果本地仓库有修改，先将本地的代码commit</h3><pre><code>git add ....
 git commit -m &apos;...&apos;
-</code></pre><p>fetch上游仓库到本地分支(会被保存为 upstream/master)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git fetch upstream</div></pre></td></tr></table></figure></p>
+</code></pre><p>fetch上游仓库到本地分支(会被保存为 upstream/master)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch upstream</span><br></pre></td></tr></table></figure></p>
 <h3 id="4-切换到对应的分支-比如master"><a href="#4-切换到对应的分支-比如master" class="headerlink" title="4 切换到对应的分支(比如master)"></a>4 切换到对应的分支(比如master)</h3><pre><code>git checkout master
 </code></pre><h3 id="5-合并上游的更新到本地"><a href="#5-合并上游的更新到本地" class="headerlink" title="5 合并上游的更新到本地"></a>5 合并上游的更新到本地</h3><pre><code>git merge upstream/master
 </code></pre><h3 id="6-推送到自己的远程仓库"><a href="#6-推送到自己的远程仓库" class="headerlink" title="6 推送到自己的远程仓库"></a>6 推送到自己的远程仓库</h3><pre><code>git push origin master
@@ -323,7 +324,7 @@ git commit -m &apos;...&apos;
   
 
   
-  <div id="SOHUCS" sid="git在fork后同步源" ></div> 
+  <div id="SOHUCS" sid="git在fork后同步源"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -438,11 +439,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -454,15 +455,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,11 +511,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,6 +527,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -530,19 +539,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -550,7 +555,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

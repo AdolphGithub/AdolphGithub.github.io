@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>php源码-master进程管理1 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2018/05/02/php源码-master进程管理1/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="在fpm我们了解到,fpm通过初始化一次流程,然后master进程让worker进程来处理发来的请求.那master是通过什么来管理我们的worker进程的呢.想要了解这个,就先来理解一下我们的三种不同的进程管理模式.">
-<meta property="og:updated_time" content="2018-05-02T09:33:16.109Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-02T09:33:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php源码-master进程管理1">
 <meta name="twitter:description" content="在fpm我们了解到,fpm通过初始化一次流程,然后master进程让worker进程来处理发来的请求.那master是通过什么来管理我们的worker进程的呢.想要了解这个,就先来理解一下我们的三种不同的进程管理模式.">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-php源码-master进程管理1" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-php源码-master进程管理1" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -175,12 +176,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在fpm我们了解到,fpm通过初始化一次流程,然后master进程让worker进程来处理发来的请求.那master是通过什么来管理我们的worker进程的呢.想要了解这个,就先来理解一下我们的三种不同的进程管理模式.<br><a id="more"></a></p>
-<h3 id="进程管理模式"><a href="#进程管理模式" class="headerlink" title="进程管理模式"></a>进程管理模式</h3><p>在你的fpm.conf这个里面,有一项是来说明哪种管理进程的方式.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pm = dynamic</div></pre></td></tr></table></figure></p>
+<h3 id="进程管理模式"><a href="#进程管理模式" class="headerlink" title="进程管理模式"></a>进程管理模式</h3><p>在你的fpm.conf这个里面,有一项是来说明哪种管理进程的方式.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm = dynamic</span><br></pre></td></tr></table></figure></p>
 <p>这个是默认的处理方式,一共有三种.</p>
 <ul>
 <li>static</li>
 <li>dynamic</li>
-<li>ondemand<h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4>静态处理方式,通过初始化时直接fork出pm.max_children的进程数.以后将不再fork出对应的worker进程<h4 id="dynamic"><a href="#dynamic" class="headerlink" title="dynamic"></a>dynamic</h4>动态模式,这个是默认的模式,初始化时,将直接fork出配置pm.start_servers的进程数,然后如果请求过多处理不过来,将在fork出新的worker进程.参考的是pm.min_sqare_servers,如果master发现空闲的worker数超过了pm.max_spare_servers,就直接kill掉对应的worker进程.最后总的worker进程不会超过pm.max_children进程数.<h4 id="ondemand"><a href="#ondemand" class="headerlink" title="ondemand"></a>ondemand</h4>这个跟传统的cgi模式很相似,当有请求来的时候,才创建worker进程.如果worker进程数过多超过了pm.max_children则会杀掉worker进程.如果空闲时间超过了pm.process_idle_timeout时,也会杀掉worker进程.<br>了解了这三个模式,就可以来看看master是如何管理进程的了.<h3 id="信号事件"><a href="#信号事件" class="headerlink" title="信号事件"></a>信号事件</h3>当master进入到fpm_run函数时,将不在往下执行,就执行了里面的fpm_event_loop事件循环.我们来看看这里面有什么<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">fpm_event_s</span> <span class="title">signal_fd_event</span>;</span></div><div class="line">fpm_event_set(&amp;signal_fd_event, fpm_signals_get_fd(), FPM_EV_READ, &amp;fpm_got_signal, <span class="literal">NULL</span>); <span class="comment">// 设置事件监听,事件的触发类型和事件的处理函数</span></div><div class="line">fpm_event_add(&amp;signal_fd_event, <span class="number">0</span>);	<span class="comment">// 注册事件到队列.</span></div></pre></td></tr></table></figure>
+<li>ondemand<h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4>静态处理方式,通过初始化时直接fork出pm.max_children的进程数.以后将不再fork出对应的worker进程<h4 id="dynamic"><a href="#dynamic" class="headerlink" title="dynamic"></a>dynamic</h4>动态模式,这个是默认的模式,初始化时,将直接fork出配置pm.start_servers的进程数,然后如果请求过多处理不过来,将在fork出新的worker进程.参考的是pm.min_sqare_servers,如果master发现空闲的worker数超过了pm.max_spare_servers,就直接kill掉对应的worker进程.最后总的worker进程不会超过pm.max_children进程数.<h4 id="ondemand"><a href="#ondemand" class="headerlink" title="ondemand"></a>ondemand</h4>这个跟传统的cgi模式很相似,当有请求来的时候,才创建worker进程.如果worker进程数过多超过了pm.max_children则会杀掉worker进程.如果空闲时间超过了pm.process_idle_timeout时,也会杀掉worker进程.<br>了解了这三个模式,就可以来看看master是如何管理进程的了.<h3 id="信号事件"><a href="#信号事件" class="headerlink" title="信号事件"></a>信号事件</h3>当master进入到fpm_run函数时,将不在往下执行,就执行了里面的fpm_event_loop事件循环.我们来看看这里面有什么<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">fpm_event_s</span> <span class="title">signal_fd_event</span>;</span></span><br><span class="line">fpm_event_set(&amp;signal_fd_event, fpm_signals_get_fd(), FPM_EV_READ, &amp;fpm_got_signal, <span class="literal">NULL</span>); <span class="comment">// 设置事件监听,事件的触发类型和事件的处理函数</span></span><br><span class="line">fpm_event_add(&amp;signal_fd_event, <span class="number">0</span>);	<span class="comment">// 注册事件到队列.</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>在这里我们使用了fpm_signals_get_fd来获取sp[0].那sp[0]是在哪里定义的,我们回头来看看fpm_init函数</p>
@@ -190,10 +191,10 @@
 <li>SIGINT/SIGTERM/SIGQUIT 退出fpm,当mster收到信号过后,将向所有的worker进程发送退出信号.通过worker退出,然后master在退出</li>
 <li>SIGUSR1 重新加载日志文件</li>
 <li>SIGUSR2 重启fpm</li>
-<li>SIGCHLD 这个信号是worker进程退出时 操作系统发送给master进程,这个进程为僵尸进程.它只保留最小的内核数据结构.方便父进程来查询和调用对应的wait或者waitpid方式.然后master检查是否需要重新启动进程.<h3 id="fpm-pctl-perform-idle-server-maintenance-heartbeat"><a href="#fpm-pctl-perform-idle-server-maintenance-heartbeat" class="headerlink" title="fpm_pctl_perform_idle_server_maintenance_heartbeat"></a>fpm_pctl_perform_idle_server_maintenance_heartbeat</h3>这个这么长的一串函数名,实际就干了一件事情,注册一个定时器.这个定时器用来定期检查worker进程数.<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">fpm_pctl_perform_idle_server_maintenance_heartbeat</span><span class="params">(struct fpm_event_s *ev, <span class="keyword">short</span> which, <span class="keyword">void</span> *arg)</span> <span class="comment">/* &#123;&#123;&#123; */</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">fpm_event_s</span> <span class="title">heartbeat</span>;</span></div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">now</span>;</span></div><div class="line"></div><div class="line">	<span class="keyword">if</span> (fpm_globals.parent_pid != getpid()) &#123;</div><div class="line">		<span class="keyword">return</span>; <span class="comment">/* sanity check */</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// 定时器触发时回调逻辑</span></div><div class="line">	<span class="comment">//  设置定时器,回调函数,回调函数也是本身</span></div><div class="line">	<span class="comment">// 这个下面的只执行一次.</span></div><div class="line">	fpm_event_set_timer(&amp;heartbeat, FPM_EV_PERSIST, &amp;fpm_pctl_perform_idle_server_maintenance_heartbeat, <span class="literal">NULL</span>);</div><div class="line">	<span class="comment">// 注册定时器.每个多少毫秒触发一次</span></div><div class="line">	fpm_event_add(&amp;heartbeat, FPM_IDLE_SERVER_MAINTENANCE_HEARTBEAT);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<li>SIGCHLD 这个信号是worker进程退出时 操作系统发送给master进程,这个进程为僵尸进程.它只保留最小的内核数据结构.方便父进程来查询和调用对应的wait或者waitpid方式.然后master检查是否需要重新启动进程.<h3 id="fpm-pctl-perform-idle-server-maintenance-heartbeat"><a href="#fpm-pctl-perform-idle-server-maintenance-heartbeat" class="headerlink" title="fpm_pctl_perform_idle_server_maintenance_heartbeat"></a>fpm_pctl_perform_idle_server_maintenance_heartbeat</h3>这个这么长的一串函数名,实际就干了一件事情,注册一个定时器.这个定时器用来定期检查worker进程数.<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fpm_pctl_perform_idle_server_maintenance_heartbeat</span><span class="params">(struct fpm_event_s *ev, <span class="keyword">short</span> which, <span class="keyword">void</span> *arg)</span> <span class="comment">/* &#123;&#123;&#123; */</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">fpm_event_s</span> <span class="title">heartbeat</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">now</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (fpm_globals.parent_pid != getpid()) &#123;</span><br><span class="line">		<span class="keyword">return</span>; <span class="comment">/* sanity check */</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 定时器触发时回调逻辑</span></span><br><span class="line">	<span class="comment">//  设置定时器,回调函数,回调函数也是本身</span></span><br><span class="line">	<span class="comment">// 这个下面的只执行一次.</span></span><br><span class="line">	fpm_event_set_timer(&amp;heartbeat, FPM_EV_PERSIST, &amp;fpm_pctl_perform_idle_server_maintenance_heartbeat, <span class="literal">NULL</span>);</span><br><span class="line">	<span class="comment">// 注册定时器.每个多少毫秒触发一次</span></span><br><span class="line">	fpm_event_add(&amp;heartbeat, FPM_IDLE_SERVER_MAINTENANCE_HEARTBEAT);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>当我们注册了过后在来看看我们的处理逻辑<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 确认是一个定时事件</span></div><div class="line"><span class="keyword">if</span> (which == FPM_EV_TIMEOUT) &#123;</div><div class="line">	fpm_clock_get(&amp;now);</div><div class="line">	<span class="keyword">if</span> (fpm_pctl_can_spawn_children()) &#123;	<span class="comment">// 检查master当前状态是否正常,</span></div><div class="line">		<span class="comment">// 具体的处理逻辑</span></div><div class="line">		fpm_pctl_perform_idle_server_maintenance(&amp;now);</div><div class="line">		<span class="keyword">if</span> (fpm_globals.is_child) &#123;</div><div class="line">			<span class="keyword">return</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>当我们注册了过后在来看看我们的处理逻辑<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 确认是一个定时事件</span></span><br><span class="line"><span class="keyword">if</span> (which == FPM_EV_TIMEOUT) &#123;</span><br><span class="line">	fpm_clock_get(&amp;now);</span><br><span class="line">	<span class="keyword">if</span> (fpm_pctl_can_spawn_children()) &#123;	<span class="comment">// 检查master当前状态是否正常,</span></span><br><span class="line">		<span class="comment">// 具体的处理逻辑</span></span><br><span class="line">		fpm_pctl_perform_idle_server_maintenance(&amp;now);</span><br><span class="line">		<span class="keyword">if</span> (fpm_globals.is_child) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>fpm_pctl_perform_idle_server_maintenance主要针对dynamic和ondemand两种模式,检查的过程就是遍历所有的worker pool,根据不同策略来进行不同的处理.</p>
 <h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>人懒,就先看到这里.下次再来详细的看如何处理每个worker的.</p>
 
@@ -336,7 +337,7 @@
   
 
   
-  <div id="SOHUCS" sid="php源码-master进程管理1" ></div> 
+  <div id="SOHUCS" sid="php源码-master进程管理1"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -451,11 +452,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -467,15 +468,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -519,11 +524,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -535,6 +540,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -543,19 +552,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -563,7 +568,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

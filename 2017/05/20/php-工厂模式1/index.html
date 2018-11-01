@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>工厂模式-程序员,书,和狗 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/05/20/php-工厂模式1/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="一个简单例子。一个电商系统，刚起步时往往只有1-2个商品(譬如图书),此时写作模式很简单，">
-<meta property="og:updated_time" content="2017-05-20T09:41:59.822Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-05-20T09:41:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="工厂模式-程序员,书,和狗">
 <meta name="twitter:description" content="一个简单例子。一个电商系统，刚起步时往往只有1-2个商品(譬如图书),此时写作模式很简单，">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-php-工厂模式1" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-php-工厂模式1" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -174,10 +175,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>一个简单例子。一个电商系统，刚起步时往往只有1-2个商品(譬如图书),此时写作模式很简单，<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$obj = new Book();	// 我们库里只有书</div></pre></td></tr></table></figure></p>
-<p>随着我们越来越有钱，我们库里会增加一些其他商品(譬如狗,酒)，开发人员的增多<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$obj = new Dog();	// 卖狗了</div><div class="line">$obj = new Wines();	// 卖酒了</div></pre></td></tr></table></figure></p>
-<p>我们打个比方，假设每个商品类都有一个getList()方法.<br>假设有一天，图书的资源除了问题，老板临时决定凡是访问书的数据，统一返回狗的数据.<br>我们就要注释大量的代码.就引出了我们的工厂模式.<br>假设我们有一个工厂。ProductFactory，其中通过传参数的方式来获取不同的对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">class ProductFactory&#123;</div><div class="line">	// 根据不同的对象来得到不同的类.</div><div class="line">	public static function getProduct($type)&#123;</div><div class="line">		if(!class_exists($type))&#123;</div><div class="line">			require ($type.&apos;.php&apos;);</div><div class="line">		&#125;</div><div class="line">		switch($type)&#123;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Book();</div><div class="line">				break;</div><div class="line">			case  &quot;Dog&quot;:</div><div class="line">				$object = new Dog();</div><div class="line">				break;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Wines();</div><div class="line">				break;</div><div class="line">		&#125;</div><div class="line">		return $object;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>如果我们要统一返回狗的数据.在工厂模式中就非常简单<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">class ProductFactory&#123;</div><div class="line">	// 根据不同的对象来得到不同的类.</div><div class="line">	public static function getProduct($type)&#123;</div><div class="line">		// 变态模式产生</div><div class="line">		if($type == &apos;Book&apos;)&#123;</div><div class="line">			$type = &apos;Dog&apos;;</div><div class="line">		&#125;</div><div class="line">		if(!class_exists($type))&#123;</div><div class="line">			require ($type.&apos;.php&apos;);</div><div class="line">		&#125;</div><div class="line">		switch($type)&#123;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Book();</div><div class="line">				break;</div><div class="line">			case  &quot;Dog&quot;:</div><div class="line">				$object = new Dog();</div><div class="line">				break;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Wines();</div><div class="line">				break;</div><div class="line">		&#125;</div><div class="line">		return $object;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <p>一个简单例子。一个电商系统，刚起步时往往只有1-2个商品(譬如图书),此时写作模式很简单，<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$obj = new Book();	// 我们库里只有书</span><br></pre></td></tr></table></figure></p>
+<p>随着我们越来越有钱，我们库里会增加一些其他商品(譬如狗,酒)，开发人员的增多<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$obj = new Dog();	// 卖狗了</span><br><span class="line">$obj = new Wines();	// 卖酒了</span><br></pre></td></tr></table></figure></p>
+<p>我们打个比方，假设每个商品类都有一个getList()方法.<br>假设有一天，图书的资源除了问题，老板临时决定凡是访问书的数据，统一返回狗的数据.<br>我们就要注释大量的代码.就引出了我们的工厂模式.<br>假设我们有一个工厂。ProductFactory，其中通过传参数的方式来获取不同的对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class ProductFactory&#123;</span><br><span class="line">	// 根据不同的对象来得到不同的类.</span><br><span class="line">	public static function getProduct($type)&#123;</span><br><span class="line">		if(!class_exists($type))&#123;</span><br><span class="line">			require ($type.&apos;.php&apos;);</span><br><span class="line">		&#125;</span><br><span class="line">		switch($type)&#123;</span><br><span class="line">			case  &quot;Book&quot;:</span><br><span class="line">				$object = new Book();</span><br><span class="line">				break;</span><br><span class="line">			case  &quot;Dog&quot;:</span><br><span class="line">				$object = new Dog();</span><br><span class="line">				break;</span><br><span class="line">			case  &quot;Book&quot;:</span><br><span class="line">				$object = new Wines();</span><br><span class="line">				break;</span><br><span class="line">		&#125;</span><br><span class="line">		return $object;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果我们要统一返回狗的数据.在工厂模式中就非常简单<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class ProductFactory&#123;</span><br><span class="line">	// 根据不同的对象来得到不同的类.</span><br><span class="line">	public static function getProduct($type)&#123;</span><br><span class="line">		// 变态模式产生</span><br><span class="line">		if($type == &apos;Book&apos;)&#123;</span><br><span class="line">			$type = &apos;Dog&apos;;</span><br><span class="line">		&#125;</span><br><span class="line">		if(!class_exists($type))&#123;</span><br><span class="line">			require ($type.&apos;.php&apos;);</span><br><span class="line">		&#125;</span><br><span class="line">		switch($type)&#123;</span><br><span class="line">			case  &quot;Book&quot;:</span><br><span class="line">				$object = new Book();</span><br><span class="line">				break;</span><br><span class="line">			case  &quot;Dog&quot;:</span><br><span class="line">				$object = new Dog();</span><br><span class="line">				break;</span><br><span class="line">			case  &quot;Book&quot;:</span><br><span class="line">				$object = new Wines();</span><br><span class="line">				break;</span><br><span class="line">		&#125;</span><br><span class="line">		return $object;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>思考:如果有一天，我们需要在每个商品中加入狗的信息，但狗本身除外.</p>
 
       
@@ -319,7 +320,7 @@
   
 
   
-  <div id="SOHUCS" sid="php-工厂模式1" ></div> 
+  <div id="SOHUCS" sid="php-工厂模式1"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -434,11 +435,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -450,15 +451,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -502,11 +507,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -518,6 +523,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -526,19 +535,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -546,7 +551,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

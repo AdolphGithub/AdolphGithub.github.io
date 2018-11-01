@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -12,6 +12,7 @@
 <meta property="og:title" content="adolph blog">
 <meta property="og:url" content="http://www.blogme.club/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="adolph blog">
   
@@ -32,7 +33,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -151,7 +152,87 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-supervisor" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-expect" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/01/expect/">expect</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/01/expect/" class="archive-article-date">
+  	<time datetime="2018-11-01T09:22:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在开发的过程,我们经常用通过shell去调用对应的脚本.在这个时候,往往有很多脚本的权限是不够的,需要提升权限这个时候就需要输入密码.md,以前在想直接,自己的PHP脚本,没有这种互动的权限.这个老尴尬了😟.expect就是提供这种解决方案的.expect就可以根据设定的规则，自动帮我们输入密码，大大节省了时间。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>RHEL/CentOS:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install expect</span><br></pre></td></tr></table></figure></p>
+<p>Debian/ubuntu<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install expect</span><br></pre></td></tr></table></figure></p>
+<h3 id="expect主要命令"><a href="#expect主要命令" class="headerlink" title="expect主要命令"></a>expect主要命令</h3><ul>
+<li>spawn 新建一个进程，这个进程的交互由expect控制</li>
+<li>expect 等待接受进程返回的字符串，直到超时时间，根据规则决定下一步操作</li>
+<li>send 发送字符串给expect控制的进程</li>
+<li>set 设定变量为某个值</li>
+<li>exp_continue 重新执行expect命令分支</li>
+<li>[lindex $argv 0] 获取expect脚本的第1个参数</li>
+<li>[lindex $argv 1] 获取expect脚本的第2个参数</li>
+<li>set timeout -1 设置超时方式为永远等待</li>
+<li>set timeout 30 设置超时时间为30秒</li>
+<li>interact 将脚本的控制权交给用户，用户可继续输入命令</li>
+<li>expect eof 等待spawn进程结束后退出信号eof<h3 id="expect命令分支"><a href="#expect命令分支" class="headerlink" title="expect命令分支"></a>expect命令分支</h3>expect命令采用了tcl的模式-动作语法,此语法有以下几种模式:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set password 123456</span><br><span class="line">expect &quot;*assword:&quot; &#123; send &quot;$password\r&quot; &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>多分支模式语法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set password 123456</span><br><span class="line">expect &#123;</span><br><span class="line">      &quot;(yes/no)?&quot; &#123; send &quot;yes\r&quot;; exp_continue &#125;</span><br><span class="line">      &quot;*assword:&quot; &#123; send &quot;$password\r&quot; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当输出中包含(yes/no)?时,输出yes和回车,同时重新执行此多分支语句.<br>当输出中匹配*assword:时,输出password变量的数值和回车.</p>
+<h3 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h3><p>expect脚本一般以#!/usr/bin/expect -f开头,类似bash脚本.So😁<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$cmd = <span class="string">'sudo mkdir /opt/expect'</span>;</span><br><span class="line">$password = <span class="string">'yyg'</span>;</span><br><span class="line">$command= <span class="string">&lt;&lt;&lt;EOF</span></span><br><span class="line"><span class="string">#!/usr/bin/expect -f</span></span><br><span class="line"><span class="string">set timeout 5</span></span><br><span class="line"><span class="string">spawn <span class="subst">$cmd</span></span></span><br><span class="line"><span class="string">expect "*sudo:"</span></span><br><span class="line"><span class="string">send "<span class="subst">$password</span>\r"</span></span><br><span class="line"><span class="string">expect eof</span></span><br><span class="line"><span class="string">exit</span></span><br><span class="line">EOF;</span><br><span class="line">file_put_contents(<span class="keyword">__DIR__</span> . <span class="string">'/test.sh'</span>,$command);</span><br><span class="line"><span class="keyword">echo</span> shell_exec(<span class="string">'expect ./test.sh'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>这段代码就只干了提权,在/opt下建立一个expect的文件夹.<br>接下来就直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php expect.php</span><br></pre></td></tr></table></figure></p>
+<p>剩下就可以直接看效果.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">expect</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/01/expect/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-supervisor" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -178,7 +259,7 @@
       
 
       
-    </div>
+    </p></div>
     <div class="article-info article-info-index">
       
       
@@ -212,7 +293,7 @@
 
 
   
-    <article id="post-宁愿吃生活的苦-也不愿吃学习的苦" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-宁愿吃生活的苦-也不愿吃学习的苦" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -239,7 +320,7 @@
       
 
       
-    </div>
+    </p></div>
     <div class="article-info article-info-index">
       
       
@@ -273,7 +354,7 @@
 
 
   
-    <article id="post-lazyload原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-lazyload原理" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -300,7 +381,7 @@
       
 
       
-    </div>
+    </p></div>
     <div class="article-info article-info-index">
       
       
@@ -334,7 +415,7 @@
 
 
   
-    <article id="post-浏览器缓存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-浏览器缓存" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -361,7 +442,7 @@
       
 
       
-    </div>
+    </p></div>
     <div class="article-info article-info-index">
       
       
@@ -395,7 +476,7 @@
 
 
   
-    <article id="post-redis主从和哨兵配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-redis主从和哨兵配置" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -422,7 +503,7 @@
       
 
       
-    </div>
+    </p></div>
     <div class="article-info article-info-index">
       
       
@@ -456,7 +537,7 @@
 
 
   
-    <article id="post-php源码-embed" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-php源码-embed" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -483,7 +564,7 @@
       
 
       
-    </div>
+    </p></div>
     <div class="article-info article-info-index">
       
       
@@ -517,7 +598,7 @@
 
 
   
-    <article id="post-php源码-master进程管理2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-php源码-master进程管理2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -537,14 +618,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>前面我们看了signal事件,了解了fpm运行的3中模式,ondemand,dynamic,static三种.但是具体的还没有看到如何处理这个进程的.我们就跟着<a href="https://adolphgithub.github.io/2018/05/02/php%E6%BA%90%E7%A0%81-master%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%861/" target="_blank" rel="external">上一次</a>的走.<br>
+        <p>前面我们看了signal事件,了解了fpm运行的3中模式,ondemand,dynamic,static三种.但是具体的还没有看到如何处理这个进程的.我们就跟着<a href="https://adolphgithub.github.io/2018/05/02/php%E6%BA%90%E7%A0%81-master%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%861/" target="_blank" rel="noopener">上一次</a>的走.<br>
         
           <a class="article-more-a" href="/2018/05/02/php源码-master进程管理2/#more">more >></a>
         
       
 
       
-    </div>
+    </p></div>
     <div class="article-info article-info-index">
       
       
@@ -578,7 +659,7 @@
 
 
   
-    <article id="post-php源码-master进程管理1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-php源码-master进程管理1" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -605,7 +686,7 @@
       
 
       
-    </div>
+    </p></div>
     <div class="article-info article-info-index">
       
       
@@ -639,7 +720,7 @@
 
 
   
-    <article id="post-php源码-fpm" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-php源码-fpm" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -666,7 +747,7 @@
       
 
       
-    </div>
+    </p></div>
     <div class="article-info article-info-index">
       
       
@@ -686,67 +767,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/04/26/php源码-fpm/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-php源码-module-startup" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/25/php源码-module-startup/">php源码-module-startup</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/25/php源码-module-startup/" class="archive-article-date">
-  	<time datetime="2018-04-25T09:25:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这次来聊聊php_module_startup,这个跟php的执行流程有关,php执行大概流程可以从<a href="http://www.blogme.club/2018/04/25/php%E6%BA%90%E7%A0%81-cli%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/#more">php-cli的流程</a>看出来<br>
-        
-          <a class="article-more-a" href="/2018/04/25/php源码-module-startup/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/25/php源码-module-startup/">展开全文 >></a>
         </p>
       
 
@@ -870,11 +890,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -886,15 +906,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -938,11 +962,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -954,6 +978,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -962,19 +990,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -982,7 +1006,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

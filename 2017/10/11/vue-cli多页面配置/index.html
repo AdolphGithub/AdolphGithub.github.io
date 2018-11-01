@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>vue-cli多页面配置 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/10/11/vue-cli多页面配置/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="用vue-cli搭建单页面的应用,配合vue-router可以实现多页面的效果.但这并不是我们所需要的,我们的网站往往是需要实现多页面的.单页面应用更多的出现在app上,所以我在这里就介绍一下用vue-cli搭建多页面的例子.">
-<meta property="og:updated_time" content="2017-10-11T02:30:35.657Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-10-11T02:30:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue-cli多页面配置">
 <meta name="twitter:description" content="用vue-cli搭建单页面的应用,配合vue-router可以实现多页面的效果.但这并不是我们所需要的,我们的网站往往是需要实现多页面的.单页面应用更多的出现在app上,所以我在这里就介绍一下用vue-cli搭建多页面的例子.">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-vue-cli多页面配置" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-vue-cli多页面配置" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -175,12 +176,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>用vue-cli搭建单页面的应用,配合vue-router可以实现多页面的效果.但这并不是我们所需要的,我们的网站往往是需要实现多页面的.单页面应用更多的出现在app上,所以我在这里就介绍一下用vue-cli搭建多页面的例子.<br><a id="more"></a><br>vue单页面入口文件只有一个,main.js.那就想一下,多界面就意味着有多个入口文件.我们调用多个入口即可得到对应的单界面的应用.这里,我们就通过webpack来实现所谓的多入口.</p>
-<h3 id="webpack-配置"><a href="#webpack-配置" class="headerlink" title="webpack 配置"></a>webpack 配置</h3><p>webpack配置我就不多说了,具体的请查看文档.其中webpack中有一个配置项,entry.这个是用来配置入口.用vue-cli搭建默认的例子是这样的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">---- bulid/webpack.base.conf.js  -----</div><div class="line">&apos;use strict&apos;</div><div class="line">....</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">  entry: &#123;</div><div class="line">  	app: &apos;./src/main.js&apos;</div><div class="line">  &#125;</div><div class="line">  ......</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这里的entry就是来指定入口的.ok.这里我们知道了,然后我们需要将entry改一下,改成我们需要的形式.例如 <a href="http://地址/module/index.html这种样子的.以下是生成方式,在build/utils.js工具类中" target="_blank" rel="external">http://地址/module/index.html这种样子的.以下是生成方式,在build/utils.js工具类中</a>.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">----- build/utils.js -----</div><div class="line">exports.getEntries = function(globPath)&#123;</div><div class="line">  var entries = &#123;&#125;;</div><div class="line">  glob.sync(globPath).forEach(function (entry) &#123;</div><div class="line">    // 当然， 你也可以加上模块名称, 即输出如下</div><div class="line">    // &#123; module/main: &apos;./src/module/index/main.js&apos;, module/test: &apos;./src/module/test/test.js&apos; &#125;</div><div class="line">    // 最终编译输出的文件也在module目录下， 访问路径需要时 localhost:8080/module/index.html</div><div class="line">    // slice 从已有的数组中返回选定的元素, -3 倒序选择，即选择最后三个</div><div class="line">    var tmp = entry.split(&apos;/&apos;).splice(-3);</div><div class="line">    var key = tmp.slice(1, 2);</div><div class="line">    // ***************end***************</div><div class="line">    entries[key] = entry</div><div class="line">  &#125;);</div><div class="line">  console.dir(entries);</div><div class="line">  // 获取的主入口如下： &#123; main: &apos;./src/module/index/main.js&apos;, test: &apos;./src/module/test/test.js&apos; &#125;</div><div class="line">  return entries;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这里我们用了glob这个扩展,直接安装就行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install glob</div></pre></td></tr></table></figure></p>
-<p>我们直接调用这个方法即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">---- bulid/webpack.base.conf.js  -----</div><div class="line">&apos;use strict&apos;</div><div class="line">....</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">  entry: utils.getEntries(&apos;./src/module/*/index.js&apos;)</div><div class="line">  ......</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="入口模板配置"><a href="#入口模板配置" class="headerlink" title="入口模板配置"></a>入口模板配置</h3><p>我们用vue-cli搭建的环境中,index.html是我们src/main.js挂载的模板.这里,我们要配置一个模板文件.<br>我们设定的路径为.src/module/模块名/index.html<br>所以,我们要用来函数来生成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">---- build/utils.js  ----</div><div class="line">exports.getTemplates = function (globPath) &#123;</div><div class="line">  var templates = [];</div><div class="line">  glob.sync(globPath).forEach(function (template) &#123;</div><div class="line">    var tmp = template.split(&apos;/&apos;).splice(-3);</div><div class="line">    var filename = path.join(tmp[1], tmp[2]);</div><div class="line">    var chunk = tmp[1];</div><div class="line">    // 生成模板配置</div><div class="line">    templates.push(&#123;</div><div class="line">      filename: filename,</div><div class="line">      template: template,</div><div class="line">      inject: true,</div><div class="line">      chunks: [&apos;manifest&apos;, &apos;vendor&apos;, &apos;commons&apos;, chunk]</div><div class="line">    &#125;);</div><div class="line">  &#125;);</div><div class="line">  return templates;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>然后我们在webpack.dev.conf.js和webpack.prod.conf.js加入到插件中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var templates = utils.getTemplates(config.entry.template);</div><div class="line">for (let i = 0,length = templates.length; i &lt; length; i++) &#123;</div><div class="line">  webpackConfig.plugins.push(new HtmlWebpackPlugin(templates[i]));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="webpack-配置"><a href="#webpack-配置" class="headerlink" title="webpack 配置"></a>webpack 配置</h3><p>webpack配置我就不多说了,具体的请查看文档.其中webpack中有一个配置项,entry.这个是用来配置入口.用vue-cli搭建默认的例子是这样的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">---- bulid/webpack.base.conf.js  -----</span><br><span class="line">&apos;use strict&apos;</span><br><span class="line">....</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">  	app: &apos;./src/main.js&apos;</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里的entry就是来指定入口的.ok.这里我们知道了,然后我们需要将entry改一下,改成我们需要的形式.例如 http://地址/module/index.html这种样子的.以下是生成方式,在build/utils.js工具类中.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">----- build/utils.js -----</span><br><span class="line">exports.getEntries = function(globPath)&#123;</span><br><span class="line">  var entries = &#123;&#125;;</span><br><span class="line">  glob.sync(globPath).forEach(function (entry) &#123;</span><br><span class="line">    // 当然， 你也可以加上模块名称, 即输出如下</span><br><span class="line">    // &#123; module/main: &apos;./src/module/index/main.js&apos;, module/test: &apos;./src/module/test/test.js&apos; &#125;</span><br><span class="line">    // 最终编译输出的文件也在module目录下， 访问路径需要时 localhost:8080/module/index.html</span><br><span class="line">    // slice 从已有的数组中返回选定的元素, -3 倒序选择，即选择最后三个</span><br><span class="line">    var tmp = entry.split(&apos;/&apos;).splice(-3);</span><br><span class="line">    var key = tmp.slice(1, 2);</span><br><span class="line">    // ***************end***************</span><br><span class="line">    entries[key] = entry</span><br><span class="line">  &#125;);</span><br><span class="line">  console.dir(entries);</span><br><span class="line">  // 获取的主入口如下： &#123; main: &apos;./src/module/index/main.js&apos;, test: &apos;./src/module/test/test.js&apos; &#125;</span><br><span class="line">  return entries;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里我们用了glob这个扩展,直接安装就行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install glob</span><br></pre></td></tr></table></figure></p>
+<p>我们直接调用这个方法即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---- bulid/webpack.base.conf.js  -----</span><br><span class="line">&apos;use strict&apos;</span><br><span class="line">....</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: utils.getEntries(&apos;./src/module/*/index.js&apos;)</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="入口模板配置"><a href="#入口模板配置" class="headerlink" title="入口模板配置"></a>入口模板配置</h3><p>我们用vue-cli搭建的环境中,index.html是我们src/main.js挂载的模板.这里,我们要配置一个模板文件.<br>我们设定的路径为.src/module/模块名/index.html<br>所以,我们要用来函数来生成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">---- build/utils.js  ----</span><br><span class="line">exports.getTemplates = function (globPath) &#123;</span><br><span class="line">  var templates = [];</span><br><span class="line">  glob.sync(globPath).forEach(function (template) &#123;</span><br><span class="line">    var tmp = template.split(&apos;/&apos;).splice(-3);</span><br><span class="line">    var filename = path.join(tmp[1], tmp[2]);</span><br><span class="line">    var chunk = tmp[1];</span><br><span class="line">    // 生成模板配置</span><br><span class="line">    templates.push(&#123;</span><br><span class="line">      filename: filename,</span><br><span class="line">      template: template,</span><br><span class="line">      inject: true,</span><br><span class="line">      chunks: [&apos;manifest&apos;, &apos;vendor&apos;, &apos;commons&apos;, chunk]</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">  return templates;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后我们在webpack.dev.conf.js和webpack.prod.conf.js加入到插件中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var templates = utils.getTemplates(config.entry.template);</span><br><span class="line">for (let i = 0,length = templates.length; i &lt; length; i++) &#123;</span><br><span class="line">  webpackConfig.plugins.push(new HtmlWebpackPlugin(templates[i]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>以上,即可完成多页面的配置.</p>
 
       
@@ -322,7 +323,7 @@
   
 
   
-  <div id="SOHUCS" sid="vue-cli多页面配置" ></div> 
+  <div id="SOHUCS" sid="vue-cli多页面配置"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -437,11 +438,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -453,15 +454,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -505,11 +510,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,6 +526,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -529,19 +538,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -549,7 +554,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

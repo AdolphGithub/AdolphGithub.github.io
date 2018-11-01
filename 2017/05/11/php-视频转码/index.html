@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>php-视频转码-ffmpeg | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/05/11/php-视频转码/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="新需求要弄视频转码，我一下子就懵圈了。PHP还可以视频转码？一下子就颠覆了。不过PHP是最好的语言。在国外的网站上翻阅文档后,PHP实际上是用了ffmpeg来执行转码任务。于是就开始了我的入坑之旅。">
-<meta property="og:updated_time" content="2017-05-11T07:56:42.279Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-05-11T07:56:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php-视频转码-ffmpeg">
 <meta name="twitter:description" content="新需求要弄视频转码，我一下子就懵圈了。PHP还可以视频转码？一下子就颠覆了。不过PHP是最好的语言。在国外的网站上翻阅文档后,PHP实际上是用了ffmpeg来执行转码任务。于是就开始了我的入坑之旅。">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-php-视频转码" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-php-视频转码" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -175,9 +176,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>新需求要弄视频转码，我一下子就懵圈了。PHP还可以视频转码？一下子就颠覆了。不过PHP是最好的语言。在国外的网站上翻阅文档后,PHP实际上是用了ffmpeg来执行转码任务。于是就开始了我的入坑之旅。<br><a id="more"></a></p>
-<h3 id="1-FFMpeg环境"><a href="#1-FFMpeg环境" class="headerlink" title="1 FFMpeg环境"></a>1 FFMpeg环境</h3><p>由于我的系统是ubuntu,所以这些安装对于我来说都很简单。我们要安装ffmpeg的环境。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div><div class="line">sudo apt-get -y install autoconf automake build-essential libass-dev libfreetype6-dev \</div><div class="line">  libsdl2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev \</div><div class="line">  libxcb-xfixes0-dev pkg-config texinfo zlib1g-dev</div></pre></td></tr></table></figure></p>
+<h3 id="1-FFMpeg环境"><a href="#1-FFMpeg环境" class="headerlink" title="1 FFMpeg环境"></a>1 FFMpeg环境</h3><p>由于我的系统是ubuntu,所以这些安装对于我来说都很简单。我们要安装ffmpeg的环境。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get -y install autoconf automake build-essential libass-dev libfreetype6-dev \</span><br><span class="line">  libsdl2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev \</span><br><span class="line">  libxcb-xfixes0-dev pkg-config texinfo zlib1g-dev</span><br></pre></td></tr></table></figure></p>
 <p>这一步基本没有问题</p>
-<h3 id="2-资源下载目录"><a href="#2-资源下载目录" class="headerlink" title="2 资源下载目录"></a>2 资源下载目录</h3><p>创建自己的ffmpeg，用于统一管理下载资源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir ~/ffmpeg_source</div></pre></td></tr></table></figure></p>
+<h3 id="2-资源下载目录"><a href="#2-资源下载目录" class="headerlink" title="2 资源下载目录"></a>2 资源下载目录</h3><p>创建自己的ffmpeg，用于统一管理下载资源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/ffmpeg_source</span><br></pre></td></tr></table></figure></p>
 <h3 id="3-安装必要资源"><a href="#3-安装必要资源" class="headerlink" title="3 安装必要资源"></a>3 安装必要资源</h3><h4 id="yasm"><a href="#yasm" class="headerlink" title="yasm"></a>yasm</h4><pre><code>sudo apt-get install yasm
 </code></pre><h4 id="libx264"><a href="#libx264" class="headerlink" title="libx264"></a>libx264</h4><pre><code>sudo apt-get install libx264-dev
 </code></pre><h4 id="libx265"><a href="#libx265" class="headerlink" title="libx265"></a>libx265</h4><pre><code>sudo apt-get install libx265-dev
@@ -186,9 +187,9 @@
 </code></pre><h4 id="libopus"><a href="#libopus" class="headerlink" title="libopus"></a>libopus</h4><pre><code>sudo apt-get install libopus-dev
 </code></pre><h4 id="libvpx"><a href="#libvpx" class="headerlink" title="libvpx"></a>libvpx</h4><pre><code>sudo apt-get install libvpx-dev
 </code></pre><p>当我们安装完了这些必要资源后，就可以开始安装ffmpeg了</p>
-<h3 id="4-安装ffmpeg"><a href="#4-安装ffmpeg" class="headerlink" title="4 安装ffmpeg"></a>4 安装ffmpeg</h3><p>我们先切换到我们创建的资源目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd ~/ffmpeg_source</div></pre></td></tr></table></figure></p>
-<p>下载源码包并解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2</div><div class="line">tar xjvf ffmpeg-snapshot.tar.bz2</div><div class="line">cd ffmpeg</div></pre></td></tr></table></figure></p>
-<p>开始编译安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">PATH=&quot;$HOME/bin:$PATH&quot; PKG_CONFIG_PATH=&quot;$HOME/ffmpeg_build/lib/pkgconfig&quot;  ./configure \</div><div class="line">  --prefix=&quot;$HOME/ffmpeg_build&quot; \</div><div class="line">  --pkg-config-flags=&quot;--static&quot; \</div><div class="line">  --extra-cflags=&quot;-I$HOME/ffmpeg_build/include&quot; \</div><div class="line">  --extra-ldflags=&quot;-L$HOME/ffmpeg_build/lib&quot; \</div><div class="line">  --bindir=&quot;$HOME/bin&quot; \</div><div class="line">  --enable-gpl \</div><div class="line">  --enable-libass \</div><div class="line">  --enable-libfdk-aac \</div><div class="line">  --enable-libfreetype \</div><div class="line">  --enable-libmp3lame \</div><div class="line">  --enable-libopus \</div><div class="line">  --enable-libtheora \</div><div class="line">  --enable-libvorbis \</div><div class="line">  --enable-libvpx \</div><div class="line">  --enable-libx264 \</div><div class="line">  --enable-nonfree</div><div class="line">PATH=&quot;$HOME/bin:$PATH&quot; make</div><div class="line">make install</div></pre></td></tr></table></figure></p>
+<h3 id="4-安装ffmpeg"><a href="#4-安装ffmpeg" class="headerlink" title="4 安装ffmpeg"></a>4 安装ffmpeg</h3><p>我们先切换到我们创建的资源目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~/ffmpeg_source</span><br></pre></td></tr></table></figure></p>
+<p>下载源码包并解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2</span><br><span class="line">tar xjvf ffmpeg-snapshot.tar.bz2</span><br><span class="line">cd ffmpeg</span><br></pre></td></tr></table></figure></p>
+<p>开始编译安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">PATH=&quot;$HOME/bin:$PATH&quot; PKG_CONFIG_PATH=&quot;$HOME/ffmpeg_build/lib/pkgconfig&quot;  ./configure \</span><br><span class="line">  --prefix=&quot;$HOME/ffmpeg_build&quot; \</span><br><span class="line">  --pkg-config-flags=&quot;--static&quot; \</span><br><span class="line">  --extra-cflags=&quot;-I$HOME/ffmpeg_build/include&quot; \</span><br><span class="line">  --extra-ldflags=&quot;-L$HOME/ffmpeg_build/lib&quot; \</span><br><span class="line">  --bindir=&quot;$HOME/bin&quot; \</span><br><span class="line">  --enable-gpl \</span><br><span class="line">  --enable-libass \</span><br><span class="line">  --enable-libfdk-aac \</span><br><span class="line">  --enable-libfreetype \</span><br><span class="line">  --enable-libmp3lame \</span><br><span class="line">  --enable-libopus \</span><br><span class="line">  --enable-libtheora \</span><br><span class="line">  --enable-libvorbis \</span><br><span class="line">  --enable-libvpx \</span><br><span class="line">  --enable-libx264 \</span><br><span class="line">  --enable-nonfree</span><br><span class="line">PATH=&quot;$HOME/bin:$PATH&quot; make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>
 <p>以上就是安装的全部过程，安装完成后输入ffmpeg就可以看到基本信息。</p>
 
       
@@ -330,7 +331,7 @@
   
 
   
-  <div id="SOHUCS" sid="php-视频转码" ></div> 
+  <div id="SOHUCS" sid="php-视频转码"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -445,11 +446,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -461,15 +462,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,11 +518,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -529,6 +534,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -537,19 +546,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -557,7 +562,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

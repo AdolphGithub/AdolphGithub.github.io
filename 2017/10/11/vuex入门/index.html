@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>vuex入门 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/10/11/vuex入门/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="vue组件式开发,让前端使用更加方便,由于在组件化开发过程中,数据的共享变成为了一个难题.每个组件的数据都是单一的.当然你可以通过传参的方式来获取并得到相应的数据.但是当两个组件都是基础组件时,互不关联.这个时候,你的传参就变的无比麻烦.这里vue官方就推出了vuex来解决数据间共享的问题.">
-<meta property="og:updated_time" content="2017-10-11T02:31:47.860Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-10-11T02:31:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vuex入门">
 <meta name="twitter:description" content="vue组件式开发,让前端使用更加方便,由于在组件化开发过程中,数据的共享变成为了一个难题.每个组件的数据都是单一的.当然你可以通过传参的方式来获取并得到相应的数据.但是当两个组件都是基础组件时,互不关联.这个时候,你的传参就变的无比麻烦.这里vue官方就推出了vuex来解决数据间共享的问题.">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-vuex入门" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-vuex入门" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -176,11 +177,11 @@
       
         <p>vue组件式开发,让前端使用更加方便,由于在组件化开发过程中,数据的共享变成为了一个难题.每个组件的数据都是单一的.当然你可以通过传参的方式来获取并得到相应的数据.但是当两个组件都是基础组件时,互不关联.这个时候,你的传参就变的无比麻烦.这里vue官方就推出了vuex来解决数据间共享的问题.<br><a id="more"></a></p>
 <h3 id="Vuex什么鬼"><a href="#Vuex什么鬼" class="headerlink" title="Vuex什么鬼?"></a>Vuex什么鬼?</h3><p>官方给出的解释:Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。<br>个人觉得这个太晦涩了,不太容易理解.简单的说,vuex就是一个仓库,将所有的要共享的数据保存到仓库中,下次要用的时候,直接从仓库里面取.</p>
-<h3 id="Vuex的使用"><a href="#Vuex的使用" class="headerlink" title="Vuex的使用"></a>Vuex的使用</h3><p>安装这里只介绍一种npm<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install vuex --save</div></pre></td></tr></table></figure></p>
-<p>不用问我为什么,一个前端不懂npm那就脱节了.<br>先来简单的套路一下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">// 文件位置/src/store/index.js</div><div class="line">import Vue from &apos;vue&apos;;</div><div class="line">import Vuex from &apos;vuex&apos;;</div><div class="line"></div><div class="line">// 先注册一下</div><div class="line">Vue.use(Vuex);</div><div class="line"></div><div class="line">export default new Vuex.Store(&#123;</div><div class="line">    state: &#123;</div><div class="line">        count: 0</div><div class="line">    &#125;,</div><div class="line">    mutations: &#123;</div><div class="line">        increment (state) &#123;</div><div class="line">            state.count++</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line">// 文件位置 /src/main.js</div><div class="line">import Vue from &apos;vue&apos;;</div><div class="line">import App from &apos;./App&apos;;</div><div class="line">import router from &apos;./router&apos;;</div><div class="line">import store from &apos;./store&apos;;</div><div class="line"></div><div class="line">Vue.config.productionTip = false;</div><div class="line"></div><div class="line">/* eslint-disable no-new */</div><div class="line">new Vue(&#123;</div><div class="line">    el: &apos;#app&apos;,</div><div class="line">    router,</div><div class="line">    template: &apos;&lt;App/&gt;&apos;,</div><div class="line">    components: &#123; App &#125;,</div><div class="line">    store</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>这样,我们就声明了一个全局的count,并且使用increment来控制它.<br>接下来,我们来使用试试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">// 文件位置 /src/components/Hello.vue</div><div class="line">&lt;template&gt;</div><div class="line">    &lt;div class=&quot;hello&quot;&gt;</div><div class="line">        hello vue</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script type=&quot;text/ecmascript-6&quot;&gt;</div><div class="line">export default &#123;</div><div class="line">    created()&#123;</div><div class="line">        // 调用增加方法.</div><div class="line">        this.$store.commit(&apos;increment&apos;);</div><div class="line">        console.dir(this.$store.state.count);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;style&gt;&lt;/style&gt;</div></pre></td></tr></table></figure></p>
-<p>这里我们通过打印可以看到this.$store.state.count为1,然后我们新建一个组件来试试,就叫test.vue吧.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">// 文件位置 src/components/test.vue</div><div class="line">&lt;template&gt;</div><div class="line">    &lt;div class=&quot;test&quot;&gt;</div><div class="line">        hello vue</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script type=&quot;text/ecmascript-6&quot;&gt;</div><div class="line">export default &#123;</div><div class="line">    created()&#123;</div><div class="line">        // 调用增加方法.</div><div class="line">        this.$store.commit(&apos;increment&apos;);</div><div class="line">        console.dir(this.$store.state.count);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;style&gt;&lt;/style&gt;</div></pre></td></tr></table></figure></p>
-<p>然后我们去注册一个路由,在/src/router/index.js的routes,导入test.vue,加上,完整代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">import Vue from &apos;vue&apos;;</div><div class="line">import Router from &apos;vue-router&apos;;</div><div class="line">import Hello from &apos;@/components/Hello&apos;;</div><div class="line">import Test from &apos;@/components/test&apos;;</div><div class="line">Vue.use(Router)</div><div class="line">export default new Router(&#123;</div><div class="line">    routes: [</div><div class="line">        &#123;</div><div class="line">            path: &apos;/&apos;,</div><div class="line">            name: &apos;Hello&apos;,</div><div class="line">            component: Hello</div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            path: &apos;/test&apos;,</div><div class="line">            name: &apos;Test&apos;,</div><div class="line">            component: Test</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h3 id="Vuex的使用"><a href="#Vuex的使用" class="headerlink" title="Vuex的使用"></a>Vuex的使用</h3><p>安装这里只介绍一种npm<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vuex --save</span><br></pre></td></tr></table></figure></p>
+<p>不用问我为什么,一个前端不懂npm那就脱节了.<br>先来简单的套路一下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// 文件位置/src/store/index.js</span><br><span class="line">import Vue from &apos;vue&apos;;</span><br><span class="line">import Vuex from &apos;vuex&apos;;</span><br><span class="line"></span><br><span class="line">// 先注册一下</span><br><span class="line">Vue.use(Vuex);</span><br><span class="line"></span><br><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">    state: &#123;</span><br><span class="line">        count: 0</span><br><span class="line">    &#125;,</span><br><span class="line">    mutations: &#123;</span><br><span class="line">        increment (state) &#123;</span><br><span class="line">            state.count++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">// 文件位置 /src/main.js</span><br><span class="line">import Vue from &apos;vue&apos;;</span><br><span class="line">import App from &apos;./App&apos;;</span><br><span class="line">import router from &apos;./router&apos;;</span><br><span class="line">import store from &apos;./store&apos;;</span><br><span class="line"></span><br><span class="line">Vue.config.productionTip = false;</span><br><span class="line"></span><br><span class="line">/* eslint-disable no-new */</span><br><span class="line">new Vue(&#123;</span><br><span class="line">    el: &apos;#app&apos;,</span><br><span class="line">    router,</span><br><span class="line">    template: &apos;&lt;App/&gt;&apos;,</span><br><span class="line">    components: &#123; App &#125;,</span><br><span class="line">    store</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这样,我们就声明了一个全局的count,并且使用increment来控制它.<br>接下来,我们来使用试试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 文件位置 /src/components/Hello.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class=&quot;hello&quot;&gt;</span><br><span class="line">        hello vue</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=&quot;text/ecmascript-6&quot;&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    created()&#123;</span><br><span class="line">        // 调用增加方法.</span><br><span class="line">        this.$store.commit(&apos;increment&apos;);</span><br><span class="line">        console.dir(this.$store.state.count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style&gt;&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这里我们通过打印可以看到this.$store.state.count为1,然后我们新建一个组件来试试,就叫test.vue吧.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 文件位置 src/components/test.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class=&quot;test&quot;&gt;</span><br><span class="line">        hello vue</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=&quot;text/ecmascript-6&quot;&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    created()&#123;</span><br><span class="line">        // 调用增加方法.</span><br><span class="line">        this.$store.commit(&apos;increment&apos;);</span><br><span class="line">        console.dir(this.$store.state.count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style&gt;&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后我们去注册一个路由,在/src/router/index.js的routes,导入test.vue,加上,完整代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;;</span><br><span class="line">import Router from &apos;vue-router&apos;;</span><br><span class="line">import Hello from &apos;@/components/Hello&apos;;</span><br><span class="line">import Test from &apos;@/components/test&apos;;</span><br><span class="line">Vue.use(Router)</span><br><span class="line">export default new Router(&#123;</span><br><span class="line">    routes: [</span><br><span class="line">        &#123;</span><br><span class="line">            path: &apos;/&apos;,</span><br><span class="line">            name: &apos;Hello&apos;,</span><br><span class="line">            component: Hello</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            path: &apos;/test&apos;,</span><br><span class="line">            name: &apos;Test&apos;,</span><br><span class="line">            component: Test</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>在浏览器中,输入/test就可以看到这个界面了.同时我们可以看到打印出来的值为2.我们在输入到首页,变成3了,这样就完成了数据共享.<br>如果我们用以前的做法,就要通过传参,那两个不相关的组件,那不是得弄死人.所以这就是vuex的魅力.</p>
 
       
@@ -322,7 +323,7 @@
   
 
   
-  <div id="SOHUCS" sid="vuex入门" ></div> 
+  <div id="SOHUCS" sid="vuex入门"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -437,11 +438,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -453,15 +454,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -505,11 +510,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,6 +526,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -529,19 +538,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -549,7 +554,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

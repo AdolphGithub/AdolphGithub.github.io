@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>activeMQ学习之旅 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/08/08/activeMQ学习之旅/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="安装jdk1sudo apt install openjdk-8-jre 安装好jdk过后,配置一下一下jdk环境即可.当然ubuntu是不需要配置这些的.自带的优越感有木有…….">
-<meta property="og:updated_time" content="2017-08-08T07:25:17.002Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-08-08T07:25:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="activeMQ学习之旅">
 <meta name="twitter:description" content="安装jdk1sudo apt install openjdk-8-jre 安装好jdk过后,配置一下一下jdk环境即可.当然ubuntu是不需要配置这些的.自带的优越感有木有…….">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-activeMQ学习之旅" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-activeMQ学习之旅" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -174,14 +175,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt install openjdk-8-jre</div></pre></td></tr></table></figure>
+        <h4 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install openjdk-8-jre</span><br></pre></td></tr></table></figure>
 <p>安装好jdk过后,配置一下一下jdk环境即可.当然ubuntu是不需要配置这些的.自带的优越感有木有…….<br><a id="more"></a></p>
-<h4 id="下载activemq"><a href="#下载activemq" class="headerlink" title="下载activemq"></a>下载activemq</h4><p>根据版本下载activemq在,<a href="http://archive.apache.org/dist/activemq" target="_blank" rel="external">下载地址</a>,我下载的版本是<a href="http://archive.apache.org/dist/activemq/5.13.3/apache-activemq-5.13.3-bin.tar.gz" target="_blank" rel="external">apache-activemq-5.13.3-bin.tar.gz</a>.下载完成后直接解压.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar zxvf apache-activemq-5.13.3-bin.tar.gz</div></pre></td></tr></table></figure></p>
-<h4 id="运行activemq"><a href="#运行activemq" class="headerlink" title="运行activemq"></a>运行activemq</h4><p>解压后,在apache-activemq-5.13.3/bin有执行文件.activemq<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./activemq start</div></pre></td></tr></table></figure></p>
+<h4 id="下载activemq"><a href="#下载activemq" class="headerlink" title="下载activemq"></a>下载activemq</h4><p>根据版本下载activemq在,<a href="http://archive.apache.org/dist/activemq" target="_blank" rel="noopener">下载地址</a>,我下载的版本是<a href="http://archive.apache.org/dist/activemq/5.13.3/apache-activemq-5.13.3-bin.tar.gz" target="_blank" rel="noopener">apache-activemq-5.13.3-bin.tar.gz</a>.下载完成后直接解压.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf apache-activemq-5.13.3-bin.tar.gz</span><br></pre></td></tr></table></figure></p>
+<h4 id="运行activemq"><a href="#运行activemq" class="headerlink" title="运行activemq"></a>运行activemq</h4><p>解压后,在apache-activemq-5.13.3/bin有执行文件.activemq<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./activemq start</span><br></pre></td></tr></table></figure></p>
 <p>即可运行activemq</p>
 <h4 id="如何查看activemq"><a href="#如何查看activemq" class="headerlink" title="如何查看activemq"></a>如何查看activemq</h4><p>直接在浏览器中输入0.0.0.0:8161即可查看</p>
-<h4 id="文件夹"><a href="#文件夹" class="headerlink" title="文件夹"></a>文件夹</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">├── activemq-all-5.13.3.jar       // java开发所需要的包</div><div class="line">├── bin						   // 执行文件夹</div><div class="line">├── conf						  // 配置文件</div><div class="line">├── data					  // 数据文件</div><div class="line">├── docs					  // 基本文档</div><div class="line">├── examples				  // 例子</div><div class="line">├── lib						  // 核心文件</div><div class="line">├── LICENSE</div><div class="line">├── NOTICE</div><div class="line">├── README.txt</div><div class="line">├── tmp</div><div class="line">├── webapps</div><div class="line">└── webapps-demo</div></pre></td></tr></table></figure>
-<h4 id="安装php-stomp扩展"><a href="#安装php-stomp扩展" class="headerlink" title="安装php-stomp扩展"></a>安装php-stomp扩展</h4><p>根据版本查找不同的stomp扩展，pecl官网上的<a href="http://pecl.php.net/package/stomp" target="_blank" rel="external">具体地址</a>.请根据不同的php版本下载stomp扩展.我这里是ubuntu的下载.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pecl install stomp</div></pre></td></tr></table></figure></p>
+<h4 id="文件夹"><a href="#文件夹" class="headerlink" title="文件夹"></a>文件夹</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">├── activemq-all-5.13.3.jar       // java开发所需要的包</span><br><span class="line">├── bin						   // 执行文件夹</span><br><span class="line">├── conf						  // 配置文件</span><br><span class="line">├── data					  // 数据文件</span><br><span class="line">├── docs					  // 基本文档</span><br><span class="line">├── examples				  // 例子</span><br><span class="line">├── lib						  // 核心文件</span><br><span class="line">├── LICENSE</span><br><span class="line">├── NOTICE</span><br><span class="line">├── README.txt</span><br><span class="line">├── tmp</span><br><span class="line">├── webapps</span><br><span class="line">└── webapps-demo</span><br></pre></td></tr></table></figure>
+<h4 id="安装php-stomp扩展"><a href="#安装php-stomp扩展" class="headerlink" title="安装php-stomp扩展"></a>安装php-stomp扩展</h4><p>根据版本查找不同的stomp扩展，pecl官网上的<a href="http://pecl.php.net/package/stomp" target="_blank" rel="noopener">具体地址</a>.请根据不同的php版本下载stomp扩展.我这里是ubuntu的下载.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pecl install stomp</span><br></pre></td></tr></table></figure></p>
 <p>等待请输入下yes就可以了.具体的调用方式,请参看dll里面的文档.</p>
 
       
@@ -323,7 +324,7 @@
   
 
   
-  <div id="SOHUCS" sid="activeMQ学习之旅" ></div> 
+  <div id="SOHUCS" sid="activeMQ学习之旅"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -438,11 +439,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -454,15 +455,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,11 +511,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,6 +527,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -530,19 +539,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -550,7 +555,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

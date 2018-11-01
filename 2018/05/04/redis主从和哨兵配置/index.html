@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>redis主从和哨兵配置 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2018/05/04/redis主从和哨兵配置/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="用redis这么久了,一些都没有记录下来,今天就记录一些我在使用redis的一些基本配置吧.">
-<meta property="og:updated_time" content="2018-05-04T02:27:05.070Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-04T02:27:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis主从和哨兵配置">
 <meta name="twitter:description" content="用redis这么久了,一些都没有记录下来,今天就记录一些我在使用redis的一些基本配置吧.">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-redis主从和哨兵配置" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-redis主从和哨兵配置" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -175,14 +176,14 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>用redis这么久了,一些都没有记录下来,今天就记录一些我在使用redis的一些基本配置吧.<br><a id="more"></a></p>
-<h3 id="redis主从同步"><a href="#redis主从同步" class="headerlink" title="redis主从同步"></a>redis主从同步</h3><p>我有两台服务器.master为:192.168.1.129,密码为:123456.如果想要这台作为主机.则在从机作出如下配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">slaveof 192.168.1.129 6379</div><div class="line">masterauth 123456</div></pre></td></tr></table></figure></p>
+<h3 id="redis主从同步"><a href="#redis主从同步" class="headerlink" title="redis主从同步"></a>redis主从同步</h3><p>我有两台服务器.master为:192.168.1.129,密码为:123456.如果想要这台作为主机.则在从机作出如下配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slaveof 192.168.1.129 6379</span><br><span class="line">masterauth 123456</span><br></pre></td></tr></table></figure></p>
 <p>这样就弄出了最简单的主从同步.</p>
-<h3 id="redis哨兵"><a href="#redis哨兵" class="headerlink" title="redis哨兵"></a>redis哨兵</h3><p>为撒会用哨兵,如果redis主机挂掉了,哨兵会自动检测,如果发现挂掉,则直接在从机中选出一台作为主机.假设我们有4台redis主机.我们ip地址如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">192.168.1.129	6379	主机</div><div class="line">192.168.1.130	6379	从机</div><div class="line">192.168.1.131	6379	从机</div><div class="line">192.168.1.132	6379	哨兵</div></pre></td></tr></table></figure></p>
-<p>我们先设置主从,将130和131设置为从机redis.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">slaveof 192.168.1.129 6379</div></pre></td></tr></table></figure></p>
-<p>设置好过后.<br>我们在192.168.1.132这台设置如下配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">port  26379	// 设置端口</div><div class="line">sentinel monitor mymaster 192.168.1.129 6379 1	// 设置主机</div><div class="line">sentinel down-after-milliseconds mymaster 5000</div><div class="line">sentinel failover-timeout mymaster 5000</div><div class="line">sentinel parallel-syncs mymaster 5</div></pre></td></tr></table></figure></p>
-<p>启动命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-sentinel sentinel.conf --sentinel monitor mymaster master 6379 1</div></pre></td></tr></table></figure></p>
+<h3 id="redis哨兵"><a href="#redis哨兵" class="headerlink" title="redis哨兵"></a>redis哨兵</h3><p>为撒会用哨兵,如果redis主机挂掉了,哨兵会自动检测,如果发现挂掉,则直接在从机中选出一台作为主机.假设我们有4台redis主机.我们ip地址如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.129	6379	主机</span><br><span class="line">192.168.1.130	6379	从机</span><br><span class="line">192.168.1.131	6379	从机</span><br><span class="line">192.168.1.132	6379	哨兵</span><br></pre></td></tr></table></figure></p>
+<p>我们先设置主从,将130和131设置为从机redis.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slaveof 192.168.1.129 6379</span><br></pre></td></tr></table></figure></p>
+<p>设置好过后.<br>我们在192.168.1.132这台设置如下配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">port  26379	// 设置端口</span><br><span class="line">sentinel monitor mymaster 192.168.1.129 6379 1	// 设置主机</span><br><span class="line">sentinel down-after-milliseconds mymaster 5000</span><br><span class="line">sentinel failover-timeout mymaster 5000</span><br><span class="line">sentinel parallel-syncs mymaster 5</span><br></pre></td></tr></table></figure></p>
+<p>启动命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-sentinel sentinel.conf --sentinel monitor mymaster master 6379 1</span><br></pre></td></tr></table></figure></p>
 <p>这样,我们设置了好了哨兵.</p>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p><a href="https://www.cnblogs.com/xifenglou/p/8372447.html" target="_blank" rel="external">redis哨兵设置</a><br><a href="https://blog.csdn.net/u011204847/article/details/51307044" target="_blank" rel="external">redis主从复制和集群</a></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p><a href="https://www.cnblogs.com/xifenglou/p/8372447.html" target="_blank" rel="noopener">redis哨兵设置</a><br><a href="https://blog.csdn.net/u011204847/article/details/51307044" target="_blank" rel="noopener">redis主从复制和集群</a></p>
 
       
 
@@ -323,7 +324,7 @@
   
 
   
-  <div id="SOHUCS" sid="redis主从和哨兵配置" ></div> 
+  <div id="SOHUCS" sid="redis主从和哨兵配置"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -438,11 +439,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -454,15 +455,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,11 +511,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,6 +527,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -530,19 +539,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -550,7 +555,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

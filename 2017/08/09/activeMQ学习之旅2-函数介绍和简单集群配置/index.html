@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>activeMQ学习之旅2-函数介绍和简单集群配置 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/08/09/activeMQ学习之旅2-函数介绍和简单集群配置/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="ActiveMQ 是Apache出品，最流行的，能力强劲的开源消息总线。而我们将通过调用phpstomp扩展来讲解基本的调用,使用stomp类和一些方法.">
-<meta property="og:updated_time" content="2017-08-09T10:48:40.126Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-08-09T10:48:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="activeMQ学习之旅2-函数介绍和简单集群配置">
 <meta name="twitter:description" content="ActiveMQ 是Apache出品，最流行的，能力强劲的开源消息总线。而我们将通过调用phpstomp扩展来讲解基本的调用,使用stomp类和一些方法.">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-activeMQ学习之旅2-函数介绍和简单集群配置" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-activeMQ学习之旅2-函数介绍和简单集群配置" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -175,16 +176,16 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>ActiveMQ 是Apache出品，最流行的，能力强劲的开源消息总线。而我们将通过调用phpstomp扩展来讲解基本的调用,使用stomp类和一些方法.<br><a id="more"></a></p>
-<h4 id="stomp类"><a href="#stomp类" class="headerlink" title="stomp类"></a>stomp类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Stomp &#123;</div><div class="line">	/* 方法 */</div><div class="line">	public bool abort ( string $transaction_id [, array $headers ] ) // 回滚事务</div><div class="line">	public bool ack ( mixed $msg [, array $headers ] )	// 阅读消息</div><div class="line">	public bool begin ( string $transaction_id [, array $headers ] )	// 开启事务</div><div class="line">	public bool commit ( string $transaction_id [, array $headers ] )	// 提交事务</div><div class="line">	public __construct ([ string $broker = ini_get(&quot;stomp.default_broker_uri&quot;) [, string $username [, string $password [, array $headers ]]]] )	// 构造函数</div><div class="line">	public bool __destruct ( void )</div><div class="line">	public string error ( void )	// 错误消息</div><div class="line">	public array getReadTimeout ( void )	// 获取读取时间</div><div class="line">	public string getSessionId ( void )	// 获取此次的sessionid</div><div class="line">	public bool hasFrame ( void )	// 是否有未读消息</div><div class="line">	public stompframe readFrame ([ string $class_name = &quot;stompFrame&quot; ] )	// 获取一条未读消息</div><div class="line">	public bool send ( string $destination , mixed $msg [, array $headers ] )	// 发送一条消息道客户端</div><div class="line">	public void setReadTimeout ( int $seconds [, int $microseconds ] )	// 设置读取时间</div><div class="line">	public bool subscribe ( string $destination [, array $headers ] )	// 订阅</div><div class="line">	public bool unsubscribe ( string $destination [, array $headers ] )	// 取消订阅</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="stomp类"><a href="#stomp类" class="headerlink" title="stomp类"></a>stomp类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Stomp &#123;</span><br><span class="line">	/* 方法 */</span><br><span class="line">	public bool abort ( string $transaction_id [, array $headers ] ) // 回滚事务</span><br><span class="line">	public bool ack ( mixed $msg [, array $headers ] )	// 阅读消息</span><br><span class="line">	public bool begin ( string $transaction_id [, array $headers ] )	// 开启事务</span><br><span class="line">	public bool commit ( string $transaction_id [, array $headers ] )	// 提交事务</span><br><span class="line">	public __construct ([ string $broker = ini_get(&quot;stomp.default_broker_uri&quot;) [, string $username [, string $password [, array $headers ]]]] )	// 构造函数</span><br><span class="line">	public bool __destruct ( void )</span><br><span class="line">	public string error ( void )	// 错误消息</span><br><span class="line">	public array getReadTimeout ( void )	// 获取读取时间</span><br><span class="line">	public string getSessionId ( void )	// 获取此次的sessionid</span><br><span class="line">	public bool hasFrame ( void )	// 是否有未读消息</span><br><span class="line">	public stompframe readFrame ([ string $class_name = &quot;stompFrame&quot; ] )	// 获取一条未读消息</span><br><span class="line">	public bool send ( string $destination , mixed $msg [, array $headers ] )	// 发送一条消息道客户端</span><br><span class="line">	public void setReadTimeout ( int $seconds [, int $microseconds ] )	// 设置读取时间</span><br><span class="line">	public bool subscribe ( string $destination [, array $headers ] )	// 订阅</span><br><span class="line">	public bool unsubscribe ( string $destination [, array $headers ] )	// 取消订阅</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="queue-amp-topic的区别"><a href="#queue-amp-topic的区别" class="headerlink" title="queue &amp; topic的区别"></a>queue &amp; topic的区别</h4><p>queue是一对一消息传送,如果包含了多个订阅者,则需排队订阅.topic则是一对多消息订阅.可以同时的推送多个消息在订阅者上.但是,订阅者必须是在线状态.如果消息推送时,订阅者不在,则该订阅者无法获取该消息.<br>如何判断是一个队列还是一个主题,则根据订阅的时候传递的是queue和topic来确定.</p>
-<h4 id="activemq集群简单设置"><a href="#activemq集群简单设置" class="headerlink" title="activemq集群简单设置"></a>activemq集群简单设置</h4><p>三种方式:<br>1.共享文件系统：使用共享文件系统来做Master/slave集群<br>2.共享数据库的方式：所有消息读写其实都是数据库操作，性能完全取决于数据库性能<br>3.基于zookeeper的主从（levelDB Master/Slave）:基于zookeeper来选举出一个master，其他节点自动作为slave实时同步消息<br>官网说明:<a href="http://activemq.apache.org/masterslave.html" target="_blank" rel="external">http://activemq.apache.org/masterslave.html</a><br>这里只介绍共享文件系统</p>
-<h4 id="activemq-共享文件系统"><a href="#activemq-共享文件系统" class="headerlink" title="activemq 共享文件系统"></a>activemq 共享文件系统</h4><p>安装相应工具<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install nfs-utils rpcbind</div></pre></td></tr></table></figure></p>
-<p>1、(NFS(Network File System)即网络文件系统)<br>2、rpcbind是一个RPC服务,主要是在nfs共享时候负责通知客户端,服务器的nfs端口号的<br>启动服务(两个都要启动)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service rpcbind start</div><div class="line">service nfs start</div></pre></td></tr></table></figure></p>
-<p>设置共享文件夹<br>首先我们创建一个文件夹譬如 叫做<br>mqshare (课程中创建在/mqshare)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vi /etc/exports   // 编辑这个文件,加入一行 </div><div class="line">/mqshare  *(rw,sync, no_root_squash)  &lt;!--代表共享 /mqshare 这个文件夹 rw代表可读、可写。sync代表同步--&gt;</div><div class="line">exportfs -r   // 生效命令</div></pre></td></tr></table></figure></p>
+<h4 id="activemq集群简单设置"><a href="#activemq集群简单设置" class="headerlink" title="activemq集群简单设置"></a>activemq集群简单设置</h4><p>三种方式:<br>1.共享文件系统：使用共享文件系统来做Master/slave集群<br>2.共享数据库的方式：所有消息读写其实都是数据库操作，性能完全取决于数据库性能<br>3.基于zookeeper的主从（levelDB Master/Slave）:基于zookeeper来选举出一个master，其他节点自动作为slave实时同步消息<br>官网说明:<a href="http://activemq.apache.org/masterslave.html" target="_blank" rel="noopener">http://activemq.apache.org/masterslave.html</a><br>这里只介绍共享文件系统</p>
+<h4 id="activemq-共享文件系统"><a href="#activemq-共享文件系统" class="headerlink" title="activemq 共享文件系统"></a>activemq 共享文件系统</h4><p>安装相应工具<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install nfs-utils rpcbind</span><br></pre></td></tr></table></figure></p>
+<p>1、(NFS(Network File System)即网络文件系统)<br>2、rpcbind是一个RPC服务,主要是在nfs共享时候负责通知客户端,服务器的nfs端口号的<br>启动服务(两个都要启动)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service rpcbind start</span><br><span class="line">service nfs start</span><br></pre></td></tr></table></figure></p>
+<p>设置共享文件夹<br>首先我们创建一个文件夹譬如 叫做<br>mqshare (课程中创建在/mqshare)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/exports   // 编辑这个文件,加入一行 </span><br><span class="line">/mqshare  *(rw,sync, no_root_squash)  &lt;!--代表共享 /mqshare 这个文件夹 rw代表可读、可写。sync代表同步--&gt;</span><br><span class="line">exportfs -r   // 生效命令</span><br></pre></td></tr></table></figure></p>
 <p>然后执行showmount -e  可以查看 当前被共享的文件夹列表<br>这里主服务器就搞定了</p>
-<h4 id="修改配置-访问方"><a href="#修改配置-访问方" class="headerlink" title="修改配置(访问方)"></a>修改配置(访问方)</h4><p>前面装的那些东西依然要安装<br>1、在你喜欢的地方创建一个文件夹  譬如叫 myshare(课程中创建在/myshare中)<br>2、挂载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mount -t nfs 192.168.222.130:/mqshare  /myshare</div></pre></td></tr></table></figure></p>
-<p>这样你操作myshare中增加数据 ，另外一台机器的mqshare就会同步<br>修改配置<br>找到conf/下面的activemq.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> &lt;persistenceAdapter&gt;</div><div class="line">        &lt;kahaDB directory=&quot;这里改成你的共享文件夹地址&quot;/&gt;  </div><div class="line">&lt;/persistenceAdapter&gt;</div></pre></td></tr></table></figure></p>
-<p>然后重启就可以了.<br>接下来问题来了<br>我们在使用PHP的stomp扩展时，使用的是stomp 1.0协议<br>然而看这里 <a href="http://activemq.apache.org/cms/stomp-support.html" target="_blank" rel="external">http://activemq.apache.org/cms/stomp-support.html</a><br>残酷的现实告诉我们。要么等，要么我们只能用java了<br>至于java代码我会放在下面仅供参考<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">import org.apache.activemq.ActiveMQConnection;</div><div class="line">import org.apache.activemq.spring.ActiveMQConnectionFactory;</div><div class="line">import javax.jms.*;</div><div class="line"></div><div class="line">public class main &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws JMSException &#123;</div><div class="line">       // String broker = &quot;tcp://192.168.222.129:61616&quot;; //端口不一样了哦，使用的并不是 stomp协议</div><div class="line"></div><div class="line">        String broker=&quot;failover:(tcp://192.168.222.129:61616,tcp://192.168.222.130:61616)&quot;;</div><div class="line">        ActiveMQConnectionFactory factory=new ActiveMQConnectionFactory();</div><div class="line">        factory.setBrokerURL(broker);</div><div class="line">        Connection connection= (Connection) factory.createConnection(ActiveMQConnection.DEFAULT_USER,ActiveMQConnection.DEFAULT_PASSWORD);</div><div class="line">        try &#123;</div><div class="line">            connection.start();</div><div class="line">            Session session= connection.createSession(true,Session.AUTO_ACKNOWLEDGE);</div><div class="line">            Destination destination=session.createQueue(&quot;java_queue&quot;);//创建一个queue 注意不需要写成/queue/java_queue</div><div class="line">            MessageProducer producer= session.createProducer(destination);</div><div class="line">            TextMessage msg=session.createTextMessage(&quot;java 测试消息2222&quot;);</div><div class="line">            producer.send(msg);</div><div class="line">            System.out.println(&quot;发送成功&quot;);</div><div class="line">            session.commit();</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">            System.out.println(e.getMessage());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="修改配置-访问方"><a href="#修改配置-访问方" class="headerlink" title="修改配置(访问方)"></a>修改配置(访问方)</h4><p>前面装的那些东西依然要安装<br>1、在你喜欢的地方创建一个文件夹  譬如叫 myshare(课程中创建在/myshare中)<br>2、挂载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -t nfs 192.168.222.130:/mqshare  /myshare</span><br></pre></td></tr></table></figure></p>
+<p>这样你操作myshare中增加数据 ，另外一台机器的mqshare就会同步<br>修改配置<br>找到conf/下面的activemq.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> &lt;persistenceAdapter&gt;</span><br><span class="line">        &lt;kahaDB directory=&quot;这里改成你的共享文件夹地址&quot;/&gt;  </span><br><span class="line">&lt;/persistenceAdapter&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后重启就可以了.<br>接下来问题来了<br>我们在使用PHP的stomp扩展时，使用的是stomp 1.0协议<br>然而看这里 <a href="http://activemq.apache.org/cms/stomp-support.html" target="_blank" rel="noopener">http://activemq.apache.org/cms/stomp-support.html</a><br>残酷的现实告诉我们。要么等，要么我们只能用java了<br>至于java代码我会放在下面仅供参考<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.activemq.ActiveMQConnection;</span><br><span class="line">import org.apache.activemq.spring.ActiveMQConnectionFactory;</span><br><span class="line">import javax.jms.*;</span><br><span class="line"></span><br><span class="line">public class main &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws JMSException &#123;</span><br><span class="line">       // String broker = &quot;tcp://192.168.222.129:61616&quot;; //端口不一样了哦，使用的并不是 stomp协议</span><br><span class="line"></span><br><span class="line">        String broker=&quot;failover:(tcp://192.168.222.129:61616,tcp://192.168.222.130:61616)&quot;;</span><br><span class="line">        ActiveMQConnectionFactory factory=new ActiveMQConnectionFactory();</span><br><span class="line">        factory.setBrokerURL(broker);</span><br><span class="line">        Connection connection= (Connection) factory.createConnection(ActiveMQConnection.DEFAULT_USER,ActiveMQConnection.DEFAULT_PASSWORD);</span><br><span class="line">        try &#123;</span><br><span class="line">            connection.start();</span><br><span class="line">            Session session= connection.createSession(true,Session.AUTO_ACKNOWLEDGE);</span><br><span class="line">            Destination destination=session.createQueue(&quot;java_queue&quot;);//创建一个queue 注意不需要写成/queue/java_queue</span><br><span class="line">            MessageProducer producer= session.createProducer(destination);</span><br><span class="line">            TextMessage msg=session.createTextMessage(&quot;java 测试消息2222&quot;);</span><br><span class="line">            producer.send(msg);</span><br><span class="line">            System.out.println(&quot;发送成功&quot;);</span><br><span class="line">            session.commit();</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            System.out.println(e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -325,7 +326,7 @@
   
 
   
-  <div id="SOHUCS" sid="activeMQ学习之旅2-函数介绍和简单集群配置" ></div> 
+  <div id="SOHUCS" sid="activeMQ学习之旅2-函数介绍和简单集群配置"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -440,11 +441,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -456,15 +457,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -508,11 +513,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -524,6 +529,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -532,19 +541,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -552,7 +557,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

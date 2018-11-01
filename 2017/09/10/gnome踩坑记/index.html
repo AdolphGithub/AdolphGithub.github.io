@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>gnome踩坑记 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/09/10/gnome踩坑记/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="gnome3和unity一直是ubuntu的两大桌面程序.自从ubuntu17.10后弃用unity过后,就将gnome改成主流的桌面程序.这里我将介绍从unity转到gnome3的过程,并且安装arc-theme.">
-<meta property="og:updated_time" content="2017-09-10T12:35:14.362Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-09-10T12:35:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gnome踩坑记">
 <meta name="twitter:description" content="gnome3和unity一直是ubuntu的两大桌面程序.自从ubuntu17.10后弃用unity过后,就将gnome改成主流的桌面程序.这里我将介绍从unity转到gnome3的过程,并且安装arc-theme.">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-gnome踩坑记" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-gnome踩坑记" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -175,17 +176,17 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>gnome3和unity一直是ubuntu的两大桌面程序.自从ubuntu17.10后弃用unity过后,就将gnome改成主流的桌面程序.这里我将介绍从unity转到gnome3的过程,并且安装arc-theme.<br><a id="more"></a></p>
-<h4 id="1-安装gnome"><a href="#1-安装gnome" class="headerlink" title="1 安装gnome"></a>1 安装gnome</h4><p>如果很多人看到csdn上,ubuntu16.04安装gnome3+arc主题.这个就是一个坑了.首先,我们先在原有基础上安装gnome3是很简单的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install gnome-shell ubuntu-gnome-desktop</div></pre></td></tr></table></figure></p>
+<h4 id="1-安装gnome"><a href="#1-安装gnome" class="headerlink" title="1 安装gnome"></a>1 安装gnome</h4><p>如果很多人看到csdn上,ubuntu16.04安装gnome3+arc主题.这个就是一个坑了.首先,我们先在原有基础上安装gnome3是很简单的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gnome-shell ubuntu-gnome-desktop</span><br></pre></td></tr></table></figure></p>
 <p>等待安装完成即可,在这里,安装gnome-shell时,要选择gdm3,不要问为什么,如果不选择这项,那么恭喜你,下次开机还是unity</p>
-<h4 id="2-安装gnome-session-flashback"><a href="#2-安装gnome-session-flashback" class="headerlink" title="2 安装gnome-session-flashback"></a>2 安装gnome-session-flashback</h4><p>开机重启后,如果还是没有gnome3的图标啊,什么都没有改变,就安装gnome-session-flashback<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt install gnome-session-flashback</div></pre></td></tr></table></figure></p>
-<p>安装好过后请重启<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo reboot</div></pre></td></tr></table></figure></p>
+<h4 id="2-安装gnome-session-flashback"><a href="#2-安装gnome-session-flashback" class="headerlink" title="2 安装gnome-session-flashback"></a>2 安装gnome-session-flashback</h4><p>开机重启后,如果还是没有gnome3的图标啊,什么都没有改变,就安装gnome-session-flashback<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install gnome-session-flashback</span><br></pre></td></tr></table></figure></p>
+<p>安装好过后请重启<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo reboot</span><br></pre></td></tr></table></figure></p>
 <p>或者选择菜单重启等</p>
-<h4 id="3-安装gnome管理工具"><a href="#3-安装gnome管理工具" class="headerlink" title="3 安装gnome管理工具"></a>3 安装gnome管理工具</h4><p>在unity下有tweak-tool管理工具,同时,gnome下也有这套.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install gnome-tweak-tool</div></pre></td></tr></table></figure></p>
-<h4 id="4-如何选择unity和gnome3"><a href="#4-如何选择unity和gnome3" class="headerlink" title="4 如何选择unity和gnome3"></a>4 如何选择unity和gnome3</h4><p>安装完成后,我们发现还是unity的dash(左侧导航栏),并不是gnome的dash.最关键的一步来了,我们卸载掉unity<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt remove unity</div></pre></td></tr></table></figure></p>
+<h4 id="3-安装gnome管理工具"><a href="#3-安装gnome管理工具" class="headerlink" title="3 安装gnome管理工具"></a>3 安装gnome管理工具</h4><p>在unity下有tweak-tool管理工具,同时,gnome下也有这套.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gnome-tweak-tool</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-如何选择unity和gnome3"><a href="#4-如何选择unity和gnome3" class="headerlink" title="4 如何选择unity和gnome3"></a>4 如何选择unity和gnome3</h4><p>安装完成后,我们发现还是unity的dash(左侧导航栏),并不是gnome的dash.最关键的一步来了,我们卸载掉unity<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt remove unity</span><br></pre></td></tr></table></figure></p>
 <p>卸载完成后,重启,即可看到正常的图标和界面了.</p>
-<h4 id="5-安装arc-theme主题"><a href="#5-安装arc-theme主题" class="headerlink" title="5 安装arc-theme主题"></a>5 安装arc-theme主题</h4><p>arc是一套扁平化主题,非常nice.经常看到有很多人要安装这套主题.特献上安装方式.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo add-apt-repository ppa:noobslab/themes	//添加主题源</div><div class="line">sudo apt-get update 	// 更新</div><div class="line">sudo apt-get install arc-theme 	// 安装</div></pre></td></tr></table></figure></p>
+<h4 id="5-安装arc-theme主题"><a href="#5-安装arc-theme主题" class="headerlink" title="5 安装arc-theme主题"></a>5 安装arc-theme主题</h4><p>arc是一套扁平化主题,非常nice.经常看到有很多人要安装这套主题.特献上安装方式.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:noobslab/themes	//添加主题源</span><br><span class="line">sudo apt-get update 	// 更新</span><br><span class="line">sudo apt-get install arc-theme 	// 安装</span><br></pre></td></tr></table></figure></p>
 <p>安装好过后,使用gnome-tweak-tool即可使用该主题</p>
-<h4 id="6-推荐"><a href="#6-推荐" class="headerlink" title="6 推荐"></a>6 推荐</h4><p>推荐一些gnome的扩展<br><a href="https://www.maketecheasier.com/10-of-the-best-gnome-shell-extensions/" target="_blank" rel="external">gnome extension top 10</a></p>
+<h4 id="6-推荐"><a href="#6-推荐" class="headerlink" title="6 推荐"></a>6 推荐</h4><p>推荐一些gnome的扩展<br><a href="https://www.maketecheasier.com/10-of-the-best-gnome-shell-extensions/" target="_blank" rel="noopener">gnome extension top 10</a></p>
 
       
 
@@ -326,7 +327,7 @@
   
 
   
-  <div id="SOHUCS" sid="gnome踩坑记" ></div> 
+  <div id="SOHUCS" sid="gnome踩坑记"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -441,11 +442,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -457,15 +458,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -509,11 +514,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -525,6 +530,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -533,19 +542,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -553,7 +558,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

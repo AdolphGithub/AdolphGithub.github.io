@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>ubuntu上QQ的终极方案 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/11/21/ubuntu上QQ的终极方案/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="最近由于工作的时候,经常要用到QQ,对于在ubuntu上的我来说,真的是一种尴尬.这篇文档主要记录在ubuntu上如何使用QQ.">
-<meta property="og:updated_time" content="2017-11-21T13:47:00.836Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-11-21T13:47:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu上QQ的终极方案">
 <meta name="twitter:description" content="最近由于工作的时候,经常要用到QQ,对于在ubuntu上的我来说,真的是一种尴尬.这篇文档主要记录在ubuntu上如何使用QQ.">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-ubuntu上QQ的终极方案" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-ubuntu上QQ的终极方案" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -180,11 +181,11 @@
 <h3 id="pidgin"><a href="#pidgin" class="headerlink" title="pidgin"></a>pidgin</h3><p>这个不用说了.在ubuntu上的一款及时聊天软件.这个有webQQ协议,同样,基于webQQ改的.不用说了.</p>
 <h3 id="wine"><a href="#wine" class="headerlink" title="wine"></a>wine</h3><p>使用wine来运行windows程序,这个老厉害了.但是,要配置环境,而且网上很多教程都是QQ国际版.跟不上QQ的版本.不过基于以上的算是不错的了.同样,配置麻烦.</p>
 <h3 id="终极方案"><a href="#终极方案" class="headerlink" title="终极方案"></a>终极方案</h3><p>最近在github上找到一款终极方案.基于wine的,别人已经配置好了.可以使用QQ轻聊版7.9最新的哦.QQ版本最新的哦.而且安装方便.<br>以下记录我的安装过程.</p>
-<h4 id="32位架构"><a href="#32位架构" class="headerlink" title="32位架构"></a>32位架构</h4><p>如果ubunt系统是64位的,就要开始这步,启用32的架构,不然使用不起哦.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo dpkg --add-architecture i386</div></pre></td></tr></table></figure></p>
-<h4 id="安装winehq"><a href="#安装winehq" class="headerlink" title="安装winehq"></a>安装winehq</h4><p>这一步,哥哥些直接敲吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget https://dl.winehq.org/wine-builds/Release.key -- 下载密钥 --</div><div class="line">sudo apt-key add Release.key -- 添加密钥 --</div><div class="line">sudo apt-add-repository https://dl.winehq.org/wine-builds/ubuntu/ -- 添加软件源 -- </div><div class="line">sudo apt-get update -- 更新软件 --</div><div class="line">sudo apt-get install --install-recommends winehq-stable -- 开始安装 --</div></pre></td></tr></table></figure></p>
-<h4 id="安装winetricks"><a href="#安装winetricks" class="headerlink" title="安装winetricks"></a>安装winetricks</h4><p>至于如何要安装这个,哥们,如果不想安装了QQ后输入不了就安装这个吧,不然你会后悔的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks    -- 下载winetricks --</div><div class="line">chmod +x winetricks	-- 加执行权限	--</div><div class="line">sudo cp winetricks /usr/local/bin  -- 复制进系统,以便可执行 --</div></pre></td></tr></table></figure></p>
-<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>找个目录来clone这个项目吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/askme765cs/Wine-QQ.git</div></pre></td></tr></table></figure></p>
-<p>然后进入这个文件夹,想用哪个版本的QQ就直接进那个目录,运行install.sh即可安装好.<br>注意,由于执行的时候需要极高的权限,请使用sudo,例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ./install.sh</div></pre></td></tr></table></figure></p>
+<h4 id="32位架构"><a href="#32位架构" class="headerlink" title="32位架构"></a>32位架构</h4><p>如果ubunt系统是64位的,就要开始这步,启用32的架构,不然使用不起哦.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg --add-architecture i386</span><br></pre></td></tr></table></figure></p>
+<h4 id="安装winehq"><a href="#安装winehq" class="headerlink" title="安装winehq"></a>安装winehq</h4><p>这一步,哥哥些直接敲吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget https://dl.winehq.org/wine-builds/Release.key -- 下载密钥 --</span><br><span class="line">sudo apt-key add Release.key -- 添加密钥 --</span><br><span class="line">sudo apt-add-repository https://dl.winehq.org/wine-builds/ubuntu/ -- 添加软件源 -- </span><br><span class="line">sudo apt-get update -- 更新软件 --</span><br><span class="line">sudo apt-get install --install-recommends winehq-stable -- 开始安装 --</span><br></pre></td></tr></table></figure></p>
+<h4 id="安装winetricks"><a href="#安装winetricks" class="headerlink" title="安装winetricks"></a>安装winetricks</h4><p>至于如何要安装这个,哥们,如果不想安装了QQ后输入不了就安装这个吧,不然你会后悔的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks    -- 下载winetricks --</span><br><span class="line">chmod +x winetricks	-- 加执行权限	--</span><br><span class="line">sudo cp winetricks /usr/local/bin  -- 复制进系统,以便可执行 --</span><br></pre></td></tr></table></figure></p>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>找个目录来clone这个项目吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/askme765cs/Wine-QQ.git</span><br></pre></td></tr></table></figure></p>
+<p>然后进入这个文件夹,想用哪个版本的QQ就直接进那个目录,运行install.sh即可安装好.<br>注意,由于执行的时候需要极高的权限,请使用sudo,例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./install.sh</span><br></pre></td></tr></table></figure></p>
 <p>祝大家早日用上QQ哦</p>
 
       
@@ -326,7 +327,7 @@
   
 
   
-  <div id="SOHUCS" sid="ubuntu上QQ的终极方案" ></div> 
+  <div id="SOHUCS" sid="ubuntu上QQ的终极方案"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -441,11 +442,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -457,15 +458,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -509,11 +514,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -525,6 +530,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -533,19 +542,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -553,7 +558,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

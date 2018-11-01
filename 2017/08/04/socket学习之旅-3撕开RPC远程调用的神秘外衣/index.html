@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>socket学习之旅-3撕开RPC远程调用的神秘外衣 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣.">
-<meta property="og:updated_time" content="2017-08-04T07:15:21.182Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-08-04T07:15:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="socket学习之旅-3撕开RPC远程调用的神秘外衣">
 <meta name="twitter:description" content="Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣.">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-socket学习之旅-3撕开RPC远程调用的神秘外衣" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-socket学习之旅-3撕开RPC远程调用的神秘外衣" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -175,10 +176,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣.<br><a id="more"></a></p>
-<h4 id="简易的rpc服务端"><a href="#简易的rpc服务端" class="headerlink" title="简易的rpc服务端"></a>简易的rpc服务端</h4><p>我们先用socket来搭建一个简易的服务端<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// socket_create AF_INET:地址协议  SOCK_STREAM:socket类型  SOL_TCP:地址协议</div><div class="line">$socket = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</div><div class="line">// 绑定地址</div><div class="line">socket_bind($socket,&apos;127.0.0.1&apos;,9090);</div><div class="line">// 开始监听.</div><div class="line">socket_listen($socket,5);</div><div class="line">while(true)&#123;</div><div class="line">    // 客户端.</div><div class="line">    $client = socket_accept($socket);</div><div class="line">    // 读取信息.</div><div class="line">    $buf = socket_read($client,8024);</div><div class="line"></div><div class="line">    socket_close($client);</div><div class="line">&#125;</div><div class="line">socket_close($socket);</div></pre></td></tr></table></figure></p>
+<h4 id="简易的rpc服务端"><a href="#简易的rpc服务端" class="headerlink" title="简易的rpc服务端"></a>简易的rpc服务端</h4><p>我们先用socket来搭建一个简易的服务端<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// socket_create AF_INET:地址协议  SOCK_STREAM:socket类型  SOL_TCP:地址协议</span><br><span class="line">$socket = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</span><br><span class="line">// 绑定地址</span><br><span class="line">socket_bind($socket,&apos;127.0.0.1&apos;,9090);</span><br><span class="line">// 开始监听.</span><br><span class="line">socket_listen($socket,5);</span><br><span class="line">while(true)&#123;</span><br><span class="line">    // 客户端.</span><br><span class="line">    $client = socket_accept($socket);</span><br><span class="line">    // 读取信息.</span><br><span class="line">    $buf = socket_read($client,8024);</span><br><span class="line"></span><br><span class="line">    socket_close($client);</span><br><span class="line">&#125;</span><br><span class="line">socket_close($socket);</span><br></pre></td></tr></table></figure></p>
 <p>在这里我们创建了一个监听本地端口9090的rpc服务端.既然是rpc,我们就要通过客户端来执行远程的调用.我们先写好基本的调用方式.</p>
-<h4 id="完善RPC服务端"><a href="#完善RPC服务端" class="headerlink" title="完善RPC服务端"></a>完善RPC服务端</h4><p>我们如果来通过远程调用呢,我的做法是这样的.首先,我们通过链接到rpc服务端,通过伪造http头的方式,url即为调用的文件.在头信息中加入exec代表要执行的方法.所以,我的服务端代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">// socket_create AF_INET:地址协议  SOCK_STREAM:socket类型  SOL_TCP:地址协议</div><div class="line">$socket = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</div><div class="line">// 绑定地址</div><div class="line">socket_bind($socket,&apos;127.0.0.1&apos;,9090);</div><div class="line">// 开始监听.</div><div class="line">socket_listen($socket,5);</div><div class="line">while(true)&#123;</div><div class="line">    // 客户端.</div><div class="line">    $client = socket_accept($socket);</div><div class="line">    // 读取信息.</div><div class="line">    $buf = socket_read($client,8024);</div><div class="line">    echo $buf;</div><div class="line">    // 用url地址来获取到我们想要调用文件的路径.</div><div class="line">    if(preg_match(&apos;/GET\s(.*)\sHTTP\/1.1/i&apos;,$buf,$matches))&#123;</div><div class="line">        // 获取要调用文件的路径</div><div class="line">        $path = &apos;.&apos;.$matches[1];</div><div class="line">        echo $path;</div><div class="line">        if(file_exists($path))&#123;</div><div class="line">            require $path;</div><div class="line">            $classes = get_declared_classes();</div><div class="line">            $new_class = end($classes);</div><div class="line">            // 我们假设在头信息中包含exec用来执行我们的方法名.</div><div class="line">            if(preg_match(&apos;/EXEC\s(.*)\s/i&apos;,$buf,$methods))&#123;</div><div class="line">                // 方法名.</div><div class="line">                $method_name = $methods[1];</div><div class="line">                // 开始调用.</div><div class="line">                $result = (new $new_class())-&gt;$method_name();</div><div class="line">            &#125;else&#123;</div><div class="line">                $result = &apos;没有找到方法名!&apos;;</div><div class="line">            &#125;</div><div class="line">        &#125;else&#123;</div><div class="line">            // 没有找到文件,无法完成调用.</div><div class="line">            $result = &apos;404&apos;;</div><div class="line">        &#125;</div><div class="line">        socket_write($client,$result);</div><div class="line">    &#125;</div><div class="line">    socket_close($client);</div><div class="line">&#125;</div><div class="line">socket_close($socket);</div></pre></td></tr></table></figure></p>
-<h4 id="rpc客户端"><a href="#rpc客户端" class="headerlink" title="rpc客户端"></a>rpc客户端</h4><p>通过服务端的书写,客户端我们要伪造http头信息.我这里只是一个简单的伪造<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// 创建客户端.</div><div class="line">$client = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</div><div class="line">// 链接上我们的服务端.</div><div class="line">socket_connect($client,&apos;127.0.0.1&apos;,9090);</div><div class="line">// 仿造一次http访问</div><div class="line">$content = &apos;GET /new/File.php HTTP/1.1&apos;.PHP_EOL;</div><div class="line">$content .= &apos;EXEC method&apos;.PHP_EOL.PHP_EOL;</div><div class="line">// 发送消息.</div><div class="line">socket_write($client,$content);</div><div class="line">// 读取返回结果.</div><div class="line">$buf = socket_read($client,8024);</div><div class="line">echo $buf;</div><div class="line">socket_close($client);</div></pre></td></tr></table></figure></p>
+<h4 id="完善RPC服务端"><a href="#完善RPC服务端" class="headerlink" title="完善RPC服务端"></a>完善RPC服务端</h4><p>我们如果来通过远程调用呢,我的做法是这样的.首先,我们通过链接到rpc服务端,通过伪造http头的方式,url即为调用的文件.在头信息中加入exec代表要执行的方法.所以,我的服务端代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">// socket_create AF_INET:地址协议  SOCK_STREAM:socket类型  SOL_TCP:地址协议</span><br><span class="line">$socket = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</span><br><span class="line">// 绑定地址</span><br><span class="line">socket_bind($socket,&apos;127.0.0.1&apos;,9090);</span><br><span class="line">// 开始监听.</span><br><span class="line">socket_listen($socket,5);</span><br><span class="line">while(true)&#123;</span><br><span class="line">    // 客户端.</span><br><span class="line">    $client = socket_accept($socket);</span><br><span class="line">    // 读取信息.</span><br><span class="line">    $buf = socket_read($client,8024);</span><br><span class="line">    echo $buf;</span><br><span class="line">    // 用url地址来获取到我们想要调用文件的路径.</span><br><span class="line">    if(preg_match(&apos;/GET\s(.*)\sHTTP\/1.1/i&apos;,$buf,$matches))&#123;</span><br><span class="line">        // 获取要调用文件的路径</span><br><span class="line">        $path = &apos;.&apos;.$matches[1];</span><br><span class="line">        echo $path;</span><br><span class="line">        if(file_exists($path))&#123;</span><br><span class="line">            require $path;</span><br><span class="line">            $classes = get_declared_classes();</span><br><span class="line">            $new_class = end($classes);</span><br><span class="line">            // 我们假设在头信息中包含exec用来执行我们的方法名.</span><br><span class="line">            if(preg_match(&apos;/EXEC\s(.*)\s/i&apos;,$buf,$methods))&#123;</span><br><span class="line">                // 方法名.</span><br><span class="line">                $method_name = $methods[1];</span><br><span class="line">                // 开始调用.</span><br><span class="line">                $result = (new $new_class())-&gt;$method_name();</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                $result = &apos;没有找到方法名!&apos;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            // 没有找到文件,无法完成调用.</span><br><span class="line">            $result = &apos;404&apos;;</span><br><span class="line">        &#125;</span><br><span class="line">        socket_write($client,$result);</span><br><span class="line">    &#125;</span><br><span class="line">    socket_close($client);</span><br><span class="line">&#125;</span><br><span class="line">socket_close($socket);</span><br></pre></td></tr></table></figure></p>
+<h4 id="rpc客户端"><a href="#rpc客户端" class="headerlink" title="rpc客户端"></a>rpc客户端</h4><p>通过服务端的书写,客户端我们要伪造http头信息.我这里只是一个简单的伪造<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 创建客户端.</span><br><span class="line">$client = socket_create(AF_INET,SOCK_STREAM,SOL_TCP);</span><br><span class="line">// 链接上我们的服务端.</span><br><span class="line">socket_connect($client,&apos;127.0.0.1&apos;,9090);</span><br><span class="line">// 仿造一次http访问</span><br><span class="line">$content = &apos;GET /new/File.php HTTP/1.1&apos;.PHP_EOL;</span><br><span class="line">$content .= &apos;EXEC method&apos;.PHP_EOL.PHP_EOL;</span><br><span class="line">// 发送消息.</span><br><span class="line">socket_write($client,$content);</span><br><span class="line">// 读取返回结果.</span><br><span class="line">$buf = socket_read($client,8024);</span><br><span class="line">echo $buf;</span><br><span class="line">socket_close($client);</span><br></pre></td></tr></table></figure></p>
 <p>通过以上代码，我们可以理解了rpc远程调用的原理.我们通过伪造http头的方式调用了/new/File.php这个文件.同时调用了里面的method方法.然后得到结果集.就是所谓的RPC远程调用!</p>
 <h4 id="具体实现代码"><a href="#具体实现代码" class="headerlink" title="具体实现代码"></a>具体实现代码</h4><p><a href="http://www.blogme.club/socket/rpc.zip">点击此处下载</a></p>
 
@@ -321,7 +322,7 @@
   
 
   
-  <div id="SOHUCS" sid="socket学习之旅-3撕开RPC远程调用的神秘外衣" ></div> 
+  <div id="SOHUCS" sid="socket学习之旅-3撕开RPC远程调用的神秘外衣"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -436,11 +437,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -452,15 +453,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -504,11 +509,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -520,6 +525,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -528,19 +537,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -548,7 +553,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

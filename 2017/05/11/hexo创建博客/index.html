@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>hexo创建博客 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/05/11/hexo创建博客/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="前不久正打算把自己的博  客改版，偶然看到github上的hexo可以快速搭建一个博客，于是就尝试一下用hexo来搭建一个博客系统。 1 环境搭建hexo的环境必须具备git，node，npm，只有具备了以上几个才能安装hexo。我的系统是ubuntu。所以以上安装就非常简单了。">
-<meta property="og:updated_time" content="2017-05-15T09:10:09.923Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-05-15T09:10:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo创建博客">
 <meta name="twitter:description" content="前不久正打算把自己的博  客改版，偶然看到github上的hexo可以快速搭建一个博客，于是就尝试一下用hexo来搭建一个博客系统。 1 环境搭建hexo的环境必须具备git，node，npm，只有具备了以上几个才能安装hexo。我的系统是ubuntu。所以以上安装就非常简单了。">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hexo创建博客" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-hexo创建博客" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -175,29 +176,29 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>前不久正打算把自己的<a href="http://www.blogme.club">博  客</a>改版，偶然看到github上的hexo可以快速搭建一个博客，于是就尝试一下用hexo来搭建一个博客系统。</p>
-<h3 id="1-环境搭建"><a href="#1-环境搭建" class="headerlink" title="1 环境搭建"></a>1 环境搭建</h3><p>hexo的环境必须具备git，node，npm，只有具备了以上几个才能安装hexo。我的系统是<a href="http://www.ubuntu.com" target="_blank" rel="external">ubuntu</a>。所以以上安装就非常简单了。<br><a id="more"></a></p>
+<h3 id="1-环境搭建"><a href="#1-环境搭建" class="headerlink" title="1 环境搭建"></a>1 环境搭建</h3><p>hexo的环境必须具备git，node，npm，只有具备了以上几个才能安装hexo。我的系统是<a href="http://www.ubuntu.com" target="_blank" rel="noopener">ubuntu</a>。所以以上安装就非常简单了。<br><a id="more"></a></p>
 <h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><pre><code>sudo apt-get install git
 </code></pre><p>几秒后git就会安装好</p>
 <h4 id="安装node"><a href="#安装node" class="headerlink" title="安装node"></a>安装node</h4><pre><code>sudo apt-get install nodejs-legacy
 </code></pre><p>等待几秒后使用node -v来查看是否安装好了node，当然由于源的问题，ubuntu安装的node版本一般来说很低，所以我们要安装一个n模块来升级下node的版本</p>
 <h4 id="升级node"><a href="#升级node" class="headerlink" title="升级node"></a>升级node</h4><pre><code>npm install -g n
-</code></pre><p>安装好了n模块.使用n模块来升级node<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">n 7.8.0</div></pre></td></tr></table></figure></p>
+</code></pre><p>安装好了n模块.使用n模块来升级node<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n 7.8.0</span><br></pre></td></tr></table></figure></p>
 <p>等待几秒后node就会升级成7.8.0版本，当node升级成功后，npm在node安装的时候就会安装成功。如果没有npm，请使用sudo apt-get install npm</p>
-<h3 id="2-安装hexo"><a href="#2-安装hexo" class="headerlink" title="2 安装hexo"></a>2 安装hexo</h3><p>有了以上几步过后，node，git，npm都会安装成功，剩下的就开始安装hexo吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g hexo-cli</div></pre></td></tr></table></figure></p>
-<p>请等待几秒后，hexo就会安装成功，查看hexo是否安装成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo -h</div></pre></td></tr></table></figure></p>
-<h3 id="3-使用hexo"><a href="#3-使用hexo" class="headerlink" title="3 使用hexo"></a>3 使用hexo</h3><p>当我们安装好了hexo过后，我们需要在<a href="https://www.github.com" target="_blank" rel="external">github</a>创建一个仓库。这个仓库名以自己用户名命名。例如:用户名.github.io。这个仓库创建好了过后。github.io就会以你的这个生成一个域名。就是：用户名.github.io。我们将其克隆下来.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git clone 仓库地址 hexo</div><div class="line">cd hexo</div><div class="line">hexo init</div></pre></td></tr></table></figure></p>
-<p>这样我们就初始化了一个hexo项目。我们要配置一下_config.yml<br>找到其中的deploy,这项是我们提交代码时的github地址.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">	type: git</div><div class="line">	repo: github仓库地址</div></pre></td></tr></table></figure></p>
-<p>配置好了过后使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo -g</div></pre></td></tr></table></figure></p>
-<p>生成静态页面,然后使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo deploy</div></pre></td></tr></table></figure></p>
-<p>将其传递到github地址上去.剩下的就是去访问你的<a href="https://adolphgithub.github.io" target="_blank" rel="external">用户名.github.io</a>,就可以看到hexo博客的基本东西了</p>
+<h3 id="2-安装hexo"><a href="#2-安装hexo" class="headerlink" title="2 安装hexo"></a>2 安装hexo</h3><p>有了以上几步过后，node，git，npm都会安装成功，剩下的就开始安装hexo吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure></p>
+<p>请等待几秒后，hexo就会安装成功，查看hexo是否安装成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -h</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-使用hexo"><a href="#3-使用hexo" class="headerlink" title="3 使用hexo"></a>3 使用hexo</h3><p>当我们安装好了hexo过后，我们需要在<a href="https://www.github.com" target="_blank" rel="noopener">github</a>创建一个仓库。这个仓库名以自己用户名命名。例如:用户名.github.io。这个仓库创建好了过后。github.io就会以你的这个生成一个域名。就是：用户名.github.io。我们将其克隆下来.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone 仓库地址 hexo</span><br><span class="line">cd hexo</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure></p>
+<p>这样我们就初始化了一个hexo项目。我们要配置一下_config.yml<br>找到其中的deploy,这项是我们提交代码时的github地址.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">	repo: github仓库地址</span><br></pre></td></tr></table></figure></p>
+<p>配置好了过后使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -g</span><br></pre></td></tr></table></figure></p>
+<p>生成静态页面,然后使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></p>
+<p>将其传递到github地址上去.剩下的就是去访问你的<a href="https://adolphgithub.github.io" target="_blank" rel="noopener">用户名.github.io</a>,就可以看到hexo博客的基本东西了</p>
 <h3 id="4-hexo-命令"><a href="#4-hexo-命令" class="headerlink" title="4 hexo 命令"></a>4 hexo 命令</h3><pre><code>hexo clean #清除生成的hexo静态界面
 hexo g #生成hexo静态界面
 hexo server #生成hexo本地服务。使用localhost:4000访问
 hexo new &apos;文章名&apos; #创建一篇新文件
 hexo new page &apos;页面名&apos; #创建一篇新页面
-</code></pre><h3 id="5-hexo主题"><a href="#5-hexo主题" class="headerlink" title="5 hexo主题"></a>5 hexo主题</h3><p>hexo 主题也是hexo中最吸引人的一点.找到<a href="https://hexo.io/themes/" target="_blank" rel="external">hexo主题</a>,选择你喜欢的主题.图片是预览,下面的titile是github地址.我们要github地址<br>例如我们使用Adoubi主题:地址为<a href="https://https://github.com/shinux/hexo-theme-adoubi" target="_blank" rel="external">https://github.com/shinux/hexo-theme-adoubi</a>将其下载到本地,并且解压<br>我们找到hexo的本地路径。使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv hexo-theme-adoubi hexo路径/themes/adoubi</div></pre></td></tr></table></figure></p>
-<p>编辑我们的hexo根路径的_config.yml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme: adoubi</div></pre></td></tr></table></figure></p>
-<p>然后清除，生成，预览，发布<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexo clean</div><div class="line">hexo g</div><div class="line">hexo deploy</div></pre></td></tr></table></figure></p>
+</code></pre><h3 id="5-hexo主题"><a href="#5-hexo主题" class="headerlink" title="5 hexo主题"></a>5 hexo主题</h3><p>hexo 主题也是hexo中最吸引人的一点.找到<a href="https://hexo.io/themes/" target="_blank" rel="noopener">hexo主题</a>,选择你喜欢的主题.图片是预览,下面的titile是github地址.我们要github地址<br>例如我们使用Adoubi主题:地址为<a href="https://https://github.com/shinux/hexo-theme-adoubi" target="_blank" rel="noopener">https://github.com/shinux/hexo-theme-adoubi</a>将其下载到本地,并且解压<br>我们找到hexo的本地路径。使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv hexo-theme-adoubi hexo路径/themes/adoubi</span><br></pre></td></tr></table></figure></p>
+<p>编辑我们的hexo根路径的_config.yml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: adoubi</span><br></pre></td></tr></table></figure></p>
+<p>然后清除，生成，预览，发布<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></p>
 <p>就可以查看到新的hexo主题了.</p>
 <h3 id="6-附录"><a href="#6-附录" class="headerlink" title="6 附录"></a>6 附录</h3><p>├── _config.yml    #配置文件<br>├── db.json    #数据库信息<br>├── node_modules    #npm包<br>├── package.json    #npm配置文件<br>├── scaffolds<br>├── source    #页面和文章的源文件<br>└── themes    #主题文件</p>
 
@@ -335,7 +336,7 @@ hexo new page &apos;页面名&apos; #创建一篇新页面
   
 
   
-  <div id="SOHUCS" sid="hexo创建博客" ></div> 
+  <div id="SOHUCS" sid="hexo创建博客"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -450,11 +451,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -466,15 +467,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -518,11 +523,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -534,6 +539,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -542,19 +551,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -562,7 +567,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

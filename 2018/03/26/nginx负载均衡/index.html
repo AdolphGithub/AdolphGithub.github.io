@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>nginx负载均衡 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2018/03/26/nginx负载均衡/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="nginx,常用的webserver服务器.高并发的东西,哈哈哈哈.说起nginx负载均衡,很多人都知道.其实一个简单的nginx负载均衡只需要以下几步就可以了.">
-<meta property="og:updated_time" content="2018-03-26T09:06:51.014Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-03-26T09:06:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx负载均衡">
 <meta name="twitter:description" content="nginx,常用的webserver服务器.高并发的东西,哈哈哈哈.说起nginx负载均衡,很多人都知道.其实一个简单的nginx负载均衡只需要以下几步就可以了.">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-nginx负载均衡" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-nginx负载均衡" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -174,14 +175,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>nginx,常用的webserver服务器.高并发的东西,哈哈哈哈.说起nginx负载均衡,很多人都知道.其实一个简单的nginx负载均衡只需要以下几步就可以了.<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">upstream mydocker&#123;</div><div class="line">    server 192.158.0.3:80;</div><div class="line">    server 192.158.0.4:80;</div><div class="line">&#125;</div><div class="line">server &#123;</div><div class="line">    listen       80;</div><div class="line">    server_name  mydocker;</div><div class="line">    location / &#123;</div><div class="line">	proxy_set_header Host $host;</div><div class="line">        proxy_set_header X-Real-IP $remote_addr;</div><div class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</div><div class="line">        proxy_buffering off;</div><div class="line">        proxy_pass http://mydocker;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <p>nginx,常用的webserver服务器.高并发的东西,哈哈哈哈.说起nginx负载均衡,很多人都知道.其实一个简单的nginx负载均衡只需要以下几步就可以了.<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">upstream mydocker&#123;</span><br><span class="line">    server 192.158.0.3:80;</span><br><span class="line">    server 192.158.0.4:80;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  mydocker;</span><br><span class="line">    location / &#123;</span><br><span class="line">	proxy_set_header Host $host;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_buffering off;</span><br><span class="line">        proxy_pass http://mydocker;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>以上就可以开启一个nginx配置.但是这个只是最简单的.下面我们就来讲讲nginx负载均衡的五种方式.</p>
 <h4 id="轮询"><a href="#轮询" class="headerlink" title="轮询"></a>轮询</h4><p>上面的那个配置就是轮询,根据服务器的和请求时间分配到不同的后端服务器,如果后端服务器直接挂掉了,能自动剔除.但是有几点缺点,无法保存服务器状态,session.这个就很坑了,如果你在服务器1上有登录状态.nginx直接给你转发到服务器2上,你就很尴尬了.所以有了下面这种</p>
-<h4 id="IP-hash"><a href="#IP-hash" class="headerlink" title="IP_hash"></a>IP_hash</h4><p>基本配置如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">upstream mydocker&#123;</div><div class="line">    ip_hash;</div><div class="line">    server 192.158.0.3:80;</div><div class="line">    server 192.158.0.4:80;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="IP-hash"><a href="#IP-hash" class="headerlink" title="IP_hash"></a>IP_hash</h4><p>基本配置如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream mydocker&#123;</span><br><span class="line">    ip_hash;</span><br><span class="line">    server 192.158.0.3:80;</span><br><span class="line">    server 192.158.0.4:80;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>根据每个请求访问的ip和hash结果来分配.这样就能分配道一个固定的服务器了.就不用担心session丢失的情况了.同理,还有一种跟这个是差不多的.</p>
-<h3 id="url-hash-第三方库"><a href="#url-hash-第三方库" class="headerlink" title="url_hash(第三方库)"></a>url_hash(第三方库)</h3><p>按照访问的url的hash结果来分配,跟ip hash结果一致.不过可以指定使用不一样的hash算法.如果后端服务器为缓存的时候,这个访问要比IPhash要快更多.下面是基本配置.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">upstream mydocker&#123;</div><div class="line">    hash $request_uri;</div><div class="line">    hash_method crc32; // 指定hash算法.</div><div class="line">    server 192.158.0.3:80;</div><div class="line">    server 192.158.0.4:80;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="fair-第三方"><a href="#fair-第三方" class="headerlink" title="fair(第三方)"></a>fair(第三方)</h3><p>这个厉害了,按照后端服务器的响应时间来分配请求,根据响应的时间短者优先.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">upstream mydocker&#123;</div><div class="line">    server 192.158.0.3:80;</div><div class="line">    server 192.158.0.4:80;</div><div class="line">    fair;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="weight"><a href="#weight" class="headerlink" title="weight"></a>weight</h3><p>这个是权重,权重高的优化.这个是基于轮询的.weight和访问比率成正比,用于后端服务器性能不均的情况.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">upstream mydocker&#123;</div><div class="line">    server 192.158.0.3:80 weight=10;</div><div class="line">    server 192.158.0.4:80 weight=5;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="url-hash-第三方库"><a href="#url-hash-第三方库" class="headerlink" title="url_hash(第三方库)"></a>url_hash(第三方库)</h3><p>按照访问的url的hash结果来分配,跟ip hash结果一致.不过可以指定使用不一样的hash算法.如果后端服务器为缓存的时候,这个访问要比IPhash要快更多.下面是基本配置.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">upstream mydocker&#123;</span><br><span class="line">    hash $request_uri;</span><br><span class="line">    hash_method crc32; // 指定hash算法.</span><br><span class="line">    server 192.158.0.3:80;</span><br><span class="line">    server 192.158.0.4:80;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="fair-第三方"><a href="#fair-第三方" class="headerlink" title="fair(第三方)"></a>fair(第三方)</h3><p>这个厉害了,按照后端服务器的响应时间来分配请求,根据响应的时间短者优先.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream mydocker&#123;</span><br><span class="line">    server 192.158.0.3:80;</span><br><span class="line">    server 192.158.0.4:80;</span><br><span class="line">    fair;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="weight"><a href="#weight" class="headerlink" title="weight"></a>weight</h3><p>这个是权重,权重高的优化.这个是基于轮询的.weight和访问比率成正比,用于后端服务器性能不均的情况.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream mydocker&#123;</span><br><span class="line">    server 192.158.0.3:80 weight=10;</span><br><span class="line">    server 192.158.0.4:80 weight=5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>以上就是nginx负载均衡的5中方式.</p>
 
       
@@ -323,7 +324,7 @@
   
 
   
-  <div id="SOHUCS" sid="nginx负载均衡" ></div> 
+  <div id="SOHUCS" sid="nginx负载均衡"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -438,11 +439,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -454,15 +455,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,11 +511,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,6 +527,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -530,19 +539,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -550,7 +555,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

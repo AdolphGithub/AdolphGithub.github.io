@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>工厂模式2 - 数据中心模式，狗和书一起卖 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/05/20/php-工厂模式2/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。">
-<meta property="og:updated_time" content="2017-05-20T09:41:44.482Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-05-20T09:41:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="工厂模式2 - 数据中心模式，狗和书一起卖">
 <meta name="twitter:description" content="接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-php-工厂模式2" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-php-工厂模式2" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -174,12 +175,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。<br><a id="more"></a><br>首先我们先规范代码，每个商品必须要有getList()方法,想到的是interface,代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">interface Product&#123;</div><div class="line">	public function getList();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>所有的商品必须要集成接口.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">class ProductFactory&#123;</div><div class="line">	// 根据不同的对象来得到不同的类.</div><div class="line">	public static function getProduct($type)&#123;</div><div class="line">		// 变态模式产生</div><div class="line">		if($type == &apos;Book&apos;)&#123;</div><div class="line">			$type = &apos;Dog&apos;;</div><div class="line">		&#125;</div><div class="line">		if(!class_exists($type))&#123;</div><div class="line">			require ($type.&apos;.php&apos;);</div><div class="line">		&#125;</div><div class="line">		switch($type)&#123;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Book();</div><div class="line">				break;</div><div class="line">			case  &quot;Dog&quot;:</div><div class="line">				$object = new Dog();</div><div class="line">				break;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Wines();</div><div class="line">				break;</div><div class="line">		&#125;</div><div class="line">		if(is_subclass_of($obj,&apos;Product&apos;))&#123;</div><div class="line">			return $object;</div><div class="line">		&#125;else&#123;</div><div class="line">			return null;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我们这里要引入数据中心模式，坚决不予类本身打交道。<br>这里我们创建ProductDataCenter;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class ProductDataCenter&#123;</div><div class="line">	public static $objectList = [];</div><div class="line">	public static function set($k,$v)&#123;</div><div class="line">		self::$objectList[$k]=$v;</div><div class="line">	&#125;</div><div class="line">	public static function get($k)&#123;</div><div class="line">		return self::$objectList[$k];</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我们改造工厂<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">require &apos;ProductDataCenter.php&apos;;</div><div class="line">class ProductFactory&#123;</div><div class="line">	// 根据不同的对象来得到不同的类.</div><div class="line">	public static function getProduct($type)&#123;</div><div class="line">		// 变态模式产生</div><div class="line">		if($type == &apos;Book&apos;)&#123;</div><div class="line">			$type = &apos;Dog&apos;;</div><div class="line">		&#125;</div><div class="line">		if(!class_exists($type))&#123;</div><div class="line">			require ($type.&apos;.php&apos;);</div><div class="line">		&#125;</div><div class="line">		switch($type)&#123;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Book();</div><div class="line">				break;</div><div class="line">			case  &quot;Dog&quot;:</div><div class="line">				$object = new Dog();</div><div class="line">				break;</div><div class="line">			case  &quot;Book&quot;:</div><div class="line">				$object = new Wines();</div><div class="line">				break;</div><div class="line">		&#125;</div><div class="line">		if(is_subclass_of($object,&apos;Product&apos;))&#123;</div><div class="line">			ProductDataCenter::set($type,$object);</div><div class="line">		&#125;else&#123;</div><div class="line">			return null;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我们调用的时候,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ProductFactory::getProduct(&apos;Books&apos;);</div></pre></td></tr></table></figure></p>
-<p>我们要设置数据中心静态的魔术函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">class ProductDataCenter&#123;</div><div class="line">	public static $objectList = [];</div><div class="line">	public static function set($k,$v)&#123;</div><div class="line">		self::$objectList[$k]=$v;</div><div class="line">	&#125;</div><div class="line">	// 调用魔术函数.</div><div class="line">	public static function __callStatic($name,$arguments)&#123;</div><div class="line">		$return = [];</div><div class="line">		foreach(self::$objectList as $v)&#123;</div><div class="line">			if(method_exists($v,$name))&#123;</div><div class="line">				$ret = $v-&gt;$name($arguments);</div><div class="line">				if($ret)&#123;</div><div class="line">					$return[] = $ret;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		if(count($ret))&#123;</div><div class="line">			return $ret;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <p>接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。<br><a id="more"></a><br>首先我们先规范代码，每个商品必须要有getList()方法,想到的是interface,代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interface Product&#123;</span><br><span class="line">	public function getList();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>所有的商品必须要集成接口.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class ProductFactory&#123;</span><br><span class="line">	// 根据不同的对象来得到不同的类.</span><br><span class="line">	public static function getProduct($type)&#123;</span><br><span class="line">		// 变态模式产生</span><br><span class="line">		if($type == &apos;Book&apos;)&#123;</span><br><span class="line">			$type = &apos;Dog&apos;;</span><br><span class="line">		&#125;</span><br><span class="line">		if(!class_exists($type))&#123;</span><br><span class="line">			require ($type.&apos;.php&apos;);</span><br><span class="line">		&#125;</span><br><span class="line">		switch($type)&#123;</span><br><span class="line">			case  &quot;Book&quot;:</span><br><span class="line">				$object = new Book();</span><br><span class="line">				break;</span><br><span class="line">			case  &quot;Dog&quot;:</span><br><span class="line">				$object = new Dog();</span><br><span class="line">				break;</span><br><span class="line">			case  &quot;Book&quot;:</span><br><span class="line">				$object = new Wines();</span><br><span class="line">				break;</span><br><span class="line">		&#125;</span><br><span class="line">		if(is_subclass_of($obj,&apos;Product&apos;))&#123;</span><br><span class="line">			return $object;</span><br><span class="line">		&#125;else&#123;</span><br><span class="line">			return null;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们这里要引入数据中心模式，坚决不予类本身打交道。<br>这里我们创建ProductDataCenter;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class ProductDataCenter&#123;</span><br><span class="line">	public static $objectList = [];</span><br><span class="line">	public static function set($k,$v)&#123;</span><br><span class="line">		self::$objectList[$k]=$v;</span><br><span class="line">	&#125;</span><br><span class="line">	public static function get($k)&#123;</span><br><span class="line">		return self::$objectList[$k];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们改造工厂<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">require &apos;ProductDataCenter.php&apos;;</span><br><span class="line">class ProductFactory&#123;</span><br><span class="line">	// 根据不同的对象来得到不同的类.</span><br><span class="line">	public static function getProduct($type)&#123;</span><br><span class="line">		// 变态模式产生</span><br><span class="line">		if($type == &apos;Book&apos;)&#123;</span><br><span class="line">			$type = &apos;Dog&apos;;</span><br><span class="line">		&#125;</span><br><span class="line">		if(!class_exists($type))&#123;</span><br><span class="line">			require ($type.&apos;.php&apos;);</span><br><span class="line">		&#125;</span><br><span class="line">		switch($type)&#123;</span><br><span class="line">			case  &quot;Book&quot;:</span><br><span class="line">				$object = new Book();</span><br><span class="line">				break;</span><br><span class="line">			case  &quot;Dog&quot;:</span><br><span class="line">				$object = new Dog();</span><br><span class="line">				break;</span><br><span class="line">			case  &quot;Book&quot;:</span><br><span class="line">				$object = new Wines();</span><br><span class="line">				break;</span><br><span class="line">		&#125;</span><br><span class="line">		if(is_subclass_of($object,&apos;Product&apos;))&#123;</span><br><span class="line">			ProductDataCenter::set($type,$object);</span><br><span class="line">		&#125;else&#123;</span><br><span class="line">			return null;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们调用的时候,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ProductFactory::getProduct(&apos;Books&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>我们要设置数据中心静态的魔术函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class ProductDataCenter&#123;</span><br><span class="line">	public static $objectList = [];</span><br><span class="line">	public static function set($k,$v)&#123;</span><br><span class="line">		self::$objectList[$k]=$v;</span><br><span class="line">	&#125;</span><br><span class="line">	// 调用魔术函数.</span><br><span class="line">	public static function __callStatic($name,$arguments)&#123;</span><br><span class="line">		$return = [];</span><br><span class="line">		foreach(self::$objectList as $v)&#123;</span><br><span class="line">			if(method_exists($v,$name))&#123;</span><br><span class="line">				$ret = $v-&gt;$name($arguments);</span><br><span class="line">				if($ret)&#123;</span><br><span class="line">					$return[] = $ret;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		if(count($ret))&#123;</span><br><span class="line">			return $ret;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>思考:支持字符串和数组的方式来创建。</p>
 
       
@@ -321,7 +322,7 @@
   
 
   
-  <div id="SOHUCS" sid="php-工厂模式2" ></div> 
+  <div id="SOHUCS" sid="php-工厂模式2"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -436,11 +437,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -452,15 +453,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -504,11 +509,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -520,6 +525,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -528,19 +537,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -548,7 +553,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

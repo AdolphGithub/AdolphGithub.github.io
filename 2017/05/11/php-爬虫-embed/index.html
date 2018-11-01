@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>php-爬虫-embed | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/05/11/php-爬虫-embed/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="前不久,在看到需要弄爬虫信息.于是兴趣来了,就在php-awesome里面找到了推荐的3个爬虫库中找了两个.就开始琢磨.当然,这里不涉及到多线程.要想多线程的自己弄哦.让我们来看看第一个库embed.">
-<meta property="og:updated_time" content="2017-05-11T07:21:31.206Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-05-11T07:21:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php-爬虫-embed">
 <meta name="twitter:description" content="前不久,在看到需要弄爬虫信息.于是兴趣来了,就在php-awesome里面找到了推荐的3个爬虫库中找了两个.就开始琢磨.当然,这里不涉及到多线程.要想多线程的自己弄哦.让我们来看看第一个库embed.">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-php-爬虫-embed" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-php-爬虫-embed" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -176,8 +177,8 @@
       
         <p>前不久,在看到需要弄爬虫信息.于是兴趣来了,就在php-awesome里面找到了推荐的3个爬虫库中找了两个.就开始琢磨.当然,这里不涉及到多线程.要想多线程的自己弄哦.让我们来看看第一个库embed.<br><a id="more"></a></p>
 <h3 id="1-composer-导入"><a href="#1-composer-导入" class="headerlink" title="1 composer 导入"></a>1 composer 导入</h3><pre><code>composer require embed/embed
-</code></pre><p>先来看看基本用法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">use Embed\Embed;</div><div class="line">// 创建实例并得到基本信息</div><div class="line">$info = Embed::create(&apos;https://www.youtube.com/watch?v=PP1xn5wHtxE&apos;);</div><div class="line">$info-&gt;title; // 获取标题</div><div class="line">$info-&gt;description; //获取描述</div><div class="line">$info-&gt;url; //获取url</div><div class="line">$info-&gt;type; //获取type</div><div class="line">$info-&gt;tags; //获取标签keywords</div><div class="line"></div><div class="line">$info-&gt;images; //获取当前界面的列表</div><div class="line">$info-&gt;image; //获取图片</div><div class="line">$info-&gt;imageWidth; //获取图片宽度</div><div class="line">$info-&gt;imageHeight; //获取图片高度</div><div class="line"></div><div class="line">$info-&gt;code; //获取当前界面代码</div><div class="line">$info-&gt;width; //获取界面宽度</div><div class="line">$info-&gt;height; //获取界面的高度</div><div class="line"></div><div class="line">$info-&gt;authorName; //获取作者</div><div class="line">$info-&gt;authorUrl; //获取作者链接</div><div class="line"></div><div class="line">$info-&gt;providerName; //获取服务商</div><div class="line">$info-&gt;providerUrl; //获取服务商链接</div><div class="line"></div><div class="line">$info-&gt;publishedDate; //获取发布时间</div><div class="line">$info-&gt;license; //获取证书</div><div class="line">$info-&gt;feeds; //获取订阅链接</div></pre></td></tr></table></figure></p>
-<h3 id="2-实战"><a href="#2-实战" class="headerlink" title="2 实战"></a>2 实战</h3><p>以下是实战的一个例子.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">class TestController extends ControllerBase</div><div class="line">&#123;</div><div class="line">    public function index()&#123;</div><div class="line">        $domain = &apos;http://www.mm131.com&apos;;</div><div class="line">        $this-&gt;save_pic($domain);</div><div class="line">    &#125;</div><div class="line">    // 保存图片</div><div class="line">    private function save_pic($domain)&#123;</div><div class="line">        $info = Embed::create($domain);</div><div class="line">        $response = $info-&gt;getResponse();</div><div class="line">        $url = $info-&gt;getImagesUrls();</div><div class="line">        $check = [</div><div class="line">            $domain,</div><div class="line">            $domain.&apos;/index&apos;,</div><div class="line">            $domain.&apos;/index.php&apos;,</div><div class="line">            $domain.&apos;/&apos;,</div><div class="line">            &apos;http://m.mm131.com&apos;,</div><div class="line">        ];</div><div class="line">        // 获取界面内容.</div><div class="line">        $content = $response-&gt;getContent();</div><div class="line">        // 获取界面的所有url链接</div><div class="line">        preg_match_all(&apos;/https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&amp;?[a-zA-Z0-9_-](\?)?)*)*/i&apos;,$content,$urls);</div><div class="line">        // 取出第一个链接</div><div class="line">        $urls = array_shift($urls);</div><div class="line">        // 过滤链接</div><div class="line">        $urls = array_filter($urls,function($item) use ($url,$check)&#123;</div><div class="line">            if(strpos($item,&apos;mm131&apos;) !== false &amp;&amp; !in_array($item,$url) &amp;&amp; strpos($item,&apos;http://m.mm131.com&apos;) === false)&#123;</div><div class="line">                // 还得过滤掉资源文件.</div><div class="line">                $file_info = pathinfo($item);</div><div class="line">                if(isset($file_info[&apos;extension&apos;]) &amp;&amp; !in_array($file_info[&apos;extension&apos;],[&apos;js&apos;,&apos;css&apos;,&apos;ico&apos;,&apos;jpg&apos;,&apos;png&apos;]) &amp;&amp; !in_array($item,$check))&#123;</div><div class="line">                    return $item;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        $now_time = time();</div><div class="line">        // 循环并保存</div><div class="line">        foreach($url as $link)&#123;</div><div class="line">            $stream = file_get_contents($link);</div><div class="line">            $file_info = pathinfo($link);</div><div class="line">            $base_dir = &apos;/data/wwwroot/images/www.mm131.com/&apos;.$now_time;</div><div class="line">            if(!is_dir($base_dir))&#123;</div><div class="line">                mkdir($base_dir,0777);</div><div class="line">            &#125;</div><div class="line">            $save_dir = $base_dir.&apos;/&apos;.md5(substr($link,26)).$file_info[&apos;basename&apos;];</div><div class="line">            file_put_contents($save_dir,$stream);</div><div class="line">        &#125;</div><div class="line">        if(count($urls))&#123;</div><div class="line">            while($url = array_shift($urls))&#123;</div><div class="line">                $this-&gt;save_pic($url);</div><div class="line">            &#125;</div><div class="line">        &#125;else&#123;</div><div class="line">            return false;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</code></pre><p>先来看看基本用法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">use Embed\Embed;</span><br><span class="line">// 创建实例并得到基本信息</span><br><span class="line">$info = Embed::create(&apos;https://www.youtube.com/watch?v=PP1xn5wHtxE&apos;);</span><br><span class="line">$info-&gt;title; // 获取标题</span><br><span class="line">$info-&gt;description; //获取描述</span><br><span class="line">$info-&gt;url; //获取url</span><br><span class="line">$info-&gt;type; //获取type</span><br><span class="line">$info-&gt;tags; //获取标签keywords</span><br><span class="line"></span><br><span class="line">$info-&gt;images; //获取当前界面的列表</span><br><span class="line">$info-&gt;image; //获取图片</span><br><span class="line">$info-&gt;imageWidth; //获取图片宽度</span><br><span class="line">$info-&gt;imageHeight; //获取图片高度</span><br><span class="line"></span><br><span class="line">$info-&gt;code; //获取当前界面代码</span><br><span class="line">$info-&gt;width; //获取界面宽度</span><br><span class="line">$info-&gt;height; //获取界面的高度</span><br><span class="line"></span><br><span class="line">$info-&gt;authorName; //获取作者</span><br><span class="line">$info-&gt;authorUrl; //获取作者链接</span><br><span class="line"></span><br><span class="line">$info-&gt;providerName; //获取服务商</span><br><span class="line">$info-&gt;providerUrl; //获取服务商链接</span><br><span class="line"></span><br><span class="line">$info-&gt;publishedDate; //获取发布时间</span><br><span class="line">$info-&gt;license; //获取证书</span><br><span class="line">$info-&gt;feeds; //获取订阅链接</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-实战"><a href="#2-实战" class="headerlink" title="2 实战"></a>2 实战</h3><p>以下是实战的一个例子.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">class TestController extends ControllerBase</span><br><span class="line">&#123;</span><br><span class="line">    public function index()&#123;</span><br><span class="line">        $domain = &apos;http://www.mm131.com&apos;;</span><br><span class="line">        $this-&gt;save_pic($domain);</span><br><span class="line">    &#125;</span><br><span class="line">    // 保存图片</span><br><span class="line">    private function save_pic($domain)&#123;</span><br><span class="line">        $info = Embed::create($domain);</span><br><span class="line">        $response = $info-&gt;getResponse();</span><br><span class="line">        $url = $info-&gt;getImagesUrls();</span><br><span class="line">        $check = [</span><br><span class="line">            $domain,</span><br><span class="line">            $domain.&apos;/index&apos;,</span><br><span class="line">            $domain.&apos;/index.php&apos;,</span><br><span class="line">            $domain.&apos;/&apos;,</span><br><span class="line">            &apos;http://m.mm131.com&apos;,</span><br><span class="line">        ];</span><br><span class="line">        // 获取界面内容.</span><br><span class="line">        $content = $response-&gt;getContent();</span><br><span class="line">        // 获取界面的所有url链接</span><br><span class="line">        preg_match_all(&apos;/https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&amp;?[a-zA-Z0-9_-](\?)?)*)*/i&apos;,$content,$urls);</span><br><span class="line">        // 取出第一个链接</span><br><span class="line">        $urls = array_shift($urls);</span><br><span class="line">        // 过滤链接</span><br><span class="line">        $urls = array_filter($urls,function($item) use ($url,$check)&#123;</span><br><span class="line">            if(strpos($item,&apos;mm131&apos;) !== false &amp;&amp; !in_array($item,$url) &amp;&amp; strpos($item,&apos;http://m.mm131.com&apos;) === false)&#123;</span><br><span class="line">                // 还得过滤掉资源文件.</span><br><span class="line">                $file_info = pathinfo($item);</span><br><span class="line">                if(isset($file_info[&apos;extension&apos;]) &amp;&amp; !in_array($file_info[&apos;extension&apos;],[&apos;js&apos;,&apos;css&apos;,&apos;ico&apos;,&apos;jpg&apos;,&apos;png&apos;]) &amp;&amp; !in_array($item,$check))&#123;</span><br><span class="line">                    return $item;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        $now_time = time();</span><br><span class="line">        // 循环并保存</span><br><span class="line">        foreach($url as $link)&#123;</span><br><span class="line">            $stream = file_get_contents($link);</span><br><span class="line">            $file_info = pathinfo($link);</span><br><span class="line">            $base_dir = &apos;/data/wwwroot/images/www.mm131.com/&apos;.$now_time;</span><br><span class="line">            if(!is_dir($base_dir))&#123;</span><br><span class="line">                mkdir($base_dir,0777);</span><br><span class="line">            &#125;</span><br><span class="line">            $save_dir = $base_dir.&apos;/&apos;.md5(substr($link,26)).$file_info[&apos;basename&apos;];</span><br><span class="line">            file_put_contents($save_dir,$stream);</span><br><span class="line">        &#125;</span><br><span class="line">        if(count($urls))&#123;</span><br><span class="line">            while($url = array_shift($urls))&#123;</span><br><span class="line">                $this-&gt;save_pic($url);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -318,7 +319,7 @@
   
 
   
-  <div id="SOHUCS" sid="php-爬虫-embed" ></div> 
+  <div id="SOHUCS" sid="php-爬虫-embed"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -433,11 +434,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -449,15 +450,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -501,11 +506,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -517,6 +522,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -525,19 +534,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -545,7 +550,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

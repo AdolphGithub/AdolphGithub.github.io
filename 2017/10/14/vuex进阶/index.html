@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>vuex进阶 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/10/14/vuex进阶/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="vuex的入门,在前面我已经说了.这次我们来试试进阶.封装一下mutation,getter,state等一些基本状态.具体的项目的在我的github仓库.">
-<meta property="og:updated_time" content="2017-10-14T09:13:44.923Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-10-14T09:13:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vuex进阶">
 <meta name="twitter:description" content="vuex的入门,在前面我已经说了.这次我们来试试进阶.封装一下mutation,getter,state等一些基本状态.具体的项目的在我的github仓库.">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-vuex进阶" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-vuex进阶" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -174,17 +175,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>vuex的入门,在前面我已经说了.这次我们来试试进阶.封装一下mutation,getter,state等一些基本状态.具体的项目的在我的<a href="https://github.com/AdolphGithub/vue-blog/frontend" target="_blank" rel="external">github仓库</a>.<br><a id="more"></a></p>
-<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>在vuex引入的时候.Vue.use(Vuex);我们来创建一个简单的store.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">export default new Vue.store(&#123;</div><div class="line">	state: &#123; user:&#123;&#125; &#125;,</div><div class="line">	mutations: &#123;&#125;,</div><div class="line">	getters: &#123;</div><div class="line">		user: (state) =&gt; &#123;</div><div class="line">			return state.user;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+        <p>vuex的入门,在前面我已经说了.这次我们来试试进阶.封装一下mutation,getter,state等一些基本状态.具体的项目的在我的<a href="https://github.com/AdolphGithub/vue-blog/frontend" target="_blank" rel="noopener">github仓库</a>.<br><a id="more"></a></p>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>在vuex引入的时候.Vue.use(Vuex);我们来创建一个简单的store.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">export default new Vue.store(&#123;</span><br><span class="line">	state: &#123; user:&#123;&#125; &#125;,</span><br><span class="line">	mutations: &#123;&#125;,</span><br><span class="line">	getters: &#123;</span><br><span class="line">		user: (state) =&gt; &#123;</span><br><span class="line">			return state.user;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>这样就创建了一个简单的store.其中.state是我们用来保存数据的变量.getters是我们用来获取数据的方法.</p>
-<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><p>这里的state是一个共有的状态.类似于变量的仓库.但是如果变量多了.这个值就显得非常庞大.这里,我们要将其单独的独立出来.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">export default &#123;</div><div class="line">	user: &#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<h3 id="getters"><a href="#getters" class="headerlink" title="getters"></a>getters</h3><p>在用vuex的时候,我们经常要使用this.$store.state来获取具体的状态值.而我们要每次去获取一次值的时候.难道都要写这么长一串么.还好vuex给我们提供了一些获取值的getter.就来封装一下成独立的文件.store/getters.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export const user = (state) =&gt; state.user;</div></pre></td></tr></table></figure></p>
-<p>这里我们就封装好了一个getter.这里的意思是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">export const user = function(state)&#123;</div><div class="line">	return state.user;</div><div class="line">&#125;.bind(this);</div></pre></td></tr></table></figure></p>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><p>这里的state是一个共有的状态.类似于变量的仓库.但是如果变量多了.这个值就显得非常庞大.这里,我们要将其单独的独立出来.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line">	user: &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="getters"><a href="#getters" class="headerlink" title="getters"></a>getters</h3><p>在用vuex的时候,我们经常要使用this.$store.state来获取具体的状态值.而我们要每次去获取一次值的时候.难道都要写这么长一串么.还好vuex给我们提供了一些获取值的getter.就来封装一下成独立的文件.store/getters.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export const user = (state) =&gt; state.user;</span><br></pre></td></tr></table></figure></p>
+<p>这里我们就封装好了一个getter.这里的意思是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export const user = function(state)&#123;</span><br><span class="line">	return state.user;</span><br><span class="line">&#125;.bind(this);</span><br></pre></td></tr></table></figure></p>
 <p>这样就懂了哈.我们这个就是一个单独的文件,到时只需要按需引入即可.</p>
-<h3 id="mutations"><a href="#mutations" class="headerlink" title="mutations"></a>mutations</h3><p>mutations是我们用来设置state的值的.这里我们直接将其独立出来,封装成一个单独的文件.<br>store/mutations.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">export default &#123;</div><div class="line">	set_user : (state,user) =&gt; &#123;</div><div class="line">		state.user = user;</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="mutations"><a href="#mutations" class="headerlink" title="mutations"></a>mutations</h3><p>mutations是我们用来设置state的值的.这里我们直接将其独立出来,封装成一个单独的文件.<br>store/mutations.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line">	set_user : (state,user) =&gt; &#123;</span><br><span class="line">		state.user = user;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 <p>actions这里也可以这么封装.</p>
-<h3 id="修改store"><a href="#修改store" class="headerlink" title="修改store"></a>修改store</h3><p>我们这里封装好了成为了一个独立的文件.这里,我们就将这里文件引入即可.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">----- store/index.js -----</div><div class="line">import Vue from &apos;vue&apos;;</div><div class="line">import Vuex from  &apos;vuex&apos;;</div><div class="line"></div><div class="line">import * as getters from &apos;./getters&apos;;</div><div class="line">import * as actions from &apos;./actions&apos;;</div><div class="line">import state from &apos;./state&apos;;</div><div class="line">import mutations from &apos;./mutations&apos;;</div><div class="line"></div><div class="line">Vue.use(Vuex);</div><div class="line"></div><div class="line">export default new Vuex.Store(&#123;</div><div class="line">	getters,</div><div class="line">	state,</div><div class="line">	actions,</div><div class="line">	mutations</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h3 id="vuex语法糖"><a href="#vuex语法糖" class="headerlink" title="vuex语法糖"></a>vuex语法糖</h3><p>语法糖只是为了我们方便调用vuex的一些基本操作.例如获取数据.设置数据等.以下是一个例子.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">import &#123;mapMutations,mapGetters,mapActions&#125; from &apos;vuex&apos;;</div><div class="line">export default &#123;</div><div class="line">	name: &apos;example&apos;,</div><div class="line">	created()&#123;</div><div class="line">		// 设置用户</div><div class="line">		this.setUser(&#123;&apos;name&apos;:&apos;user&apos;&#125;);</div><div class="line">		// 获取用户</div><div class="line">		this.user;</div><div class="line">	&#125;,</div><div class="line">	methods: &#123;</div><div class="line">		...mapMutations(&#123;</div><div class="line">			setUser: &apos;set_user&apos;</div><div class="line">		&#125;)</div><div class="line">	&#125;,</div><div class="line">	computed: &#123;</div><div class="line">		...mapGetters(</div><div class="line">			[&apos;user&apos;]</div><div class="line">		)</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="修改store"><a href="#修改store" class="headerlink" title="修改store"></a>修改store</h3><p>我们这里封装好了成为了一个独立的文件.这里,我们就将这里文件引入即可.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">----- store/index.js -----</span><br><span class="line">import Vue from &apos;vue&apos;;</span><br><span class="line">import Vuex from  &apos;vuex&apos;;</span><br><span class="line"></span><br><span class="line">import * as getters from &apos;./getters&apos;;</span><br><span class="line">import * as actions from &apos;./actions&apos;;</span><br><span class="line">import state from &apos;./state&apos;;</span><br><span class="line">import mutations from &apos;./mutations&apos;;</span><br><span class="line"></span><br><span class="line">Vue.use(Vuex);</span><br><span class="line"></span><br><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">	getters,</span><br><span class="line">	state,</span><br><span class="line">	actions,</span><br><span class="line">	mutations</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="vuex语法糖"><a href="#vuex语法糖" class="headerlink" title="vuex语法糖"></a>vuex语法糖</h3><p>语法糖只是为了我们方便调用vuex的一些基本操作.例如获取数据.设置数据等.以下是一个例子.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import &#123;mapMutations,mapGetters,mapActions&#125; from &apos;vuex&apos;;</span><br><span class="line">export default &#123;</span><br><span class="line">	name: &apos;example&apos;,</span><br><span class="line">	created()&#123;</span><br><span class="line">		// 设置用户</span><br><span class="line">		this.setUser(&#123;&apos;name&apos;:&apos;user&apos;&#125;);</span><br><span class="line">		// 获取用户</span><br><span class="line">		this.user;</span><br><span class="line">	&#125;,</span><br><span class="line">	methods: &#123;</span><br><span class="line">		...mapMutations(&#123;</span><br><span class="line">			setUser: &apos;set_user&apos;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;,</span><br><span class="line">	computed: &#123;</span><br><span class="line">		...mapGetters(</span><br><span class="line">			[&apos;user&apos;]</span><br><span class="line">		)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 <p>至于为什么要将mapGetters放到computed计算属性上.引入计算属性是实时变化的.只要检测到内存变化就会更新.如果放在data上.就不会将这种变化映射到全局.</p>
 
       
@@ -326,7 +327,7 @@
   
 
   
-  <div id="SOHUCS" sid="vuex进阶" ></div> 
+  <div id="SOHUCS" sid="vuex进阶"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -441,11 +442,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -457,15 +458,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -509,11 +514,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -525,6 +530,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -533,19 +542,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -553,7 +558,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

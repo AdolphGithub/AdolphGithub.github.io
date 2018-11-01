@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>socket学习之旅-4使用workerman做mysql代理 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,8 +15,9 @@
 <meta property="og:url" content="http://www.blogme.club/2017/08/05/socket学习之旅-4使用workerman做mysql代理/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="有这样一应用场景,我们有两台服务器,一台web服务器对外公开,一台mysql服务器,不对外公开,当我们写代码的时候有需要去链接mysql服务器.这时有很多种做法,作端口映射,等等.当然,我们程序员又不是运维,所以我这里介绍一种,使用workerman作mysql代理.完成mysql中间件.">
+<meta property="og:locale" content="default">
 <meta property="og:image" content="http://www.blogme.club/socket/mysqltcp.png">
-<meta property="og:updated_time" content="2017-08-05T09:23:18.039Z">
+<meta property="og:updated_time" content="2017-08-05T09:23:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="socket学习之旅-4使用workerman做mysql代理">
 <meta name="twitter:description" content="有这样一应用场景,我们有两台服务器,一台web服务器对外公开,一台mysql服务器,不对外公开,当我们写代码的时候有需要去链接mysql服务器.这时有很多种做法,作端口映射,等等.当然,我们程序员又不是运维,所以我这里介绍一种,使用workerman作mysql代理.完成mysql中间件.">
@@ -39,7 +40,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -156,7 +157,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-socket学习之旅-4使用workerman做mysql代理" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-socket学习之旅-4使用workerman做mysql代理" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -177,10 +178,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>有这样一应用场景,我们有两台服务器,一台web服务器对外公开,一台mysql服务器,不对外公开,当我们写代码的时候有需要去链接mysql服务器.这时有很多种做法,作端口映射,等等.当然,我们程序员又不是运维,所以我这里介绍一种,使用workerman作mysql代理.完成mysql中间件.<br><a id="more"></a></p>
-<h4 id="搭建基本的tcp服务端"><a href="#搭建基本的tcp服务端" class="headerlink" title="搭建基本的tcp服务端"></a>搭建基本的tcp服务端</h4><p>我们链接mysql的时候有多种协议,具体的根据百度搜索,我这里主要通过使用tcp协议来完成mysql的代理.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">require_once &apos;../vendor/autoload.php&apos;;</div><div class="line"></div><div class="line">$worker = new \Workerman\Worker(&apos;tcp://127.0.0.1:9096&apos;);</div><div class="line">// 进程数.</div><div class="line">$worker-&gt;count = 4;</div><div class="line">// 当我们链接的时候.</div><div class="line">$worker-&gt;onConnect = function($connection)&#123;</div><div class="line">    echo &apos;new connection&apos;;</div><div class="line">&#125;;</div><div class="line">// 获得消息时.</div><div class="line">$worker-&gt;onMessage = function($connection,$data)&#123;</div><div class="line">    echo $data;</div><div class="line">&#125;;</div><div class="line">// 执行我们的客户端.</div><div class="line">\Workerman\Worker::runAll();</div></pre></td></tr></table></figure></p>
-<p>这里是最基本的服务端,我们使用adminer.php来链接我们的这个服务端.当我们尝试用adminer.php去链接的时候网页一直在等待中,如下图所示<br><img src="http://www.blogme.club/socket/mysqltcp.png" alt="mysql" title="mysql"><br>同时,我们的控制台会出现以下信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">adolph@adolph:/var/www/example/socket$ php server.php start</div><div class="line">Workerman[server.php] start in DEBUG mode</div><div class="line">----------------------- WORKERMAN -----------------------------</div><div class="line">Workerman version:3.4.6          PHP version:7.0.18-0ubuntu0.16.04.1</div><div class="line">------------------------ WORKERS -------------------------------</div><div class="line">user          worker        listen                processes status</div><div class="line">adolph        none          tcp://127.0.0.1:9096   4         [OK] </div><div class="line">----------------------------------------------------------------</div><div class="line">Press Ctrl-C to quit. Start success.</div><div class="line">new connection</div></pre></td></tr></table></figure></p>
-<p>说明我们是连上了服务,但是我们的服务端没有给出正确的响应,即没有给出正确的<a href="http://www.cnblogs.com/davygeek/p/5647175.html" target="_blank" rel="external">mysql报文</a>.所以网页一直在等待.</p>
-<h4 id="连接mysql"><a href="#连接mysql" class="headerlink" title="连接mysql"></a>连接mysql</h4><p>有兴趣的可以去研究一下mysql的报文,我这里先用最基本的异步链接,将发到我们tcp服务器的报文发送到数据库服务器上,然后将数据库服务器的结果返回给web服务器即可.以下是修正过后的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">require_once &apos;../vendor/autoload.php&apos;;</div><div class="line"></div><div class="line">$worker = new \Workerman\Worker(&apos;tcp://127.0.0.1:9096&apos;);</div><div class="line">// 进程数.</div><div class="line">$worker-&gt;count = 4;</div><div class="line">// 当我们链接的时候.</div><div class="line">$worker-&gt;onConnect = function($connection)&#123;</div><div class="line">    echo &apos;new connection&apos;;</div><div class="line">    // 异步链接到mysql服务器上.</div><div class="line">    $mysql_connection = new \Workerman\Connection\AsyncTcpConnection(&apos;tcp://127.0.0.1:3306&apos;);</div><div class="line">    // 链接.</div><div class="line">    $mysql_connection-&gt;connect();</div><div class="line">    // 将mysql服务器发送的消息返回到我们的tcp服务器上,由tcp返回到web服务器。</div><div class="line">    $mysql_connection-&gt;onMessage = function($mysql,$data)use($connection)&#123;</div><div class="line">        $connection-&gt;send($data);</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    // 将web服务器发送给我们的消息转发到mysql服务器上.</div><div class="line">    $connection-&gt;onMessage = function($worker,$data)use($mysql_connection)&#123;</div><div class="line">        $mysql_connection-&gt;send($data);</div><div class="line">    &#125;;</div><div class="line">&#125;;</div><div class="line">// 执行我们的客户端.</div><div class="line">\Workerman\Worker::runAll();</div></pre></td></tr></table></figure></p>
+<h4 id="搭建基本的tcp服务端"><a href="#搭建基本的tcp服务端" class="headerlink" title="搭建基本的tcp服务端"></a>搭建基本的tcp服务端</h4><p>我们链接mysql的时候有多种协议,具体的根据百度搜索,我这里主要通过使用tcp协议来完成mysql的代理.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">require_once &apos;../vendor/autoload.php&apos;;</span><br><span class="line"></span><br><span class="line">$worker = new \Workerman\Worker(&apos;tcp://127.0.0.1:9096&apos;);</span><br><span class="line">// 进程数.</span><br><span class="line">$worker-&gt;count = 4;</span><br><span class="line">// 当我们链接的时候.</span><br><span class="line">$worker-&gt;onConnect = function($connection)&#123;</span><br><span class="line">    echo &apos;new connection&apos;;</span><br><span class="line">&#125;;</span><br><span class="line">// 获得消息时.</span><br><span class="line">$worker-&gt;onMessage = function($connection,$data)&#123;</span><br><span class="line">    echo $data;</span><br><span class="line">&#125;;</span><br><span class="line">// 执行我们的客户端.</span><br><span class="line">\Workerman\Worker::runAll();</span><br></pre></td></tr></table></figure></p>
+<p>这里是最基本的服务端,我们使用adminer.php来链接我们的这个服务端.当我们尝试用adminer.php去链接的时候网页一直在等待中,如下图所示<br><img src="http://www.blogme.club/socket/mysqltcp.png" alt="mysql" title="mysql"><br>同时,我们的控制台会出现以下信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">adolph@adolph:/var/www/example/socket$ php server.php start</span><br><span class="line">Workerman[server.php] start in DEBUG mode</span><br><span class="line">----------------------- WORKERMAN -----------------------------</span><br><span class="line">Workerman version:3.4.6          PHP version:7.0.18-0ubuntu0.16.04.1</span><br><span class="line">------------------------ WORKERS -------------------------------</span><br><span class="line">user          worker        listen                processes status</span><br><span class="line">adolph        none          tcp://127.0.0.1:9096   4         [OK] </span><br><span class="line">----------------------------------------------------------------</span><br><span class="line">Press Ctrl-C to quit. Start success.</span><br><span class="line">new connection</span><br></pre></td></tr></table></figure></p>
+<p>说明我们是连上了服务,但是我们的服务端没有给出正确的响应,即没有给出正确的<a href="http://www.cnblogs.com/davygeek/p/5647175.html" target="_blank" rel="noopener">mysql报文</a>.所以网页一直在等待.</p>
+<h4 id="连接mysql"><a href="#连接mysql" class="headerlink" title="连接mysql"></a>连接mysql</h4><p>有兴趣的可以去研究一下mysql的报文,我这里先用最基本的异步链接,将发到我们tcp服务器的报文发送到数据库服务器上,然后将数据库服务器的结果返回给web服务器即可.以下是修正过后的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">require_once &apos;../vendor/autoload.php&apos;;</span><br><span class="line"></span><br><span class="line">$worker = new \Workerman\Worker(&apos;tcp://127.0.0.1:9096&apos;);</span><br><span class="line">// 进程数.</span><br><span class="line">$worker-&gt;count = 4;</span><br><span class="line">// 当我们链接的时候.</span><br><span class="line">$worker-&gt;onConnect = function($connection)&#123;</span><br><span class="line">    echo &apos;new connection&apos;;</span><br><span class="line">    // 异步链接到mysql服务器上.</span><br><span class="line">    $mysql_connection = new \Workerman\Connection\AsyncTcpConnection(&apos;tcp://127.0.0.1:3306&apos;);</span><br><span class="line">    // 链接.</span><br><span class="line">    $mysql_connection-&gt;connect();</span><br><span class="line">    // 将mysql服务器发送的消息返回到我们的tcp服务器上,由tcp返回到web服务器。</span><br><span class="line">    $mysql_connection-&gt;onMessage = function($mysql,$data)use($connection)&#123;</span><br><span class="line">        $connection-&gt;send($data);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    // 将web服务器发送给我们的消息转发到mysql服务器上.</span><br><span class="line">    $connection-&gt;onMessage = function($worker,$data)use($mysql_connection)&#123;</span><br><span class="line">        $mysql_connection-&gt;send($data);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">// 执行我们的客户端.</span><br><span class="line">\Workerman\Worker::runAll();</span><br></pre></td></tr></table></figure></p>
 <p>然后我们通过客户端adminer.php即可正常访问我们的mysql.</p>
 
       
@@ -322,7 +323,7 @@
   
 
   
-  <div id="SOHUCS" sid="socket学习之旅-4使用workerman做mysql代理" ></div> 
+  <div id="SOHUCS" sid="socket学习之旅-4使用workerman做mysql代理"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -437,11 +438,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -453,15 +454,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -505,11 +510,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,6 +526,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -529,19 +538,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -549,7 +554,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>php-适配器模式 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/05/23/php-适配器模式/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="我们有个卖书的商城，电子书，PDF等等。每个书籍呢，都有一个打开，下一页和获取页数的方法。按照程序员的思路，我们就会创建一个接口，或者是一个父类。我就用接口的方法来吧。">
-<meta property="og:updated_time" content="2017-05-23T14:20:42.811Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-05-23T14:20:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php-适配器模式">
 <meta name="twitter:description" content="我们有个卖书的商城，电子书，PDF等等。每个书籍呢，都有一个打开，下一页和获取页数的方法。按照程序员的思路，我们就会创建一个接口，或者是一个父类。我就用接口的方法来吧。">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-php-适配器模式" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-php-适配器模式" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -174,11 +175,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我们有个卖书的商城，电子书，PDF等等。每个书籍呢，都有一个打开，下一页和获取页数的方法。按照程序员的思路，我们就会创建一个接口，或者是一个父类。我就用接口的方法来吧。<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">interface BookInterface&#123;</div><div class="line">	// 下一页.</div><div class="line">    public function turnPage();</div><div class="line">    // 打开一本书.</div><div class="line">    public function open();</div><div class="line">    // 获取当前页数.</div><div class="line">    public function getPage();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>只要每一种类型的书集成了这个接口，就可以调用得到这个方法，以下是我实现的一个实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">class Book implements BookInterface&#123;</div><div class="line">    private $page;</div><div class="line"></div><div class="line">    // 获取当前页数.</div><div class="line">    public function getPage()</div><div class="line">    &#123;</div><div class="line">        return $this-&gt;page;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 打开一篇文章.</div><div class="line">    public function open()</div><div class="line">    &#123;</div><div class="line">        $this-&gt;page = 1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 下一页.</div><div class="line">    public function turnPage()</div><div class="line">    &#123;</div><div class="line">        $this-&gt;page++;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>某一天，比如书籍的供应商来找我们合作，他们公司的书籍的方法呢叫getPage(),unlock(),pressNext(),他们用原来的业务调用我们的接口肯定不行，于是乎，我们就在原来的Book的书籍类中加入这几个方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">class Book implements BookInterface&#123;</div><div class="line">    private $page;</div><div class="line"></div><div class="line">    // 获取当前页数.</div><div class="line">    public function getPage()</div><div class="line">    &#123;</div><div class="line">        return $this-&gt;page;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 打开一篇文章.</div><div class="line">    public function open()</div><div class="line">    &#123;</div><div class="line">        $this-&gt;page = 1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 下一页.</div><div class="line">    public function turnPage()</div><div class="line">    &#123;</div><div class="line">        $this-&gt;page++;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">   	public function pressNext()&#123;</div><div class="line">   		$this-&gt;page++;</div><div class="line">   	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>如果我们的书籍类特别多，比如武侠类的书籍，其他类的书籍，就一个书籍类我都不想加。如果再有其他公司过来合作，那岂不是要搞死程序员，所以我们要通过其他的方式来搞定，这就是适配器。我们增加一个适配器,来应对这个比如叫Ebook;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">class Kindle implements EBookInterface</div><div class="line">&#123;</div><div class="line">    private $totalPages=100;</div><div class="line"></div><div class="line">    private $page=1;</div><div class="line"></div><div class="line">    public function getPage()</div><div class="line">    &#123;</div><div class="line">        return [$this-&gt;page,$this-&gt;totalPages];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public function pressNext()</div><div class="line">    &#123;</div><div class="line">        $this-&gt;page++;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public function unlock()</div><div class="line">    &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class EBookAdapter</div><div class="line">&#123;</div><div class="line">    private $eBook;</div><div class="line"></div><div class="line">    public function __construct($ebook)</div><div class="line">    &#123;</div><div class="line">        $this-&gt;eBook = $ebook;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public function turnPage()</div><div class="line">    &#123;</div><div class="line">        $this-&gt;eBook-&gt;pressNext();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public function open()</div><div class="line">    &#123;</div><div class="line">        $this-&gt;eBook-&gt;unlock();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public function getPage()</div><div class="line">    &#123;</div><div class="line">        return $this-&gt;eBook-&gt;getPage()[0];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>如果有其他公司过来，我们只需要增加适配器即可。是不是特别方便。<br>以上参考例子,来自于<a href="http://designpatternsphp.readthedocs.io/zh_CN/latest/Structural/Adapter/README.html" target="_blank" rel="external">设计模式</a></p>
+        <p>我们有个卖书的商城，电子书，PDF等等。每个书籍呢，都有一个打开，下一页和获取页数的方法。按照程序员的思路，我们就会创建一个接口，或者是一个父类。我就用接口的方法来吧。<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">interface BookInterface&#123;</span><br><span class="line">	// 下一页.</span><br><span class="line">    public function turnPage();</span><br><span class="line">    // 打开一本书.</span><br><span class="line">    public function open();</span><br><span class="line">    // 获取当前页数.</span><br><span class="line">    public function getPage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>只要每一种类型的书集成了这个接口，就可以调用得到这个方法，以下是我实现的一个实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Book implements BookInterface&#123;</span><br><span class="line">    private $page;</span><br><span class="line"></span><br><span class="line">    // 获取当前页数.</span><br><span class="line">    public function getPage()</span><br><span class="line">    &#123;</span><br><span class="line">        return $this-&gt;page;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 打开一篇文章.</span><br><span class="line">    public function open()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;page = 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 下一页.</span><br><span class="line">    public function turnPage()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;page++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>某一天，比如书籍的供应商来找我们合作，他们公司的书籍的方法呢叫getPage(),unlock(),pressNext(),他们用原来的业务调用我们的接口肯定不行，于是乎，我们就在原来的Book的书籍类中加入这几个方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Book implements BookInterface&#123;</span><br><span class="line">    private $page;</span><br><span class="line"></span><br><span class="line">    // 获取当前页数.</span><br><span class="line">    public function getPage()</span><br><span class="line">    &#123;</span><br><span class="line">        return $this-&gt;page;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 打开一篇文章.</span><br><span class="line">    public function open()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;page = 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 下一页.</span><br><span class="line">    public function turnPage()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;page++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">   	public function pressNext()&#123;</span><br><span class="line">   		$this-&gt;page++;</span><br><span class="line">   	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果我们的书籍类特别多，比如武侠类的书籍，其他类的书籍，就一个书籍类我都不想加。如果再有其他公司过来合作，那岂不是要搞死程序员，所以我们要通过其他的方式来搞定，这就是适配器。我们增加一个适配器,来应对这个比如叫Ebook;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">class Kindle implements EBookInterface</span><br><span class="line">&#123;</span><br><span class="line">    private $totalPages=100;</span><br><span class="line"></span><br><span class="line">    private $page=1;</span><br><span class="line"></span><br><span class="line">    public function getPage()</span><br><span class="line">    &#123;</span><br><span class="line">        return [$this-&gt;page,$this-&gt;totalPages];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function pressNext()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;page++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function unlock()</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class EBookAdapter</span><br><span class="line">&#123;</span><br><span class="line">    private $eBook;</span><br><span class="line"></span><br><span class="line">    public function __construct($ebook)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;eBook = $ebook;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function turnPage()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;eBook-&gt;pressNext();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function open()</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;eBook-&gt;unlock();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function getPage()</span><br><span class="line">    &#123;</span><br><span class="line">        return $this-&gt;eBook-&gt;getPage()[0];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果有其他公司过来，我们只需要增加适配器即可。是不是特别方便。<br>以上参考例子,来自于<a href="http://designpatternsphp.readthedocs.io/zh_CN/latest/Structural/Adapter/README.html" target="_blank" rel="noopener">设计模式</a></p>
 
       
 
@@ -319,7 +320,7 @@
   
 
   
-  <div id="SOHUCS" sid="php-适配器模式" ></div> 
+  <div id="SOHUCS" sid="php-适配器模式"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -434,11 +435,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -450,15 +451,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -502,11 +507,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -518,6 +523,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -526,19 +535,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -546,7 +551,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

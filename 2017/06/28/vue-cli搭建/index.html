@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>vue-cli搭建 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -15,7 +15,8 @@
 <meta property="og:url" content="http://www.blogme.club/2017/06/28/vue-cli搭建/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="vue-cli在日常的开发中，前后端分离。往往大型项目都会使用到vue+webpack+express来搭建前端的服务器环境。同时，也会将代码进行压缩。这个时候，我们需要的就是更加的快速开发webapp应用了。这里我将介绍如果通过vue-cli来搭建我们的前端项目环境。">
-<meta property="og:updated_time" content="2017-06-28T05:56:50.072Z">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-06-28T05:56:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue-cli搭建">
 <meta name="twitter:description" content="vue-cli在日常的开发中，前后端分离。往往大型项目都会使用到vue+webpack+express来搭建前端的服务器环境。同时，也会将代码进行压缩。这个时候，我们需要的就是更加的快速开发webapp应用了。这里我将介绍如果通过vue-cli来搭建我们的前端项目环境。">
@@ -37,7 +38,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -154,7 +155,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-vue-cli搭建" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-vue-cli搭建" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -175,12 +176,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="vue-cli"><a href="#vue-cli" class="headerlink" title="vue-cli"></a>vue-cli</h3><p>在日常的开发中，前后端分离。往往大型项目都会使用到vue+webpack+express来搭建前端的服务器环境。同时，也会将代码进行压缩。这个时候，我们需要的就是更加的快速开发webapp应用了。这里我将介绍如果通过vue-cli来搭建我们的前端项目环境。<br><a id="more"></a></p>
-<h4 id="1-安装vue-cli"><a href="#1-安装vue-cli" class="headerlink" title="1 安装vue-cli"></a>1 安装vue-cli</h4><p>首先，我们要清楚vue的安装方式有几种.第一种,使用script标签，将vue直接引入进来。这种方式，简单而有快速，但是对我们想使用其他的vue扩展包，无法进行一个更好的管理，这个时候，vue官方推荐使用vue-cli来搭建。<br>首先，搭建环境需要nodejs,并且nodejs的版本最好是最新的。如果不知道nodejs如何安装，请查看<a href="https://adolphgithub.github.io/2017/05/11/hexo搭建博客/" target="_blank" rel="external">hexo博客搭建</a>。这里我们先安装vue-cli<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g vue-cli</div></pre></td></tr></table></figure></p>
+<h4 id="1-安装vue-cli"><a href="#1-安装vue-cli" class="headerlink" title="1 安装vue-cli"></a>1 安装vue-cli</h4><p>首先，我们要清楚vue的安装方式有几种.第一种,使用script标签，将vue直接引入进来。这种方式，简单而有快速，但是对我们想使用其他的vue扩展包，无法进行一个更好的管理，这个时候，vue官方推荐使用vue-cli来搭建。<br>首先，搭建环境需要nodejs,并且nodejs的版本最好是最新的。如果不知道nodejs如何安装，请查看<a href="https://adolphgithub.github.io/2017/05/11/hexo搭建博客/" target="_blank" rel="noopener">hexo博客搭建</a>。这里我们先安装vue-cli<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g vue-cli</span><br></pre></td></tr></table></figure></p>
 <p>一段话就搞定。</p>
-<h4 id="2-初始化自己的vue项目"><a href="#2-初始化自己的vue项目" class="headerlink" title="2 初始化自己的vue项目"></a>2 初始化自己的vue项目</h4><p>下载好vue-cli后，会自动的注册一个命令vue,使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vue init webpack 项目名</div></pre></td></tr></table></figure></p>
+<h4 id="2-初始化自己的vue项目"><a href="#2-初始化自己的vue项目" class="headerlink" title="2 初始化自己的vue项目"></a>2 初始化自己的vue项目</h4><p>下载好vue-cli后，会自动的注册一个命令vue,使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue init webpack 项目名</span><br></pre></td></tr></table></figure></p>
 <p>就开始初始化自己的项目了。</p>
-<h4 id="3-参数简介"><a href="#3-参数简介" class="headerlink" title="3 参数简介"></a>3 参数简介</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Project name:    // 项目名</div><div class="line">Project description: 	// 项目描述</div><div class="line">Author:	// 作者</div><div class="line">Vue build:	// 打包方式</div><div class="line">Install vue-router?	// 是否安装vue-router</div><div class="line">Use ESLint to lint your code? // 是否使用ESLint 代码约束</div></pre></td></tr></table></figure>
-<h4 id="4-运行"><a href="#4-运行" class="headerlink" title="4 运行"></a>4 运行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm run dev</div></pre></td></tr></table></figure>
+<h4 id="3-参数简介"><a href="#3-参数简介" class="headerlink" title="3 参数简介"></a>3 参数简介</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Project name:    // 项目名</span><br><span class="line">Project description: 	// 项目描述</span><br><span class="line">Author:	// 作者</span><br><span class="line">Vue build:	// 打包方式</span><br><span class="line">Install vue-router?	// 是否安装vue-router</span><br><span class="line">Use ESLint to lint your code? // 是否使用ESLint 代码约束</span><br></pre></td></tr></table></figure>
+<h4 id="4-运行"><a href="#4-运行" class="headerlink" title="4 运行"></a>4 运行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
 <p>如果运行不了，请查看端口是否占用.请修改 项目目录/config/index.js 下的dev:port端口<br>访问请使用localhost:8080,如果修改了端口号，请使用修改的端口号即可</p>
 
       
@@ -322,7 +323,7 @@
   
 
   
-  <div id="SOHUCS" sid="vue-cli搭建" ></div> 
+  <div id="SOHUCS" sid="vue-cli搭建"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -437,11 +438,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -453,15 +454,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -505,11 +510,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,6 +526,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
@@ -529,19 +538,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
               </li>
             
             <div class="clearfix"></div>
@@ -549,7 +554,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:
