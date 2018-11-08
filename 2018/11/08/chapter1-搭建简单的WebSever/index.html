@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Tag: php 设计模式 | adolph blog</title>
+  <title>chapter1-搭建简单的WebSever | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/tags/php-设计模式/index.html">
+  <meta name="description" content="由于自学了C过后,没有什么实际项目可用来操作.所以就有了该项目.用C编写的一个简单的http服务器,在linux下搭建.在创建server之前我们要先简单了解一下http协议.简单来说,就是通过你的ip地址+端口来访问你的数据.既然是ip+端口,就直接监听端口就可以了.在linux下的API就有这样的接口.">
+<meta name="keywords" content="C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chapter1-搭建简单的WebSever">
+<meta property="og:url" content="http://www.blogme.club/2018/11/08/chapter1-搭建简单的WebSever/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="由于自学了C过后,没有什么实际项目可用来操作.所以就有了该项目.用C编写的一个简单的http服务器,在linux下搭建.在创建server之前我们要先简单了解一下http协议.简单来说,就是通过你的ip地址+端口来访问你的数据.既然是ip+端口,就直接监听端口就可以了.在linux下的API就有这样的接口.">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-08T01:56:54.167Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="chapter1-搭建简单的WebSever">
+<meta name="twitter:description" content="由于自学了C过后,没有什么实际项目可用来操作.所以就有了该项目.用C编写的一个简单的http服务器,在linux下搭建.在创建server之前我们要先简单了解一下http协议.简单来说,就是通过你的ip地址+端口来访问你的数据.既然是ip+端口,就直接监听端口就可以了.在linux下的API就有这样的接口.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -150,136 +155,180 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-chapter1-搭建简单的WebSever" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      chapter1-搭建简单的WebSever
+    </h1>
+  
+
+        
+        <a href="/2018/11/08/chapter1-搭建简单的WebSever/" class="archive-article-date">
+  	<time datetime="2018-11-08T01:52:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-08</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>由于自学了C过后,没有什么实际项目可用来操作.所以就有了该项目.用C编写的一个简单的http服务器,在linux下搭建.在创建server之前我们要先简单了解一下http协议.简单来说,就是通过你的ip地址+端口来访问你的数据.既然是ip+端口,就直接监听端口就可以了.在linux下的API就有这样的接口.<br><a id="more"></a></p>
+<h4 id="创建socket"><a href="#创建socket" class="headerlink" title="创建socket"></a>创建socket</h4><p>在开始之前是不是我们要先创建一个socket.引入两个库<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;types.h&gt;</span></span></span><br><span class="line"><span class="meta">#inlcude <span class="meta-string">&lt;socket.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> sockfd = socket(AF_INET,SOCK_STREAM,<span class="number">0</span>);</span><br></pre></td></tr></table></figure></p>
+<p>这样就创建了一个以IPV4网络协议为准的tcp链接.<br>socket的第一个参数是地址类型.常用的如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AF_INET Ipv4网络协议</span><br><span class="line">AF_INET6 Ipv6 网络协议</span><br><span class="line">AF_UNIX UNIX 进程通信协议</span><br></pre></td></tr></table></figure></p>
+<p>第二个参数.为链接类型.例如SOCK_STREAM为双向的TCP链接类型😁.下面的是几个基本的值.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SOCK_STREAM 提供双向连续且可信赖的数据流，即TCP。支持OOB 机制，在所有数据传送前必须使用connect()来建立连线状态。</span><br><span class="line">SOCK_DGRAM 使用不连续不可信赖的数据包连接</span><br><span class="line">SOCK_SEQPACKET 提供连续可信赖的数据包连接</span><br><span class="line">SOCK_RAW 提供原始网络协议存取</span><br><span class="line">SOCK_RDM 提供可信赖的数据包连接</span><br><span class="line">SOCK_PACKET 提供和网络驱动程序直接通信。</span><br></pre></td></tr></table></figure></p>
+<p>最后一个基本上都是0,是用来指定socket所使用的传输协议编号.创建好socket过后.就可以开始绑定地址和端口了.</p>
+<h4 id="绑定端口和地址"><a href="#绑定端口和地址" class="headerlink" title="绑定端口和地址"></a>绑定端口和地址</h4><p>http协议是通过地址+端口来访问我们的资源.http协议是建立在tcp协议上面,tcp实现http协议的解析.所以http协议就是应用层.我们先来绑定端口.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">addr</span>;</span></span><br><span class="line"><span class="comment">// 分配地址.</span></span><br><span class="line"><span class="built_in">memset</span>(&amp;addr,<span class="number">0</span>,<span class="keyword">sizeof</span>(addr));</span><br><span class="line"><span class="comment">// 访问类型.</span></span><br><span class="line">addr.sin_family = AF_INET;</span><br><span class="line"><span class="comment">// 端口号.</span></span><br><span class="line">addr.sin_port = htons(atoi(argv[<span class="number">1</span>]));</span><br><span class="line"><span class="comment">// 允许任何地址访问.</span></span><br><span class="line">addr.sin_addr.s_addr = INADDR_ANY;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> len = <span class="keyword">sizeof</span>(addr);</span><br><span class="line"><span class="comment">// 绑定端口</span></span><br><span class="line">bind(sockfd,(struct sockaddr *)&amp;addr,len);</span><br></pre></td></tr></table></figure></p>
+<p>这样就绑定了一个端口了.剩下就是监听端口信息.</p>
+<h4 id="监听端口信息"><a href="#监听端口信息" class="headerlink" title="监听端口信息"></a>监听端口信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if(listen(sockfd,128) != 0)&#123;</span><br><span class="line">	fprintf(stderr,&quot;listen socket fail,error: %s\n&quot;,strerror(errno));</span><br><span class="line">	exit(1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为撒要监听端口.如果不监听端口信息,那别人访问过来,你肿么知道别人在访问呢.😂</p>
+<h4 id="监听访问"><a href="#监听访问" class="headerlink" title="监听访问"></a>监听访问</h4><p>由于是提供服务的http server,我们肯定要常驻内存一直监听信息了哈.我们这里用简单的死循环来处理.while(1).<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">	<span class="comment">// 用来保存客户端的ip和端口等信息.</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">client_addr</span>;</span></span><br><span class="line">	<span class="keyword">char</span> buffer[<span class="number">500</span>]; <span class="comment">// 用来保存客户端发送的http头信息.</span></span><br><span class="line">	<span class="keyword">int</span> c_len = <span class="keyword">sizeof</span>(client_addr);</span><br><span class="line">	<span class="comment">// 获取客户端的请求.</span></span><br><span class="line">	<span class="keyword">int</span> clientfd = accept(sockfd,(struct sockaddr *)&amp;client_addr,&amp;c_len);</span><br><span class="line">	<span class="comment">// 如果客户端获取不了信息,就直接退出.</span></span><br><span class="line">	<span class="keyword">if</span>(clientfd &lt; <span class="number">0</span>)&#123;</span><br><span class="line">	    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>,<span class="string">"Receive data fail,error:%s\n"</span>,strerror(errno));</span><br><span class="line">	    <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 读取客户端的信息.</span></span><br><span class="line">	<span class="keyword">if</span>(read(clientfd,buffer,<span class="number">500</span>) &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">	    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>,<span class="string">"read data fail,error: %s\n"</span>,strerror(errno));</span><br><span class="line">	    <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 把获取的http信息给打印出来.</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>,buffer);</span><br><span class="line">	<span class="comment">// 关闭客户端的请求.正常的情况是我们要发送一个响应过去.</span></span><br><span class="line">	shutdown(clientfd,<span class="number">2</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"finished;\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样我们就能监听简单的http协议并为实现解析.</p>
+<h4 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h4><p><a href="https://github.com/AdolphGithub/server/tree/master/chapter-1" target="_blank" rel="noopener">源码地址</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/23/php-适配器模式/" class="archive-article-date">
-  	<time datetime="2017-05-23T14:18:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/23/php-适配器模式/">php-适配器模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php 设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">C</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2018/11/08/chapter1-搭建简单的WebSever/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/20/php-工厂模式2/" class="archive-article-date">
-  	<time datetime="2017-05-20T07:50:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-20</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/20/php-工厂模式2/">工厂模式2 - 数据中心模式，狗和书一起卖</a>
-    </h1>
+  
+    <a href="/2018/11/02/rgba颜色值提取/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">rgba颜色值提取</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php 设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/20/php-工厂模式1/" class="archive-article-date">
-  	<time datetime="2017-05-20T07:33:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/20/php-工厂模式1/">工厂模式-程序员,书,和狗</a>
-    </h1>
+  <div id="SOHUCS" sid="chapter1-搭建简单的WebSever"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php 设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -311,9 +360,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
