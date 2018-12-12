@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Tag: ubuntu | adolph blog</title>
+  <title>php5.2源码编译安装.md | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/tags/ubuntu/index.html">
+  <meta name="description" content="在做公司的web托管时,总遇到一些要用老版本运行的PHP,这里就记录一下PHP5.2版本的编译安装.一个完全的踩坑记.">
+<meta name="keywords" content="php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php5.2源码编译安装.md">
+<meta property="og:url" content="http://www.blogme.club/2018/12/12/php5-2源码编译安装/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="在做公司的web托管时,总遇到一些要用老版本运行的PHP,这里就记录一下PHP5.2版本的编译安装.一个完全的踩坑记.">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-12T03:54:18.364Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="php5.2源码编译安装.md">
+<meta name="twitter:description" content="在做公司的web托管时,总遇到一些要用老版本运行的PHP,这里就记录一下PHP5.2版本的编译安装.一个完全的踩坑记.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -150,98 +155,182 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-php5-2源码编译安装" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/21/ubuntu上QQ的终极方案/" class="archive-article-date">
-  	<time datetime="2017-11-21T13:44:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-21</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/21/ubuntu上QQ的终极方案/">ubuntu上QQ的终极方案</a>
+    <h1 class="article-title" itemprop="name">
+      php5.2源码编译安装.md
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/12/12/php5-2源码编译安装/" class="archive-article-date">
+  	<time datetime="2018-12-12T03:53:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在做公司的web托管时,总遇到一些要用老版本运行的PHP,这里就记录一下PHP5.2版本的编译安装.一个完全的踩坑记.<br><a id="more"></a></p>
+<h4 id="安装基本所需"><a href="#安装基本所需" class="headerlink" title="安装基本所需"></a>安装基本所需</h4><p>由于是源码编译安装,前面的编译安装环境都没有,so,先安装环境把<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y gcc gcc-c++ gcc-g77 libtool m4 automake httpd-devel libxml2-devel bzip2-devel libcurl-devel libjpeg-turbo-devel libpng-devel freetype-devel mysql-devel libtool-ltdl-devel wget epel-release</span><br></pre></td></tr></table></figure></p>
+<p>装好了过后,还缺少autoconf,flex,bison这三个库.一个是自动配置.由于我是clone的源代码.所以autoconf上只能是2.13版本.老尴尬了.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget -c https://ftp.gnu.org/gnu/autoconf/autoconf-2.13.tar.gz</span><br><span class="line">tar -zxvf autoconf-2.13.tar.gz &amp;&amp; cd autoconf-2.13 &amp;&amp; ./configure</span><br><span class="line">make &amp;&amp; make install &amp;&amp; cd ../</span><br></pre></td></tr></table></figure></p>
+<p>安装flex<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -c http://vault.centos.org/5.11/os/x86_64/CentOS/flex-2.5.4a-41.fc6.x86_64.rpm</span><br><span class="line">yum install -y flex-2.5.4a-41.fc6.x86_64.rpm</span><br></pre></td></tr></table></figure></p>
+<p>安装bison<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget -c http://ftp.gnu.org/gnu/bison/bison-2.4.tar.gz </span><br><span class="line">tar -zxvf bison-2.4.tar.gz &amp;&amp; cd bison-2.4 &amp;&amp; ./configure</span><br><span class="line">make &amp;&amp; make install &amp;&amp; cd ../</span><br></pre></td></tr></table></figure></p>
+<p>为撒我不直接用yum install bison flex autoconf呢,原因就是centos把这个版本给换掉了.php5.2只能是这个版本.WTF.</p>
+<h3 id="软链接"><a href="#软链接" class="headerlink" title="软链接"></a>软链接</h3><p>由于我们安装的libjpeg,libpng,libmysqlclient_rz这些都没有,只能从/usr/lib64做软连接过来.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/lib64/libjpeg.so /usr/lib/</span><br><span class="line">ln -s /usr/lib64/libpng.so /usr/lib/</span><br><span class="line">ln -s /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib/libmysqlclient_r.so</span><br></pre></td></tr></table></figure></p>
+<p>最后在安装一下我们的mcrypt<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y libmcrypt-devel</span><br></pre></td></tr></table></figure></p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>先进入php-src原目录.并切换到PHP-5.2分支<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git.php.net/repository/php-src.git	<span class="comment">## 这一步如果前面clone就不需要做了</span></span><br><span class="line">cd php-src &amp;&amp; git checkout PHP-<span class="number">5.2</span></span><br><span class="line">./buildconf	<span class="comment">## 生成基本配置</span></span><br></pre></td></tr></table></figure></p>
+<p>开始配置我们的模块,设置一些基本参数<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/php \</span><br><span class="line">--with-apxs2=/usr/bin/apxs \</span><br><span class="line">--with-config-file-path=/usr/local/php/etc/ \</span><br><span class="line">--with-mysql \</span><br><span class="line">--with-pdo-mysql \</span><br><span class="line">--with-libxml-dir \</span><br><span class="line">--without-pear \</span><br><span class="line">--with-gd \</span><br><span class="line">--with-jpeg-dir \</span><br><span class="line">--with-png-dir \</span><br><span class="line">--enable-gd-native-ttf \</span><br><span class="line">--with-freetype-dir \</span><br><span class="line">--with-iconv-dir \</span><br><span class="line">--with-zlib-dir \</span><br><span class="line">--with-bz2 \</span><br><span class="line">--with-openssl \</span><br><span class="line">--with-mcrypt \</span><br><span class="line">--enable-soap \</span><br><span class="line">--enable-mbstring \</span><br><span class="line">--enable-sockets \</span><br><span class="line">--enable-exif \</span><br><span class="line">--disable-ipv6 \</span><br><span class="line">--with-curl \</span><br><span class="line">--with-mysqli \</span><br><span class="line">--with-libxml-dir=/usr/include/libxml2/libxml/ \</span><br><span class="line">--enable-zip \</span><br><span class="line">--with-zlib-dir \</span><br><span class="line">--with-pcre-dir  \</span><br><span class="line">--without-readline \</span><br><span class="line">--enable-bcmath \</span><br><span class="line">--with-mime-magic \</span><br><span class="line">--enable-json</span><br></pre></td></tr></table></figure></p>
+<p>完成后,直接编译安装<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
+<h3 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h3><p>在编译的过程中,很有可能会遇到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">错误：提领指向不完全类型的指针</span><br></pre></td></tr></table></figure></p>
+<p>这个是由于libxml2的问题,由于内核的更新,so.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -o php-5.x.x.patch https://mail.gnome.org/archives/xml/2012-August/txtbgxGXAvz4N.txt</span><br><span class="line">patch -p0 -b &lt; ./php-5.x.x.patch</span><br></pre></td></tr></table></figure></p>
+<p>如果没有patch命令,直接yum install -y patch即可.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ubuntu</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2018/12/12/php5-2源码编译安装/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/10/gnome踩坑记/" class="archive-article-date">
-  	<time datetime="2017-09-10T12:32:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-10</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/10/gnome踩坑记/">gnome踩坑记</a>
-    </h1>
+  
+    <a href="/2018/11/14/chapter-2请求解析/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">chapter-2请求解析</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ubuntu</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
+  <div id="SOHUCS" sid="php5-2源码编译安装"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
   
 
-    
+  
 
 
           </div>
@@ -273,9 +362,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
