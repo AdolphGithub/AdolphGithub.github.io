@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="在部署的时候,经常会在centos7下安装mysql5.7.在这里记录一下使用yum源安装过程.供以后自己使用.同时记录一下修改密码的过程.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-08T01:52:09.332Z">
+<meta property="og:updated_time" content="2019-01-09T13:44:27.192Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql5.7安装和授权">
 <meta name="twitter:description" content="在部署的时候,经常会在centos7下安装mysql5.7.在这里记录一下使用yum源安装过程.供以后自己使用.同时记录一下修改密码的过程.">
@@ -184,10 +184,13 @@
 <p>使用临时密码进入后,立刻修改密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p</span><br><span class="line">ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;root&apos;;</span><br></pre></td></tr></table></figure></p>
 <p>就修改好了.当然,如果查不到密码还有一种免密方式登录.就是修改my.cnf配置.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/my.cnf</span><br></pre></td></tr></table></figure></p>
 <p>添加一行skip-grant-tables即可.然后重启服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure></p>
+<p>使用了忽略密码后,使用如下语句将密码改成root<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update mysql.user set authentication_string=password(&apos;root&apos;) where user=&apos;root&apos;;</span><br></pre></td></tr></table></figure></p>
 <p>即可按照上面的方式修改密码.修改后记得删除配置并重启mysql.</p>
 <h4 id="授权root远程登录"><a href="#授权root远程登录" class="headerlink" title="授权root远程登录"></a>授权root远程登录</h4><p>授权root给远程登录,格式如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT ALL PRIVILEGES ON *.* TO &apos;用户名&apos;@&apos;%&apos; IDENTIFIED BY &apos;密码&apos; WITH GRANT OPTION;</span><br></pre></td></tr></table></figure></p>
 <p>授权后,刷新权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></p>
 <p>以上就完成了mysql5.7的安装.</p>
+<h4 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Your password does not satisfy the current policy requirements</span><br></pre></td></tr></table></figure>
+<p>这个是由于密码过于简单,.将密码修改复杂即可.</p>
 
       
 
@@ -301,6 +304,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/01/09/vagrant的使用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          vagrant的使用
+        
+      </div>
+    </a>
   
   
     <a href="/2018/12/12/php5-2源码编译安装/" id="article-nav-older" class="article-nav-link-wrap">
@@ -430,6 +442,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssl acme</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
               </li>
              
@@ -454,6 +470,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
@@ -462,19 +482,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -510,6 +526,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">vagrant</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">vue javascript</a>
               </li>
              
@@ -518,11 +538,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">php xdebug</a>
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+                <a href="javascript:void(0)" class="js-tag color1">php xdebug</a>
               </li>
              
               <li class="article-tag-list-item">
