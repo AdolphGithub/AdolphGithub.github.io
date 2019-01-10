@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>adolph blog</title>
+  <title>linux内核优化 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/page/5/index.html">
+  <meta name="description" content="在有限的环境里,如何做到较高的性能,优化了mysql配置,优化了sql逻辑,但是还是不行,就要优化linux内核里.下面是linux内核中常优化的一个简单配置,具体请根据业务来调整对应的配置项.">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux内核优化">
+<meta property="og:url" content="http://www.blogme.club/2019/01/10/linux内核优化/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="在有限的环境里,如何做到较高的性能,优化了mysql配置,优化了sql逻辑,但是还是不行,就要优化linux内核里.下面是linux内核中常优化的一个简单配置,具体请根据业务来调整对应的配置项.">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-10T12:49:19.003Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="linux内核优化">
+<meta name="twitter:description" content="在有限的环境里,如何做到较高的性能,优化了mysql配置,优化了sql逻辑,但是还是不行,就要优化linux内核里.下面是linux内核中常优化的一个简单配置,具体请根据业务来调整对应的配置项.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -150,36 +155,66 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-socket学习之旅-3撕开RPC远程调用的神秘外衣" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+            <article id="post-linux内核优化" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/">socket学习之旅-3撕开RPC远程调用的神秘外衣</a>
+    <h1 class="article-title" itemprop="name">
+      linux内核优化
     </h1>
   
 
         
-        <a href="/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/" class="archive-article-date">
-  	<time datetime="2017-08-04T07:12:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-04</time>
+        <a href="/2019/01/10/linux内核优化/" class="archive-article-date">
+  	<time datetime="2019-01-10T12:47:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣.<br>
-        
-          <a class="article-more-a" href="/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/#more">more >></a>
-        
+        <p>在有限的环境里,如何做到较高的性能,优化了mysql配置,优化了sql逻辑,但是还是不行,就要优化linux内核里.下面是linux内核中常优化的一个简单配置,具体请根据业务来调整对应的配置项.<br><a id="more"></a></p>
+<h4 id="etc-sysctl-conf"><a href="#etc-sysctl-conf" class="headerlink" title="/etc/sysctl.conf"></a>/etc/sysctl.conf</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// 该内核参数默认值一般是128(定义了系统中每一个端口最大的监听队列的长度),对于负载很大的服务程序来说大大的不够.一般会将它修改为2048或者更大.</span><br><span class="line">net.core.somaxconn = 65535</span><br><span class="line">// 每个网络接口接收数据包的速率比内核处理这些包的速率快时，允许送到队列的数据包的最大数目</span><br><span class="line">net.core.netdev_max_backlog = 65535</span><br><span class="line"></span><br><span class="line">// 指定所能接受SYN同步包的最大客户端数量,即半连接上限.</span><br><span class="line">net.ipv4.tcp_max_sys_backlog = 65535</span><br><span class="line">// 表示如果套接字由本端要求关闭,这个参数决定了它保持在FIN-WAIT-2状态的时间.</span><br><span class="line">net.ipv4.tcp_fin_timeout=10</span><br><span class="line">// 开启重用.允许将TIME-WAIT sockets重新用于新的TCP连接,默认为0,表示关闭</span><br><span class="line">net.ipv4.tcp_tw_reuse=1</span><br><span class="line">// 开启TCP连接中TIME-WAIT sockets的快速回收.默认为0,表示关闭</span><br><span class="line">net.ipv4.tcp_tw_recycle=1</span><br><span class="line">// TCP发送keepalive探测消息的间隔时间(秒)，用于确认TCP连接是否有效.</span><br><span class="line">net.ipv4.tcp_keepalive_time=120</span><br><span class="line">// 探测消息未获得响应时，重发该消息的间隔时间</span><br><span class="line">net.ipv4.tcp_keepalive_intvl=30</span><br><span class="line">// 在认定TCP连接失效之前，最多发送多少个keepalive探测消息</span><br><span class="line">net.ipv4.tcp_keepalive_probes=3</span><br><span class="line"></span><br><span class="line">// 默认的TCP数据发送窗口大小(字节)</span><br><span class="line">net.core.wmem_default=87380</span><br><span class="line">// 最大的TCP数据发送窗口(字节)</span><br><span class="line">net.core.wmem_max=16777216</span><br><span class="line">// 默认的TCP数据接收窗口大小(字节)</span><br><span class="line">net.core.rmem_default=87380</span><br><span class="line">// 最大的TCP数据接收窗口大小(字节)</span><br><span class="line">net.core.rmem_max=16777216</span><br><span class="line"></span><br><span class="line">// 共享内存端,设置的足够大</span><br><span class="line">kernel.shmmax=429496729</span><br><span class="line">// 禁用交换分区,如果虚拟分区未用完则不用交换分区</span><br><span class="line">vm.swappiness=0</span><br></pre></td></tr></table></figure>
+<h4 id="etc-security-limit-conf"><a href="#etc-security-limit-conf" class="headerlink" title="/etc/security/limit.conf"></a>/etc/security/limit.conf</h4><p>文件句柄<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 单个用户可用的最大进程数量(软限制)</span><br><span class="line">* soft nofile 65535</span><br><span class="line">// 单个用户可用的最大进程数量(硬限制)</span><br><span class="line">* hard nofile 65535</span><br></pre></td></tr></table></figure></p>
+<h4 id="sys-block-devname-queue-scheduler"><a href="#sys-block-devname-queue-scheduler" class="headerlink" title="/sys/block/devname/queue/scheduler"></a>/sys/block/devname/queue/scheduler</h4><p>查询对应的调度策略<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat /sys/block/sda/queue/scheduler</span><br><span class="line">noop [deadline] [cfq]</span><br><span class="line">// 修改默认调度策略</span><br><span class="line">echo deadline &gt; /sys/block/devname/queue/scheduler</span><br></pre></td></tr></table></figure></p>
+
       
 
       
-    </p></div>
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
     <div class="article-info article-info-index">
       
       
@@ -188,7 +223,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">socket rpc</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
       		
 		</ul>
@@ -197,565 +232,74 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2019/01/10/linux内核优化/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
-
-
-
   
-    <article id="post-socket学习之旅-2撕开websocket的神秘外衣" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/03/socket学习之旅-2撕开websocket的神秘外衣/">socket学习之旅-2撕开websocket的神秘外衣</a>
-    </h1>
   
-
-        
-        <a href="/2017/08/03/socket学习之旅-2撕开websocket的神秘外衣/" class="archive-article-date">
-  	<time datetime="2017-08-03T10:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>让我们来继续了解websocket，现在的浏览器默认有socket连接端,websocket.我们先来书写客户端.至于websocket的一些方法,请参考<a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSocket" target="_blank" rel="noopener">MDN websocket</a>,以下是示例代码<br>
-        
-          <a class="article-more-a" href="/2017/08/03/socket学习之旅-2撕开websocket的神秘外衣/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/03/socket学习之旅-2撕开websocket的神秘外衣/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
+    <a href="/2019/01/09/mysql事务与隔离级别/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql事务与隔离级别</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
-    <article id="post-socket学习之旅-1如何打电话" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/03/socket学习之旅-1如何打电话/">socket学习之旅:1如何打电话</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/03/socket学习之旅-1如何打电话/" class="archive-article-date">
-  	<time datetime="2017-08-03T01:50:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>socket用于实时聊天，长链接，异步链接等等所需要的扩展。具体的文档地址:<a href="http://php.net/manual/zh/ref.sockets.php" target="_blank" rel="noopener">socket</a>.在我的理解中，socket是用来通信的.<br>
-        
-          <a class="article-more-a" href="/2017/08/03/socket学习之旅-1如何打电话/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/03/socket学习之旅-1如何打电话/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-php-爬虫服务器二" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/04/php-爬虫服务器二/">php-爬虫服务器二</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/04/php-爬虫服务器二/" class="archive-article-date">
-  	<time datetime="2017-07-04T05:52:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先,我们需要一个设想.我的设想是这样的.爬虫服务器用来统一管理爬虫.公开一个外部用来连接的地址.至于里面的操作.使用的人不用管理太多.只需要提供对应的参数和url地址就行.至于如何解析这种规则,为了方便,我们这里要引入最基本的插件机制.这些在网上已经有很多有的了.我这里是直接将<a href="https://github.com/php-fig/fig-standards/wiki/PSR-4-Example-Implementations" target="_blank" rel="noopener">PSR4 规范加载工具</a>.骨架就有我们自己来写.<br>
-        
-          <a class="article-more-a" href="/2017/07/04/php-爬虫服务器二/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/04/php-爬虫服务器二/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-php-爬虫服务器" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/04/php-爬虫服务器/">php-爬虫服务器</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/04/php-爬虫服务器/" class="archive-article-date">
-  	<time datetime="2017-07-04T05:50:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上次讲了php的一个爬虫库emdeb,那个爬虫非常简单.现在我们来讲一下国外很火的goutte.下载地址在<a href="https://github.com/FriendsOfPHP/Goutte" target="_blank" rel="noopener">这里</a>.改爬虫集成了很多的可用的地方,比如<a href="https://github.com/symfony/css-selector" target="_blank" rel="noopener">css-selector</a>,一个非常遍历的css选择器.<a href="https://github.com/guzzle/guzzle" target="_blank" rel="noopener">guzzle</a>,国外很火的一个http登录客户端.至于goutte肿么用的,我就不再多说.具体的请参考备注里面的文档.我们这里要做的是一个异步多线程爬虫.使用的框架是<a href="http://www.slimphp.net/" target="_blank" rel="noopener">slim</a>+<a href="http://www.workerman.net/" target="_blank" rel="noopener">workerman</a>的<a href="http://doc2.workerman.net/326102" target="_blank" rel="noopener">gatewayworker</a>框架.至于其他的,我会在项目中讲解.<br>
-        
-          <a class="article-more-a" href="/2017/07/04/php-爬虫服务器/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/04/php-爬虫服务器/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-vue前后端博客搭建" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/30/vue前后端博客搭建/">vue前后端博客搭建</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/30/vue前后端博客搭建/" class="archive-article-date">
-  	<time datetime="2017-06-30T13:45:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>让我来装一下，以前我自己写的博客都是采用的是前后端不分离，加上模板引擎自己写的博客。除了这个<a href="https://adolphgithub.github.io" target="_blank" rel="noopener">博客</a>是用hexo搭建的.趁着我学vue刚好可以自己来实现前后端分离博客.<br>
-        
-          <a class="article-more-a" href="/2017/06/30/vue前后端博客搭建/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/30/vue前后端博客搭建/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-vue-cli搭建" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/28/vue-cli搭建/">vue-cli搭建</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/28/vue-cli搭建/" class="archive-article-date">
-  	<time datetime="2017-06-28T05:55:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="vue-cli"><a href="#vue-cli" class="headerlink" title="vue-cli"></a>vue-cli</h3><p>在日常的开发中，前后端分离。往往大型项目都会使用到vue+webpack+express来搭建前端的服务器环境。同时，也会将代码进行压缩。这个时候，我们需要的就是更加的快速开发webapp应用了。这里我将介绍如果通过vue-cli来搭建我们的前端项目环境。<br>
-        
-          <a class="article-more-a" href="/2017/06/28/vue-cli搭建/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">javascript vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/28/vue-cli搭建/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-vue" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/22/vue/">vue</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/22/vue/" class="archive-article-date">
-  	<time datetime="2017-06-22T08:11:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="初学Vue"><a href="#初学Vue" class="headerlink" title="初学Vue"></a>初学Vue</h3><p>由于公司界面的前端是用vue来写的，最近要接手公司的项目，所以没有办法，只能学习vue了。以下是用来见证我的学习过程。<br>
-        
-          <a class="article-more-a" href="/2017/06/22/vue/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">vue javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/22/vue/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-composer包搭建" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/21/composer包搭建/">composer包搭建</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/21/composer包搭建/" class="archive-article-date">
-  	<time datetime="2017-06-21T13:13:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="1-composer简介"><a href="#1-composer简介" class="headerlink" title="1 composer简介"></a>1 composer简介</h4><p>composer(作曲家).php的一个包管理软件。市面上绝大部分的主流框架都在支持compsoer.是一个专门用来管理php-package的依赖关系的。直接通过composer require 包名，即可下载对应的包。即可使用compsoer.我这里主要是在本地搭建一个compsoer的库.用于将公司的一些常用的扩展,比如发短信，发邮件等等包装成一个公共库.直接通过compsoer即可引入.<br>
-        
-          <a class="article-more-a" href="/2017/06/21/composer包搭建/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">composer</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/21/composer包搭建/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-xdebug使用" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/07/xdebug使用/">xdebug使用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/07/xdebug使用/" class="archive-article-date">
-  	<time datetime="2017-06-07T11:42:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在PHP中,有很多第三方测试性能的工具，例如xdebug,xhprof,Krumo等等，我这里主要介绍我工作用的性能分析工具:xdebug<br>
-        
-          <a class="article-more-a" href="/2017/06/07/xdebug使用/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">php xdebug</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/07/xdebug使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+</nav>
 
 
 
@@ -763,9 +307,19 @@
 
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
-    </nav>
+  
+
+  
+  <div id="SOHUCS" sid="linux内核优化"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+  
+
   
 
 
@@ -797,8 +351,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
