@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>cookie跨域 | adolph blog</title>
+  <title>mysql引擎之innodb | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="近来有人在问我cookie的作用域的问题,这个总会在开发中遇到,这个就是关于cookie共享机制的问题.打个比方哈,如果在aaa.xxxx.com中存在用户信息,但是bbb.xxxx.com的用户登录机制是一样的,登录aaa的用户,在bbb中就不需要在登录了.这个就需要设计cookie的共享,就需涉及到cookie的作用域的信息了.cookie的作用域分为两种,一个是域名作用域,一个是路径作用域.">
-<meta name="keywords" content="http">
+  <meta name="description" content="mysql5.5之后版本默认存储引擎为innodb,在这之前都是用的myisam.可见innodb在大部分用户心里已经得到了足够多的赞美.但作为一个开发来说,了解它是必不可少的.下面就是innodb中的一些特性.">
+<meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cookie跨域">
-<meta property="og:url" content="http://www.blogme.club/2018/01/20/cookie跨域/index.html">
+<meta property="og:title" content="mysql引擎之innodb">
+<meta property="og:url" content="http://www.blogme.club/2019/01/14/mysql引擎之innodb/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="近来有人在问我cookie的作用域的问题,这个总会在开发中遇到,这个就是关于cookie共享机制的问题.打个比方哈,如果在aaa.xxxx.com中存在用户信息,但是bbb.xxxx.com的用户登录机制是一样的,登录aaa的用户,在bbb中就不需要在登录了.这个就需要设计cookie的共享,就需涉及到cookie的作用域的信息了.cookie的作用域分为两种,一个是域名作用域,一个是路径作用域.">
+<meta property="og:description" content="mysql5.5之后版本默认存储引擎为innodb,在这之前都是用的myisam.可见innodb在大部分用户心里已经得到了足够多的赞美.但作为一个开发来说,了解它是必不可少的.下面就是innodb中的一些特性.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-01-20T08:33:32.000Z">
+<meta property="og:updated_time" content="2019-01-14T13:33:08.473Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cookie跨域">
-<meta name="twitter:description" content="近来有人在问我cookie的作用域的问题,这个总会在开发中遇到,这个就是关于cookie共享机制的问题.打个比方哈,如果在aaa.xxxx.com中存在用户信息,但是bbb.xxxx.com的用户登录机制是一样的,登录aaa的用户,在bbb中就不需要在登录了.这个就需要设计cookie的共享,就需涉及到cookie的作用域的信息了.cookie的作用域分为两种,一个是域名作用域,一个是路径作用域.">
+<meta name="twitter:title" content="mysql引擎之innodb">
+<meta name="twitter:description" content="mysql5.5之后版本默认存储引擎为innodb,在这之前都是用的myisam.可见innodb在大部分用户心里已经得到了足够多的赞美.但作为一个开发来说,了解它是必不可少的.下面就是innodb中的一些特性.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -155,33 +155,46 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-cookie跨域" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-mysql引擎之innodb" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      cookie跨域
+      mysql引擎之innodb
     </h1>
   
 
         
-        <a href="/2018/01/20/cookie跨域/" class="archive-article-date">
-  	<time datetime="2018-01-20T08:32:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-20</time>
+        <a href="/2019/01/14/mysql引擎之innodb/" class="archive-article-date">
+  	<time datetime="2019-01-14T13:30:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-14</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>近来有人在问我cookie的作用域的问题,这个总会在开发中遇到,这个就是关于cookie共享机制的问题.打个比方哈,如果在aaa.xxxx.com中存在用户信息,但是bbb.xxxx.com的用户登录机制是一样的,登录aaa的用户,在bbb中就不需要在登录了.这个就需要设计cookie的共享,就需涉及到cookie的作用域的信息了.cookie的作用域分为两种,一个是域名作用域,一个是路径作用域.<br><a id="more"></a></p>
-<h4 id="域名作用域"><a href="#域名作用域" class="headerlink" title="域名作用域"></a>域名作用域</h4><p>cookie有个domain的参数,即为设置cookie的域名作用域.在PHP中,可以如下设置,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setcookie(&apos;username&apos;,&apos;pass&apos;,0,&apos;/&apos;,&apos;localhost&apos;);</span><br><span class="line">echo &apos;设置成功&apos;;</span><br></pre></td></tr></table></figure></p>
-<p>这句话,就是在localhost这个域名下设置一个叫username的cookie,当然这个有效期为0,就是一个session.就这么简单.当然,如果有二级域名,想共用cookie那就进行如下设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setcookie(&apos;username&apos;,&apos;pass&apos;,0,&apos;/&apos;,&apos;.aaa.com&apos;);</span><br><span class="line">echo &apos;设置成功&apos;;</span><br></pre></td></tr></table></figure></p>
-<p>这样就是在aaa.com的所有域名下都可以使用.</p>
-<h4 id="路径作用域"><a href="#路径作用域" class="headerlink" title="路径作用域"></a>路径作用域</h4><p>如何理解路径作用域,及需要理解linux下的权限./这个为网站根路径,即为这个网站域名下所有的子页面都可以使用.如下设置即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setcookie(&apos;username&apos;,&apos;pass&apos;,0,&apos;/路径&apos;,&apos;域名&apos;)</span><br><span class="line">echo &apos;设置成功&apos;;</span><br></pre></td></tr></table></figure></p>
-<p>这样就设置成功.</p>
-<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>最后在说一个,这里要讲一个cookie跨域.以上,我们设置了一个cookie,设置成其他域名上,是不是设置的cookie就有效了呢,答案是否定的.一些好的网站会禁用到cookie,这样就能搞定了.因为有些用户信息存到cookie中,如果其他黑客拿到cookie就可以通过以上方式跨域获取用户权限了.慎用…</p>
+        <p>mysql5.5之后版本默认存储引擎为innodb,在这之前都是用的myisam.可见innodb在大部分用户心里已经得到了足够多的赞美.但作为一个开发来说,了解它是必不可少的.下面就是innodb中的一些特性.<br><a id="more"></a></p>
+<h4 id="表空间"><a href="#表空间" class="headerlink" title="表空间"></a>表空间</h4><p>在myisam中,每个表由3个文件组成.但在innodb中,这个构成是由innodb的innodb_file_per_table配置项来决定.在这里叫做表空间.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ON: 独立表空间,为每一个表建立一个单独的表空间.以后缀名为.idb结尾</span><br><span class="line">OFF:系统表空间,存储在ibdataX(X为一个数值)</span><br></pre></td></tr></table></figure></p>
+<p>那如何查询配置呢<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &apos;innodb_file_per_table&apos;</span><br></pre></td></tr></table></figure></p>
+<p>在系统表空间和独立表空间之中如何做选择</p>
+<ul>
+<li>系统表空间无法简单的收缩文件大小</li>
+<li>独立表空间可以通过optimize table命令收缩系统文件.</li>
+<li>系统表空间会产生IO瓶颈</li>
+<li>独立表空间可以同时向多个文件刷新数据<h4 id="表空间转化"><a href="#表空间转化" class="headerlink" title="表空间转化"></a>表空间转化</h4>从上面来看,独立表空间的优势更好.但从实际角度来说,某些还在使用系统表空间.那如何从系统表中间转化成独立表空间呢.下面就是我们常用的方法.但是这个方法是非常耗时的.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.使用mysqldump导出所有数据库数据</span><br><span class="line">2.停止mysql服务,修改参数,并删除innodb相关表数据和结构</span><br><span class="line">3.重启mysql服务,重建Innodb系统表空间</span><br><span class="line">4.重新导入数据</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="innodb数据字典"><a href="#innodb数据字典" class="headerlink" title="innodb数据字典"></a>innodb数据字典</h4><p>在mysql的myisam引擎中,是没有数据字典的概念的.它是直接将我们的表结构存放到.frm文件中.而在innodb中,则将表的结构存在了系统的四个基本表中.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">SYS_TABLES</span><br><span class="line">用来存储所有InnoDB为存储引擎的表</span><br><span class="line">NAME:表示一个表的表名</span><br><span class="line">ID:表示这个表的ID号</span><br><span class="line">N_COLS:表示这个表的列的个数,建表指定的列数.</span><br><span class="line">TYPE:表示这个表的存储类型,包括记录的格式,压缩等信息.</span><br><span class="line">SPACE:表示这个表所在表空间ID号.这个表对应的主键列为NAME,同时还有一个在ID号上的唯一索引.</span><br><span class="line"></span><br><span class="line">SYS_COLUMNS</span><br><span class="line">用来存储InnoDB中定义的所有表中所有列的信息,每一列对应这个表的一条记录</span><br><span class="line">TABLE_ID:表示这个列所属的表的ID号</span><br><span class="line">POS:表示这个列在表中是第几列</span><br><span class="line">NAME:表示这个列名</span><br><span class="line">MTYPE:表示这个列的主数据类型</span><br><span class="line">PRTYPE:表示这个列的一些精确数据类型,它是一个组合值,包括NULL标志,是否有符号数的标志,是否是二进制字符串的标志及表示这个列是真的varchar</span><br><span class="line">LEN:表示这个列数据的精度</span><br><span class="line"></span><br><span class="line">SYS_INDEXES</span><br><span class="line">用来存储InnoDB中所有表的索引信息,每一条记录对应一个索引</span><br><span class="line">TABLE_ID:表示这个索引所属的表的ID号</span><br><span class="line">ID:表示这个索引的索引ID号</span><br><span class="line">NAME:表示这个索引的索引名</span><br><span class="line">N_FIELDS:表示这个索引包括的列个数</span><br><span class="line">TYPE:表示这个索引的类型,包括聚簇索引,唯一索引,等</span><br><span class="line">SPACE:表示这个索引数据所在的表空间ID号</span><br><span class="line">PAGE_NO:表示这个索引对应的B+树根页面</span><br><span class="line"></span><br><span class="line">SYS_FIEDS</span><br><span class="line">用来存储所有索引中定义的索引列,每一条记录对应一个索引列</span><br><span class="line">INDEX_ID:这个列所在的索引</span><br><span class="line">POS:这个列在某个索引中是第几个索引列</span><br><span class="line">COL_NAME:这个索引列的列名</span><br></pre></td></tr></table></figure></p>
+<h4 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">innodb是一种事务性存储引擎</span><br><span class="line">完全支持事务的ACID特性</span><br><span class="line">redo log和undo log实现原子性,持久性,查询日志大小为show variables like &apos;innodb_log_buffer_size&apos;</span><br><span class="line">innodb支持行级锁,行级锁可以最大程度的支持并发,行级锁是在存储引擎层实现的</span><br></pre></td></tr></table></figure>
+<h4 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h4><p>锁对主要作用是管理共享资源的并发访问,用于实现事务的隔离性.而锁的一般类型为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">共享锁(读锁)</span><br><span class="line">独占锁(写锁)</span><br></pre></td></tr></table></figure></p>
+<p>锁的粒度决定了性能的开销,通常表级锁的开销最小,但是并发低.</p>
+<h4 id="加锁"><a href="#加锁" class="headerlink" title="加锁"></a>加锁</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">加锁 lock table 表名 write;</span><br><span class="line">解锁 unlock;</span><br></pre></td></tr></table></figure>
+<h4 id="阻塞和死锁"><a href="#阻塞和死锁" class="headerlink" title="阻塞和死锁"></a>阻塞和死锁</h4><p>组塞不等于是死锁.</p>
+<h4 id="状态检查工具"><a href="#状态检查工具" class="headerlink" title="状态检查工具"></a>状态检查工具</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show engine innodb status</span><br></pre></td></tr></table></figure>
+<h4 id="redo-log"><a href="#redo-log" class="headerlink" title="redo log"></a>redo log</h4><p>innodb中,数据的持久性和是由redo_log和undo_log来处理的.每次由客户端的查询都会默认的封装成一个事务.而当事务执行时,会将事务日志写入到redo_log中,当每条SQL进行数据库更新操作时,首先将redo log写入到日志缓冲区.当客户端执行commit命令提交时,日志缓冲区的内容将被刷新到磁盘,日志缓冲区的刷新方式或者时间间隔可以通过参数innidb_flush_log_at_trx_commit控制,在写入较多的情况下,提高redo log日志的大小将显著的提交写入性能</p>
+<h4 id="undo-log"><a href="#undo-log" class="headerlink" title="undo log"></a>undo log</h4><p>undo log与redo log相反,undo log主要用于事务异常时的数据回滚,具体内容就是复制事务前的数据库内容到undo缓冲区,然后在合适的时间将内容刷新到磁盘.在mysql5.6之前.undo log不会保存在独立的文件中.5.6版本才支持保存在独立的文件中.</p>
 
       
 
@@ -226,7 +239,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
@@ -282,7 +295,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2018/01/20/cookie跨域/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2019/01/14/mysql引擎之innodb/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -296,18 +309,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/02/11/多个队列的使用技巧/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          队列优化
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/12/26/mysql的悲观锁和乐观锁/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mysql的悲观锁和乐观锁</div>
+    <a href="/2019/01/12/mysql引擎之myisam/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql引擎之myisam</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -322,7 +326,7 @@
   
 
   
-  <div id="SOHUCS" sid="cookie跨域"></div> 
+  <div id="SOHUCS" sid="mysql引擎之innodb"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
