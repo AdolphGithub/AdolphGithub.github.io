@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Tag: supervisor | adolph blog</title>
+  <title>mysql配置优化 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/tags/supervisor/index.html">
+  <meta name="description" content="mysql一些常用的配置项,可以提高mysql的性能.请根据自己的服务器硬件来控制值的大小.请勿盲目设置值.这样会引起内存资源不足导致服务器crash掉.">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql配置优化">
+<meta property="og:url" content="http://www.blogme.club/2019/01/16/mysql配置优化/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="mysql一些常用的配置项,可以提高mysql的性能.请根据自己的服务器硬件来控制值的大小.请勿盲目设置值.这样会引起内存资源不足导致服务器crash掉.">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-16T12:28:23.290Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="mysql配置优化">
+<meta name="twitter:description" content="mysql一些常用的配置项,可以提高mysql的性能.请根据自己的服务器硬件来控制值的大小.请勿盲目设置值.这样会引起内存资源不足导致服务器crash掉.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -150,60 +155,182 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-mysql配置优化" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/09/17/supervisor/" class="archive-article-date">
-  	<time datetime="2018-09-17T01:50:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-17</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/09/17/supervisor/">supervisor</a>
+    <h1 class="article-title" itemprop="name">
+      mysql配置优化
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/01/16/mysql配置优化/" class="archive-article-date">
+  	<time datetime="2019-01-16T12:27:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>mysql一些常用的配置项,可以提高mysql的性能.请根据自己的服务器硬件来控制值的大小.请勿盲目设置值.这样会引起内存资源不足导致服务器crash掉.<br><a id="more"></a></p>
+<h4 id="mysql缓存配置相关项"><a href="#mysql缓存配置相关项" class="headerlink" title="mysql缓存配置相关项"></a>mysql缓存配置相关项</h4><p>以下是connection级别的参数,在每个connection第一次需要使用这些buffer的时候,一次性分配设置的内存.如果是过大的设置,在搞并发的情况下可能会耗尽内存资源.所以按需分配<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 排序缓冲池</span><br><span class="line">sort_buffer_size=8M</span><br><span class="line">// 联合缓存池</span><br><span class="line">join_buffer_size=8M</span><br><span class="line">// mysql读入缓冲区,如果对表的顺序扫描请求非常频繁,并且你认为频繁扫描进行得太慢,可以通过增加该变量值以及内存缓冲区大小提高其性能</span><br><span class="line">read_buffer_size=16M</span><br><span class="line">// MySQL的随机读缓冲区大小,MySQL会首先扫描一遍该缓冲,以避免磁盘搜索,提高查询速度,如果需要排序大量数据,可适当调高该值.但MySQL会为每个客户连接发放该缓冲空间,所以应尽量适当设置该值,以避免内存开销过大</span><br><span class="line">read_rnd_buffer_size=8M</span><br><span class="line">//InnoDB使用一个缓冲池来保存索引和原始数据, 不像MyISAM,这里你设置越大,你在存取表里面数据时所需要的磁盘I/O越少</span><br><span class="line">innodb_buffer_pool_size</span><br></pre></td></tr></table></figure></p>
+<p>计算innodb缓存池大小的公式:<br>总内存 - (每个线程所需要的内存数*连接数) - 系统保留内存<br>myisam的缓存池大小,就算全库都是innodb表但是还是要设置这个项,因为mysql系统库有些表还是用的myisam<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key_buffer_size	// 设置myisam缓存池大小</span><br></pre></td></tr></table></figure></p>
+<h4 id="mysqlIO配置相关参数"><a href="#mysqlIO配置相关参数" class="headerlink" title="mysqlIO配置相关参数"></a>mysqlIO配置相关参数</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// innodb使用后台线程处理数据页上的读写I/O请求,根据你的CPU核数来更改</span><br><span class="line">innodb_write_io_threads = 4</span><br><span class="line">innodb_read_io_threads = 4</span><br><span class="line"></span><br><span class="line">// 为提高性能,mysql可以以循环的方式将日志文件写到多个文件中,默认为3个文件</span><br><span class="line">innodb_log_files_in_group = 3</span><br><span class="line">// 由于innodb数据持久化是由事务日志提交时,由事务日志来获取数据.所以更大的值会更加好的性能</span><br><span class="line">innodb_log_file_size=32M</span><br><span class="line"><span class="meta">#</span># 注 事务日志总大小为 = innodb_log_files_in_group * innodb_log_file_size;</span><br><span class="line">// 默认的设置在中等强度写入负载以及较短事务的情况下,服务器性能还可以.如果存在更新操作峰值或者负载较大,就应该考虑加大它的值了.如果它的值设置太高了,可能会浪费内存,它每秒都会刷新一次,因此无需设置超过1秒所需的内存空间.通常8-16MB就足够了.越小的系统它的值越小.</span><br><span class="line">innodb_log_buffer_size=16M</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 0：每秒进行一次log写入到cache,并flush log到磁盘中</span><br><span class="line"><span class="meta">#</span> 1：当设为默认值1的时候，每次提交事务的时候，都会将log buffer刷写到日志。</span><br><span class="line"><span class="meta">#</span> 2：如果设为2,每次提交事务都会写日志，但并不会执行刷的操作。每秒定时会刷到日志文件。要注意的是，并不能保证100%每秒一定都会刷到磁盘，这要取决于进程的调度。</span><br><span class="line"><span class="meta">#</span> 每次事务提交的时候将数据写入事务日志，而这里的写入仅是调用了文件系统的写入操作，而文件系统是有 缓存的，所以这个写入并不能保证数据已经写入到物理磁盘</span><br><span class="line"><span class="meta">#</span> 默认值1是为了保证完整的ACID.当然,你可以将这个配置项设为1以外的值来换取更高的性能,但是在系统崩溃的时候,你将会丢失1秒的数据.</span><br><span class="line"><span class="meta">#</span> 设为0的话,mysqld进程崩溃的时候,就会丢失最后1秒的事务.设为2,只有在操作系统崩溃或者断电的时候才会丢失最后1秒的数据.InnoDB在做恢复的时候会忽略这个值.</span><br><span class="line"><span class="meta">#</span> 总结</span><br><span class="line"><span class="meta">#</span> 设为1当然是最安全的，但性能页是最差的（相对其他两个参数而言，但不是不能接受）。如果对数据一致性和完整性要求不高，完全可以设为2，如果只最求性能，例如高并发写的日志服务器，设为0来获得更高性能</span><br><span class="line">innodb_flush_log_at_trx_commit=2</span><br><span class="line"></span><br><span class="line">// innodb数据刷入方式</span><br><span class="line">innodb_flush_method=O_DIRECT</span><br><span class="line">// 是否使用独立的表空间</span><br><span class="line">innodb_file_per_table=1</span><br><span class="line">// 启用双写缓存</span><br><span class="line">innodb_doublewrite=1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[myisam]</span><br><span class="line">// 延迟键缓冲</span><br><span class="line">delay_key_write=OFF</span><br><span class="line">OFF:每次写todo后刷新键缓冲的脏块到磁盘</span><br><span class="line">ON:只对在建表时指定了delay_key_write选项的表使用延迟刷新</span><br><span class="line">ALL:对所有MYISAM表都使用延迟键写入</span><br></pre></td></tr></table></figure>
+<h4 id="安全设置"><a href="#安全设置" class="headerlink" title="安全设置"></a>安全设置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 指定自动清理binlog的天数</span><br><span class="line">expire_logs_days=30 </span><br><span class="line">// 控制mysql可以接受的包的大小</span><br><span class="line">max_allowed_packet=16M</span><br><span class="line">// 禁用DNS查找</span><br><span class="line">skip_name_resolve</span><br><span class="line">// 确保sysdate()返回确定性日期</span><br><span class="line">sysdate_is_now</span><br><span class="line">// 禁止非super权限的用户写权限</span><br><span class="line">read_only</span><br><span class="line">// 禁用slave自动恢复</span><br><span class="line">skip_slave_start</span><br></pre></td></tr></table></figure>
+<h4 id="sql-mode"><a href="#sql-mode" class="headerlink" title="sql mode"></a>sql mode</h4><p>sql_mode 设置mysql所使用的常用的SQL模式</p>
+<ul>
+<li>strict_trans_tables  在该模式下,如果一个值不能插入到一个事务表中,则中断当前的操作,对非事务表不做任何限制</li>
+<li>no_engine_subtitution 如果需要的存储引擎被禁用或未编译,那么抛出错误.不设置此值时,用默认的存储引擎替代.并抛出一个异常</li>
+<li>no_zero_date 在严格模式,不要将 ‘0000-00-00’做为合法日期.你仍然可以用IGNORE选项插入零日期.在非严格模式.可以接受该日期,但会生成警告</li>
+<li>no_zero_in_date 在严格模式,不接受月或日部分为0的日期</li>
+<li>only_full_group_by 对于GROUP BY聚合操作,如果在SELECT中的列,没有在GROUP BY中出现,那么将认为这个SQL是不合法的,因为列不在GROUP BY从句中<h4 id="其他常用配置"><a href="#其他常用配置" class="headerlink" title="其他常用配置"></a>其他常用配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 控制mysql如何向磁盘刷新binlog</span><br><span class="line">sync_binlog=0</span><br><span class="line"># 默认,sync_binlog=0,表示MySQL不控制binlog的刷新,由文件系统自己控制它的缓存的刷新.这时候的性能是最好的,但是风险也是最大的.因为一旦系统Crash,在binlog_cache中的所有binlog信息都会被丢失.</span><br><span class="line"># 如果sync_binlog&gt;0,表示每sync_binlog次事务提交,MySQL调用文件系统的刷新操作将缓存刷下去.最安全的就是sync_binlog=1了,表示每次事务提交,MySQL都会把binlog刷下去,是最安全但是性能损耗最大的设置.这样的话,在数据库所在的主机操作系统损坏或者突然掉电的情况下,系统才有可能丢失1个事务的数据.但是binlog虽然是顺序IO,但是设置sync_binlog=1,多个事务同时提交,同样很大的影响MySQL和IO性能.虽然可以通过group commit的补丁缓解,但是刷新的频率过高对IO的影响也非常大.对于高并发事务的系统来说,&quot;sync_binlog&quot;设置为0和设置为1的系统写入性能差距可能高达5倍甚至更多.</span><br><span class="line">// 临时表空间大小</span><br><span class="line">tmp_table_size</span><br><span class="line">// memory引擎表空间大小</span><br><span class="line">max_heap_table_size</span><br><span class="line">// 控制允许的最大连接数</span><br><span class="line">max_connections </span><br><span class="line">#注 MySQL的最大连接数,如果服务器的并发连接请求量比较大,建议调高此值,以增加并行连接数量.当然这建立在机器能支撑的情况下,因为如果连接数越多,介于MySQL会为每个连接提供连接缓冲区,就会开销越多的内存,所以要适当调整该值,不能盲目提高设值.可以过&apos;conn%&apos;通配符查看当前状态的连接数量,以定夺该值的大小.</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://cdn.blogme.club/blog/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://cdn.blogme.club/blog/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">supervisor</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2019/01/16/mysql配置优化/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/01/15/mysql引擎之csv-memory-archive-federated/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql引擎之csv|memory|archive|federated</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+  <div id="SOHUCS" sid="mysql配置优化"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+  
+
+  
 
 
           </div>
@@ -235,9 +362,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
