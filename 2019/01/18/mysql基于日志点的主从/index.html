@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Walle配置-最详细的安装 | adolph blog</title>
+  <title>mysql基于日志点的主从 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Walle 一个web部署系统工具，配置简单、功能完善、界面流畅、开箱即用！支持git、svn版本管理，支持各种web代码发布，PHP，Python，JAVA等代码的发布、回滚，可以通过web来一键完成。以下是安装教程.">
+  <meta name="description" content="在mysql中,基于复制有两种模式,一种是基于日志点的模式,一种是GTID模式.mysql最初的主从是基于日志点.所以日志点的模式是比GTID的BUG更少.下面就是基于日志点主从的配置.let’s go🤗">
+<meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Walle配置-最详细的安装">
-<meta property="og:url" content="http://www.blogme.club/2017/12/22/Walle配置-最详细的安装/index.html">
+<meta property="og:title" content="mysql基于日志点的主从">
+<meta property="og:url" content="http://www.blogme.club/2019/01/18/mysql基于日志点的主从/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="Walle 一个web部署系统工具，配置简单、功能完善、界面流畅、开箱即用！支持git、svn版本管理，支持各种web代码发布，PHP，Python，JAVA等代码的发布、回滚，可以通过web来一键完成。以下是安装教程.">
+<meta property="og:description" content="在mysql中,基于复制有两种模式,一种是基于日志点的模式,一种是GTID模式.mysql最初的主从是基于日志点.所以日志点的模式是比GTID的BUG更少.下面就是基于日志点主从的配置.let’s go🤗">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2017-12-27T13:03:56.000Z">
+<meta property="og:updated_time" content="2019-01-18T07:42:24.192Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Walle配置-最详细的安装">
-<meta name="twitter:description" content="Walle 一个web部署系统工具，配置简单、功能完善、界面流畅、开箱即用！支持git、svn版本管理，支持各种web代码发布，PHP，Python，JAVA等代码的发布、回滚，可以通过web来一键完成。以下是安装教程.">
+<meta name="twitter:title" content="mysql基于日志点的主从">
+<meta name="twitter:description" content="在mysql中,基于复制有两种模式,一种是基于日志点的模式,一种是GTID模式.mysql最初的主从是基于日志点.所以日志点的模式是比GTID的BUG更少.下面就是基于日志点主从的配置.let’s go🤗">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -154,55 +155,47 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Walle配置-最详细的安装" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-mysql基于日志点的主从" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Walle配置-最详细的安装
+      mysql基于日志点的主从
     </h1>
   
 
         
-        <a href="/2017/12/22/Walle配置-最详细的安装/" class="archive-article-date">
-  	<time datetime="2017-12-22T04:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-22</time>
+        <a href="/2019/01/18/mysql基于日志点的主从/" class="archive-article-date">
+  	<time datetime="2019-01-18T07:41:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Walle 一个web部署系统工具，配置简单、功能完善、界面流畅、开箱即用！支持git、svn版本管理，支持各种web代码发布，PHP，Python，JAVA等代码的发布、回滚，可以通过web来一键完成。以下是安装教程.<br><a id="more"></a></p>
-<h3 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Bash(git、ssh)Bash(git、ssh)	// 意味着不支持win、mac的zsh</span><br><span class="line">LNMP/LAMP(php5.4+)	// 意味着不支持win、mac的zsh</span><br><span class="line">// php需要开启pdo_mysql，exec函数执行</span><br><span class="line">Composer // 如果国内环境安装极慢，可以直接下载vendor解压到项目根目录</span><br><span class="line">ansible</span><br></pre></td></tr></table></figure>
-<h4 id="Bash"><a href="#Bash" class="headerlink" title="Bash"></a>Bash</h4><p>这个默认的linux用自带的就行了,如果说是win,请自行查找解决方案.这里的是linux安装,本人用的电脑系统为ubuntu.这个Bash为Unix shell脚本的命令.linux都有自带的.</p>
-<h4 id="LNMP-LAMP"><a href="#LNMP-LAMP" class="headerlink" title="LNMP/LAMP"></a>LNMP/LAMP</h4><p>如果说是ubuntu,请自行查找我以前的<a href="https://adolphgithub.github.io/2017/05/11/%E5%B8%B8%E7%94%A8%E5%A4%87%E4%BB%BD/" target="_blank" rel="noopener">博客的备份</a>,如果你实在是不会安装,没有问题.<a href="https://oneinstack.com/" target="_blank" rel="noopener">OneinStack</a>您的一键环境安装包.<a href="https://oneinstack.com/install/" target="_blank" rel="noopener">图形化教程</a>,是如此方便.当然,如果你用windows也不介意.<a href="http://www.phpstudy.net/" target="_blank" rel="noopener">phpstudy</a>,<a href="http://www.wampserver.com/en/" target="_blank" rel="noopener">wamp</a>,这些都可以的.</p>
-<h4 id="Composer"><a href="#Composer" class="headerlink" title="Composer"></a>Composer</h4><p>windows下请先配置<a href="http://blog.csdn.net/small_rice_/article/details/45268451" target="_blank" rel="noopener">php的环境变量</a>.然后在下载<a href="https://getcomposer.org/Composer-Setup.exe" target="_blank" rel="noopener">composer.exe</a>,双击就可以安装.linux就查看下教程.ubuntu就用以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install composer</span><br></pre></td></tr></table></figure></p>
-<h4 id="ansible"><a href="#ansible" class="headerlink" title="ansible"></a>ansible</h4><p>linux直接根据自己的系统,自行查找命令.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum install ansible # RHEL/CentOS/Fedora</span><br><span class="line"></span><br><span class="line">apt-get install ansible # Debian/Ubuntu</span><br><span class="line"></span><br><span class="line">emerge -avt ansible  # Gentoo/Funtoo</span><br><span class="line"></span><br><span class="line">pip install ansible # will also install  paramiko PyYAML jinja2</span><br></pre></td></tr></table></figure></p>
-<p>很可惜,window就自己去查看python的一键环境安装和pip安装,不过我推荐<a href="https://www.activestate.com/activepython/downloads" target="_blank" rel="noopener">ActivePython</a>官方包下载.执行安装pip.</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>先克隆项目<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:meolu/walle-web.git</span><br></pre></td></tr></table></figure></p>
-<p>切换到目录中,并配置mysql文件权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd walle-web</span><br><span class="line">vi config/web.php # 设置mysql连接</span><br></pre></td></tr></table></figure></p>
-<p>使用composer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer install  # 如果缺少bower-asset的话， 先安装：composer global require &quot;fxp/composer-asset-plugin:*&quot;</span><br></pre></td></tr></table></figure></p>
-<p>执行脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./yii walle/setup   # 初始化项目</span><br></pre></td></tr></table></figure></p>
-<p>如果执行脚本不行,请使用以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php yii walle/setup</span><br></pre></td></tr></table></figure></p>
-<p>以上全部执行过后,请自行配置域名,根目录为./walle-web/web/.如果出现登录界面就表示安装成功了.</p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>我这里只讲git部署,如果是svn,请换成git.现在是git时代了.<br><a href="http://www.walle-web.io/docs/git-configuration.html" target="_blank" rel="noopener">详细的文档这里有了</a>,我这里就讲一下其中的深坑.</p>
-<h4 id="一个坑"><a href="#一个坑" class="headerlink" title="一个坑"></a>一个坑</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">宿主机代码检出检测出错，请确认把php进程用户&#123;user&#125;的ssh-key加入git的deploy-keys列表。</span><br></pre></td></tr></table></figure>
-<p>ssh密钥,在linux中,使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure></p>
-<p>就可以生成密钥.这个密钥位置在~/.ssh/id_rsa.pub中.<br>然后将这里面的值添加到gitlab|github|gitee,你git仓库地址中.当然,地址你也可以这么填写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://用户名:密码@git仓库地址</span><br></pre></td></tr></table></figure></p>
-<p>git仓库地址不要HTTPS哦</p>
-<h4 id="第二个坑"><a href="#第二个坑" class="headerlink" title="第二个坑"></a>第二个坑</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">目标机器检测出错，请确认php进程www-data用户ssh-key加入目标机器的adolph用户ssh-key信任列表。</span><br></pre></td></tr></table></figure>
-<p>首先确认一下你的php进程的管理用户.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux|grep php</span><br></pre></td></tr></table></figure></p>
-<p>我这里是www-data.所以我这里就要生成www-data的key,使用以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u 用户名 ssh-keygen -t rsa</span><br></pre></td></tr></table></figure></p>
-<p>找到用户名所属目录~/.ssh/如果是apache用户.www-data就在/var/www/.ssh下面,具体的请自行查找对应的目录.<br>修改用户的权限.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd 对应目录下/.ssh/</span><br><span class="line">chmod 600 id_rsa</span><br><span class="line">chmod 600 id_rsa.pub</span><br></pre></td></tr></table></figure></p>
-<p>如果不行就提高权限.<br>然后执行以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -i id_rsa.pub 目标机用户名@目标机的IP地址</span><br></pre></td></tr></table></figure></p>
-<p>当然目标机也必须要有ssh哈,不然就安装一个.<br>输入密码后,尝试一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su php进程管理用户名</span><br><span class="line">ssh 目标机用户名@目标机的IP地址</span><br></pre></td></tr></table></figure></p>
-<p>能免密码登录就OK了.<br>当然,如果不能切换php进程管理用户名,请先设置密码.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd 用户名</span><br></pre></td></tr></table></figure></p>
-<p>修改密码,并且设置一下管理目录.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/passwd</span><br></pre></td></tr></table></figure></p>
-<p>将改用户名后面的/usr/sbin/bologin改成/bin/bash,就可以登录用户了.</p>
-<h4 id="第三个坑"><a href="#第三个坑" class="headerlink" title="第三个坑"></a>第三个坑</h4><p>当我们使用ssh-copy-id命令后,用ssh 目标机用户名@目标机IP地址,还是要输入密码,我们要修改配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br><span class="line">StrictModes yes  // 改成no</span><br></pre></td></tr></table></figure></p>
-<p>以上修改就行了</p>
+        <p>在mysql中,基于复制有两种模式,一种是基于日志点的模式,一种是GTID模式.mysql最初的主从是基于日志点.所以日志点的模式是比GTID的BUG更少.下面就是基于日志点主从的配置.let’s go🤗<br><a id="more"></a></p>
+<h4 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h4><p>在基于日志点复制之前,我们首先要生成一个用户单独用来设置主从同步的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create user &apos;replay&apos;@&apos;192.168.1.*&apos; identified by &apos;chenx123&apos;;</span><br><span class="line">grant replication slave on *.* to &apos;replay&apos;@&apos;192.168.1.*&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>在这里我们用了IP端来授权整个mysql服务.为什么不是单个库呢.因为在mysql中.replication这个是全局的.所以不能针对单个数据库来配置.如果要针对单个数据库的主从.应该在my.cnf加入如下语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binlog_do_db=数据库名	// 多个用逗号间隔.</span><br></pre></td></tr></table></figure></p>
+<h4 id="主库配置"><a href="#主库配置" class="headerlink" title="主库配置"></a>主库配置</h4><p>我们在创建好了用户过后,就需要在主库中开始我们的binlog日志.mysql的复制是基于binlog进行复制的.不开启你懂得😂<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">log_bin = mysql-bin	// 开启二进制文件</span><br><span class="line">server_id = 100 // 设置server_id全局唯一</span><br></pre></td></tr></table></figure></p>
+<p>然后重启我们的mysql服务.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysql restart</span><br></pre></td></tr></table></figure></p>
+<h4 id="从服务器"><a href="#从服务器" class="headerlink" title="从服务器"></a>从服务器</h4><p>配置好了主库过后.我们需要对从库也进行一些配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">log_bin=mysql-bin	// 开启bin_log</span><br><span class="line">server_id = 101	// 设置id</span><br><span class="line">relay_log = mysql-relay-bin	// relay log</span><br><span class="line">log_slave_update=on // 可选</span><br><span class="line">read_only=on // 设置只读</span><br></pre></td></tr></table></figure></p>
+<p>记得也需要重启服务哦</p>
+<h4 id="初始化从服务器数据"><a href="#初始化从服务器数据" class="headerlink" title="初始化从服务器数据"></a>初始化从服务器数据</h4><p>当我们的主从都配置好了,剩下的就需要对我们的数据进行初始化.如果本来就是空的,那就不需要此步骤了.注意此步骤应该在主库中备份,然后再从库肿恢复数据.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u用户名 -p密码 -A &gt; all.sql</span><br></pre></td></tr></table></figure></p>
+<p>我这里使用的mysqldump 也可以使用xtrabackup,xtrabackup可以进行热备份.由于我没有指定binlog_do_db,所以我就对整个库进行了备份.😀</p>
+<h4 id="复制连路"><a href="#复制连路" class="headerlink" title="复制连路"></a>复制连路</h4><p>当我们的数据这些准备好了,就可以开始创建我们的复制链路了.在从库中使用如下语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">change master to master_host = &apos;主库的ip地址&apos;,</span><br><span class="line">master_user = &apos;建立的用户名&apos;,</span><br><span class="line">master_password=&apos;密码&apos;,</span><br><span class="line">master_log_file= &apos;主库的binlog名称&apos;,</span><br><span class="line">master_log_pos=0;	// 主库的事务日志偏移量</span><br></pre></td></tr></table></figure></p>
+<p>如果不知道主库binlog日志的文件名和偏移量时,可以在主库中使用如下的语句获取<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show master status;</span><br></pre></td></tr></table></figure></p>
+<p>当我们建立好过后,就可以在从库中开启复制链路了.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start slave;	// 关闭链路,stop slave;</span><br></pre></td></tr></table></figure></p>
+<p>以上我们就建立了一个一主一从的mysql服务了.如何来查看我们的从库的状态.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show slave status;</span><br></pre></td></tr></table></figure></p>
+<h4 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h4><ul>
+<li>由于是最早的mysql主从的方法,所以相对bug较少</li>
+<li>对sql查询没有任何限制</li>
+<li>故障处理比较容易</li>
+</ul>
+<p>但是我们在配置的时候注意到了,配置从库的时候,需要到主库去获取主库的日志点信息.这个在出现故障的时候,就比较麻烦了.</p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>如果在备份表时,有写入操作.建议先设置全局的只读表.防止写入后跟从库数据不一致对的情况.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush tables with read lock;</span><br></pre></td></tr></table></figure></p>
+<p>解锁<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unlock tables;</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -242,6 +235,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -292,7 +296,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/12/22/Walle配置-最详细的安装/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2019/01/18/mysql基于日志点的主从/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -306,18 +310,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/12/26/redis悲观锁和乐观锁/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          redis悲观锁和乐观锁
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/11/21/ubuntu上QQ的终极方案/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ubuntu上QQ的终极方案</div>
+    <a href="/2019/01/18/mysql之binlog日志/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql之binlog日志</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -332,7 +327,7 @@
   
 
   
-  <div id="SOHUCS" sid="Walle配置-最详细的安装"></div> 
+  <div id="SOHUCS" sid="mysql基于日志点的主从"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
