@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>mysql基于GTID的主从 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前面我们用了比较老的基于日志点的复制,在故障转移时,获取主库的日志信息是比较困难的.所以在mysql5.6时,退出了新的GTID模式,用来处理mysql的主从复制.">
+  <meta name="description" content="前面我们用了比较老的基于日志点的复制,在故障转移时,获取主库的日志信息是比较困难的.所以在mysql5.6时,推出了新的GTID模式,用来处理mysql的主从复制.">
 <meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql基于GTID的主从">
 <meta property="og:url" content="http://www.blogme.club/2019/01/18/mysql基于GTID的主从/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="前面我们用了比较老的基于日志点的复制,在故障转移时,获取主库的日志信息是比较困难的.所以在mysql5.6时,退出了新的GTID模式,用来处理mysql的主从复制.">
+<meta property="og:description" content="前面我们用了比较老的基于日志点的复制,在故障转移时,获取主库的日志信息是比较困难的.所以在mysql5.6时,推出了新的GTID模式,用来处理mysql的主从复制.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-18T07:44:39.989Z">
+<meta property="og:updated_time" content="2019-01-18T09:26:51.583Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql基于GTID的主从">
-<meta name="twitter:description" content="前面我们用了比较老的基于日志点的复制,在故障转移时,获取主库的日志信息是比较困难的.所以在mysql5.6时,退出了新的GTID模式,用来处理mysql的主从复制.">
+<meta name="twitter:description" content="前面我们用了比较老的基于日志点的复制,在故障转移时,获取主库的日志信息是比较困难的.所以在mysql5.6时,推出了新的GTID模式,用来处理mysql的主从复制.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -175,7 +175,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>前面我们用了比较老的基于日志点的复制,在故障转移时,获取主库的日志信息是比较困难的.所以在mysql5.6时,退出了新的GTID模式,用来处理mysql的主从复制.<br><a id="more"></a></p>
+        <p>前面我们用了比较老的基于日志点的复制,在故障转移时,获取主库的日志信息是比较困难的.所以在mysql5.6时,推出了新的GTID模式,用来处理mysql的主从复制.<br><a id="more"></a></p>
 <h4 id="什么是GTID"><a href="#什么是GTID" class="headerlink" title="什么是GTID"></a>什么是GTID</h4><p>GTID即全局事务ID,其保证为每一个在主上提交的事务在复制集群中可以生成一个唯一的ID,在5.6版本中使用server_uuid和transaction_id两个共同组成一个GTID，GTID=server_uuid:transaction_id,下面我们就来介绍一下如何使用GTID模式来设置主从的过程.</p>
 <h4 id="建立帐号"><a href="#建立帐号" class="headerlink" title="建立帐号"></a>建立帐号</h4><p>首先,我们还是需要一个mysql用户用来单独的处理主从复制.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create user &apos;replay&apos;@&apos;IP段&apos; identified by &apos;chenx123&apos;</span><br><span class="line">grant replication slave on *.* to &apos;replay&apos;@&apos;IP段&apos;</span><br></pre></td></tr></table></figure></p>
 <h4 id="主库配置"><a href="#主库配置" class="headerlink" title="主库配置"></a>主库配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">log_bin = mysql-bin</span><br><span class="line">server_id=100 // 唯一</span><br><span class="line">gtid_mode=on // 是否启用gtid模式</span><br><span class="line">enforce_gtid_consistency=1 // 强制使用gtid的强制性</span><br><span class="line">log-slave-updates=on // mysql5.7之前版本需要启用</span><br></pre></td></tr></table></figure>
@@ -429,15 +429,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssl acme</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">C</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssl acme</a>
               </li>
              
               <li class="article-tag-list-item">
