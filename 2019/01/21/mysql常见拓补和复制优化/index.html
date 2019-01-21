@@ -6,22 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>socket学习之旅-4使用workerman做mysql代理 | adolph blog</title>
+  <title>mysql常见拓补和复制优化 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="有这样一应用场景,我们有两台服务器,一台web服务器对外公开,一台mysql服务器,不对外公开,当我们写代码的时候有需要去链接mysql服务器.这时有很多种做法,作端口映射,等等.当然,我们程序员又不是运维,所以我这里介绍一种,使用workerman作mysql代理.完成mysql中间件.">
-<meta name="keywords" content="socket">
+  <meta name="description" content="在我们的职业生涯中,由于在不同的公司可能就会遇到不同的mysql架构.下面我们就看一下,一些常见的mysql架构.">
+<meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="socket学习之旅-4使用workerman做mysql代理">
-<meta property="og:url" content="http://www.blogme.club/2017/08/05/socket学习之旅-4使用workerman做mysql代理/index.html">
+<meta property="og:title" content="mysql常见拓补和复制优化">
+<meta property="og:url" content="http://www.blogme.club/2019/01/21/mysql常见拓补和复制优化/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="有这样一应用场景,我们有两台服务器,一台web服务器对外公开,一台mysql服务器,不对外公开,当我们写代码的时候有需要去链接mysql服务器.这时有很多种做法,作端口映射,等等.当然,我们程序员又不是运维,所以我这里介绍一种,使用workerman作mysql代理.完成mysql中间件.">
+<meta property="og:description" content="在我们的职业生涯中,由于在不同的公司可能就会遇到不同的mysql架构.下面我们就看一下,一些常见的mysql架构.">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.blogme.club/socket/mysqltcp.png">
-<meta property="og:updated_time" content="2017-08-05T09:23:18.000Z">
+<meta property="og:image" content="https://cdn.blogme.club/blog/master_slave.png">
+<meta property="og:image" content="https://cdn.blogme.club/blog/master_master.png">
+<meta property="og:image" content="https://cdn.blogme.club/blog/master_backup.png">
+<meta property="og:image" content="https://cdn.blogme.club/blog/level.png">
+<meta property="og:updated_time" content="2019-01-21T09:58:21.543Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="socket学习之旅-4使用workerman做mysql代理">
-<meta name="twitter:description" content="有这样一应用场景,我们有两台服务器,一台web服务器对外公开,一台mysql服务器,不对外公开,当我们写代码的时候有需要去链接mysql服务器.这时有很多种做法,作端口映射,等等.当然,我们程序员又不是运维,所以我这里介绍一种,使用workerman作mysql代理.完成mysql中间件.">
-<meta name="twitter:image" content="http://www.blogme.club/socket/mysqltcp.png">
+<meta name="twitter:title" content="mysql常见拓补和复制优化">
+<meta name="twitter:description" content="在我们的职业生涯中,由于在不同的公司可能就会遇到不同的mysql架构.下面我们就看一下,一些常见的mysql架构.">
+<meta name="twitter:image" content="https://cdn.blogme.club/blog/master_slave.png">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -157,32 +160,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-socket学习之旅-4使用workerman做mysql代理" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-mysql常见拓补和复制优化" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      socket学习之旅-4使用workerman做mysql代理
+      mysql常见拓补和复制优化
     </h1>
   
 
         
-        <a href="/2017/08/05/socket学习之旅-4使用workerman做mysql代理/" class="archive-article-date">
-  	<time datetime="2017-08-05T09:21:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
+        <a href="/2019/01/21/mysql常见拓补和复制优化/" class="archive-article-date">
+  	<time datetime="2019-01-21T09:57:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>有这样一应用场景,我们有两台服务器,一台web服务器对外公开,一台mysql服务器,不对外公开,当我们写代码的时候有需要去链接mysql服务器.这时有很多种做法,作端口映射,等等.当然,我们程序员又不是运维,所以我这里介绍一种,使用workerman作mysql代理.完成mysql中间件.<br><a id="more"></a></p>
-<h4 id="搭建基本的tcp服务端"><a href="#搭建基本的tcp服务端" class="headerlink" title="搭建基本的tcp服务端"></a>搭建基本的tcp服务端</h4><p>我们链接mysql的时候有多种协议,具体的根据百度搜索,我这里主要通过使用tcp协议来完成mysql的代理.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">require_once &apos;../vendor/autoload.php&apos;;</span><br><span class="line"></span><br><span class="line">$worker = new \Workerman\Worker(&apos;tcp://127.0.0.1:9096&apos;);</span><br><span class="line">// 进程数.</span><br><span class="line">$worker-&gt;count = 4;</span><br><span class="line">// 当我们链接的时候.</span><br><span class="line">$worker-&gt;onConnect = function($connection)&#123;</span><br><span class="line">    echo &apos;new connection&apos;;</span><br><span class="line">&#125;;</span><br><span class="line">// 获得消息时.</span><br><span class="line">$worker-&gt;onMessage = function($connection,$data)&#123;</span><br><span class="line">    echo $data;</span><br><span class="line">&#125;;</span><br><span class="line">// 执行我们的客户端.</span><br><span class="line">\Workerman\Worker::runAll();</span><br></pre></td></tr></table></figure></p>
-<p>这里是最基本的服务端,我们使用adminer.php来链接我们的这个服务端.当我们尝试用adminer.php去链接的时候网页一直在等待中,如下图所示<br><img src="http://www.blogme.club/socket/mysqltcp.png" alt="mysql" title="mysql"><br>同时,我们的控制台会出现以下信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">adolph@adolph:/var/www/example/socket$ php server.php start</span><br><span class="line">Workerman[server.php] start in DEBUG mode</span><br><span class="line">----------------------- WORKERMAN -----------------------------</span><br><span class="line">Workerman version:3.4.6          PHP version:7.0.18-0ubuntu0.16.04.1</span><br><span class="line">------------------------ WORKERS -------------------------------</span><br><span class="line">user          worker        listen                processes status</span><br><span class="line">adolph        none          tcp://127.0.0.1:9096   4         [OK] </span><br><span class="line">----------------------------------------------------------------</span><br><span class="line">Press Ctrl-C to quit. Start success.</span><br><span class="line">new connection</span><br></pre></td></tr></table></figure></p>
-<p>说明我们是连上了服务,但是我们的服务端没有给出正确的响应,即没有给出正确的<a href="http://www.cnblogs.com/davygeek/p/5647175.html" target="_blank" rel="noopener">mysql报文</a>.所以网页一直在等待.</p>
-<h4 id="连接mysql"><a href="#连接mysql" class="headerlink" title="连接mysql"></a>连接mysql</h4><p>有兴趣的可以去研究一下mysql的报文,我这里先用最基本的异步链接,将发到我们tcp服务器的报文发送到数据库服务器上,然后将数据库服务器的结果返回给web服务器即可.以下是修正过后的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">require_once &apos;../vendor/autoload.php&apos;;</span><br><span class="line"></span><br><span class="line">$worker = new \Workerman\Worker(&apos;tcp://127.0.0.1:9096&apos;);</span><br><span class="line">// 进程数.</span><br><span class="line">$worker-&gt;count = 4;</span><br><span class="line">// 当我们链接的时候.</span><br><span class="line">$worker-&gt;onConnect = function($connection)&#123;</span><br><span class="line">    echo &apos;new connection&apos;;</span><br><span class="line">    // 异步链接到mysql服务器上.</span><br><span class="line">    $mysql_connection = new \Workerman\Connection\AsyncTcpConnection(&apos;tcp://127.0.0.1:3306&apos;);</span><br><span class="line">    // 链接.</span><br><span class="line">    $mysql_connection-&gt;connect();</span><br><span class="line">    // 将mysql服务器发送的消息返回到我们的tcp服务器上,由tcp返回到web服务器。</span><br><span class="line">    $mysql_connection-&gt;onMessage = function($mysql,$data)use($connection)&#123;</span><br><span class="line">        $connection-&gt;send($data);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    // 将web服务器发送给我们的消息转发到mysql服务器上.</span><br><span class="line">    $connection-&gt;onMessage = function($worker,$data)use($mysql_connection)&#123;</span><br><span class="line">        $mysql_connection-&gt;send($data);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">// 执行我们的客户端.</span><br><span class="line">\Workerman\Worker::runAll();</span><br></pre></td></tr></table></figure></p>
-<p>然后我们通过客户端adminer.php即可正常访问我们的mysql.</p>
+        <p>在我们的职业生涯中,由于在不同的公司可能就会遇到不同的mysql架构.下面我们就看一下,一些常见的mysql架构.<br><a id="more"></a></p>
+<h4 id="主从模式"><a href="#主从模式" class="headerlink" title="主从模式"></a>主从模式</h4><p><img src="https://cdn.blogme.club/blog/master_slave.png" alt="主从模式" title="主从模式"><br>优势:</p>
+<ul>
+<li>结构简单,但是非常灵活.</li>
+<li>不同的slave可以担任不同的角色<h4 id="主主模式"><a href="#主主模式" class="headerlink" title="主主模式"></a>主主模式</h4><img src="https://cdn.blogme.club/blog/master_master.png" alt="主主模式" title="主主模式"><br>不太建议使用此模式,在此模式下容易出现主键相同的问题.建议在一台服务上设置自增id从1开始,另一台上从2开始,步进为2.在这种模式下,要将log-slave-updates=ON启用.否则将不能启用该模式.<h4 id="主被模式"><a href="#主被模式" class="headerlink" title="主被模式"></a>主被模式</h4><img src="https://cdn.blogme.club/blog/master_backup.png" alt="主被模式" title="主被模式"><br>这是master-master结构变化而来的,它避免了M-M的缺点,实际上，这是一种具有容错和高可用性的系统.它的不同点在于其中一个服务只能进行只读操作.当有一台服务器挂掉后能迅速从另外一台服务器上启动过来.<h4 id="级联复制"><a href="#级联复制" class="headerlink" title="级联复制"></a>级联复制</h4><img src="https://cdn.blogme.club/blog/level.png" alt="级联模式" title="级联模式"><br>在某些应用下,由于读写的压力差异较大,这个时候由一台担任写的情况,会导致在写入的时候会比较吃力.所以有了这种模式,由单独的一台来处理同步工作.就很好的规避掉了这种问题.<h4 id="复制优化"><a href="#复制优化" class="headerlink" title="复制优化"></a>复制优化</h4></li>
+<li>使用mixed格式来传输binlog</li>
+<li>使用事务分割,把一个大的事务分割成小的事务</li>
+<li>如果binlog_format格式为row,binlog_row_image设置为minimal</li>
+<li>mysql配置多线程复制<h4 id="配置多线程"><a href="#配置多线程" class="headerlink" title="配置多线程"></a>配置多线程</h4>在高版本的mysql中,可以通过配置时钟轮寻的方式来配置多线程,下面就是配置过程.在从服务器上执行.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stop slave</span><br><span class="line">set global slave_parallel_type = &apos;logical_clock&apos;;</span><br><span class="line">set global slave_parallel_workers = 4;</span><br><span class="line">start slave</span><br></pre></td></tr></table></figure></li>
+</ul>
 
       
 
@@ -227,7 +234,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
@@ -283,7 +290,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2017/08/05/socket学习之旅-4使用workerman做mysql代理/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2019/01/21/mysql常见拓补和复制优化/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -297,18 +304,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/08/08/activeMQ学习之旅/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          activeMQ学习之旅
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">socket学习之旅-3撕开RPC远程调用的神秘外衣</div>
+    <a href="/2019/01/18/mysql基于GTID的主从/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql基于GTID的主从</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -323,7 +321,7 @@
   
 
   
-  <div id="SOHUCS" sid="socket学习之旅-4使用workerman做mysql代理"></div> 
+  <div id="SOHUCS" sid="mysql常见拓补和复制优化"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
