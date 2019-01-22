@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>vagrant的使用 | adolph blog</title>
+  <title>centos下安装mongodb | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="每到一个新公司都会搞一个开发环境.在windows下直接用phpstudy.在ubuntu下基本上每次都要下载安装,编译.甚是麻烦.在github上看到有vagrant这个用来构建和管理虚拟机环境的工具.就来倒腾一下,下面记录的安装过程和使用过程">
-<meta name="keywords" content="vagrant">
+  <meta name="description" content="在nosql中,mongodb和redis可能是至今为止最流行的nosql了.突然之间,要帮别人搭建一个mongodb的环境.有点措手不及.但是没有关系.跟redis的搭建有撒不一样.我们就在centos环境中搭建一个mongodb的环境.">
+<meta name="keywords" content="mongodb">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vagrant的使用">
-<meta property="og:url" content="http://www.blogme.club/2019/01/09/vagrant的使用/index.html">
+<meta property="og:title" content="centos下安装mongodb">
+<meta property="og:url" content="http://www.blogme.club/2019/01/22/centos下安装mongodb/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="每到一个新公司都会搞一个开发环境.在windows下直接用phpstudy.在ubuntu下基本上每次都要下载安装,编译.甚是麻烦.在github上看到有vagrant这个用来构建和管理虚拟机环境的工具.就来倒腾一下,下面记录的安装过程和使用过程">
+<meta property="og:description" content="在nosql中,mongodb和redis可能是至今为止最流行的nosql了.突然之间,要帮别人搭建一个mongodb的环境.有点措手不及.但是没有关系.跟redis的搭建有撒不一样.我们就在centos环境中搭建一个mongodb的环境.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-09T13:45:32.011Z">
+<meta property="og:updated_time" content="2019-01-22T09:37:42.125Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vagrant的使用">
-<meta name="twitter:description" content="每到一个新公司都会搞一个开发环境.在windows下直接用phpstudy.在ubuntu下基本上每次都要下载安装,编译.甚是麻烦.在github上看到有vagrant这个用来构建和管理虚拟机环境的工具.就来倒腾一下,下面记录的安装过程和使用过程">
+<meta name="twitter:title" content="centos下安装mongodb">
+<meta name="twitter:description" content="在nosql中,mongodb和redis可能是至今为止最流行的nosql了.突然之间,要帮别人搭建一个mongodb的环境.有点措手不及.但是没有关系.跟redis的搭建有撒不一样.我们就在centos环境中搭建一个mongodb的环境.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -155,32 +155,35 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-vagrant的使用" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-centos下安装mongodb" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      vagrant的使用
+      centos下安装mongodb
     </h1>
   
 
         
-        <a href="/2019/01/09/vagrant的使用/" class="archive-article-date">
-  	<time datetime="2019-01-09T13:44:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-09</time>
+        <a href="/2019/01/22/centos下安装mongodb/" class="archive-article-date">
+  	<time datetime="2019-01-22T09:36:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>每到一个新公司都会搞一个开发环境.在windows下直接用phpstudy.在ubuntu下基本上每次都要下载安装,编译.甚是麻烦.在github上看到有vagrant这个用来构建和管理虚拟机环境的工具.就来倒腾一下,下面记录的安装过程和使用过程<br><a id="more"></a></p>
-<h4 id="安装vagrant"><a href="#安装vagrant" class="headerlink" title="安装vagrant"></a>安装vagrant</h4><p>安装vagrant的前提是需要有virtualbox,这个就自行处理.windows直接下载下来双击即可.在ubuntu中用如下命令<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install vagrant</span><br></pre></td></tr></table></figure></p>
-<h4 id="下载box"><a href="#下载box" class="headerlink" title="下载box"></a>下载box</h4><p>先下载需要的box镜像.可以点击<a href="http://www.vagrantbox.es/" target="_blank" rel="noopener">这里</a>下载,例如我下载的就是<a href="https://github.com/holms/vagrant-centos7-box/releases/download/7.1.1503.001/CentOS-7.1.1503-x86_64-netboot.box" target="_blank" rel="noopener">centos镜像</a></p>
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>### 先加载镜像</span><br><span class="line">vagrant box add centos CentOS-7.1.1503-x86_64-netboot.box</span><br><span class="line"><span class="meta">#</span>### 创建目录</span><br><span class="line">mkdir -p /var/www/vagrant/php7.1</span><br><span class="line"><span class="meta">#</span>### 初始化box</span><br><span class="line">cd /var/www/vagrant/php7.1 &amp;&amp; vagrant init centos</span><br><span class="line"><span class="meta">#</span>### 启动box</span><br><span class="line">vagrant up</span><br><span class="line"><span class="meta">#</span>### 进入</span><br><span class="line">vagrant ssh</span><br></pre></td></tr></table></figure>
-<p>当我们进入box过后,先安装环境.我这里为了方便用的集成环境<a href="https://oneinstack.com/" target="_blank" rel="noopener">oneinstack</a>.当我们安装完成后.直接使用如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vagrant package --output php7.1.box --base centos</span><br></pre></td></tr></table></figure></p>
-<p>即可导出我们的环境,下次直接用导出的box初始化我们的环境即可了.</p>
+        <p>在nosql中,mongodb和redis可能是至今为止最流行的nosql了.突然之间,要帮别人搭建一个mongodb的环境.有点措手不及.但是没有关系.跟redis的搭建有撒不一样.我们就在centos环境中搭建一个mongodb的环境.<br><a id="more"></a></p>
+<h4 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h4><p>首先我们的系统是centos,所以我们要下载一个RECL系列的安装包.刚好官网就有.来一把.<a href="https://www.mongodb.com/download-center/community" target="_blank" rel="noopener">下载地址在此</a>.下载下来是一个rpm包.</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>既然是rpm包,那就简单了.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ./rpm包地址</span><br></pre></td></tr></table></figure></p>
+<p>就是这么轻松.安装完成后,看到官方文档使用mongo就可以链接了.我们来试试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mongo </span><br><span class="line">-bash: mongo: command not found</span><br></pre></td></tr></table></figure></p>
+<p>wtf😂,然后在查找命令,发现只有一个mongod的命令.😂.查看文档后,发现我安装了一个server.那就重新来吧.</p>
+<h4 id="卸载重来"><a href="#卸载重来" class="headerlink" title="卸载重来"></a>卸载重来</h4><p>先查找到我们刚刚装好的安装包,然后卸载掉.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum list installed</span><br><span class="line">yum remove 包名</span><br></pre></td></tr></table></figure></p>
+<p>卸载后,我们先安装包的包源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/yum.repos.d/mongodb-org-4.0.repo</span><br><span class="line"></span><br><span class="line">[mongodb-org-4.0]</span><br><span class="line">name=MongoDB Repository</span><br><span class="line">baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.0/x86_64/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgkey=https://www.mongodb.org/static/pgp/server-4.0.asc</span><br></pre></td></tr></table></figure></p>
+<p>修改包源后,使用yum update 更新.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y mongodb-org</span><br></pre></td></tr></table></figure></p>
+<p>即可安装mongodb了.</p>
 
       
 
@@ -225,7 +228,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">vagrant</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
         		</li>
       		
 		</ul>
@@ -281,7 +284,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2019/01/09/vagrant的使用/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2019/01/22/centos下安装mongodb/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -295,18 +298,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/01/09/acme免费的ssl证书/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          acme免费的ssl证书
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/01/08/mysql5-7安装和授权/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mysql5.7安装和授权</div>
+    <a href="/2019/01/21/mysql常见拓补和复制优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql常见拓补和复制优化</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -321,7 +315,7 @@
   
 
   
-  <div id="SOHUCS" sid="vagrant的使用"></div> 
+  <div id="SOHUCS" sid="centos下安装mongodb"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 

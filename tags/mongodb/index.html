@@ -6,20 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>vagrant的使用 | adolph blog</title>
+  <title>Tag: mongodb | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="每到一个新公司都会搞一个开发环境.在windows下直接用phpstudy.在ubuntu下基本上每次都要下载安装,编译.甚是麻烦.在github上看到有vagrant这个用来构建和管理虚拟机环境的工具.就来倒腾一下,下面记录的安装过程和使用过程">
-<meta name="keywords" content="vagrant">
-<meta property="og:type" content="article">
-<meta property="og:title" content="vagrant的使用">
-<meta property="og:url" content="http://www.blogme.club/2019/01/09/vagrant的使用/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="adolph blog">
+<meta property="og:url" content="http://www.blogme.club/tags/mongodb/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="每到一个新公司都会搞一个开发环境.在windows下直接用phpstudy.在ubuntu下基本上每次都要下载安装,编译.甚是麻烦.在github上看到有vagrant这个用来构建和管理虚拟机环境的工具.就来倒腾一下,下面记录的安装过程和使用过程">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-09T13:45:32.011Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vagrant的使用">
-<meta name="twitter:description" content="每到一个新公司都会搞一个开发环境.在windows下直接用phpstudy.在ubuntu下基本上每次都要下载安装,编译.甚是麻烦.在github上看到有vagrant这个用来构建和管理虚拟机环境的工具.就来倒腾一下,下面记录的安装过程和使用过程">
+<meta name="twitter:title" content="adolph blog">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -155,183 +150,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-vagrant的使用" class="article article-type-post " itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      vagrant的使用
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/01/22/centos下安装mongodb/" class="archive-article-date">
+  	<time datetime="2019-01-22T09:36:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-22</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/01/22/centos下安装mongodb/">centos下安装mongodb</a>
     </h1>
   
 
-        
-        <a href="/2019/01/09/vagrant的使用/" class="archive-article-date">
-  	<time datetime="2019-01-09T13:44:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>每到一个新公司都会搞一个开发环境.在windows下直接用phpstudy.在ubuntu下基本上每次都要下载安装,编译.甚是麻烦.在github上看到有vagrant这个用来构建和管理虚拟机环境的工具.就来倒腾一下,下面记录的安装过程和使用过程<br><a id="more"></a></p>
-<h4 id="安装vagrant"><a href="#安装vagrant" class="headerlink" title="安装vagrant"></a>安装vagrant</h4><p>安装vagrant的前提是需要有virtualbox,这个就自行处理.windows直接下载下来双击即可.在ubuntu中用如下命令<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install vagrant</span><br></pre></td></tr></table></figure></p>
-<h4 id="下载box"><a href="#下载box" class="headerlink" title="下载box"></a>下载box</h4><p>先下载需要的box镜像.可以点击<a href="http://www.vagrantbox.es/" target="_blank" rel="noopener">这里</a>下载,例如我下载的就是<a href="https://github.com/holms/vagrant-centos7-box/releases/download/7.1.1503.001/CentOS-7.1.1503-x86_64-netboot.box" target="_blank" rel="noopener">centos镜像</a></p>
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>### 先加载镜像</span><br><span class="line">vagrant box add centos CentOS-7.1.1503-x86_64-netboot.box</span><br><span class="line"><span class="meta">#</span>### 创建目录</span><br><span class="line">mkdir -p /var/www/vagrant/php7.1</span><br><span class="line"><span class="meta">#</span>### 初始化box</span><br><span class="line">cd /var/www/vagrant/php7.1 &amp;&amp; vagrant init centos</span><br><span class="line"><span class="meta">#</span>### 启动box</span><br><span class="line">vagrant up</span><br><span class="line"><span class="meta">#</span>### 进入</span><br><span class="line">vagrant ssh</span><br></pre></td></tr></table></figure>
-<p>当我们进入box过后,先安装环境.我这里为了方便用的集成环境<a href="https://oneinstack.com/" target="_blank" rel="noopener">oneinstack</a>.当我们安装完成后.直接使用如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vagrant package --output php7.1.box --base centos</span><br></pre></td></tr></table></figure></p>
-<p>即可导出我们的环境,下次直接用导出的box初始化我们的环境即可了.</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="https://cdn.blogme.club/blog/alipay.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="https://cdn.blogme.club/blog/weixin.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">vagrant</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2019/01/09/vagrant的使用/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/01/09/acme免费的ssl证书/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          acme免费的ssl证书
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/01/08/mysql5-7安装和授权/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mysql5.7安装和授权</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-  
-  
+    </div></section>
   
 
-  
-  <div id="SOHUCS" sid="vagrant的使用"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = "cytl0R24B"; 
-var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
-  
-
-  
+    
 
 
           </div>
@@ -363,9 +235,9 @@ window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="tex
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
