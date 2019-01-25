@@ -6,20 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>cookie跨域 | adolph blog</title>
+  <title>mysql之mmm架构搭建 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="近来有人在问我cookie的作用域的问题,这个总会在开发中遇到,这个就是关于cookie共享机制的问题.打个比方哈,如果在aaa.xxxx.com中存在用户信息,但是bbb.xxxx.com的用户登录机制是一样的,登录aaa的用户,在bbb中就不需要在登录了.这个就需要设计cookie的共享,就需涉及到cookie的作用域的信息了.cookie的作用域分为两种,一个是域名作用域,一个是路径作用域.">
-<meta name="keywords" content="http">
+  <meta name="description" content="今天我们来介绍一个比较老款的数据库集群管理工具.MMM.原称为mutil master replication manager.在mysql架构中属于主备模式.就是主主模式.下面我们来开始搭建这个.">
+<meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cookie跨域">
-<meta property="og:url" content="http://www.blogme.club/2018/01/20/cookie跨域/index.html">
+<meta property="og:title" content="mysql之mmm架构搭建">
+<meta property="og:url" content="http://www.blogme.club/2019/01/25/mysql之mmm架构搭建/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="近来有人在问我cookie的作用域的问题,这个总会在开发中遇到,这个就是关于cookie共享机制的问题.打个比方哈,如果在aaa.xxxx.com中存在用户信息,但是bbb.xxxx.com的用户登录机制是一样的,登录aaa的用户,在bbb中就不需要在登录了.这个就需要设计cookie的共享,就需涉及到cookie的作用域的信息了.cookie的作用域分为两种,一个是域名作用域,一个是路径作用域.">
+<meta property="og:description" content="今天我们来介绍一个比较老款的数据库集群管理工具.MMM.原称为mutil master replication manager.在mysql架构中属于主备模式.就是主主模式.下面我们来开始搭建这个.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-01-20T08:33:32.000Z">
+<meta property="og:image" content="https://cdn.blogme.club/blog/master_master.png">
+<meta property="og:updated_time" content="2019-01-25T09:12:12.639Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cookie跨域">
-<meta name="twitter:description" content="近来有人在问我cookie的作用域的问题,这个总会在开发中遇到,这个就是关于cookie共享机制的问题.打个比方哈,如果在aaa.xxxx.com中存在用户信息,但是bbb.xxxx.com的用户登录机制是一样的,登录aaa的用户,在bbb中就不需要在登录了.这个就需要设计cookie的共享,就需涉及到cookie的作用域的信息了.cookie的作用域分为两种,一个是域名作用域,一个是路径作用域.">
+<meta name="twitter:title" content="mysql之mmm架构搭建">
+<meta name="twitter:description" content="今天我们来介绍一个比较老款的数据库集群管理工具.MMM.原称为mutil master replication manager.在mysql架构中属于主备模式.就是主主模式.下面我们来开始搭建这个.">
+<meta name="twitter:image" content="https://cdn.blogme.club/blog/master_master.png">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -155,33 +157,50 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-cookie跨域" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-mysql之mmm架构搭建" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      cookie跨域
+      mysql之mmm架构搭建
     </h1>
   
 
         
-        <a href="/2018/01/20/cookie跨域/" class="archive-article-date">
-  	<time datetime="2018-01-20T08:32:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-20</time>
+        <a href="/2019/01/25/mysql之mmm架构搭建/" class="archive-article-date">
+  	<time datetime="2019-01-25T08:24:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>近来有人在问我cookie的作用域的问题,这个总会在开发中遇到,这个就是关于cookie共享机制的问题.打个比方哈,如果在aaa.xxxx.com中存在用户信息,但是bbb.xxxx.com的用户登录机制是一样的,登录aaa的用户,在bbb中就不需要在登录了.这个就需要设计cookie的共享,就需涉及到cookie的作用域的信息了.cookie的作用域分为两种,一个是域名作用域,一个是路径作用域.<br><a id="more"></a></p>
-<h4 id="域名作用域"><a href="#域名作用域" class="headerlink" title="域名作用域"></a>域名作用域</h4><p>cookie有个domain的参数,即为设置cookie的域名作用域.在PHP中,可以如下设置,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setcookie(&apos;username&apos;,&apos;pass&apos;,0,&apos;/&apos;,&apos;localhost&apos;);</span><br><span class="line">echo &apos;设置成功&apos;;</span><br></pre></td></tr></table></figure></p>
-<p>这句话,就是在localhost这个域名下设置一个叫username的cookie,当然这个有效期为0,就是一个session.就这么简单.当然,如果有二级域名,想共用cookie那就进行如下设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setcookie(&apos;username&apos;,&apos;pass&apos;,0,&apos;/&apos;,&apos;.aaa.com&apos;);</span><br><span class="line">echo &apos;设置成功&apos;;</span><br></pre></td></tr></table></figure></p>
-<p>这样就是在aaa.com的所有域名下都可以使用.</p>
-<h4 id="路径作用域"><a href="#路径作用域" class="headerlink" title="路径作用域"></a>路径作用域</h4><p>如何理解路径作用域,及需要理解linux下的权限./这个为网站根路径,即为这个网站域名下所有的子页面都可以使用.如下设置即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setcookie(&apos;username&apos;,&apos;pass&apos;,0,&apos;/路径&apos;,&apos;域名&apos;)</span><br><span class="line">echo &apos;设置成功&apos;;</span><br></pre></td></tr></table></figure></p>
-<p>这样就设置成功.</p>
-<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>最后在说一个,这里要讲一个cookie跨域.以上,我们设置了一个cookie,设置成其他域名上,是不是设置的cookie就有效了呢,答案是否定的.一些好的网站会禁用到cookie,这样就能搞定了.因为有些用户信息存到cookie中,如果其他黑客拿到cookie就可以通过以上方式跨域获取用户权限了.慎用…</p>
+        <p>今天我们来介绍一个比较老款的数据库集群管理工具.MMM.原称为mutil master replication manager.在mysql架构中属于主备模式.就是主主模式.下面我们来开始搭建这个.<br><a id="more"></a></p>
+<h4 id="主主模式"><a href="#主主模式" class="headerlink" title="主主模式"></a>主主模式</h4><p>MMM基于主主模式,那我们肯定得有两台主服务器,和一台从服务器.那就是3台服务器了.主主模式的架构图如下<br><img src="https://cdn.blogme.club/blog/master_master.png" alt="主主模式" title="主主模式"><br>我们在加上一台从服务器到我们的主服务器上.</p>
+<h4 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h4><p>首先我们需要3台服务器.由于是学习,就不找线上的服务器了.在本地使用虚拟机搭建.这里建议大家用vagrant来管理虚拟机.详细文章可以看<a href="/2019/01/09/vagrant%E7%9A%84%E4%BD%BF%E7%94%A8/">这篇</a>.<br>我们3台服务器的ip分别为192.168.1.99(master),192.168.1.98(backup),192.168.1.97(slave).<br>由于主从复制都是基于我们的mysql的binlog日志.所以我们要在3台上都开启binlog日志.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">log_bin=mysql-bin</span><br><span class="line">server_id=99|98|97 // 这里的server_id分别为99,98,97好区分.3台的哦.</span><br></pre></td></tr></table></figure></p>
+<p>由于我们是主主模式,要让backup(192.168.1.98)也要开启复制功能.所以我们要在/etc/my.cnf上用如下语句.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">relay_log=mysql-relay-bin</span><br><span class="line">log_slave_updates=on</span><br></pre></td></tr></table></figure></p>
+<p>必不可少,我们要加slave(192.168.1.97)上设置只读.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read_only=on</span><br></pre></td></tr></table></figure></p>
+<p>然后重启我们3台mysql服务器上的mysql.😂<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysql restart</span><br></pre></td></tr></table></figure></p>
+<h4 id="建立用户"><a href="#建立用户" class="headerlink" title="建立用户"></a>建立用户</h4><p>当我们设置好配置过后,我们需要为我们的数据设置一个公共的用户用来专门复制我们的mysql数据.这里由于是公共的,所以这个用户在3台mysql服务器上的用户权限,密码都是一样的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create user &apos;replay&apos;@&apos;%&apos; identified by &apos;Chenx@&apos;123&apos;;</span><br><span class="line">grant relication slave on *.* to &apos;replay&apos;@&apos;%&apos;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure></p>
+<p>以上语句在3台mysql上都需要执行.执行完成后,就需要备份数据.</p>
+<h4 id="备份数据"><a href="#备份数据" class="headerlink" title="备份数据"></a>备份数据</h4><p>我们的主从,肯定初始数据都要一致.所以,我们需要将master(192.168.1.99)上的数据导出然后给backup(98)和slave(97)使用.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p密码 -A &gt; all.sql;</span><br></pre></td></tr></table></figure></p>
+<p>然后通过scp传递到另外两台服务器上.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp ./all.sql vagrant@192.168.1.98:/home/vagrant;</span><br><span class="line">scp ./all.sql vagrant@192.168.1.97:/home/vagrant;</span><br></pre></td></tr></table></figure></p>
+<p>然后恢复数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p密码 &lt; /home/vagrant/all.sql;</span><br></pre></td></tr></table></figure></p>
+<h4 id="建立链路"><a href="#建立链路" class="headerlink" title="建立链路"></a>建立链路</h4><p>我们处理好了数据,就可以开始我们的链路建立了.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 192.168.1.99</span><br><span class="line">change master to master_host=&apos;192.168.1.98&apos;,</span><br><span class="line">master_user = &apos;replay&apos;,</span><br><span class="line">master_password=&apos;Chenx@123&apos;,</span><br><span class="line">master_log_file=&apos;192.168.1.98上的binlog文件名&apos;,</span><br><span class="line">master_log_pos=0; //192.168.1.98上的日志偏移量.</span><br><span class="line">start slave; // 建立复制.</span><br><span class="line"># 192.168.1.98</span><br><span class="line">change master to master_host=&apos;192.168.1.99&apos;,</span><br><span class="line">master_user = &apos;replay&apos;,</span><br><span class="line">master_password=&apos;Chenx@123&apos;,</span><br><span class="line">master_log_file=&apos;192.168.1.99上的binlog文件名&apos;,</span><br><span class="line">master_log_pos=0; //192.168.1.99上的日志偏移量.</span><br><span class="line">start slave; // 建立复制.</span><br><span class="line"># 192.168.1.97</span><br><span class="line">change master to master_host=&apos;192.168.1.99&apos;,</span><br><span class="line">master_user = &apos;replay&apos;,</span><br><span class="line">master_password=&apos;Chenx@123&apos;,</span><br><span class="line">master_log_file=&apos;192.168.1.99上的binlog文件名&apos;,</span><br><span class="line">master_log_pos=0; //192.168.1.99上的日志偏移量.</span><br><span class="line">start slave; // 建立复制.</span><br></pre></td></tr></table></figure></p>
+<p>这样3台就建立好了基于主主模式的架构了.如果不知道日志偏移量和binlog文件名.可以使用如下语句来获取.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show master status\G</span><br></pre></td></tr></table></figure></p>
+<h4 id="安装MMM"><a href="#安装MMM" class="headerlink" title="安装MMM"></a>安装MMM</h4><p>我们可以下在官方文件来安装,由于我们使用的是centos7,可以直接通过修改源的方式来添加,下面我们就通过这种形式来添加.<br>下载源文件<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</span><br><span class="line">yum search mysql-mmm* // 查看是否有软件信息.如果有,就可以开始进行安装.</span><br><span class="line">// 这里要注意一下,根据mmm官方上的文档,我们需要在所有的mysql节点上安装mysql-mmm-agent服务,而在监控机上,需要安装监控服务.</span><br><span class="line">yum install mysql-mmm-agent // 所有的mysql监控节点.</span><br><span class="line">yum install mysql-mmm-mintor //监控节点.(这里我放到的是单独的一台服务器上)</span><br></pre></td></tr></table></figure></p>
+<p>以上就安装好了我们的mmm服务.但是还没有启用.</p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>我们安装好MMM服务后,根据官网提示还需要3个用户,一个是agent用户,一个monitor用户.一个复制的用户,但是复制用户已经建立好了.只需要建立两个即可.在这里由于我们已经搭建好了主主的架构,我们只需要在一台服务器上建立用户即可.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 192.168.1.99</span><br><span class="line">GRANT REPLICATION CLIENT ON *.* TO &apos;mmm_monitor&apos;@&apos;%&apos; IDENTIFIED BY &apos;Chenx@123&apos;;</span><br><span class="line">GRANT SUPER, REPLICATION CLIENT, PROCESS ON *.* TO &apos;mmm_agent&apos;@&apos;192.168.0.%&apos;   IDENTIFIED BY &apos;Chenx@123&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>创建好了用户过后,我们就可以配置我们的MMM了.首先,我们找到配置文件在/etc/mysql-mmm文件夹下面,首先,有一个公共配置mmm_common.conf,这里的公共配置在3台服务器上都必须是一样的.所以我们就配置一个,然后复制到其他服务器上就可以了.配置如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">active_master_role      writer</span><br><span class="line"></span><br><span class="line">&lt;host default&gt;</span><br><span class="line">    cluster_interface       enp0s8</span><br><span class="line">    pid_path                /run/mysql-mmm-agent.pid</span><br><span class="line">    bin_path                /usr/libexec/mysql-mmm/</span><br><span class="line">    replication_user        replay	// 复制用户</span><br><span class="line">    replication_password    Chenx@123 // 密码</span><br><span class="line">    agent_user              mmm_agent // 代理用户</span><br><span class="line">    agent_password          Chenx@123 // 代理用户密码</span><br><span class="line">&lt;/host&gt;</span><br><span class="line"></span><br><span class="line">&lt;host db1&gt;</span><br><span class="line">    ip      192.168.1.99</span><br><span class="line">    mode    master</span><br><span class="line">    peer    db2</span><br><span class="line">&lt;/host&gt;</span><br><span class="line"></span><br><span class="line">&lt;host db2&gt;</span><br><span class="line">    ip      192.168.1.98</span><br><span class="line">    mode    master</span><br><span class="line">    peer    db1</span><br><span class="line">&lt;/host&gt;</span><br><span class="line"></span><br><span class="line">&lt;host db3&gt;</span><br><span class="line">    ip      192.168.1.97</span><br><span class="line">    mode    slave</span><br><span class="line">&lt;/host&gt;</span><br><span class="line"></span><br><span class="line">&lt;role writer&gt;</span><br><span class="line">    hosts   db1, db2</span><br><span class="line">    ips     192.168.100.99,192.168.100.98</span><br><span class="line">    mode    exclusive</span><br><span class="line">&lt;/role&gt;</span><br><span class="line"></span><br><span class="line">&lt;role reader&gt;</span><br><span class="line">    hosts   db1, db2, db3</span><br><span class="line">    ips     192.168.100.99,192.168.100.98,192.168.100.97</span><br><span class="line">    mode    balanced</span><br><span class="line">&lt;/role&gt;</span><br></pre></td></tr></table></figure></p>
+<p>当我们复制到其他服务器上过后,我们还需要改一下我们的mmm_agent.conf,告诉agent这个是哪个数据库.由于我们配置的数据库是不一样的.所以我们需要单独配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 192.168.1.99 </span><br><span class="line">include mmm_common.conf</span><br><span class="line">this db1</span><br><span class="line"></span><br><span class="line"># 192.168.1.98</span><br><span class="line">include mmm_common.conf</span><br><span class="line">this db2</span><br><span class="line"></span><br><span class="line"># 192.168.1.97</span><br><span class="line">include mmm_common.conf</span><br><span class="line">this db3</span><br></pre></td></tr></table></figure></p>
+<p>配置好后,我们就在3台服务器上启动我们的代理服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mmm_agentd start</span><br></pre></td></tr></table></figure></p>
+<p>就配置好了.</p>
+<h4 id="监控服务"><a href="#监控服务" class="headerlink" title="监控服务"></a>监控服务</h4><p>我们的mmm还提供了一个监控服务.这个可以单独安装.也可以集成.最好的方式是单独安装.所以我就单独安装了.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 192.168.1.96 /etc/mmm_montior.conf</span><br><span class="line">include mmm_common.conf</span><br><span class="line"></span><br><span class="line">&lt;monitor&gt;</span><br><span class="line">    ip                  127.0.0.1</span><br><span class="line">    pid_path            /run/mysql-mmm-monitor.pid</span><br><span class="line">    bin_path            /usr/libexec/mysql-mmm</span><br><span class="line">    status_path         /var/lib/mysql-mmm/mmm_mond.status</span><br><span class="line">    ping_ips            192.168.1.99,192.168.1.98,192.168.1.97</span><br><span class="line">    auto_set_online     6</span><br><span class="line">&lt;/monitor&gt;</span><br><span class="line"></span><br><span class="line">&lt;host default&gt;</span><br><span class="line">    monitor_user        mmm_monitor</span><br><span class="line">    monitor_password    Chenx@123</span><br><span class="line">&lt;/host&gt;</span><br></pre></td></tr></table></figure></p>
+<p>注意,这里的mmm_common.conf要设置成跟其他mysql服务器是一样的.所以也需要拷贝过来.<br>创建好过后,直接使用如下命令即可开启监控服务.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mmm_mond start</span><br></pre></td></tr></table></figure></p>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>以上就安装好了我们的mmm服务和架构.但是需要注意,由于是主主复制,所以需要设置自动增量.防止主键重复.在master(99)设置即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">auto_increment_offset = 1</span><br><span class="line">auto_increment_increment = 2</span><br></pre></td></tr></table></figure></p>
+<p>由于MMM服务在12年的时候就停止更新了,所以不支持gtid模式的复制仅仅只支持日志点的复制.这也算一个比较遗憾的事情吧.</p>
 
       
 
@@ -226,7 +245,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
@@ -282,7 +301,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2018/01/20/cookie跨域/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2019/01/25/mysql之mmm架构搭建/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -296,18 +315,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/02/11/多个队列的使用技巧/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          队列优化
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/12/26/mysql的悲观锁和乐观锁/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mysql的悲观锁和乐观锁</div>
+    <a href="/2019/01/22/centos下安装mongodb/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">centos下安装mongodb</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -322,7 +332,7 @@
   
 
   
-  <div id="SOHUCS" sid="cookie跨域"></div> 
+  <div id="SOHUCS" sid="mysql之mmm架构搭建"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
