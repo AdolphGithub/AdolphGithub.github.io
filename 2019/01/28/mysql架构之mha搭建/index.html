@@ -6,22 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>mysql之mmm架构搭建 | adolph blog</title>
+  <title>mysql架构之mha | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天我们来介绍一个比较老款的数据库集群管理工具.MMM.原称为mutil master replication manager.在mysql架构中属于主备模式.就是主主模式.下面我们来开始搭建这个.">
+  <meta name="description" content="我们用来了mmm来管理我们的mysql.但是有一个缺点,就是不支持gtid模式.这个对于我们来说就有点尴尬了.🤔我们肯定是需要一款支持这种模式的.所以就有了我们今天的mha(Master High Availability).我们就来用用这个.">
 <meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql之mmm架构搭建">
-<meta property="og:url" content="http://www.blogme.club/2019/01/25/mysql之mmm架构搭建/index.html">
+<meta property="og:title" content="mysql架构之mha">
+<meta property="og:url" content="http://www.blogme.club/2019/01/28/mysql架构之mha搭建/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="今天我们来介绍一个比较老款的数据库集群管理工具.MMM.原称为mutil master replication manager.在mysql架构中属于主备模式.就是主主模式.下面我们来开始搭建这个.">
+<meta property="og:description" content="我们用来了mmm来管理我们的mysql.但是有一个缺点,就是不支持gtid模式.这个对于我们来说就有点尴尬了.🤔我们肯定是需要一款支持这种模式的.所以就有了我们今天的mha(Master High Availability).我们就来用用这个.">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.blogme.club/blog/master_master.png">
-<meta property="og:updated_time" content="2019-01-25T09:12:12.639Z">
+<meta property="og:image" content="https://cdn.blogme.club/blog/master_slave.png">
+<meta property="og:updated_time" content="2019-01-28T10:05:10.897Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mysql之mmm架构搭建">
-<meta name="twitter:description" content="今天我们来介绍一个比较老款的数据库集群管理工具.MMM.原称为mutil master replication manager.在mysql架构中属于主备模式.就是主主模式.下面我们来开始搭建这个.">
-<meta name="twitter:image" content="https://cdn.blogme.club/blog/master_master.png">
+<meta name="twitter:title" content="mysql架构之mha">
+<meta name="twitter:description" content="我们用来了mmm来管理我们的mysql.但是有一个缺点,就是不支持gtid模式.这个对于我们来说就有点尴尬了.🤔我们肯定是需要一款支持这种模式的.所以就有了我们今天的mha(Master High Availability).我们就来用用这个.">
+<meta name="twitter:image" content="https://cdn.blogme.club/blog/master_slave.png">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -157,50 +157,39 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-mysql之mmm架构搭建" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-mysql架构之mha搭建" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      mysql之mmm架构搭建
+      mysql架构之mha
     </h1>
   
 
         
-        <a href="/2019/01/25/mysql之mmm架构搭建/" class="archive-article-date">
-  	<time datetime="2019-01-25T08:24:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-25</time>
+        <a href="/2019/01/28/mysql架构之mha搭建/" class="archive-article-date">
+  	<time datetime="2019-01-28T09:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>今天我们来介绍一个比较老款的数据库集群管理工具.MMM.原称为mutil master replication manager.在mysql架构中属于主备模式.就是主主模式.下面我们来开始搭建这个.<br><a id="more"></a></p>
-<h4 id="主主模式"><a href="#主主模式" class="headerlink" title="主主模式"></a>主主模式</h4><p>MMM基于主主模式,那我们肯定得有两台主服务器,和一台从服务器.那就是3台服务器了.主主模式的架构图如下<br><img src="https://cdn.blogme.club/blog/master_master.png" alt="主主模式" title="主主模式"><br>我们在加上一台从服务器到我们的主服务器上.</p>
-<h4 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h4><p>首先我们需要3台服务器.由于是学习,就不找线上的服务器了.在本地使用虚拟机搭建.这里建议大家用vagrant来管理虚拟机.详细文章可以看<a href="/2019/01/09/vagrant%E7%9A%84%E4%BD%BF%E7%94%A8/">这篇</a>.<br>我们3台服务器的ip分别为192.168.1.99(master),192.168.1.98(backup),192.168.1.97(slave).<br>由于主从复制都是基于我们的mysql的binlog日志.所以我们要在3台上都开启binlog日志.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">log_bin=mysql-bin</span><br><span class="line">server_id=99|98|97 // 这里的server_id分别为99,98,97好区分.3台的哦.</span><br></pre></td></tr></table></figure></p>
-<p>由于我们是主主模式,要让backup(192.168.1.98)也要开启复制功能.所以我们要在/etc/my.cnf上用如下语句.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">relay_log=mysql-relay-bin</span><br><span class="line">log_slave_updates=on</span><br></pre></td></tr></table></figure></p>
-<p>必不可少,我们要加slave(192.168.1.97)上设置只读.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read_only=on</span><br></pre></td></tr></table></figure></p>
-<p>然后重启我们3台mysql服务器上的mysql.😂<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysql restart</span><br></pre></td></tr></table></figure></p>
-<h4 id="建立用户"><a href="#建立用户" class="headerlink" title="建立用户"></a>建立用户</h4><p>当我们设置好配置过后,我们需要为我们的数据设置一个公共的用户用来专门复制我们的mysql数据.这里由于是公共的,所以这个用户在3台mysql服务器上的用户权限,密码都是一样的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create user &apos;replay&apos;@&apos;%&apos; identified by &apos;Chenx@&apos;123&apos;;</span><br><span class="line">grant relication slave on *.* to &apos;replay&apos;@&apos;%&apos;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure></p>
-<p>以上语句在3台mysql上都需要执行.执行完成后,就需要备份数据.</p>
-<h4 id="备份数据"><a href="#备份数据" class="headerlink" title="备份数据"></a>备份数据</h4><p>我们的主从,肯定初始数据都要一致.所以,我们需要将master(192.168.1.99)上的数据导出然后给backup(98)和slave(97)使用.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p密码 -A &gt; all.sql;</span><br></pre></td></tr></table></figure></p>
-<p>然后通过scp传递到另外两台服务器上.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp ./all.sql vagrant@192.168.1.98:/home/vagrant;</span><br><span class="line">scp ./all.sql vagrant@192.168.1.97:/home/vagrant;</span><br></pre></td></tr></table></figure></p>
-<p>然后恢复数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p密码 &lt; /home/vagrant/all.sql;</span><br></pre></td></tr></table></figure></p>
-<h4 id="建立链路"><a href="#建立链路" class="headerlink" title="建立链路"></a>建立链路</h4><p>我们处理好了数据,就可以开始我们的链路建立了.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 192.168.1.99</span><br><span class="line">change master to master_host=&apos;192.168.1.98&apos;,</span><br><span class="line">master_user = &apos;replay&apos;,</span><br><span class="line">master_password=&apos;Chenx@123&apos;,</span><br><span class="line">master_log_file=&apos;192.168.1.98上的binlog文件名&apos;,</span><br><span class="line">master_log_pos=0; //192.168.1.98上的日志偏移量.</span><br><span class="line">start slave; // 建立复制.</span><br><span class="line"># 192.168.1.98</span><br><span class="line">change master to master_host=&apos;192.168.1.99&apos;,</span><br><span class="line">master_user = &apos;replay&apos;,</span><br><span class="line">master_password=&apos;Chenx@123&apos;,</span><br><span class="line">master_log_file=&apos;192.168.1.99上的binlog文件名&apos;,</span><br><span class="line">master_log_pos=0; //192.168.1.99上的日志偏移量.</span><br><span class="line">start slave; // 建立复制.</span><br><span class="line"># 192.168.1.97</span><br><span class="line">change master to master_host=&apos;192.168.1.99&apos;,</span><br><span class="line">master_user = &apos;replay&apos;,</span><br><span class="line">master_password=&apos;Chenx@123&apos;,</span><br><span class="line">master_log_file=&apos;192.168.1.99上的binlog文件名&apos;,</span><br><span class="line">master_log_pos=0; //192.168.1.99上的日志偏移量.</span><br><span class="line">start slave; // 建立复制.</span><br></pre></td></tr></table></figure></p>
-<p>这样3台就建立好了基于主主模式的架构了.如果不知道日志偏移量和binlog文件名.可以使用如下语句来获取.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show master status\G</span><br></pre></td></tr></table></figure></p>
-<h4 id="安装MMM"><a href="#安装MMM" class="headerlink" title="安装MMM"></a>安装MMM</h4><p>我们可以下在官方文件来安装,由于我们使用的是centos7,可以直接通过修改源的方式来添加,下面我们就通过这种形式来添加.<br>下载源文件<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</span><br><span class="line">yum search mysql-mmm* // 查看是否有软件信息.如果有,就可以开始进行安装.</span><br><span class="line">// 这里要注意一下,根据mmm官方上的文档,我们需要在所有的mysql节点上安装mysql-mmm-agent服务,而在监控机上,需要安装监控服务.</span><br><span class="line">yum install mysql-mmm-agent // 所有的mysql监控节点.</span><br><span class="line">yum install mysql-mmm-mintor //监控节点.(这里我放到的是单独的一台服务器上)</span><br></pre></td></tr></table></figure></p>
-<p>以上就安装好了我们的mmm服务.但是还没有启用.</p>
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>我们安装好MMM服务后,根据官网提示还需要3个用户,一个是agent用户,一个monitor用户.一个复制的用户,但是复制用户已经建立好了.只需要建立两个即可.在这里由于我们已经搭建好了主主的架构,我们只需要在一台服务器上建立用户即可.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 192.168.1.99</span><br><span class="line">GRANT REPLICATION CLIENT ON *.* TO &apos;mmm_monitor&apos;@&apos;%&apos; IDENTIFIED BY &apos;Chenx@123&apos;;</span><br><span class="line">GRANT SUPER, REPLICATION CLIENT, PROCESS ON *.* TO &apos;mmm_agent&apos;@&apos;192.168.0.%&apos;   IDENTIFIED BY &apos;Chenx@123&apos;;</span><br></pre></td></tr></table></figure></p>
-<p>创建好了用户过后,我们就可以配置我们的MMM了.首先,我们找到配置文件在/etc/mysql-mmm文件夹下面,首先,有一个公共配置mmm_common.conf,这里的公共配置在3台服务器上都必须是一样的.所以我们就配置一个,然后复制到其他服务器上就可以了.配置如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">active_master_role      writer</span><br><span class="line"></span><br><span class="line">&lt;host default&gt;</span><br><span class="line">    cluster_interface       enp0s8</span><br><span class="line">    pid_path                /run/mysql-mmm-agent.pid</span><br><span class="line">    bin_path                /usr/libexec/mysql-mmm/</span><br><span class="line">    replication_user        replay	// 复制用户</span><br><span class="line">    replication_password    Chenx@123 // 密码</span><br><span class="line">    agent_user              mmm_agent // 代理用户</span><br><span class="line">    agent_password          Chenx@123 // 代理用户密码</span><br><span class="line">&lt;/host&gt;</span><br><span class="line"></span><br><span class="line">&lt;host db1&gt;</span><br><span class="line">    ip      192.168.1.99</span><br><span class="line">    mode    master</span><br><span class="line">    peer    db2</span><br><span class="line">&lt;/host&gt;</span><br><span class="line"></span><br><span class="line">&lt;host db2&gt;</span><br><span class="line">    ip      192.168.1.98</span><br><span class="line">    mode    master</span><br><span class="line">    peer    db1</span><br><span class="line">&lt;/host&gt;</span><br><span class="line"></span><br><span class="line">&lt;host db3&gt;</span><br><span class="line">    ip      192.168.1.97</span><br><span class="line">    mode    slave</span><br><span class="line">&lt;/host&gt;</span><br><span class="line"></span><br><span class="line">&lt;role writer&gt;</span><br><span class="line">    hosts   db1, db2</span><br><span class="line">    ips     192.168.100.99,192.168.100.98</span><br><span class="line">    mode    exclusive</span><br><span class="line">&lt;/role&gt;</span><br><span class="line"></span><br><span class="line">&lt;role reader&gt;</span><br><span class="line">    hosts   db1, db2, db3</span><br><span class="line">    ips     192.168.100.99,192.168.100.98,192.168.100.97</span><br><span class="line">    mode    balanced</span><br><span class="line">&lt;/role&gt;</span><br></pre></td></tr></table></figure></p>
-<p>当我们复制到其他服务器上过后,我们还需要改一下我们的mmm_agent.conf,告诉agent这个是哪个数据库.由于我们配置的数据库是不一样的.所以我们需要单独配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 192.168.1.99 </span><br><span class="line">include mmm_common.conf</span><br><span class="line">this db1</span><br><span class="line"></span><br><span class="line"># 192.168.1.98</span><br><span class="line">include mmm_common.conf</span><br><span class="line">this db2</span><br><span class="line"></span><br><span class="line"># 192.168.1.97</span><br><span class="line">include mmm_common.conf</span><br><span class="line">this db3</span><br></pre></td></tr></table></figure></p>
-<p>配置好后,我们就在3台服务器上启动我们的代理服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mmm_agentd start</span><br></pre></td></tr></table></figure></p>
-<p>就配置好了.</p>
-<h4 id="监控服务"><a href="#监控服务" class="headerlink" title="监控服务"></a>监控服务</h4><p>我们的mmm还提供了一个监控服务.这个可以单独安装.也可以集成.最好的方式是单独安装.所以我就单独安装了.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 192.168.1.96 /etc/mmm_montior.conf</span><br><span class="line">include mmm_common.conf</span><br><span class="line"></span><br><span class="line">&lt;monitor&gt;</span><br><span class="line">    ip                  127.0.0.1</span><br><span class="line">    pid_path            /run/mysql-mmm-monitor.pid</span><br><span class="line">    bin_path            /usr/libexec/mysql-mmm</span><br><span class="line">    status_path         /var/lib/mysql-mmm/mmm_mond.status</span><br><span class="line">    ping_ips            192.168.1.99,192.168.1.98,192.168.1.97</span><br><span class="line">    auto_set_online     6</span><br><span class="line">&lt;/monitor&gt;</span><br><span class="line"></span><br><span class="line">&lt;host default&gt;</span><br><span class="line">    monitor_user        mmm_monitor</span><br><span class="line">    monitor_password    Chenx@123</span><br><span class="line">&lt;/host&gt;</span><br></pre></td></tr></table></figure></p>
-<p>注意,这里的mmm_common.conf要设置成跟其他mysql服务器是一样的.所以也需要拷贝过来.<br>创建好过后,直接使用如下命令即可开启监控服务.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mmm_mond start</span><br></pre></td></tr></table></figure></p>
-<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>以上就安装好了我们的mmm服务和架构.但是需要注意,由于是主主复制,所以需要设置自动增量.防止主键重复.在master(99)设置即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">auto_increment_offset = 1</span><br><span class="line">auto_increment_increment = 2</span><br></pre></td></tr></table></figure></p>
-<p>由于MMM服务在12年的时候就停止更新了,所以不支持gtid模式的复制仅仅只支持日志点的复制.这也算一个比较遗憾的事情吧.</p>
+        <p>我们用来了mmm来管理我们的mysql.但是有一个缺点,就是不支持gtid模式.这个对于我们来说就有点尴尬了.🤔我们肯定是需要一款支持这种模式的.所以就有了我们今天的<a href="https://github.com/yoshinorim/mha4mysql-manager" target="_blank" rel="noopener">mha(Master High Availability)</a>.我们就来用用这个.<br><a id="more"></a></p>
+<h4 id="一主多从"><a href="#一主多从" class="headerlink" title="一主多从"></a>一主多从</h4><p>我们既然要处理集群.肯定就需要多个mysql服务器.我们在用mha时,会自动选举对应的服务器来作为我们的master.现在问题来了.自动选举.所以我们就可以不用在特意在在这些备选服务器上设置只读了.哈哈哈.😁.我们先来搭建一个基于GTID模式下的mysql集群.这里我不多说了.详细的请看<a href="https://www.blogme.club/2019/01/18/mysql%E5%9F%BA%E4%BA%8EGTID%E7%9A%84%E4%B8%BB%E4%BB%8E/">基于GTID模式的主从</a>.这个是基本的架构.<br><img src="https://cdn.blogme.club/blog/master_slave.png" alt="master/slave" title="master/slave"></p>
+<h4 id="安转mha"><a href="#安转mha" class="headerlink" title="安转mha"></a>安转mha</h4><p>我们搭建好了这样的结构.我们需要干如下事情.我搭建的如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">master: 192.168.1.99</span><br><span class="line">slave: 192.168.1.97</span><br><span class="line">backup: 192.168.1.98</span><br><span class="line">manager: 192.168.1.96</span><br></pre></td></tr></table></figure></p>
+<p>首先,我们根据官网,需要在mysql服务器上安装mha的node服务.这里我已经将安装包下载好了.<a href="https://github.com/AdolphGithub/mysqlmha" target="_blank" rel="noopener">点击这里下载</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install ./mha4mysql-node-0.57-0.el6.noarch.rpm</span><br></pre></td></tr></table></figure></p>
+<p>注意要在每个mysql服务器上都要装哦.同理,也需要在manager上安装,因为manager服务是基于node的.so.那就安装吧.有了以上的服务.我们在manager上安转mha的manager服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install ./mha4mysql-manager-0.57-0.el6.noarch.rpm</span><br></pre></td></tr></table></figure></p>
+<p>以上就安装好了mha.</p>
+<h4 id="ssl互信"><a href="#ssl互信" class="headerlink" title="ssl互信"></a>ssl互信</h4><p>使用mha时,由于mha在切换主机时,需要通过ssh来复制对应的binlog.所以就要求在每一台上mysql服务器上做互信.由于我的架构中多了一个manager管理节点.所以我就要多弄一台.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen  //生成密钥</span><br><span class="line">ssh-copy-id -i 密钥地址 用户名@IP地址 // 这样就做好了互信.</span><br></pre></td></tr></table></figure></p>
+<h4 id="mha配置"><a href="#mha配置" class="headerlink" title="mha配置"></a>mha配置</h4><p>当我们做好互信过后,就可以开始配置我们的配置了.这里的配置是可以在任意位置写的,所以我就写在了/home/masterha/mha.cnf,其配置如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">[server default]</span><br><span class="line"># mysql用户名和密码</span><br><span class="line">user=mha</span><br><span class="line">password=Chenx@123</span><br><span class="line"># ssh用户名</span><br><span class="line">ssh_user=root</span><br><span class="line"></span><br><span class="line"># 管理节点的工作目录</span><br><span class="line">manager_workdir=/home/masterha</span><br><span class="line"># 管理节点的工作日志,如果没有也需要建立</span><br><span class="line">manager_log=/home/masterha/manager.log</span><br><span class="line"># 远程节点的工作目录,如果没有就需要建立</span><br><span class="line">remote_workdir=/home/masterha</span><br><span class="line"></span><br><span class="line"># mysql主从复制用户</span><br><span class="line">repl_user=replay</span><br><span class="line">repl_password=Chenx@123</span><br><span class="line"># 检查master的状态</span><br><span class="line">ping_interval=1</span><br><span class="line"></span><br><span class="line"># 主节点的binlog日志</span><br><span class="line">master_binlog_dir=/var/lib/mysql</span><br><span class="line"># 在主从重启过后,提供虚拟IP的漂移</span><br><span class="line">master_ip_failover_script=/home/masterha/failover</span><br><span class="line"># 检查master是否可用</span><br><span class="line">secondary_check_script=/usr/bin/masterha_secondary_check -s 192.168.1.99 -s 192.168.1.98 -s 192.168.1.97</span><br><span class="line"># 单个主机配置</span><br><span class="line">[server1]</span><br><span class="line">hostname=192.168.1.99</span><br><span class="line"># 开启主库选取</span><br><span class="line">candidate_master=1</span><br><span class="line"></span><br><span class="line">[server2]</span><br><span class="line">hostname=192.168.1.98</span><br><span class="line">candidate_master=1</span><br><span class="line"></span><br><span class="line">[server3]</span><br><span class="line">hostname=192.168.1.97</span><br><span class="line"># 关闭主库选取</span><br><span class="line">no_master=1</span><br></pre></td></tr></table></figure></p>
+<p>当我们配置好过后,就可以在manager(96)来测试我们的脚本了.使用如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 检查互信</span><br><span class="line">masterha_check_ssh --conf=/home/masterha/mha.cnf</span><br><span class="line"># 检查基本配置</span><br><span class="line">masterha_check_repl --conf=/home/masterha/mha.cnf</span><br></pre></td></tr></table></figure></p>
+<p>当以上都通过时,就可以启动命令了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">masterha_manager --conf=/home/masterha/mha.cnf</span><br></pre></td></tr></table></figure></p>
+<p>这样我们就配置好了一个mha的架构.以下是几个注意的点.</p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>由于mha不能自动的更新虚拟的ip,所以需要我们用脚本来处理这个.配置项是这个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">master_ip_failover_script=/home/masterha/failover</span><br></pre></td></tr></table></figure></p>
+<p>具体的脚本地址<a href="https://github.com/AdolphGithub/mysqlmha" target="_blank" rel="noopener">在这里</a><br>配置好过后,如果mha始终检测不通过,请检查对应的mysql用户的授权.如果授权过后还不能登录.请修改如下的配置.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># manager节点</span><br><span class="line"># 位置位于,MHA/DBHelper.pm的155行和198行</span><br><span class="line">my $dsn = &quot;DBI:mysql:;host=[$host];port=$opt&#123;port&#125;&quot;; // 原有的</span><br><span class="line">my $dsn = &quot;DBI:mysql:;host=$host;port=$opt&#123;port&#125;&quot;; // 修改过后的</span><br><span class="line"># 位置位于,MHA/HealthCheck.pm的98行</span><br><span class="line">&quot;DBI:mysql:;host=[$self-&gt;&#123;ip&#125;];&quot; // 原有的</span><br><span class="line">&quot;DBI:mysql:;host=$self-&gt;&#123;ip&#125;;&quot; // 修改过后</span><br><span class="line"></span><br><span class="line"># node节点 </span><br><span class="line"># 位置位于/usr/bin/purge_relay_logs的178行</span><br><span class="line">my $dsn = &quot;DBI:mysql:;host=[$opt&#123;host&#125;];port=$opt&#123;port&#125;&quot;;	// 修改前</span><br><span class="line">my $dsn = &quot;DBI:mysql:;host=$opt&#123;host&#125;;port=$opt&#123;port&#125;&quot;;	// 修改后</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -301,7 +290,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2019/01/25/mysql之mmm架构搭建/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2019/01/28/mysql架构之mha搭建/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -316,8 +305,8 @@
 <nav id="article-nav">
   
   
-    <a href="/2019/01/22/centos下安装mongodb/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">centos下安装mongodb</div>
+    <a href="/2019/01/25/mysql架构之mmm搭建/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql架构之mmm搭建</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -332,7 +321,7 @@
   
 
   
-  <div id="SOHUCS" sid="mysql之mmm架构搭建"></div> 
+  <div id="SOHUCS" sid="mysql架构之mha搭建"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
@@ -443,11 +432,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
+                <a href="javascript:void(0)" class="js-tag color4">ssl acme</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssl acme</a>
+                <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -459,7 +448,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">http</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -467,15 +456,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -483,15 +468,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -500,6 +481,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -551,15 +540,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">php xdebug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
+                <a href="javascript:void(0)" class="js-tag color1">php xdebug</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -567,11 +552,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">css</a>
+                <a href="javascript:void(0)" class="js-tag color4">备份 ubunut git</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
