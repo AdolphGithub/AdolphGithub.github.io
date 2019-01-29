@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://www.blogme.club">
-  <title>Archives: 2019 | adolph blog</title>
+  <title>mysql中间件之maxscale | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="https://www.blogme.club/archives/2019/page/2/index.html">
+  <meta name="description" content="前面我们用了mha搭建了一个一主多从的架构,通过mha来自动选举master.但是我们还不能真正的处理负载.在mysql负载中,处理负载我们可以通过程序的预判断.通过开发来处理.但是这样会导致我们开发任务加重,而且很容易出错.能不能通过中间件的形式,对程序透明🤔.当然可以,这里就要用到mysql-proxy或者maxscale.我这里通过maxscale来搭建.">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql中间件之maxscale">
+<meta property="og:url" content="https://www.blogme.club/2019/01/29/mysql中间件之maxscale/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="前面我们用了mha搭建了一个一主多从的架构,通过mha来自动选举master.但是我们还不能真正的处理负载.在mysql负载中,处理负载我们可以通过程序的预判断.通过开发来处理.但是这样会导致我们开发任务加重,而且很容易出错.能不能通过中间件的形式,对程序透明🤔.当然可以,这里就要用到mysql-proxy或者maxscale.我这里通过maxscale来搭建.">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-29T07:13:50.135Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="mysql中间件之maxscale">
+<meta name="twitter:description" content="前面我们用了mha搭建了一个一主多从的架构,通过mha来自动选举master.但是我们还不能真正的处理负载.在mysql负载中,处理负载我们可以通过程序的预判断.通过开发来处理.但是这样会导致我们开发任务加重,而且很容易出错.能不能通过中间件的形式,对程序透明🤔.当然可以,这里就要用到mysql-proxy或者maxscale.我这里通过maxscale来搭建.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -150,36 +155,74 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-mysql中间件之maxscale" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mysql中间件之maxscale
+    </h1>
+  
+
+        
+        <a href="/2019/01/29/mysql中间件之maxscale/" class="archive-article-date">
+  	<time datetime="2019-01-29T07:12:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-29</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前面我们用了mha搭建了一个一主多从的架构,通过mha来自动选举master.但是我们还不能真正的处理负载.在mysql负载中,处理负载我们可以通过程序的预判断.通过开发来处理.但是这样会导致我们开发任务加重,而且很容易出错.能不能通过中间件的形式,对程序透明🤔.当然可以,这里就要用到mysql-proxy或者maxscale.我这里通过maxscale来搭建.<br><a id="more"></a></p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>maxscale的安装相对而言非常简单.可以直接在官网上下载安装包就可以了.<a href="https://mariadb.com/downloads/#mariadb_platform" target="_blank" rel="noopener">下载地址</a>,我这里下载的是centos7版本的2.2.19.下载完成后,直接可以如下的命令进行安装<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y maxscale-2.2.19-1.centos.7.x86_64.rpm</span><br></pre></td></tr></table></figure></p>
+<p>直接就安装好了.</p>
+<h4 id="配置mysql"><a href="#配置mysql" class="headerlink" title="配置mysql"></a>配置mysql</h4><p>我们在前面搭建了mha.不知道的可以看我<a href="https://www.blogme.club/2019/01/28/mysql%E6%9E%B6%E6%9E%84%E4%B9%8Bmha%E6%90%AD%E5%BB%BA/">这篇文章</a>.我们在manager(192.168.1.96)节点安装的mha的manager.所以我们可以直接在master节点上创建maxscale所需要的用户.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grant replication slave,replication client on *.* to &apos;scalemon&apos;@&apos;%&apos; identified by &apos;Chenx@123&apos;;</span><br><span class="line"></span><br><span class="line">grant select on mysql.* to &apos;maxscale&apos;@&apos;%&apos; identified by &apos;Chenx@123&apos;;</span><br></pre></td></tr></table></figure></p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>我们配置好了用户过后.就可以配置maxscale了.maxscale的默认配置文件在/etc/maxscale.cnf.这里就是我们的配置.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">[maxscale]</span><br><span class="line"># 进程数</span><br><span class="line">threads=4</span><br><span class="line"># 提供mysql服务的主机</span><br><span class="line">[server1]</span><br><span class="line">type=server</span><br><span class="line">address=192.168.1.99</span><br><span class="line">port=3306</span><br><span class="line">protocol=MysqlBackend</span><br><span class="line">[server2]</span><br><span class="line">type=server</span><br><span class="line">address=192.168.1.98</span><br><span class="line">port=3306</span><br><span class="line">protocol=MysqlBackend</span><br><span class="line">[server3]</span><br><span class="line">type=server</span><br><span class="line">address=192.168.1.97</span><br><span class="line">port=3306</span><br><span class="line">protocol=MysqlBackend</span><br><span class="line"># 提供mysql监控的用户.</span><br><span class="line">[MariaDB-Monitor]</span><br><span class="line">type=monitor</span><br><span class="line">module=mariadbmon</span><br><span class="line">servers=server1,server2,server3</span><br><span class="line">user=scalemon</span><br><span class="line">password=Chenx@123</span><br><span class="line"># 每一秒检查一下监控</span><br><span class="line">monitor_interval=1000</span><br><span class="line"># 自动分配读写负载</span><br><span class="line">[Read-Write-Service]</span><br><span class="line">type=service</span><br><span class="line">router=readwritesplit</span><br><span class="line">servers=server1,server2,server3</span><br><span class="line">user=maxscale</span><br><span class="line">password=Chenx@123</span><br><span class="line">max_slave_connections=100%</span><br><span class="line">max_slave_replication_lag=60</span><br><span class="line"># maxscale的管理端</span><br><span class="line">[MaxAdmin-Service]</span><br><span class="line">type=service</span><br><span class="line">router=cli</span><br><span class="line"></span><br><span class="line">[Read-Write-Listener]</span><br><span class="line">type=listener</span><br><span class="line">service=Read-Write-Service</span><br><span class="line">protocol=MySQLClient</span><br><span class="line">port=3306</span><br><span class="line"></span><br><span class="line">[MaxAdmin-Listener]</span><br><span class="line">type=listener</span><br><span class="line">service=MaxAdmin-Service</span><br><span class="line">protocol=maxscale</span><br></pre></td></tr></table></figure></p>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>当我们配置完成后,可以使用如下命令来检查配置文件是否存在错误<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maxscale -c</span><br></pre></td></tr></table></figure></p>
+<p>如果检测通过即可使用<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service maxscale restart</span><br></pre></td></tr></table></figure></p>
+<p>来重启命令了.这样我们就完成了负载.</p>
+<h4 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h4><p>maxscale对于开发来说是透明,无需修改代码.但是既然加了一层中间件,那就意味着查询会通过中间件来转发,查询就会降低.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://cdn.blogme.club/blog/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://cdn.blogme.club/blog/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/16/mysql配置优化/" class="archive-article-date">
-  	<time datetime="2019-01-16T12:27:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/16/mysql配置优化/">mysql配置优化</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -191,326 +234,98 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://www.blogme.club/2019/01/29/mysql中间件之maxscale/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/15/mysql引擎之csv-memory-archive-federated/" class="archive-article-date">
-  	<time datetime="2019-01-15T09:17:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-15</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/15/mysql引擎之csv-memory-archive-federated/">mysql引擎之csv|memory|archive|federated</a>
-    </h1>
+  
+    <a href="/2019/01/28/mysql架构之mha搭建/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql架构之mha搭建</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/14/mysql引擎之innodb/" class="archive-article-date">
-  	<time datetime="2019-01-14T13:30:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/14/mysql引擎之innodb/">mysql引擎之innodb</a>
-    </h1>
+  <div id="SOHUCS" sid="mysql中间件之maxscale"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/12/mysql引擎之myisam/" class="archive-article-date">
-  	<time datetime="2019-01-11T19:45:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/12/mysql引擎之myisam/">mysql引擎之myisam</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/10/linux内核优化/" class="archive-article-date">
-  	<time datetime="2019-01-10T12:47:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/10/linux内核优化/">linux内核优化</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/09/mysql事务与隔离级别/" class="archive-article-date">
-  	<time datetime="2019-01-09T13:47:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/09/mysql事务与隔离级别/">mysql事务与隔离级别</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/09/acme免费的ssl证书/" class="archive-article-date">
-  	<time datetime="2019-01-09T13:46:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/09/acme免费的ssl证书/">acme免费的ssl证书</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ssl acme</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/09/vagrant的使用/" class="archive-article-date">
-  	<time datetime="2019-01-09T13:44:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/09/vagrant的使用/">vagrant的使用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">vagrant</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/08/mysql5-7安装和授权/" class="archive-article-date">
-  	<time datetime="2019-01-08T01:50:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/08/mysql5-7安装和授权/">mysql5.7安装和授权</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/">&laquo; Prev</a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -543,8 +358,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
