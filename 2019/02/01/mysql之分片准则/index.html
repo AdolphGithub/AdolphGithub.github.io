@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://www.blogme.club">
-  <title>Tag: vagrant | adolph blog</title>
+  <title>mysql之分片准则 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="https://www.blogme.club/tags/vagrant/index.html">
+  <meta name="description" content="当数据库无法承担我们的写负载的时候,通过分表分库都无法解决的时候,就需要使用mysql的终极大招,分片.有这样一个准则,在能分表分库时,就不要使用mysql的分片.使用mysql分片的时候,会对维护造成难以估计的麻烦.所以,为了维护方便,就有了以下的准则.">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql之分片准则">
+<meta property="og:url" content="https://www.blogme.club/2019/02/01/mysql之分片准则/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="当数据库无法承担我们的写负载的时候,通过分表分库都无法解决的时候,就需要使用mysql的终极大招,分片.有这样一个准则,在能分表分库时,就不要使用mysql的分片.使用mysql分片的时候,会对维护造成难以估计的麻烦.所以,为了维护方便,就有了以下的准则.">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-01T02:52:13.549Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="mysql之分片准则">
+<meta name="twitter:description" content="当数据库无法承担我们的写负载的时候,通过分表分库都无法解决的时候,就需要使用mysql的终极大招,分片.有这样一个准则,在能分表分库时,就不要使用mysql的分片.使用mysql分片的时候,会对维护造成难以估计的麻烦.所以,为了维护方便,就有了以下的准则.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -150,60 +155,186 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-mysql之分片准则" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/09/vagrant的使用/" class="archive-article-date">
-  	<time datetime="2019-01-09T13:44:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-09</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/09/vagrant的使用/">vagrant的使用</a>
+    <h1 class="article-title" itemprop="name">
+      mysql之分片准则
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/02/01/mysql之分片准则/" class="archive-article-date">
+  	<time datetime="2019-02-01T02:45:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当数据库无法承担我们的写负载的时候,通过分表分库都无法解决的时候,就需要使用mysql的终极大招,分片.有这样一个准则,在能分表分库时,就不要使用mysql的分片.使用mysql分片的时候,会对维护造成难以估计的麻烦.所以,为了维护方便,就有了以下的准则.<br><a id="more"></a></p>
+<h4 id="分区键"><a href="#分区键" class="headerlink" title="分区键"></a>分区键</h4><ul>
+<li>分区键要能尽量避免跨分片查询的发生</li>
+<li>分区键要能尽量使各个分片中的数据平均</li>
+</ul>
+<p>那如何存储无需分区的表呢 ,有两种方式.方式一,每个分片中存储一份相同的数据,这样就会存在数据冗余.但是对于查询来说,非常好.方式二,使用额外的节点统一存储,不存在冗余问题.对查询比较吃力.</p>
+<h4 id="节点上部署分片"><a href="#节点上部署分片" class="headerlink" title="节点上部署分片"></a>节点上部署分片</h4><ul>
+<li>每个分片使用单一数据库,并且数据库名也相同</li>
+<li>将多个分片表存储在一个数据库中,并在表名上加入分片号后缀</li>
+<li>在一个节点中部署多个数据库,每个数据库包含一个分片<h4 id="查找数据"><a href="#查找数据" class="headerlink" title="查找数据"></a>查找数据</h4></li>
+<li>按分区键的hash值取模来分配分片数据</li>
+<li>按分区键的范围来分配分片数据</li>
+<li>利用分区键和分片的映射表来分配分片数据<h4 id="唯一ID"><a href="#唯一ID" class="headerlink" title="唯一ID"></a>唯一ID</h4></li>
+<li>使用auto_increment_increment和auto_increment_offset参数</li>
+<li>配置全局节点ID</li>
+<li>在redis等缓存服务器中创建全局ID<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4>如果这些准则你觉得非常麻烦,可以使用一些集成工具,例如oneproxy,mycat等工具来完成数据库的分片.</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://cdn.blogme.club/blog/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://cdn.blogme.club/blog/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">vagrant</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://www.blogme.club/2019/02/01/mysql之分片准则/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/02/01/mysql之监控/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql之监控</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+  <div id="SOHUCS" sid="mysql之分片准则"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+  
+
+  
 
 
           </div>
@@ -235,9 +366,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
