@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://www.blogme.club">
-  <title>Tag: nysql | adolph blog</title>
+  <title>mysql之使用mycat管理pxc集群 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="https://www.blogme.club/tags/nysql/index.html">
+  <meta name="description" content="前面我们使用了percona公司的xtradb cluster的集群方案来解决我们的mysql并发和性能问题.但是如果一个集群挂掉了,或者说我们一个集群已经不能支持我们的业务了.这个时候我们要加入新的集群来支持我们的业务.这个时候,按照以前的pxc方案,就要加入新的mysql主机.这个就影响我们整个pxc集群的同步.所以我们为了方便,就使用mycat来管理我们的集群.">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql之使用mycat管理pxc集群">
+<meta property="og:url" content="https://www.blogme.club/2019/02/13/mysql之使用mycat管理pxc集群/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="前面我们使用了percona公司的xtradb cluster的集群方案来解决我们的mysql并发和性能问题.但是如果一个集群挂掉了,或者说我们一个集群已经不能支持我们的业务了.这个时候我们要加入新的集群来支持我们的业务.这个时候,按照以前的pxc方案,就要加入新的mysql主机.这个就影响我们整个pxc集群的同步.所以我们为了方便,就使用mycat来管理我们的集群.">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-13T10:06:31.211Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="mysql之使用mycat管理pxc集群">
+<meta name="twitter:description" content="前面我们使用了percona公司的xtradb cluster的集群方案来解决我们的mysql并发和性能问题.但是如果一个集群挂掉了,或者说我们一个集群已经不能支持我们的业务了.这个时候我们要加入新的集群来支持我们的业务.这个时候,按照以前的pxc方案,就要加入新的mysql主机.这个就影响我们整个pxc集群的同步.所以我们为了方便,就使用mycat来管理我们的集群.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -150,60 +155,185 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-mysql之使用mycat管理pxc集群" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/13/mysql之pxc集群参数介绍/" class="archive-article-date">
-  	<time datetime="2019-02-12T22:47:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-13</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/13/mysql之pxc集群参数介绍/">mysql之pxc集群参数介绍</a>
+    <h1 class="article-title" itemprop="name">
+      mysql之使用mycat管理pxc集群
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/02/13/mysql之使用mycat管理pxc集群/" class="archive-article-date">
+  	<time datetime="2019-02-13T10:05:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前面我们使用了percona公司的xtradb cluster的集群方案来解决我们的mysql并发和性能问题.但是如果一个集群挂掉了,或者说我们一个集群已经不能支持我们的业务了.这个时候我们要加入新的集群来支持我们的业务.这个时候,按照以前的pxc方案,就要加入新的mysql主机.这个就影响我们整个pxc集群的同步.所以我们为了方便,就使用mycat来管理我们的集群.<br><a id="more"></a></p>
+<h4 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h4><p>首先,介绍下我的环境.pxc集群有个两个.如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cluster1: 192.168.1.99,192.168.1.98,192.168.1.96</span><br><span class="line">cluster2: 192.168.1.49,192.168.1.48,192.168.1.47</span><br></pre></td></tr></table></figure></p>
+<p>所有都是在centos系统中.同时我们虚拟出新的一台服务器来管理我们的mycat.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.50</span><br></pre></td></tr></table></figure></p>
+<p>以上就是我的环境了.</p>
+<h4 id="安装mycat"><a href="#安装mycat" class="headerlink" title="安装mycat"></a>安装mycat</h4><p>安装mycat其实非常简单.首先你得有一个java的jdk.使用如下命令就可以了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y java-1.8.0-openjdk-devel.x86_64</span><br></pre></td></tr></table></figure></p>
+<p>然后配置一下JAVA_HOME,<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo 'export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-1.el7_6.x86_64' &gt;&gt; /etc/profile</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></p>
+<p>这样就配置好了.至于mycat.直接下载安装包,解压即可<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -c http://dl.mycat.io/1.6-RELEASE/Mycat-server-1.6-RELEASE-20161028204710-linux.tar.gz</span><br><span class="line">tar -zxvf Mycat-server-1.6-RELEASE-20161028204710-linux.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>这样就好了.</p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>首先,要想使用mycat,就得先弄好配置,统一配置目录在mycat目录下的conf文件夹.第一个.server.xml,该配置文件用来配置mysql用户的.配置如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 找到以下的代码 --&gt;</span><br><span class="line">&lt;!-- 修改为mysql的统一用户,可以操作所有数据库 --&gt;</span><br><span class="line">&lt;user name=&quot;admin&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;password&quot;&gt;Abcd_123&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;schemas&quot;&gt;school&lt;/property&gt;</span><br><span class="line">&lt;/user&gt;</span><br><span class="line">&lt;!-- 统一的读取用户,只拥有读取权限 --&gt;</span><br><span class="line">&lt;user name=&quot;chenx&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;password&quot;&gt;Abcd_123&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;schemas&quot;&gt;school&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;readOnly&quot;&gt;true&lt;/property&gt;</span><br><span class="line">&lt;/user&gt;</span><br></pre></td></tr></table></figure></p>
+<p>我们先使用最基本的mod-long用主键取模的形式来处理我们的分片.这个规则配置在rule.xml,找到以下配置替换即可.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;tableRule name=&quot;mod-long&quot;&gt;</span><br><span class="line">	&lt;rule&gt;</span><br><span class="line">		&lt;!-- 定义主键规则,这个是按照哪个主键开始分 --&gt;</span><br><span class="line">		&lt;columns&gt;uid&lt;/columns&gt;</span><br><span class="line">		&lt;algorithm&gt;mod-long&lt;/algorithm&gt;</span><br><span class="line">	&lt;/rule&gt;</span><br><span class="line">&lt;/tableRule&gt;</span><br><span class="line">&lt;function name=&quot;mod-long&quot; class=&quot;io.mycat.route.function.PartitionByMod&quot;&gt;</span><br><span class="line">	&lt;!-- 有好多个分片 --&gt;</span><br><span class="line">	&lt;property name=&quot;count&quot;&gt;2&lt;/property&gt;</span><br><span class="line">&lt;/function&gt;</span><br></pre></td></tr></table></figure></p>
+<p>有了规格过后,我们需要去应用在我们的数据库.配置在schema.xml中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 定义一个分区表,分区表的主键为uid 同时设置集群在dn1和dn2中 --&gt;</span><br><span class="line">&lt;schema name=&quot;saas_idc&quot; checkSQLschema=&quot;true&quot; sqlMaxLimit=&quot;100&quot;&gt;</span><br><span class="line">        &lt;table name=&quot;user&quot; primaryKey=&quot;uid&quot; dataNode=&quot;dn1,dn2&quot; rule=&quot;mod-long&quot; /&gt;</span><br><span class="line">&lt;/schema&gt;</span><br><span class="line">&lt;!-- 定义两个集群,只能操作saas_idc库 --&gt;</span><br><span class="line">&lt;dataNode name=&quot;dn1&quot; dataHost=&quot;localhost1&quot; database=&quot;saas_idc&quot; /&gt;</span><br><span class="line">&lt;dataNode name=&quot;dn2&quot; dataHost=&quot;localhost2&quot; database=&quot;saas_idc&quot; /&gt;</span><br><span class="line">&lt;!-- 设置了两个pxc集群,其中每一个集群提供两个写节点,每个写节点搭配两个读节点 --&gt;</span><br><span class="line">&lt;dataHost name=&quot;localhost1&quot; maxCon=&quot;1000&quot; minCon=&quot;10&quot; balance=&quot;2&quot; writeType=&quot;0&quot; dbType=&quot;mysql&quot; dbDriver=&quot;native&quot; switchType=&quot;1&quot;  slaveThreshold=&quot;100&quot;&gt;</span><br><span class="line">        &lt;heartbeat&gt;select user()&lt;/heartbeat&gt;</span><br><span class="line">        &lt;writeHost host=&quot;cluster11&quot; url=&quot;192.168.1.99:3306&quot; user=&quot;admin&quot; password=&quot;Abcd_123&quot;&gt;</span><br><span class="line">                &lt;readHost host=&quot;hostS2&quot; url=&quot;192.168.1.98:3306&quot; user=&quot;chenx&quot; password=&quot;Abcd_123&quot; /&gt;</span><br><span class="line">                &lt;readHost host=&quot;hostS3&quot; url=&quot;192.168.1.96:3306&quot; user=&quot;chenx&quot; password=&quot;Abcd_123&quot; /&gt;</span><br><span class="line">        &lt;/writeHost&gt;</span><br><span class="line">        &lt;writeHost host=&quot;cluster12&quot; url=&quot;192.168.1.98:3306&quot; user=&quot;admin&quot; password=&quot;Abcd_123&quot;&gt;</span><br><span class="line">                &lt;readHost host=&quot;hostS2&quot; url=&quot;192.168.1.99:3306&quot; user=&quot;chenx&quot; password=&quot;Abcd_123&quot; /&gt;</span><br><span class="line">                &lt;readHost host=&quot;hostS3&quot; url=&quot;192.168.1.96:3306&quot; user=&quot;chenx&quot; password=&quot;Abcd_123&quot; /&gt;</span><br><span class="line">        &lt;/writeHost&gt;</span><br><span class="line">&lt;/dataHost&gt;</span><br><span class="line">&lt;dataHost name=&quot;localhost2&quot; maxCon=&quot;1000&quot; minCon=&quot;10&quot; balance=&quot;2&quot; writeType=&quot;0&quot; dbType=&quot;mysql&quot; dbDriver=&quot;native&quot; switchType=&quot;1&quot; slaveThreshold=&quot;100&quot;&gt;</span><br><span class="line">        &lt;heartbeat&gt;select user()&lt;/heartbeat&gt;</span><br><span class="line">        &lt;writeHost host=&quot;cluster21&quot; url=&quot;192.168.1.49:3306&quot; user=&quot;admin&quot; password=&quot;Abcd_123&quot;&gt;</span><br><span class="line">                &lt;readHost host=&quot;hostS3&quot; url=&quot;192.168.1.48:3306&quot; user=&quot;chenx&quot; password=&quot;Abcd_123&quot; /&gt;</span><br><span class="line">                &lt;readHost host=&quot;hostS4&quot; url=&quot;192.168.1.47:3306&quot; user=&quot;chenx&quot; password=&quot;Abcd_123&quot; /&gt;</span><br><span class="line">        &lt;/writeHost&gt;</span><br><span class="line">        &lt;writeHost host=&quot;cluster22&quot; url=&quot;192.168.1.48:3306&quot; user=&quot;admin&quot; password=&quot;Abcd_123&quot;&gt;</span><br><span class="line">                &lt;readHost host=&quot;hostS3&quot; url=&quot;192.168.1.49:3306&quot; user=&quot;chenx&quot; password=&quot;Abcd_123&quot; /&gt;</span><br><span class="line">                &lt;readHost host=&quot;hostS4&quot; url=&quot;192.168.1.47:3306&quot; user=&quot;chenx&quot; password=&quot;Abcd_123&quot; /&gt;</span><br><span class="line">        &lt;/writeHost&gt;</span><br><span class="line">&lt;/dataHost&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这样就初步配置好了我们的集群.不过这个集群只有一个user表.而且user根据uid来求模分表的.</p>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>如何启动我们的mycat.在mycat安装目录使用如下命令即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/startup_nowrap.sh</span><br></pre></td></tr></table></figure></p>
+<p>即可在后台启动.至于如何关闭它,就需要你手动kill进程了.😄</p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>由于mycat的默认端口是8066和9066,所以你需要在防火墙打开这两个端口.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=8066/tcp --permanent</span><br><span class="line">firewall-cmd --zone=public --add-port=9066/tcp --permanent</span><br></pre></td></tr></table></figure></p>
+<p>以上就可以测试你的mycat了.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://cdn.blogme.club/blog/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://cdn.blogme.club/blog/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://www.blogme.club/2019/02/13/mysql之使用mycat管理pxc集群/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/02/12/mysql之pxc集群参数介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql之pxc集群参数介绍</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+  <div id="SOHUCS" sid="mysql之使用mycat管理pxc集群"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+  
+
+  
 
 
           </div>
@@ -235,9 +365,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
@@ -320,11 +450,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">http</a>
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">http</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -340,15 +474,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -360,19 +494,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">php 设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -416,11 +542,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">php xdebug</a>
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+                <a href="javascript:void(0)" class="js-tag color1">php xdebug</a>
               </li>
              
               <li class="article-tag-list-item">
