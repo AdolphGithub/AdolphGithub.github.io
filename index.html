@@ -152,6 +152,67 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mysql之keepalived-haproxy搭建双机热备pxc" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/14/mysql之keepalived-haproxy搭建双机热备pxc/">mysql之keepalived+haproxy搭建双机热备pxc</a>
+    </h1>
+  
+
+        
+        <a href="/2019/02/14/mysql之keepalived-haproxy搭建双机热备pxc/" class="archive-article-date">
+  	<time datetime="2019-02-14T09:53:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当我们使用了mycat来管理我们的pxc集群后,如果我们的mycat出现了问题,那整个mysql集群就无法使用.这个不符合我们的高可用架构.那如何来处理呢.我们通过haproxy来代理我们的多台mycat.这样就可以了.但是这样haxproxy就会存在一个单点故障.而且如果换IP的话,对于程序来说.也不是很好.需要改动mysql地址.这个时候我们需要出来一个新的技术,虚拟IP.提供虚拟IP就可以了.下面我们就来搭建这个环境.<br>
+        
+          <a class="article-more-a" href="/2019/02/14/mysql之keepalived-haproxy搭建双机热备pxc/#more">more >></a>
+        
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/02/14/mysql之keepalived-haproxy搭建双机热备pxc/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-mysql之使用mycat管理pxc集群" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -701,67 +762,6 @@
 
 
   
-    <article id="post-mysql中间件之maxscale" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/29/mysql中间件之maxscale/">mysql中间件之maxscale</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/29/mysql中间件之maxscale/" class="archive-article-date">
-  	<time datetime="2019-01-29T07:12:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前面我们用了mha搭建了一个一主多从的架构,通过mha来自动选举master.但是我们还不能真正的处理负载.在mysql负载中,处理负载我们可以通过程序的预判断.通过开发来处理.但是这样会导致我们开发任务加重,而且很容易出错.能不能通过中间件的形式,对程序透明🤔.当然可以,这里就要用到mysql-proxy或者maxscale.我这里通过maxscale来搭建.<br>
-        
-          <a class="article-more-a" href="/2019/01/29/mysql中间件之maxscale/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/29/mysql中间件之maxscale/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -915,11 +915,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -991,11 +991,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">css</a>
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">

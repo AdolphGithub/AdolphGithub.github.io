@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://www.blogme.club">
-  <title>Tag: php ffmpeg | adolph blog</title>
+  <title>mysql之keepalived+haproxy搭建双机热备pxc | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="https://www.blogme.club/tags/php-ffmpeg/index.html">
+  <meta name="description" content="当我们使用了mycat来管理我们的pxc集群后,如果我们的mycat出现了问题,那整个mysql集群就无法使用.这个不符合我们的高可用架构.那如何来处理呢.我们通过haproxy来代理我们的多台mycat.这样就可以了.但是这样haxproxy就会存在一个单点故障.而且如果换IP的话,对于程序来说.也不是很好.需要改动mysql地址.这个时候我们需要出来一个新的技术,虚拟IP.提供虚拟IP就可以了">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql之keepalived+haproxy搭建双机热备pxc">
+<meta property="og:url" content="https://www.blogme.club/2019/02/14/mysql之keepalived-haproxy搭建双机热备pxc/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="当我们使用了mycat来管理我们的pxc集群后,如果我们的mycat出现了问题,那整个mysql集群就无法使用.这个不符合我们的高可用架构.那如何来处理呢.我们通过haproxy来代理我们的多台mycat.这样就可以了.但是这样haxproxy就会存在一个单点故障.而且如果换IP的话,对于程序来说.也不是很好.需要改动mysql地址.这个时候我们需要出来一个新的技术,虚拟IP.提供虚拟IP就可以了">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-14T09:53:52.148Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="mysql之keepalived+haproxy搭建双机热备pxc">
+<meta name="twitter:description" content="当我们使用了mycat来管理我们的pxc集群后,如果我们的mycat出现了问题,那整个mysql集群就无法使用.这个不符合我们的高可用架构.那如何来处理呢.我们通过haproxy来代理我们的多台mycat.这样就可以了.但是这样haxproxy就会存在一个单点故障.而且如果换IP的话,对于程序来说.也不是很好.需要改动mysql地址.这个时候我们需要出来一个新的技术,虚拟IP.提供虚拟IP就可以了">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -150,60 +155,183 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-mysql之keepalived-haproxy搭建双机热备pxc" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/11/php-视频转码/" class="archive-article-date">
-  	<time datetime="2017-05-11T07:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-11</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/11/php-视频转码/">php-视频转码-ffmpeg</a>
+    <h1 class="article-title" itemprop="name">
+      mysql之keepalived+haproxy搭建双机热备pxc
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/02/14/mysql之keepalived-haproxy搭建双机热备pxc/" class="archive-article-date">
+  	<time datetime="2019-02-14T09:53:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当我们使用了mycat来管理我们的pxc集群后,如果我们的mycat出现了问题,那整个mysql集群就无法使用.这个不符合我们的高可用架构.那如何来处理呢.我们通过haproxy来代理我们的多台mycat.这样就可以了.但是这样haxproxy就会存在一个单点故障.而且如果换IP的话,对于程序来说.也不是很好.需要改动mysql地址.这个时候我们需要出来一个新的技术,虚拟IP.提供虚拟IP就可以了.下面我们就来搭建这个环境.<br><a id="more"></a></p>
+<h4 id="haxproxy"><a href="#haxproxy" class="headerlink" title="haxproxy"></a>haxproxy</h4><p>我们在前面搭建了<a href="/2019/02/13/mysql之使用mycat管理pxc集群/">mycat</a>.这里我就不介绍了.执行搭建两个mycat服务把.我这里的环境如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mycat1: 192.168.1.60,</span><br><span class="line">mycat2: 192.168.1.61</span><br></pre></td></tr></table></figure></p>
+<p>集群环境如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cluster1:192.168.1.99,192.168.1.98,192.168.1.96</span><br><span class="line">cluster2:192.168.1.49,192.168.1.48,192.168.1.47</span><br></pre></td></tr></table></figure></p>
+<p>我们先对192.168.1.60两台做一个代理.两台都安装haproxy<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y haproxy</span><br></pre></td></tr></table></figure></p>
+<p>即可安装好.安装好后,配置一下我们的服务.配置文件在/etc/haproxy/haproxy.cnf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 使用监控界面</span><br><span class="line">listen admin_stats</span><br><span class="line">    # 监控端口为4001</span><br><span class="line">    bind        0.0.0.0:4001</span><br><span class="line">    mode http</span><br><span class="line">    # 入口url</span><br><span class="line">    stats uri /dbs</span><br><span class="line">    # 日志形式</span><br><span class="line">    stats realm Global\ statistics</span><br><span class="line">    # 登录凭证</span><br><span class="line">    stats auth admin:admin123456</span><br><span class="line"># 代理mysql</span><br><span class="line">listen proxy-mysql</span><br><span class="line">	# 请求端口</span><br><span class="line">    bind 0.0.0.0:3306</span><br><span class="line">    mode tcp</span><br><span class="line">    balance roundrobin</span><br><span class="line">    option tcplog</span><br><span class="line">    # 转发的地址</span><br><span class="line">    server mycat_1 192.168.1.61:8066 check port 8066 weight 1 maxconn 2000</span><br><span class="line">    server mycat_2 192.168.1.60:8066 check port 8066 weight 1 maxconn 2000</span><br><span class="line">    # 使用keepalived来检测</span><br><span class="line">    option tcpka</span><br></pre></td></tr></table></figure></p>
+<p>这样我们就处理好了我们的haproxy.我们即可访问192.168.1.60和.61的3306端口,就可以了使用mysql了.</p>
+<h4 id="keepalived"><a href="#keepalived" class="headerlink" title="keepalived"></a>keepalived</h4><p>我们上面只是代理了mycat实现了负载.但是我们还没有实现对应的虚拟IP,所以我们要使用keepalived开启虚拟IP.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y keepalived</span><br></pre></td></tr></table></figure></p>
+<p>在我们两台haxproxy的机器上配置要给keepalived配置,配置文件在/etc/keepalived/keepalived.conf.配置如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    ! 网卡</span><br><span class="line">    interface enp0s8</span><br><span class="line">    ! 节点ID,每个节点都不一样</span><br><span class="line">    virtual_router_id 61</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 123456</span><br><span class="line">    &#125;</span><br><span class="line">    ! 虚拟地址</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.1.62</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样配置,两个keepalived机器会争抢同一个虚拟IP,如果一个虚拟IP挂掉了,另外一个就会得到.这样就实现了高可用.</p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>在使用keepalived的时候要开启vrrp协议.命令如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --direct --permanent --add-rule ipv4 filter INPUT 0 --protocol vrrp -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<p>haproxy要开启4001和3306端口.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=3306/tcp --permanent</span><br><span class="line">firewall-cmd --zone=public --add-port=4001/tcp --permanent</span><br></pre></td></tr></table></figure></p>
+<p>记得重启防火墙哦.</p>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>如何启动keepalived和haproxy.使用如下命令即可<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service keepalived start|stop|restart</span><br><span class="line">service haproxy start|stop|restart</span><br></pre></td></tr></table></figure></p>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>我们通过haproxy+keepalived+mycat+pxc实现了一个mysql集群.同时实现了高可用.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://cdn.blogme.club/blog/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://cdn.blogme.club/blog/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">php ffmpeg</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://www.blogme.club/2019/02/14/mysql之keepalived-haproxy搭建双机热备pxc/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/02/13/mysql之使用mycat管理pxc集群/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql之使用mycat管理pxc集群</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+  <div id="SOHUCS" sid="mysql之keepalived-haproxy搭建双机热备pxc"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+  
+
+  
 
 
           </div>
@@ -235,9 +363,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
