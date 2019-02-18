@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://www.blogme.club">
-  <title>mysql之sql调优 | adolph blog</title>
+  <title>mysql之分页优化 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我们在用了慢查询或者information_schema.PROCESSLIST来获取有问题的sql.但是对于我们来说,有问题的sql.只能表示执行慢,我们要知道具体的执行时间.这个就要关系到mysql执行的过程.">
+  <meta name="description" content="mysql的limit用法我们是非常熟悉的.但是在mysql中,起始位置的不同决定了性能的消耗时长.起始位置跟性能是成正比的.我们来实践一下.">
 <meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql之sql调优">
-<meta property="og:url" content="https://www.blogme.club/2019/01/31/mysql之sql调优/index.html">
+<meta property="og:title" content="mysql之分页优化">
+<meta property="og:url" content="https://www.blogme.club/2019/02/18/mysql之分页优化/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="我们在用了慢查询或者information_schema.PROCESSLIST来获取有问题的sql.但是对于我们来说,有问题的sql.只能表示执行慢,我们要知道具体的执行时间.这个就要关系到mysql执行的过程.">
+<meta property="og:description" content="mysql的limit用法我们是非常熟悉的.但是在mysql中,起始位置的不同决定了性能的消耗时长.起始位置跟性能是成正比的.我们来实践一下.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-31T02:36:03.147Z">
+<meta property="og:updated_time" content="2019-02-18T12:17:47.078Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mysql之sql调优">
-<meta name="twitter:description" content="我们在用了慢查询或者information_schema.PROCESSLIST来获取有问题的sql.但是对于我们来说,有问题的sql.只能表示执行慢,我们要知道具体的执行时间.这个就要关系到mysql执行的过程.">
+<meta name="twitter:title" content="mysql之分页优化">
+<meta name="twitter:description" content="mysql的limit用法我们是非常熟悉的.但是在mysql中,起始位置的不同决定了性能的消耗时长.起始位置跟性能是成正比的.我们来实践一下.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -155,39 +155,38 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-mysql之sql调优" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-mysql之分页优化" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      mysql之sql调优
+      mysql之分页优化
     </h1>
   
 
         
-        <a href="/2019/01/31/mysql之sql调优/" class="archive-article-date">
-  	<time datetime="2019-01-31T02:35:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-31</time>
+        <a href="/2019/02/18/mysql之分页优化/" class="archive-article-date">
+  	<time datetime="2019-02-18T12:16:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我们在用了慢查询或者information_schema.PROCESSLIST来获取有问题的sql.但是对于我们来说,有问题的sql.只能表示执行慢,我们要知道具体的执行时间.这个就要关系到mysql执行的过程.<br><a id="more"></a></p>
-<h4 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h4><ul>
-<li>客户端发送SQL请求给服务器</li>
-<li>服务器检查是否可以在查询缓存中命中该SQL</li>
-<li>服务端执行SQL解析,预处理,再由优化器生成对应的执行计划</li>
-<li>根据执行计划,调用存储引擎API来查询数据</li>
-<li>将结果返回给客户端</li>
+        <p>mysql的limit用法我们是非常熟悉的.但是在mysql中,起始位置的不同决定了性能的消耗时长.起始位置跟性能是成正比的.我们来实践一下.<br><a id="more"></a></p>
+<h4 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h4><p>我们在一个大表中(1000W)来执行以下sql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select * from app_log limit 0,100;</span><br><span class="line">select * from app_log limit 1000,100;</span><br><span class="line">select * from app_log limit 10000,100;</span><br><span class="line">select * from app_log limit 100000,100;</span><br></pre></td></tr></table></figure></p>
+<p>从执行的过程来看,最后一条sql是执行时长最长的.为什么呢.主要的原因如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">limit语句是直接全表扫描的,如果查询的起始位置越大,则扫描的数据也就越多.</span><br></pre></td></tr></table></figure></p>
+<h4 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h4><p>既然知道了我们的limit语句是全表扫描,那我们直接使用索引的形式来修改sql.如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from app_log where id &gt; 0 and id &lt;= 100;</span><br></pre></td></tr></table></figure></p>
+<p>那查看一下我们的查询计划.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+----+-------------+---------+------------+-------+---------------+---------+---------+------+------+----------+-------------+</span><br><span class="line">| id | select_type | table   | partitions | type  | possible_keys | key     | key_len | ref  | rows | filtered | Extra       |</span><br><span class="line">+----+-------------+---------+------------+-------+---------------+---------+---------+------+------+----------+-------------+</span><br><span class="line">|  1 | SIMPLE      | app_log | NULL       | range | PRIMARY       | PRIMARY | 4       | NULL |  100 |   100.00 | Using where |</span><br><span class="line">+----+-------------+---------+------------+-------+---------------+---------+---------+------+------+----------+-------------+</span><br></pre></td></tr></table></figure></p>
+<p>这样就用到了我们的索引.但是有人就要问了,如果是主键字段不连续呢.这个时候,我们可以使用逻辑删除来保证主键字段的连续.如果数据时间过长.可以使用归档来处理.比如只能查询到50页的数据.其余的就查询不了了.</p>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>总结一下,分页查询的优化方式</p>
+<ul>
+<li>使用范围查询来代替分页查询</li>
+<li>如果主键字段不是连续的,可以使用逻辑删除来代替删除</li>
+<li>如果主键字段不是连续的,可以利用主键索引加速,在做表连接查询</li>
 </ul>
-<p>以上就是sql执行的整个过程.首先,我们对于第一步没有什么可以调优的.因为涉及到client语言限制.所以比较麻烦是的2,3,4.</p>
-<h4 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a>查询缓存</h4><p>在查询时,如果跟查询缓存的SQL一致,就会直接去检查用户的权限并返回结果.所以查询缓存对于我们来说,是可以有的.查询缓存时,会对缓存加锁.对频繁查询的系统来说,这可能会导致查询效率的整体下降,所以不太建议开启查询缓存.那如何配置查询缓存呢,下面就是一个简单的配置.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">query_cache_type=OFF # 设置查询缓存是否可用</span><br><span class="line">query_cache_size=1024 # 设置查询缓存的内存大小,必须为1024的整数倍</span><br><span class="line">query_cache_limit=1 # 设置查询缓存可用存储的最大值</span><br><span class="line">query_cache_wlock_invalidate # 设置数据表被锁后是否返回缓存中的数据</span><br><span class="line">query_cache_min_res_unit # 设置查询缓存分配的内存块最小单位</span><br></pre></td></tr></table></figure></p>
-<h4 id="查看SQL执行"><a href="#查看SQL执行" class="headerlink" title="查看SQL执行"></a>查看SQL执行</h4><p>我们在正常的情况下是不会使用查询缓存的.那我们如何知道一条SQL执行的过程中,哪些耗时较长的.就可以使用profile.如何使用.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># session级配置</span><br><span class="line">set profiling=1; </span><br><span class="line"># 执行查询</span><br><span class="line">...</span><br><span class="line"># 获取查询的记录</span><br><span class="line">show profiles;</span><br><span class="line"># 查看每一个查询所消耗的总时间</span><br><span class="line">show profile for query N; # N为query id</span><br></pre></td></tr></table></figure></p>
-<p>在mysql5.5的时候可以使用profile.但是在mysql5.5过后,就推荐使用performance_schema.具体使用如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 开启sql的监控.</span><br><span class="line">UPDATE setup_instruments SET enabled=&apos;YES&apos;,TIMED=&apos;YES&apos; where NAME like &apos;stage%&apos;;</span><br><span class="line">UPDATE setup_consumers SET enabled=&apos;YES&apos; where NAME like &apos;events%&apos;;</span><br><span class="line"># 查询结果</span><br><span class="line">SELECT a.THREAD_ID,SQL_TEXT,c.EVENT_NAME,(c.TIMER_END - c.TIMER_START) / 1000000000 AS &apos;DURATION(ms)&apos;</span><br><span class="line">FROM events_statements_history_long a</span><br><span class="line">JOIN threads b on a.THREAD__ID =  b.THREAD_ID</span><br><span class="line">JOIN events_stages_history_long c ON c.THREAD_ID =b.THREAD_ID</span><br><span class="line">AND c.EVENT_ID BETWEEN a.EVENT_ID AND a.END_EVENT_ID</span><br><span class="line">WHERE b.PROCESSLIST_ID = CONNECTION_ID()</span><br><span class="line">AND a.EVENT_NAME = &apos;statement/sql/select&apos;</span><br><span class="line">ORDER BY a.THREAD_ID,c.EVENT_ID</span><br></pre></td></tr></table></figure></p>
-<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>以上就是我们对我们执行的sql过程.但是需要注意,虽然得到具体的时间,还需要进一步对sql调优,最好可以使用sql分析语句explain来分析SQL.</p>
 
       
 
@@ -288,7 +287,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://www.blogme.club/2019/01/31/mysql之sql调优/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://www.blogme.club/2019/02/18/mysql之分页优化/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -302,18 +301,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/02/01/mysql之监控/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          mysql之监控
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/01/31/mysql之慢查询日志/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mysql之慢查询日志</div>
+    <a href="/2019/02/15/mysql之备份与导入/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql之备份与导入</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -328,7 +318,7 @@
   
 
   
-  <div id="SOHUCS" sid="mysql之sql调优"></div> 
+  <div id="SOHUCS" sid="mysql之分页优化"></div> 
 <script type="text/javascript"> 
 (function(){ 
 var appid = "cytl0R24B"; 
