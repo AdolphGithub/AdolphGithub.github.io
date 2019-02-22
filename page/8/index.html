@@ -152,6 +152,250 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-socket学习之旅-4使用workerman做mysql代理" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/05/socket学习之旅-4使用workerman做mysql代理/">socket学习之旅-4使用workerman做mysql代理</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/05/socket学习之旅-4使用workerman做mysql代理/" class="archive-article-date">
+  	<time datetime="2017-08-05T09:21:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有这样一应用场景,我们有两台服务器,一台web服务器对外公开,一台mysql服务器,不对外公开,当我们写代码的时候有需要去链接mysql服务器.这时有很多种做法,作端口映射,等等.当然,我们程序员又不是运维,所以我这里介绍一种,使用workerman作mysql代理.完成mysql中间件.<br>
+        
+          <a class="article-more-a" href="/2017/08/05/socket学习之旅-4使用workerman做mysql代理/#more">more >></a>
+        
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/05/socket学习之旅-4使用workerman做mysql代理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-socket学习之旅-3撕开RPC远程调用的神秘外衣" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/">socket学习之旅-3撕开RPC远程调用的神秘外衣</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/" class="archive-article-date">
+  	<time datetime="2017-08-04T07:12:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Remote Procedure Call 远程调用,本地某机器调用.竟然在远程某机器执行,某些调用形式,用浏览器访问还能看到xml描述.某些语言调用形式,还是需要在本地生成一个伪调用类等等.所以RPC的关键点,在调用上.撕开远程调用的逼格外衣.<br>
+        
+          <a class="article-more-a" href="/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/#more">more >></a>
+        
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">socket rpc</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/04/socket学习之旅-3撕开RPC远程调用的神秘外衣/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-socket学习之旅-2撕开websocket的神秘外衣" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/03/socket学习之旅-2撕开websocket的神秘外衣/">socket学习之旅-2撕开websocket的神秘外衣</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/03/socket学习之旅-2撕开websocket的神秘外衣/" class="archive-article-date">
+  	<time datetime="2017-08-03T10:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>让我们来继续了解websocket，现在的浏览器默认有socket连接端,websocket.我们先来书写客户端.至于websocket的一些方法,请参考<a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSocket" target="_blank" rel="noopener">MDN websocket</a>,以下是示例代码<br>
+        
+          <a class="article-more-a" href="/2017/08/03/socket学习之旅-2撕开websocket的神秘外衣/#more">more >></a>
+        
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/03/socket学习之旅-2撕开websocket的神秘外衣/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-socket学习之旅-1如何打电话" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/03/socket学习之旅-1如何打电话/">socket学习之旅:1如何打电话</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/03/socket学习之旅-1如何打电话/" class="archive-article-date">
+  	<time datetime="2017-08-03T01:50:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>socket用于实时聊天，长链接，异步链接等等所需要的扩展。具体的文档地址:<a href="http://php.net/manual/zh/ref.sockets.php" target="_blank" rel="noopener">socket</a>.在我的理解中，socket是用来通信的.<br>
+        
+          <a class="article-more-a" href="/2017/08/03/socket学习之旅-1如何打电话/#more">more >></a>
+        
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/03/socket学习之旅-1如何打电话/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-php-爬虫服务器二" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -518,253 +762,9 @@
 
 
   
-    <article id="post-xdebug使用" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/07/xdebug使用/">xdebug使用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/07/xdebug使用/" class="archive-article-date">
-  	<time datetime="2017-06-07T11:42:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在PHP中,有很多第三方测试性能的工具，例如xdebug,xhprof,Krumo等等，我这里主要介绍我工作用的性能分析工具:xdebug<br>
-        
-          <a class="article-more-a" href="/2017/06/07/xdebug使用/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">php xdebug</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/07/xdebug使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-php-适配器模式" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/23/php-适配器模式/">php-适配器模式</a>
-    </h1>
-  
-
-        
-        <a href="/2017/05/23/php-适配器模式/" class="archive-article-date">
-  	<time datetime="2017-05-23T14:18:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我们有个卖书的商城，电子书，PDF等等。每个书籍呢，都有一个打开，下一页和获取页数的方法。按照程序员的思路，我们就会创建一个接口，或者是一个父类。我就用接口的方法来吧。<br>
-        
-          <a class="article-more-a" href="/2017/05/23/php-适配器模式/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php 设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/23/php-适配器模式/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-php-工厂模式2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/20/php-工厂模式2/">工厂模式2 - 数据中心模式，狗和书一起卖</a>
-    </h1>
-  
-
-        
-        <a href="/2017/05/20/php-工厂模式2/" class="archive-article-date">
-  	<time datetime="2017-05-20T07:50:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>接着上个工厂模式的思考，某一天，狗卖的很差，老板要求在每个商品中要额外加入狗的信息，但狗本身除外。<br>
-        
-          <a class="article-more-a" href="/2017/05/20/php-工厂模式2/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php 设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/20/php-工厂模式2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-php-工厂模式1" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/20/php-工厂模式1/">工厂模式-程序员,书,和狗</a>
-    </h1>
-  
-
-        
-        <a href="/2017/05/20/php-工厂模式1/" class="archive-article-date">
-  	<time datetime="2017-05-20T07:33:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一个简单例子。一个电商系统，刚起步时往往只有1-2个商品(譬如图书),此时写作模式很简单，<br>
-        
-          <a class="article-more-a" href="/2017/05/20/php-工厂模式1/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php 设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/20/php-工厂模式1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
     </nav>
   
 
@@ -883,15 +883,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">http</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">http</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -915,11 +915,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -955,11 +955,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">supervisor</a>
+                <a href="javascript:void(0)" class="js-tag color4">sysbench</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sysbench</a>
+                <a href="javascript:void(0)" class="js-tag color1">supervisor</a>
               </li>
              
               <li class="article-tag-list-item">
