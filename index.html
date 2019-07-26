@@ -152,6 +152,79 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-解决mysql自动重启" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/26/解决mysql自动重启/">解决mysql自动重启</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/26/解决mysql自动重启/" class="archive-article-date">
+  	<time datetime="2019-07-26T03:49:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今日早上一起来就看到钉钉上有一堆报错信息,全都是job平台的.格式如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Job管理平台报警]job_id:13(邮件发送) 执行出错,返回错误码是1，错误原因是命令运行失败,业务级别：L1，报警时间：2019-07-26 06:22</span><br><span class="line"></span><br><span class="line">[Job管理平台报警]job_id:15(订单过期) 执行出错,返回错误码是1，错误原因是命令运行失败,业务级别：L1，报警时间：2019-07-26 06:22</span><br></pre></td></tr></table></figure></p>
+<p>总计20多个,心一下就凉了.立马处理这个问题.</p>
+<h4 id="问题排错"><a href="#问题排错" class="headerlink" title="问题排错"></a>问题排错</h4><p>既然是命令运行失败,那我们就先手动来运行一次命令.so.我就来手动执行一次命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; /usr/bin/php /data/www/server/yii queue/email/run</span><br><span class="line">&gt; no data to handle...</span><br></pre></td></tr></table></figure></p>
+<p>命令执行成功.什么情况.既然命令没有问题,那会不会是其他问题呢.查看job日志得到如下结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; Error: SQLSTATE[HY000] [2002] No such file or directory</span><br></pre></td></tr></table></figure></p>
+<p>数据库链接出现问题.数据库链接出现问题无非如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.连接数过多,无法处理了.</span><br><span class="line">2.数据库服务挂了.导致php的mysqli的扩展找不到mysql.sock文件.</span><br></pre></td></tr></table></figure></p>
+<h4 id="数据库链接"><a href="#数据库链接" class="headerlink" title="数据库链接"></a>数据库链接</h4><p>既然是数据库链接过多,那我们就来查看一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &apos;max_connections&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>得到结果为200.在查看当时系统日志,cpu才运行到40%,内存才10%都不到,很明显.不是这个.</p>
+<h4 id="mysql-sock"><a href="#mysql-sock" class="headerlink" title="mysql.sock"></a>mysql.sock</h4><p>既然不是连接数过多,那就应该是mysql.sock不在了.造成文件不在的两个原因第一,因为mysql.sock文件是在系统挂载盘,如果挂载盘出现问题了,sock文件也会不在.但是我们的网站文件也在挂载盘,如果掉了,那网站也会出现问题,显然不是.那就是mysql服务挂了.查看内容日志<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/kern.log | grep &apos;Jul 26 06&apos; | more</span><br><span class="line"></span><br><span class="line">type=1400 audit(1564093267.882:225): apparmor=&quot;STATUS&quot; operation=&quot;profile_replace&quot; profile=&quot;unconfined&quot; name=&quot;/usr/sbin/mysqld&quot; pid=2297 c</span><br><span class="line">omm=&quot;apparmor_parser&quot;</span><br></pre></td></tr></table></figure></p>
+<p>果然,在第一行就提示apparmor在限制文件的访问.后面几次访问都不能进行访问了.在查看系统日志.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/syslog</span><br></pre></td></tr></table></figure></p>
+<p>得到结果如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Jul 26 06:20:30 qy-guanjia-01 systemd[1]: Starting Daily apt upgrade and clean activities...</span><br><span class="line">Jul 26 06:20:59 qy-guanjia-01 systemd[1]: Reloading.</span><br><span class="line">Jul 26 06:20:59 qy-guanjia-01 systemd[1]: Started ACPI event daemon.</span><br><span class="line">Jul 26 06:20:59 qy-guanjia-01 systemd[1]: Stopping MySQL Community Server...</span><br><span class="line">Jul 26 06:21:01 qy-guanjia-01 systemd[1]: Stopped MySQL Community Server.</span><br><span class="line">Jul 26 06:21:01 qy-guanjia-01 systemd[1]: Reloading.</span><br><span class="line">Jul 26 06:21:01 qy-guanjia-01 systemd[1]: Started ACPI event daemon.</span><br><span class="line">Jul 26 06:21:01 qy-guanjia-01 systemd[1]: Stopped MySQL Community Server.</span><br></pre></td></tr></table></figure></p>
+<p>由于在自动更新,所以停止mysql服务.至此,问题原因被查到.</p>
+<h4 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h4><p>因为mysql服务被停止了,所以mysql相关的服务都挂了.由于在自动更新,所以我们就需要禁止掉自动更新,由于系统是ubuntu.所以解决方案如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/apt/apt.conf.d/10periodic</span><br><span class="line"></span><br><span class="line">APT::Periodic::Update-Package-Lists &quot;1&quot;;		// 将１改为0,禁用掉</span><br><span class="line">APT::Periodic::Download-Upgradeable-Packages &quot;0&quot;;</span><br><span class="line">APT::Periodic::AutocleanInterval &quot;0&quot;;</span><br></pre></td></tr></table></figure></p>
+<p>至此，就解决掉了.</p>
+<h4 id="扩展DDos-Dos解决方案"><a href="#扩展DDos-Dos解决方案" class="headerlink" title="扩展DDos,Dos解决方案"></a>扩展DDos,Dos解决方案</h4><p>同时在demsg查到如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TCP: request_sock_TCP: Possible SYN flooding on port 3306. Sending cookies.  Check SNMP counters.</span><br></pre></td></tr></table></figure></p>
+<p>由于cookie溢出,被怀疑有Dos或者DDos攻击,解决方案如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line">#最关键参数，默认为5，修改为0 表示不要重发</span><br><span class="line">net.ipv4.tcp_synack_retries = 0</span><br><span class="line">#半连接队列长度</span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 200000</span><br><span class="line">#系统允许的文件句柄的最大数目，因为连接需要占用文件句柄</span><br><span class="line">fs.file-max = 819200</span><br><span class="line">#用来应对突发的大并发connect 请求</span><br><span class="line">net.core.somaxconn = 65536</span><br><span class="line">#最大的TCP 数据接收缓冲（字节）</span><br><span class="line">net.core.rmem_max = 1024123000</span><br><span class="line">#最大的TCP 数据发送缓冲（字节）</span><br><span class="line">net.core.wmem_max = 16777216</span><br><span class="line">#网络设备接收数据包的速率比内核处理这些包的速率快时，允许送到队列的数据包的最大数目</span><br><span class="line">net.core.netdev_max_backlog = 165536</span><br><span class="line">#本机主动连接其他机器时的端口分配范围</span><br><span class="line">net.ipv4.ip_local_port_range = 10000 65535</span><br><span class="line"></span><br><span class="line">sysctl -p # 生效</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/26/解决mysql自动重启/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-nginx之通用设置" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -701,67 +774,6 @@
 
 
   
-    <article id="post-mysql之pxc集群参数介绍" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/12/mysql之pxc集群参数介绍/">mysql之pxc集群参数介绍</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/12/mysql之pxc集群参数介绍/" class="archive-article-date">
-  	<time datetime="2019-02-12T14:47:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前面我们用了percona公司的的xtradb cluster集群解决方案来解决我们mysql的并发和性能问题.我哦们也只是安装了pxc集群.那如何来管理我们的pxc集群以及知晓当前pxc集群的状态和节点的状态.我们就来看看pxc集群的参数.<br>
-        
-          <a class="article-more-a" href="/2019/02/12/mysql之pxc集群参数介绍/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/12/mysql之pxc集群参数介绍/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -867,11 +879,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssl acme</a>
+                <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
+                <a href="javascript:void(0)" class="js-tag color4">ssl acme</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -883,15 +895,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">composer</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">http</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -911,15 +923,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -955,11 +967,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sysbench</a>
+                <a href="javascript:void(0)" class="js-tag color1">supervisor</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">supervisor</a>
+                <a href="javascript:void(0)" class="js-tag color4">sysbench</a>
               </li>
              
               <li class="article-tag-list-item">
