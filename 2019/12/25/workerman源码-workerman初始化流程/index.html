@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="https://www.blogme.club">
   <title>workerman源码-workerman初始化流程 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前面，我们利用composer安装了workerman. 接下来我们就开始用一个简单的demo来初步了解它的流程. 简单demo12345678910111213141516171819// http.phprequire __DIR__ . &amp;apos;/vendor/autoload.php&amp;apos;;use Workerman\Worker;// 创建一个Worker监听2345端口，使用">
+  <meta name="description" content="前面，我们利用composer安装了workerman. 接下来我们就开始用一个简单的demo来初步了解它的流程.">
 <meta name="keywords" content="workerman">
 <meta property="og:type" content="article">
 <meta property="og:title" content="workerman源码-workerman初始化流程">
 <meta property="og:url" content="https://www.blogme.club/2019/12/25/workerman源码-workerman初始化流程/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="前面，我们利用composer安装了workerman. 接下来我们就开始用一个简单的demo来初步了解它的流程. 简单demo12345678910111213141516171819// http.phprequire __DIR__ . &amp;apos;/vendor/autoload.php&amp;apos;;use Workerman\Worker;// 创建一个Worker监听2345端口，使用">
+<meta property="og:description" content="前面，我们利用composer安装了workerman. 接下来我们就开始用一个简单的demo来初步了解它的流程.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-12-25T08:33:00.402Z">
+<meta property="og:updated_time" content="2019-12-25T08:44:12.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="workerman源码-workerman初始化流程">
-<meta name="twitter:description" content="前面，我们利用composer安装了workerman. 接下来我们就开始用一个简单的demo来初步了解它的流程. 简单demo12345678910111213141516171819// http.phprequire __DIR__ . &amp;apos;/vendor/autoload.php&amp;apos;;use Workerman\Worker;// 创建一个Worker监听2345端口，使用">
+<meta name="twitter:description" content="前面，我们利用composer安装了workerman. 接下来我们就开始用一个简单的demo来初步了解它的流程.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -175,7 +175,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>前面，我们利用composer安装了workerman. 接下来我们就开始用一个简单的demo来初步了解它的流程.</p>
+        <p>前面，我们利用composer安装了workerman. 接下来我们就开始用一个简单的demo来初步了解它的流程.<br><a id="more"></a></p>
 <h3 id="简单demo"><a href="#简单demo" class="headerlink" title="简单demo"></a>简单demo</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// http.php</span><br><span class="line">require __DIR__ . &apos;/vendor/autoload.php&apos;;</span><br><span class="line"></span><br><span class="line">use Workerman\Worker;</span><br><span class="line"></span><br><span class="line">// 创建一个Worker监听2345端口，使用http协议通讯</span><br><span class="line">$http_worker = new Worker(&quot;http://0.0.0.0:2345&quot;);</span><br><span class="line"></span><br><span class="line">// 启动4个进程对外提供服务</span><br><span class="line">$http_worker-&gt;count = 4;</span><br><span class="line"></span><br><span class="line">// 接收到浏览器发送的数据时回复hello world给浏览器</span><br><span class="line">$http_worker-&gt;onMessage = function($connection, $data) &#123;</span><br><span class="line">    // 向浏览器发送hello world</span><br><span class="line">    $connection-&gt;send(&apos;hello world&apos;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 运行worker</span><br><span class="line">Worker::runAll();</span><br></pre></td></tr></table></figure>
 <p>从官网抄的.先直接拿来用.<a href="http://doc3.workerman.net/640174" target="_blank" rel="noopener">出处</a>.可以使用如下命令来运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">php http.php start</span><br><span class="line">// or win</span><br><span class="line">php http.php</span><br></pre></td></tr></table></figure></p>
 <h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>上面的示例代码中,创建了一个worker类,并设置监听2345端口. 然后设置了回调信息.就执行运行了.如果不算引入，所有的一切都是从new开始.我们先来看看new的时候干了什么.先贴上源码.一步步来分析.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public function __construct($socket_name = &apos;&apos;, $context_option = array())</span><br><span class="line">&#123;</span><br><span class="line">    // Save all worker instances.</span><br><span class="line">    $this-&gt;workerId                    = \spl_object_hash($this);</span><br><span class="line">    static::$_workers[$this-&gt;workerId] = $this;</span><br><span class="line">    static::$_pidMap[$this-&gt;workerId]  = array();</span><br><span class="line"></span><br><span class="line">    // Get autoload root path.</span><br><span class="line">    $backtrace                = \debug_backtrace();</span><br><span class="line">    $this-&gt;_autoloadRootPath = \dirname($backtrace[0][&apos;file&apos;]);</span><br><span class="line"></span><br><span class="line">    if (static::$_OS === OS_TYPE_LINUX &amp;&amp; version_compare(PHP_VERSION,&apos;7.0.0&apos;, &apos;ge&apos;)) &#123;</span><br><span class="line">        $php_uname = strtolower(php_uname(&apos;s&apos;));</span><br><span class="line">        // If not Mac OS then turn reusePort on.</span><br><span class="line">        if ($php_uname !== &apos;darwin&apos;) &#123;</span><br><span class="line">            $this-&gt;reusePort = true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Context for socket.</span><br><span class="line">    if ($socket_name) &#123;</span><br><span class="line">        $this-&gt;_socketName = $socket_name;</span><br><span class="line">        $this-&gt;parseSocketAddress();</span><br><span class="line">        if (!isset($context_option[&apos;socket&apos;][&apos;backlog&apos;])) &#123;</span><br><span class="line">            $context_option[&apos;socket&apos;][&apos;backlog&apos;] = static::DEFAULT_BACKLOG;</span><br><span class="line">        &#125;</span><br><span class="line">        $this-&gt;_context = \stream_context_create($context_option);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -436,15 +436,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">C</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -476,11 +476,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -544,19 +544,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">workerman</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+                <a href="javascript:void(0)" class="js-tag color5">workerman</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">php xdebug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
               </li>
              
               <li class="article-tag-list-item">
