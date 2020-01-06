@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://www.blogme.club">
-  <title>Archives: 2019/2 | adolph blog</title>
+  <title>workerman源码-workerman监控子进程 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="https://www.blogme.club/archives/2019/02/page/2/index.html">
+  <meta name="description" content="我们在fork子进程最后一步,就开始监控子进程了.我们来看一下workerman是如何对子进程完成监控的.以及是对子进程重启.">
+<meta name="keywords" content="workerman">
+<meta property="og:type" content="article">
+<meta property="og:title" content="workerman源码-workerman监控子进程">
+<meta property="og:url" content="https://www.blogme.club/2020/01/06/workerman源码-workerman监控子进程/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="我们在fork子进程最后一步,就开始监控子进程了.我们来看一下workerman是如何对子进程完成监控的.以及是对子进程重启.">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-01-06T07:37:56.697Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="workerman源码-workerman监控子进程">
+<meta name="twitter:description" content="我们在fork子进程最后一步,就开始监控子进程了.我们来看一下workerman是如何对子进程完成监控的.以及是对子进程重启.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -150,139 +155,175 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-workerman源码-workerman监控子进程" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      workerman源码-workerman监控子进程
+    </h1>
+  
+
+        
+        <a href="/2020/01/06/workerman源码-workerman监控子进程/" class="archive-article-date">
+  	<time datetime="2020-01-06T07:37:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-06</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们在fork子进程最后一步,就开始监控子进程了.我们来看一下workerman是如何对子进程完成监控的.以及是对子进程重启.<br><a id="more"></a></p>
+<h4 id="monitorWorkers"><a href="#monitorWorkers" class="headerlink" title="monitorWorkers"></a>monitorWorkers</h4><p>在monitorWorkers中有两个方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 监控信息.</span><br><span class="line">protected static function monitorWorkers()</span><br><span class="line">&#123;</span><br><span class="line">    if (static::$_OS === OS_TYPE_LINUX) &#123;</span><br><span class="line">        // 如果平台是linux</span><br><span class="line">        static::monitorWorkersForLinux();</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        // 如果平台是window.</span><br><span class="line">        static::monitorWorkersForWindows();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们先看linux下如何对子进程进行监控的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">protected static function monitorWorkersForLinux()</span><br><span class="line">&#123;</span><br><span class="line">    // 设置状态为运行中.</span><br><span class="line">    static::$_status = static::STATUS_RUNNING;</span><br><span class="line">    // 死循环.</span><br><span class="line">    while (1) &#123;</span><br><span class="line">        // 调用等待信号的处理器.</span><br><span class="line">        \pcntl_signal_dispatch();</span><br><span class="line">        // 挂起当前进程直到子进程退出,或者直到信号被传递为止.</span><br><span class="line">        $status = 0;</span><br><span class="line">        // 返回子进程的进程号.</span><br><span class="line">        $pid    = \pcntl_wait($status, WUNTRACED);</span><br><span class="line">        // 再次调用等待信号的处理器.</span><br><span class="line">        \pcntl_signal_dispatch();</span><br><span class="line">        // 如果子进程一直存在.</span><br><span class="line">        if ($pid &gt; 0) &#123;</span><br><span class="line">            // 根据子进程ID来查找到对应的worker信息.</span><br><span class="line">            foreach (static::$_pidMap as $worker_id =&gt; $worker_pid_array) &#123;</span><br><span class="line">                // 如果存在子进程的进程号.</span><br><span class="line">                if (isset($worker_pid_array[$pid])) &#123;</span><br><span class="line">                    // 找到worker信息.</span><br><span class="line">                    $worker = static::$_workers[$worker_id];</span><br><span class="line">                    // 如果当前状态不为0.就为僵尸进程.</span><br><span class="line">                    if ($status !== 0) &#123;</span><br><span class="line">                        static::log(&quot;worker[&quot; . $worker-&gt;name . &quot;:$pid] exit with status $status&quot;);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    // 保存异常退出的次数</span><br><span class="line">                    if (!isset(static::$_globalStatistics[&apos;worker_exit_info&apos;][$worker_id][$status])) &#123;</span><br><span class="line">                        static::$_globalStatistics[&apos;worker_exit_info&apos;][$worker_id][$status] = 0;</span><br><span class="line">                    &#125;</span><br><span class="line">                    static::$_globalStatistics[&apos;worker_exit_info&apos;][$worker_id][$status]++;</span><br><span class="line"></span><br><span class="line">                    // 清空pid的数据.</span><br><span class="line">                    unset(static::$_pidMap[$worker_id][$pid]);</span><br><span class="line"></span><br><span class="line">                    // 清空id的数据.</span><br><span class="line">                    $id                              = static::getId($worker_id, $pid);</span><br><span class="line">                    static::$_idMap[$worker_id][$id] = 0;</span><br><span class="line"></span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            // 如果仍在运行状态,就fork新的进程.</span><br><span class="line">            if (static::$_status !== static::STATUS_SHUTDOWN) &#123;</span><br><span class="line">                static::forkWorkers();</span><br><span class="line">                // 如果有存在重启的pid.就重启.</span><br><span class="line">                if (isset(static::$_pidsToRestart[$pid])) &#123;</span><br><span class="line">                    unset(static::$_pidsToRestart[$pid]);</span><br><span class="line">                    static::reload();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 如果子进程和退出状态都是退出.那就主进程直接退出.</span><br><span class="line">        if (static::$_status === static::STATUS_SHUTDOWN &amp;&amp; !static::getAllWorkerPids()) &#123;</span><br><span class="line">            static::exitAndClearAll();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在linux中,通过对信号的分发来判断进程是否存活.如果存活,就不管.没有存活,如果进程异常退出,就会得到对应的子进程号.我们在上面清空了进程的数据过后,如果状态还是运行中就会重新启动进程来监听信息.那windows下是如何进行的呢</p>
+<h4 id="monitorWorkersForWindows"><a href="#monitorWorkersForWindows" class="headerlink" title="monitorWorkersForWindows"></a>monitorWorkersForWindows</h4><p>linux通过信号分发来得到,而windows则是通过事件来处理的.我们来看一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">protected static function monitorWorkersForWindows()</span><br><span class="line">&#123;</span><br><span class="line">    Timer::add(1, &quot;\\Workerman\\Worker::checkWorkerStatusForWindows&quot;);</span><br><span class="line"></span><br><span class="line">    static::$globalEvent-&gt;loop();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用Timer来每1s来处理.我们来看一下checkWorkerStatusForWindows<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public static function checkWorkerStatusForWindows()</span><br><span class="line">&#123;</span><br><span class="line">    // 检查所有的window进程.</span><br><span class="line">    foreach(static::$_processForWindows as $process_data)</span><br><span class="line">    &#123;</span><br><span class="line">        // 得到进程信息.</span><br><span class="line">        $process = $process_data[0];</span><br><span class="line">        $start_file = $process_data[1];</span><br><span class="line">        $timer_id = $process_data[2];</span><br><span class="line">        // 获取状态信息.</span><br><span class="line">        $status = \proc_get_status($process);</span><br><span class="line">        if(isset($status[&apos;running&apos;]))</span><br><span class="line">        &#123;</span><br><span class="line">            if(!$status[&apos;running&apos;])</span><br><span class="line">            &#123;</span><br><span class="line">                static::safeEcho(&quot;process $start_file terminated and try to restart\n&quot;);</span><br><span class="line">                Timer::del($timer_id);</span><br><span class="line">                \proc_close($process);</span><br><span class="line">                // 重启.</span><br><span class="line">                static::forkOneWorkerForWindows($start_file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            static::safeEcho(&quot;proc_get_status fail\n&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在windows中使用proc_get_status来获取进程的信息.如果status[‘running’]不为false.就代表程序不在运行中了.就重启.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://cdn.blogme.club/blog/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://cdn.blogme.club/blog/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/11/mysql之pxc搭建/" class="archive-article-date">
-  	<time datetime="2019-02-11T13:47:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/11/mysql之pxc搭建/">mysql之pxc搭建</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">workerman</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://www.blogme.club/2020/01/06/workerman源码-workerman监控子进程/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/01/mysql之分片准则/" class="archive-article-date">
-  	<time datetime="2019-02-01T02:45:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-01</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/01/mysql之分片准则/">mysql之分片准则</a>
-    </h1>
+  
+    <a href="/2020/01/06/workerman源码-workerman事件监听/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">workerman源码-workerman事件监听</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/01/mysql之监控/" class="archive-article-date">
-  	<time datetime="2019-02-01T02:42:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/01/mysql之监控/">mysql之监控</a>
-    </h1>
+  <div id="SOHUCS" sid="workerman源码-workerman监控子进程"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/02/">&laquo; Prev</a><a class="page-number" href="/archives/2019/02/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -315,8 +356,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
