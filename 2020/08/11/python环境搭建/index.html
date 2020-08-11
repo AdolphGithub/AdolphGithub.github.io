@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="人生苦短,我用python. 一句话概括完了.然后在学习python之前,我们得知道怎样安装python.不知道怎么安装,那怎么学习python呢.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-08-11T15:02:35.544Z">
+<meta property="og:updated_time" content="2020-08-11T15:08:38.670Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python环境搭建">
 <meta name="twitter:description" content="人生苦短,我用python. 一句话概括完了.然后在学习python之前,我们得知道怎样安装python.不知道怎么安装,那怎么学习python呢.">
@@ -182,7 +182,7 @@
 <p>就即可安装完成了.源码安装可以安装指定的模块. 可以自定义的参数，可以使用如下的命令来进行查看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./configure --help</span><br><span class="line">``` </span><br><span class="line">### 软件源安装</span><br><span class="line">当然,我们这里处理源码安装.在linux下还能进行yum源的方式来进行安装. 不过这种方式安装的python版本. 有些时候不是想要的版本. 但是胜在非常简单. 所以我们想要快速的安装的话可以参考以下的命令.</span><br></pre></td></tr></table></figure></p>
 <p>// centos<br>yum install python3-3.6.8-13.el7.x86_64 // 或者其他版本<br>// ubuntu<br>sudo apt install python3.8<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### python源更换</span><br><span class="line">我们用到的所有的python的扩展跟我们php的扩展类似.php使用了pecl来安装扩展,python则使用了pip.当然.国外的东西在就下载速度而言,速度会比较慢.当然,不介意下载速度慢可以直接跳过这部分. 那我们就需要更换源的信息. 而更换源有两种方式. 1.临时更换,使用如下的命令即可</span><br></pre></td></tr></table></figure></p>
 <p>pip install -i <a href="https://mirrors.aliyun.com/pypi/simple/" target="_blank" rel="noopener">https://mirrors.aliyun.com/pypi/simple/</a> 扩展包名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">永久更换会稍微麻烦一下.使用如下命令.</span><br></pre></td></tr></table></figure></p>
-<p>echo ‘[global]<br>index-url = <a href="https://mirrors.aliyun.com/pypi/simple/" target="_blank" rel="noopener">https://mirrors.aliyun.com/pypi/simple/</a><br>[install]<br>trusted-host = <a href="https://mirrors.aliyun.com&#39;" target="_blank" rel="noopener">https://mirrors.aliyun.com&#39;</a> &gt;&gt; ~/.pip/pip.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意如果没有文件夹.则需要创建文件夹.</span><br></pre></td></tr></table></figure></p>
+<p>echo “[global]<br>index-url = <a href="https://mirrors.aliyun.com/pypi/simple/" target="_blank" rel="noopener">https://mirrors.aliyun.com/pypi/simple/</a><br>[install]<br>trusted-host = <a href="https://mirrors.aliyun.com&quot;" target="_blank" rel="noopener">https://mirrors.aliyun.com&quot;</a> &gt;&gt; ~/.pip/pip.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意如果没有文件夹.则需要创建文件夹.</span><br></pre></td></tr></table></figure></p>
 <p>mkdir -p ~/.pip<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### virtualenv</span><br><span class="line">当我们安装完成过后. 会发现出现很多的python.例如python,python2,python2.7,python3.6,python3.6m等等.为什么我们的环境会出现这种情况. 这是由于python的版本不向下兼容.python2的设计有很多缺陷. 以致于兼容python2是不可能完成的任务.so.所以就放弃了python2.弄了一个大版本python3.可以参考[这篇](https://www.zhihu.com/question/267005361).为了兼容.python的各个版本和扩展的关系.就出了virtualenv.用来创建单独的虚拟环境. 首先, 我们就先来安装virtualenv</span><br></pre></td></tr></table></figure></p>
 <p>pip3.8 install virtualenv<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装完成后,使用如下的命令即可创建并切换到一个虚拟环境</span><br></pre></td></tr></table></figure></p>
 <p>virtualenv -p /usr/local/bin/python3.8 venv  // -p 用来指定python环境.<br>source ./venv/bin/activate<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这时, 我们就创建并进入到一个新的虚拟环境中了. 如何退出, 可使用如下命令.</span><br></pre></td></tr></table></figure></p>
@@ -437,11 +437,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
+                <a href="javascript:void(0)" class="js-tag color4">ssl acme</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssl acme</a>
+                <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -453,10 +453,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">composer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">http</a>
               </li>
              
@@ -465,15 +461,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">composer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">expect</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -489,11 +489,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
