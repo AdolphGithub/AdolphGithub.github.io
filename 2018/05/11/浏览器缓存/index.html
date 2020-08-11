@@ -5,26 +5,26 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="dns-prefetch" href="https://www.blogme.club">
+  <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>浏览器缓存 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="在我们开发网站的时候往往对网站的性能有极高的需求,当然,外包的除外哈.我见过的外包对效率要求特别高.对代码质量以及性能要求都不是很高.所以这里就不说明太多.高性能就意味着要使用各式各样的缓存,后台redis/memcached缓存等,前台就是浏览器缓存.什么是浏览器缓存.简单来说,就是浏览器继续使用从服务器上的内容,而不去使用服务器上的内容.那如何使用呢,在使用之前,我们先来讲讲浏览器刷新机制.">
 <meta name="keywords" content="前端 cache php">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浏览器缓存">
-<meta property="og:url" content="https://www.blogme.club/2018/05/11/浏览器缓存/index.html">
+<meta property="og:url" content="http://www.blogme.club/2018/05/11/浏览器缓存/index.html">
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="在我们开发网站的时候往往对网站的性能有极高的需求,当然,外包的除外哈.我见过的外包对效率要求特别高.对代码质量以及性能要求都不是很高.所以这里就不说明太多.高性能就意味着要使用各式各样的缓存,后台redis/memcached缓存等,前台就是浏览器缓存.什么是浏览器缓存.简单来说,就是浏览器继续使用从服务器上的内容,而不去使用服务器上的内容.那如何使用呢,在使用之前,我们先来讲讲浏览器刷新机制.">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.blogme.club/example/last-modified.png">
-<meta property="og:image" content="http://www.blogme.club/example/last-modified-2.png">
-<meta property="og:image" content="http://www.blogme.club/example/etag-1.png">
-<meta property="og:image" content="http://www.blogme.club/example/etag-2.png">
-<meta property="og:updated_time" content="2018-05-11T05:18:08.000Z">
+<meta property="og:image" content="http://cdn.blogme.club/blog/last-modified.png">
+<meta property="og:image" content="http://cdn.blogme.club/blog/last-modified-2.png">
+<meta property="og:image" content="http://cdn.blogme.club/blog/etag-1.png">
+<meta property="og:image" content="http://cdn.blogme.club/blog/etag-2.png">
+<meta property="og:updated_time" content="2020-08-11T14:43:34.211Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器缓存">
 <meta name="twitter:description" content="在我们开发网站的时候往往对网站的性能有极高的需求,当然,外包的除外哈.我见过的外包对效率要求特别高.对代码质量以及性能要求都不是很高.所以这里就不说明太多.高性能就意味着要使用各式各样的缓存,后台redis/memcached缓存等,前台就是浏览器缓存.什么是浏览器缓存.简单来说,就是浏览器继续使用从服务器上的内容,而不去使用服务器上的内容.那如何使用呢,在使用之前,我们先来讲讲浏览器刷新机制.">
-<meta name="twitter:image" content="http://www.blogme.club/example/last-modified.png">
+<meta name="twitter:image" content="http://cdn.blogme.club/blog/last-modified.png">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -53,7 +53,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="https://cdn.blogme.club/blog/icon.jpg" class="js-avatar">
+			<img src="http://cdn.blogme.club/blog/icon.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">adolph</a></h1>
@@ -111,7 +111,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="https://cdn.blogme.club/blog/icon.jpg" class="js-avatar">
+				<img src="http://cdn.blogme.club/blog/icon.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">adolph</h1>
@@ -185,13 +185,13 @@
 <p>下面我们就来讲讲一些常见的用了浏览器缓存的例子.</p>
 <h3 id="Last-modified"><a href="#Last-modified" class="headerlink" title="Last-modified"></a>Last-modified</h3><p>在我们浏览网站的时候,经常能看到这个头部信息,这个头部信息是用来记录最后一次的修改时间.如果网站响应的头部信息有这个,那么下次访问的时候,浏览器会带上一个这样的标识<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If-Modified-Since:时间</span><br></pre></td></tr></table></figure></p>
 <p>然后服务端可以根据这个来判断是不是应该可以直接使用缓存.当然,一般动态的网页是很少用这种的,因为不存在传统意义上的最后的修改时间.一般会用于静态网站长时间不修改文件的内容等.我们来做一个简单示例.<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// 判断是否含有这个最后一次修改时间,如果有,就强制使用304,让浏览器使用缓存.并终止程序.</span></span><br><span class="line"><span class="keyword">if</span> (array_key_exists(<span class="string">'HTTP_IF_MODIFIED_SINCE'</span>, $_SERVER)) &#123;</span><br><span class="line">	header(<span class="string">'HTTP/1.1 304 Not Modified'</span>);</span><br><span class="line">	<span class="keyword">exit</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 添加最后一次的修改时间</span></span><br><span class="line">header(<span class="string">'Last-Modified: '</span> . gmdate(<span class="string">'D, d M Y H:i:s'</span>) . <span class="string">' GMT'</span>);</span><br><span class="line"><span class="keyword">echo</span> date(<span class="string">'Y-m-d H:i:s'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>这里的做法虽然并不合理,没有判断时间,只要存在就使用缓存.这仅仅是为了看下效果,开发程序时应该有更好的做法.让我们来看看效果.我们把这个命令成index.php,放在localhost执行的地址,让我们来看看<br><img src="http://www.blogme.club/example/last-modified.png" alt="last-modifyed" title="last-modifyed"><br>第一次访问,浏览器得到的last-modified这个响应头,我们来看看请求头和响应头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">--Response Headers--</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Content-Encoding:gzip</span><br><span class="line">Content-Type:text/html; charset=UTF-8</span><br><span class="line">Date:Fri, 11 May 2018 02:19:51 GMT</span><br><span class="line">Last-Modified:Fri, 11 May 2018 01:37:15 GMT</span><br><span class="line">Server:nginx/1.9.15 (Ubuntu)</span><br><span class="line">Transfer-Encoding:chunked</span><br><span class="line">--Request Headers--</span><br><span class="line">Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding:gzip, deflate, br</span><br><span class="line">Accept-Language:zh-CN,zh;q=0.9</span><br><span class="line">Cache-Control:no-cache</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Host:localhost</span><br><span class="line">Pragma:no-cache</span><br><span class="line">Upgrade-Insecure-Requests:1</span><br><span class="line">User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36</span><br></pre></td></tr></table></figure></p>
-<p>从上面可以看出,对于第一次访问的网站,浏览器并没有缓存.然后当我们再次使用了F5过来,在来看看<br><img src="http://www.blogme.club/example/last-modified-2.png" alt="last-modified-2" title="last-modified-2"><br>这里我们的程序代码是直接退出程序,没有任何输出,那为什么还有这个输出,这个正式因为浏览器读取自己的缓存.让我们看看响应头.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">--Response Headers--</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Date:Fri, 11 May 2018 02:26:57 GMT</span><br><span class="line">Server:nginx/1.9.15 (Ubuntu)</span><br></pre></td></tr></table></figure></p>
+<p>这里的做法虽然并不合理,没有判断时间,只要存在就使用缓存.这仅仅是为了看下效果,开发程序时应该有更好的做法.让我们来看看效果.我们把这个命令成index.php,放在localhost执行的地址,让我们来看看<br><img src="http://cdn.blogme.club/blog/last-modified.png" alt="last-modifyed" title="last-modifyed"><br>第一次访问,浏览器得到的last-modified这个响应头,我们来看看请求头和响应头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">--Response Headers--</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Content-Encoding:gzip</span><br><span class="line">Content-Type:text/html; charset=UTF-8</span><br><span class="line">Date:Fri, 11 May 2018 02:19:51 GMT</span><br><span class="line">Last-Modified:Fri, 11 May 2018 01:37:15 GMT</span><br><span class="line">Server:nginx/1.9.15 (Ubuntu)</span><br><span class="line">Transfer-Encoding:chunked</span><br><span class="line">--Request Headers--</span><br><span class="line">Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding:gzip, deflate, br</span><br><span class="line">Accept-Language:zh-CN,zh;q=0.9</span><br><span class="line">Cache-Control:no-cache</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Host:localhost</span><br><span class="line">Pragma:no-cache</span><br><span class="line">Upgrade-Insecure-Requests:1</span><br><span class="line">User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36</span><br></pre></td></tr></table></figure></p>
+<p>从上面可以看出,对于第一次访问的网站,浏览器并没有缓存.然后当我们再次使用了F5过来,在来看看<br><img src="http://cdn.blogme.club/blog/last-modified-2.png" alt="last-modified-2" title="last-modified-2"><br>这里我们的程序代码是直接退出程序,没有任何输出,那为什么还有这个输出,这个正式因为浏览器读取自己的缓存.让我们看看响应头.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">--Response Headers--</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Date:Fri, 11 May 2018 02:26:57 GMT</span><br><span class="line">Server:nginx/1.9.15 (Ubuntu)</span><br></pre></td></tr></table></figure></p>
 <p>这里仅有简单的几行,指明了web服务器和系统,再来看看请求头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding:gzip, deflate, br</span><br><span class="line">Accept-Language:zh-CN,zh;q=0.9</span><br><span class="line">Cache-Control:max-age=0</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Host:localhost</span><br><span class="line">If-Modified-Since:Fri, 11 May 2018 01:37:15 GMT</span><br><span class="line">Upgrade-Insecure-Requests:1</span><br><span class="line">User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36</span><br></pre></td></tr></table></figure></p>
 <p>添加了一个If-Modified-Since,让我们来判断有效期,这个就是让我们来判断是否使用浏览器缓存的一个标识.所以这个就让我们的浏览器强制使用了缓存.</p>
 <h3 id="Etag"><a href="#Etag" class="headerlink" title="Etag"></a>Etag</h3><p>这个头又是用来干嘛的,这个又是跟浏览器协商的另一种方法,它于前面的last-modified非常相似,但是它没有用文件的最后修改时间,而是用一段编码俩标记内容,这个编码并没有强制要求,但是我们通常用一个文件内容的md5来作为Etag.一个原则就是,如果一个内容的Etag没有变化,那么这个内容也一定没有更新.让我们来弄一个简单的示例.<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$date = date(<span class="string">'Y-m-d'</span>);	<span class="comment">// 我们这里用当前的日期来代替文件md5</span></span><br><span class="line"><span class="comment">// 判断请求头中是否存在if-none-match,如果存在就去判断md5,如果值一样,就返回304</span></span><br><span class="line"><span class="keyword">if</span> (array_key_exists(<span class="string">'HTTP_IF_NONE_MATCH'</span>, $_SERVER)</span><br><span class="line">	&amp;&amp; $_SERVER[<span class="string">'HTTP_IF_NONE_MATCH'</span>] == <span class="string">'W/"'</span> . md5($date) . <span class="string">'"'</span>) &#123;</span><br><span class="line">	header(<span class="string">'HTTP/1.1 304 Not Modified'</span>);</span><br><span class="line">	<span class="keyword">exit</span>;	<span class="comment">// 退出</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 添加请求头.</span></span><br><span class="line">header(<span class="string">'Etag: "'</span> . md5($date) . <span class="string">'"'</span>);</span><br><span class="line"><span class="keyword">echo</span> date(<span class="string">'Y-m-d H:i:s'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>这里我们的程序代码是跟我们用last-modified是一样的.对于我们来说,也是不合理的,只是用来当成示例而已方便理解.让我们来看看执行效果.<br><img src="http://www.blogme.club/example/etag-1.png" alt="etag-1" title="etag-1"><br>第一次都是强制请求,如果前面的没有处理,就先Ctrl+F5,这里就先说明这个.具体的部署还是跟上一步的步骤一样.让我们看看响应头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">--Response Headers--</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Content-Encoding:gzip</span><br><span class="line">Content-Type:text/html; charset=UTF-8</span><br><span class="line">Date:Fri, 11 May 2018 02:45:07 GMT</span><br><span class="line">Etag:W/&quot;64ddf4c4fbf56a689c963872a8325370&quot;</span><br><span class="line">Server:nginx/1.9.15 (Ubuntu)</span><br><span class="line">Transfer-Encoding:chunked</span><br></pre></td></tr></table></figure></p>
-<p>在响应头里面增加一项,Etag,当然这个是我们的程序输出的.用程序控制的.我们来看看F5过后的结果<br><img src="http://www.blogme.club/example/etag-2.png" alt="etag-2" title="etag-2"><br>我们看见响应头中多了一个If-None-Match这个跟我们上一个请求的Etag值是一样的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">--Request Headers--</span><br><span class="line">Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding:gzip, deflate, br</span><br><span class="line">Accept-Language:zh-CN,zh;q=0.9</span><br><span class="line">Cache-Control:max-age=0</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Host:localhost</span><br><span class="line">If-None-Match:W/&quot;64ddf4c4fbf56a689c963872a8325370&quot;</span><br><span class="line">Upgrade-Insecure-Requests:1</span><br><span class="line">User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36</span><br></pre></td></tr></table></figure></p>
+<p>这里我们的程序代码是跟我们用last-modified是一样的.对于我们来说,也是不合理的,只是用来当成示例而已方便理解.让我们来看看执行效果.<br><img src="http://cdn.blogme.club/blog/etag-1.png" alt="etag-1" title="etag-1"><br>第一次都是强制请求,如果前面的没有处理,就先Ctrl+F5,这里就先说明这个.具体的部署还是跟上一步的步骤一样.让我们看看响应头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">--Response Headers--</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Content-Encoding:gzip</span><br><span class="line">Content-Type:text/html; charset=UTF-8</span><br><span class="line">Date:Fri, 11 May 2018 02:45:07 GMT</span><br><span class="line">Etag:W/&quot;64ddf4c4fbf56a689c963872a8325370&quot;</span><br><span class="line">Server:nginx/1.9.15 (Ubuntu)</span><br><span class="line">Transfer-Encoding:chunked</span><br></pre></td></tr></table></figure></p>
+<p>在响应头里面增加一项,Etag,当然这个是我们的程序输出的.用程序控制的.我们来看看F5过后的结果<br><img src="http://cdn.blogme.club/blog/etag-2.png" alt="etag-2" title="etag-2"><br>我们看见响应头中多了一个If-None-Match这个跟我们上一个请求的Etag值是一样的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">--Request Headers--</span><br><span class="line">Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding:gzip, deflate, br</span><br><span class="line">Accept-Language:zh-CN,zh;q=0.9</span><br><span class="line">Cache-Control:max-age=0</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Host:localhost</span><br><span class="line">If-None-Match:W/&quot;64ddf4c4fbf56a689c963872a8325370&quot;</span><br><span class="line">Upgrade-Insecure-Requests:1</span><br><span class="line">User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36</span><br></pre></td></tr></table></figure></p>
 <p>这个对于我们来说,在程序中我们也是直接停止了,并且报出304的状态码,但是浏览器还是作出反映了,将以前的值拿过来用了.这个就是我们的Etag</p>
 <h3 id="Etag和Last-Modified"><a href="#Etag和Last-Modified" class="headerlink" title="Etag和Last-Modified"></a>Etag和Last-Modified</h3><p>既然这两个都是用来作用浏览器缓存的.那谁的优先级高呢,其实没有优化级,根据我们服务的处理来的.我们如果优先处理Etag那就Etag值高,优先处理Last-Modified就Last-Modified高.</p>
 <h3 id="另一种不同的Expires"><a href="#另一种不同的Expires" class="headerlink" title="另一种不同的Expires"></a>另一种不同的Expires</h3><p>上面两种方式已经说明了,但是我们还是会经常看到,在我们退出浏览器过后,再次访问这个网站的时候,还是读取的缓存.显然,我们上面两种都不行的.不信你试试.这里我们就介绍另外一种,Expires,我们先来例子<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$stream = file_get_contents(<span class="string">'./etag-1.png'</span>);</span><br><span class="line">$seconds_to_cache = <span class="number">3600</span>;</span><br><span class="line">$ts = gmdate(<span class="string">"D, d M Y H:i:s"</span>, time() + $seconds_to_cache) . <span class="string">" GMT"</span>;</span><br><span class="line">header(<span class="string">'Content-Type: image/png'</span>);</span><br><span class="line">header(<span class="string">"Expires: $ts"</span>);</span><br><span class="line"><span class="keyword">echo</span> $stream;</span><br></pre></td></tr></table></figure></p>
@@ -216,13 +216,13 @@
                   <div class="reward-box">
                     
                     <div class="reward-box-item">
-                      <img class="reward-img" src="https://cdn.blogme.club/blog/alipay.png">
+                      <img class="reward-img" src="http://cdn.blogme.club/blog/alipay.png">
                       <span class="reward-type">支付宝</span>
                     </div>
                     
                     
                     <div class="reward-box-item">
-                      <img class="reward-img" src="https://cdn.blogme.club/blog/weixin.png">
+                      <img class="reward-img" src="http://cdn.blogme.club/blog/weixin.png">
                       <span class="reward-type">微信</span>
                     </div>
                     
@@ -299,7 +299,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://www.blogme.club/2018/05/11/浏览器缓存/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2018/05/11/浏览器缓存/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -451,11 +451,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssl acme</a>
+                <a href="javascript:void(0)" class="js-tag color4">workerman GatewayWorker</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssl acme</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -467,15 +471,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">workerman GatewayWorker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">composer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">http</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -483,7 +479,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">expect</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">http</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -491,11 +491,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -507,11 +503,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -575,11 +575,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">php xdebug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -587,19 +583,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">css</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">前端 cache php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">php xdebug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">php redis</a>
               </li>
             
             <div class="clearfix"></div>
@@ -651,7 +651,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="https://www.blogme.club/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>我的博客</a>
+              <a href="http://www.blogme.club/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>我的博客</a>
             </li>
           
         </ul>
