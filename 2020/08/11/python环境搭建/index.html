@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Archives: 2019/7 | adolph blog</title>
+  <title>python环境搭建 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/archives/2019/07/index.html">
+  <meta name="description" content="人生苦短,我用python. 一句话概括完了.然后在学习python之前,我们得知道怎样安装python.不知道怎么安装,那怎么学习python呢.">
+<meta name="keywords" content="python pipenv virtualenv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python环境搭建">
+<meta property="og:url" content="http://www.blogme.club/2020/08/11/python环境搭建/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="人生苦短,我用python. 一句话概括完了.然后在学习python之前,我们得知道怎样安装python.不知道怎么安装,那怎么学习python呢.">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-08-11T15:02:35.544Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="python环境搭建">
+<meta name="twitter:description" content="人生苦短,我用python. 一句话概括完了.然后在学习python之前,我们得知道怎样安装python.不知道怎么安装,那怎么学习python呢.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -150,60 +155,184 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-python环境搭建" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/26/解决mysql自动重启/" class="archive-article-date">
-  	<time datetime="2019-07-26T03:49:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-26</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/26/解决mysql自动重启/">解决mysql自动重启</a>
+    <h1 class="article-title" itemprop="name">
+      python环境搭建
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/08/11/python环境搭建/" class="archive-article-date">
+  	<time datetime="2020-08-11T15:00:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>人生苦短,我用python. 一句话概括完了.然后在学习python之前,我们得知道怎样安装python.不知道怎么安装,那怎么学习python呢.<br><a id="more"></a></p>
+<h3 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h3><p>需要获取最新版的python. 直接从官网获取即可.<a href="https://www.python.org/downloads/" target="_blank" rel="noopener">点击此处</a>. windows直接就是一个exe的执行文件.点击运行即可.如果是linux下.我们就可以直接通过下载源码的形式来编译安装了.既然是用源代码的方式. 那就得安装依赖. 方法如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// centos </span><br><span class="line">sudo yum install yum-utils</span><br><span class="line">sudo yum-builddep python3</span><br><span class="line">// or Fedora</span><br><span class="line">sudo dnf install dnf-plugins-core</span><br><span class="line">sudo dnf builddep python3</span><br><span class="line">// or ubuntu,debian</span><br><span class="line">sudo apt-get build-dep python3.6</span><br></pre></td></tr></table></figure></p>
+<p>安装完依赖过后.就可以开始我们正常的解压和安装了.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// .xz</span><br><span class="line">xz -d Python-3.8.5.tar.xz</span><br><span class="line">// .tgz</span><br><span class="line">tar zxvf Python-3.8.5.tgz</span><br></pre></td></tr></table></figure></p>
+<p>然后直接进行编译安装即可.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd Python3.8.5</span><br><span class="line">./confguire // 检查环境依赖和配置信息.</span><br><span class="line">make        // 开始编译</span><br><span class="line">make install// 安装</span><br></pre></td></tr></table></figure></p>
+<p>就即可安装完成了.源码安装可以安装指定的模块. 可以自定义的参数，可以使用如下的命令来进行查看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./configure --help</span><br><span class="line">``` </span><br><span class="line">### 软件源安装</span><br><span class="line">当然,我们这里处理源码安装.在linux下还能进行yum源的方式来进行安装. 不过这种方式安装的python版本. 有些时候不是想要的版本. 但是胜在非常简单. 所以我们想要快速的安装的话可以参考以下的命令.</span><br></pre></td></tr></table></figure></p>
+<p>// centos<br>yum install python3-3.6.8-13.el7.x86_64 // 或者其他版本<br>// ubuntu<br>sudo apt install python3.8<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### python源更换</span><br><span class="line">我们用到的所有的python的扩展跟我们php的扩展类似.php使用了pecl来安装扩展,python则使用了pip.当然.国外的东西在就下载速度而言,速度会比较慢.当然,不介意下载速度慢可以直接跳过这部分. 那我们就需要更换源的信息. 而更换源有两种方式. 1.临时更换,使用如下的命令即可</span><br></pre></td></tr></table></figure></p>
+<p>pip install -i <a href="https://mirrors.aliyun.com/pypi/simple/" target="_blank" rel="noopener">https://mirrors.aliyun.com/pypi/simple/</a> 扩展包名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">永久更换会稍微麻烦一下.使用如下命令.</span><br></pre></td></tr></table></figure></p>
+<p>echo ‘[global]<br>index-url = <a href="https://mirrors.aliyun.com/pypi/simple/" target="_blank" rel="noopener">https://mirrors.aliyun.com/pypi/simple/</a><br>[install]<br>trusted-host = <a href="https://mirrors.aliyun.com&#39;" target="_blank" rel="noopener">https://mirrors.aliyun.com&#39;</a> &gt;&gt; ~/.pip/pip.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意如果没有文件夹.则需要创建文件夹.</span><br></pre></td></tr></table></figure></p>
+<p>mkdir -p ~/.pip<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### virtualenv</span><br><span class="line">当我们安装完成过后. 会发现出现很多的python.例如python,python2,python2.7,python3.6,python3.6m等等.为什么我们的环境会出现这种情况. 这是由于python的版本不向下兼容.python2的设计有很多缺陷. 以致于兼容python2是不可能完成的任务.so.所以就放弃了python2.弄了一个大版本python3.可以参考[这篇](https://www.zhihu.com/question/267005361).为了兼容.python的各个版本和扩展的关系.就出了virtualenv.用来创建单独的虚拟环境. 首先, 我们就先来安装virtualenv</span><br></pre></td></tr></table></figure></p>
+<p>pip3.8 install virtualenv<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装完成后,使用如下的命令即可创建并切换到一个虚拟环境</span><br></pre></td></tr></table></figure></p>
+<p>virtualenv -p /usr/local/bin/python3.8 venv  // -p 用来指定python环境.<br>source ./venv/bin/activate<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这时, 我们就创建并进入到一个新的虚拟环境中了. 如何退出, 可使用如下命令.</span><br></pre></td></tr></table></figure></p>
+<p>deactivate<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">如果需要加载扩展包，可以在创建时增加--system-site-packages选项来创建. 详细参数可以参考[这篇文章](https://virtualenv.pypa.io/en/latest/cli_interface.html)</span><br><span class="line">### pipenv</span><br><span class="line">除了使用virtualenv外,还可以使用pipenv. 安装方式如下.</span><br></pre></td></tr></table></figure></p>
+<p>pip install pipenv<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用方式如下</span><br></pre></td></tr></table></figure></p>
+<p>// 创建虚拟环境.<br>pipenv –python 3.8<br>// 激活虚拟环境.<br>pipenv shell<br>// 离开虚拟环境.<br>Ctrl + D(键盘) or exit<br><code>`</code><br>pipenv 创建后,所有的软件包安装和卸载,请使用pipenv来进行安装. 它能自动根据对应的环境来引入对应的包. 如果使用pipenv来创建虚拟环境,则会在当前目录下创建一个Pipfile的文件.这里面包含源的信息及python的其他版本声明.这意味着,每次更换虚拟环境后,你得手动更换源的信息.如果安装软件包过后,还会生成Pipfile.lock文件.用于统一扩展包的信息.其他具体的参数可以参考<a href="https://pipenv.pypa.io/en/latest/" target="_blank" rel="noopener">这篇文档</a></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>当我们解决完python的环境问题过后,就可以开始我们正式学习python了.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://cdn.blogme.club/blog/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://cdn.blogme.club/blog/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">python pipenv virtualenv</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2020/08/11/python环境搭建/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/08/11/跨域解决方案/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">跨域解决方案</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+  <div id="SOHUCS" sid="python环境搭建"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+  
+
+  
 
 
           </div>
@@ -235,8 +364,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
