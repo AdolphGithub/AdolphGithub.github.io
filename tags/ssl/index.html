@@ -6,20 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>linux内核优化 | adolph blog</title>
+  <title>Tag: ssl | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在有限的环境里,如何做到较高的性能,优化了mysql配置,优化了sql逻辑,但是还是不行,就要优化linux内核里.下面是linux内核中常优化的一个简单配置,具体请根据业务来调整对应的配置项.">
-<meta name="keywords" content="linux">
-<meta property="og:type" content="article">
-<meta property="og:title" content="linux内核优化">
-<meta property="og:url" content="http://www.blogme.club/2019/01/10/linux内核优化/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="adolph blog">
+<meta property="og:url" content="http://www.blogme.club/tags/ssl/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="在有限的环境里,如何做到较高的性能,优化了mysql配置,优化了sql逻辑,但是还是不行,就要优化linux内核里.下面是linux内核中常优化的一个简单配置,具体请根据业务来调整对应的配置项.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-10T12:49:19.003Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux内核优化">
-<meta name="twitter:description" content="在有限的环境里,如何做到较高的性能,优化了mysql配置,优化了sql逻辑,但是还是不行,就要优化linux内核里.下面是linux内核中常优化的一个简单配置,具体请根据业务来调整对应的配置项.">
+<meta name="twitter:title" content="adolph blog">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -155,182 +150,64 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-linux内核优化" class="article article-type-post " itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      linux内核优化
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/01/09/acme免费的ssl证书/" class="archive-article-date">
+  	<time datetime="2019-01-09T13:46:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-09</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/01/09/acme免费的ssl证书/">acme免费的ssl证书</a>
     </h1>
   
 
-        
-        <a href="/2019/01/10/linux内核优化/" class="archive-article-date">
-  	<time datetime="2019-01-10T12:47:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在有限的环境里,如何做到较高的性能,优化了mysql配置,优化了sql逻辑,但是还是不行,就要优化linux内核里.下面是linux内核中常优化的一个简单配置,具体请根据业务来调整对应的配置项.<br><a id="more"></a></p>
-<h4 id="etc-sysctl-conf"><a href="#etc-sysctl-conf" class="headerlink" title="/etc/sysctl.conf"></a>/etc/sysctl.conf</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// 该内核参数默认值一般是128(定义了系统中每一个端口最大的监听队列的长度),对于负载很大的服务程序来说大大的不够.一般会将它修改为2048或者更大.</span><br><span class="line">net.core.somaxconn = 65535</span><br><span class="line">// 每个网络接口接收数据包的速率比内核处理这些包的速率快时，允许送到队列的数据包的最大数目</span><br><span class="line">net.core.netdev_max_backlog = 65535</span><br><span class="line"></span><br><span class="line">// 指定所能接受SYN同步包的最大客户端数量,即半连接上限.</span><br><span class="line">net.ipv4.tcp_max_sys_backlog = 65535</span><br><span class="line">// 表示如果套接字由本端要求关闭,这个参数决定了它保持在FIN-WAIT-2状态的时间.</span><br><span class="line">net.ipv4.tcp_fin_timeout=10</span><br><span class="line">// 开启重用.允许将TIME-WAIT sockets重新用于新的TCP连接,默认为0,表示关闭</span><br><span class="line">net.ipv4.tcp_tw_reuse=1</span><br><span class="line">// 开启TCP连接中TIME-WAIT sockets的快速回收.默认为0,表示关闭</span><br><span class="line">net.ipv4.tcp_tw_recycle=1</span><br><span class="line">// TCP发送keepalive探测消息的间隔时间(秒)，用于确认TCP连接是否有效.</span><br><span class="line">net.ipv4.tcp_keepalive_time=120</span><br><span class="line">// 探测消息未获得响应时，重发该消息的间隔时间</span><br><span class="line">net.ipv4.tcp_keepalive_intvl=30</span><br><span class="line">// 在认定TCP连接失效之前，最多发送多少个keepalive探测消息</span><br><span class="line">net.ipv4.tcp_keepalive_probes=3</span><br><span class="line"></span><br><span class="line">// 默认的TCP数据发送窗口大小(字节)</span><br><span class="line">net.core.wmem_default=87380</span><br><span class="line">// 最大的TCP数据发送窗口(字节)</span><br><span class="line">net.core.wmem_max=16777216</span><br><span class="line">// 默认的TCP数据接收窗口大小(字节)</span><br><span class="line">net.core.rmem_default=87380</span><br><span class="line">// 最大的TCP数据接收窗口大小(字节)</span><br><span class="line">net.core.rmem_max=16777216</span><br><span class="line"></span><br><span class="line">// 共享内存端,设置的足够大</span><br><span class="line">kernel.shmmax=429496729</span><br><span class="line">// 禁用交换分区,如果虚拟分区未用完则不用交换分区</span><br><span class="line">vm.swappiness=0</span><br></pre></td></tr></table></figure>
-<h4 id="etc-security-limit-conf"><a href="#etc-security-limit-conf" class="headerlink" title="/etc/security/limit.conf"></a>/etc/security/limit.conf</h4><p>文件句柄<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 单个用户可用的最大进程数量(软限制)</span><br><span class="line">* soft nofile 65535</span><br><span class="line">// 单个用户可用的最大进程数量(硬限制)</span><br><span class="line">* hard nofile 65535</span><br></pre></td></tr></table></figure></p>
-<h4 id="sys-block-devname-queue-scheduler"><a href="#sys-block-devname-queue-scheduler" class="headerlink" title="/sys/block/devname/queue/scheduler"></a>/sys/block/devname/queue/scheduler</h4><p>查询对应的调度策略<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat /sys/block/sda/queue/scheduler</span><br><span class="line">noop [deadline] [cfq]</span><br><span class="line">// 修改默认调度策略</span><br><span class="line">echo deadline &gt; /sys/block/devname/queue/scheduler</span><br></pre></td></tr></table></figure></p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="http://cdn.blogme.club/blog/alipay.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="http://cdn.blogme.club/blog/weixin.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ssl</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">acme</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2019/01/10/linux内核优化/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/01/12/mysql引擎之myisam/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          mysql引擎之myisam
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/01/09/mysql事务与隔离级别/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mysql事务与隔离级别</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-  
-  
+    </div></section>
   
 
-  
-  <div id="SOHUCS" sid="linux内核优化"></div> 
-<script type="text/javascript"> 
-(function(){ 
-var appid = "cytl0R24B"; 
-var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
-var width = window.innerWidth || document.documentElement.clientWidth; 
-if (width < 960) { 
-window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
-
-  
-
-  
+    
 
 
           </div>
@@ -362,9 +239,9 @@ window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="tex
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
