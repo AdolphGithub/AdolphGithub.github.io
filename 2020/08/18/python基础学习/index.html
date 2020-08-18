@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Archives | adolph blog</title>
+  <title>python基础学习 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/archives/page/4/index.html">
+  <meta name="description" content="有了我们的python环境过后,我们接下来就需要对python的一些基础的信息来进行讲解.首先,我们先来了解我们的数据类型和变量.">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python基础学习">
+<meta property="og:url" content="http://www.blogme.club/2020/08/18/python基础学习/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="有了我们的python环境过后,我们接下来就需要对python的一些基础的信息来进行讲解.首先,我们先来了解我们的数据类型和变量.">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-08-18T14:09:46.663Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="python基础学习">
+<meta name="twitter:description" content="有了我们的python环境过后,我们接下来就需要对python的一些基础的信息来进行讲解.首先,我们先来了解我们的数据类型和变量.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -150,405 +155,203 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-python基础学习" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      python基础学习
+    </h1>
+  
+
+        
+        <a href="/2020/08/18/python基础学习/" class="archive-article-date">
+  	<time datetime="2020-08-18T14:08:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-18</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有了我们的python环境过后,我们接下来就需要对python的一些基础的信息来进行讲解.首先,我们先来了解我们的数据类型和变量.<br><a id="more"></a></p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量的概念就跟我们方程式中的x是一样的. x是未知的. 在我们python中,只需要按照如下的格式即可申明变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = 1 // 变量名 = 变量值</span><br></pre></td></tr></table></figure></p>
+<p>注意,这里不能以数值开头来声明变量就可以了. 如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0a = 1</span><br></pre></td></tr></table></figure></p>
+<p>这种方式就是错误的.既然我们有了未知的变量. 在我们的世界中, 对于变量的赋值我们就要将这个变量划到一个数据类型. 我们就来快速学习下.</p>
+<h3 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h3><p>整数就是我们的自然数(正整数|负整数). 这个就不说了. 跟大多数编程语言类似.在python可以用0x来表明16进制的整数. 关于16进制, 就是逢16进1.这个不多讲. 可以参考<a href="https://baike.baidu.com/item/%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2/3818427?fr=aladdin" target="_blank" rel="noopener">这篇文档</a></p>
+<h3 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h3><p>浮点数,在我们常用的就是小数. 对于小数, 因为在计算机内部存储方式的不同. 小数运算可能会有四舍五入的误差. 所以在计算小数时, 要额外注意.例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">b = 2.44444444</span><br><span class="line">c = 3.55555555</span><br><span class="line">print(b + c) // 5.999999989999999</span><br></pre></td></tr></table></figure></p>
+<h3 id="bool"><a href="#bool" class="headerlink" title="bool"></a>bool</h3><p>bool值来表明正确和错误的. 正确就是True,错误的就是False. 需要注意一点. 可以通过and, or, not 来对bool来进行逻辑运算.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">True and True // True</span><br><span class="line">True and False // False</span><br><span class="line">True or False // Ture</span><br><span class="line">False or False // False</span><br><span class="line">not True // False</span><br><span class="line">not False // True</span><br></pre></td></tr></table></figure></p>
+<h3 id="None"><a href="#None" class="headerlink" title="None"></a>None</h3><p>空值. 这个在python中是特殊值. 在条件判断中为False.</p>
+<h3 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h3><p>在计算机中,所有的都是二进制数,那用二进制数来表示一个,就有了ascii表.其中A就是64,48就表示的0.那在python中,如何进行转换.就需要用到如下的信息了.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ord(&apos;A&apos;) // 得到ascii值.</span><br><span class="line">chr(67)  // 得到字符</span><br></pre></td></tr></table></figure></p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>那有了字符,就可以通过字符来说一段话或者讲述一个故事了. 那这个就是字符串.  在python,由单引号(‘)或者双引号(“)声明的就是字符串.如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = &quot;hello world&quot;</span><br><span class="line">b = &apos;hello world&apos;</span><br></pre></td></tr></table></figure></p>
+<p>注意,这里有个特殊性.如果在单引号的字符串出现特殊字符,则需要转义.如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = &apos;hello \&apos;world&apos;</span><br></pre></td></tr></table></figure></p>
+<p>当然.我们也可以不是用转义. 用r来标识. 如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = r&apos;\\\\hello world&apos;</span><br></pre></td></tr></table></figure></p>
+<p>常见的转移字符如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\n 换行</span><br><span class="line">\t 制表符</span><br><span class="line">\\ 斜线</span><br></pre></td></tr></table></figure></p>
+<p>在python中, 可以使用’’’…’’’来快速声明多行文本内容.常用的字符串函数如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">str.find(&apos;Hello&apos;) // 测字符串是否存在,存在就返回该字符串位置,如果不存在返回-1</span><br><span class="line">str.index(&quot;Hello&quot;) // 跟find一致. 但是如果不包含会直接报错</span><br><span class="line">len(str) // 统计长度</span><br><span class="line">str.count(&apos;1&apos;) // 统计出现次数</span><br><span class="line">str.replace(&apos;search&apos;,&apos;replace&apos;) // 字符串替换</span><br><span class="line">str.split(&apos;\n&apos;)  // 字符串分割</span><br><span class="line">str.upper() // 转为大写</span><br><span class="line">str.lower() // 转为小写</span><br><span class="line">str.title() // 首字母大写</span><br><span class="line">&apos;&apos;.join() // 在字符串后面插入一个指定字符,构造一个新的字符串. 可以理解为数组拼接</span><br></pre></td></tr></table></figure></p>
+<h3 id="字符串编码"><a href="#字符串编码" class="headerlink" title="字符串编码"></a>字符串编码</h3><p>在python2时, python是不支持多语言的. 那个时候的python都是ascii为编码的.但是到了python3中. 就以unicode编码为标准. 我们前面讲了字符串. 如何来对待编码. 如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&apos;ABC&apos;.encode(&apos;ascii&apos;) // 转化为二进制字符.</span><br><span class="line">b&apos;ABC&apos;.decode(&apos;ascii&apos;) // 转化为str.</span><br><span class="line">b&apos;ABC&apos;.decode(&apos;utf-8&apos;, errors=&quot;ignore&quot;) // 强制转化为utf8字符,忽略其中错误</span><br></pre></td></tr></table></figure></p>
+<p>有了转化, 但是我们python的文件也是普通的文件. 为了确保我们的python代码文件也是utf-8字符集.所以通常我们会在进行头部声明,如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python3</span><br><span class="line"># -*- coding: utf-8 -*-</span><br></pre></td></tr></table></figure></p>
+<p>当然,如果你使用编辑器(pycharm)等来进行处理, 可以不用声明.但是为了规范. 所有的都得声明.</p>
+<h3 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a>格式化</h3><p>在我们的python.有时为了快速的进行赋值.你会见到如下代码.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;hello %s&quot; % &quot;world&quot;</span><br></pre></td></tr></table></figure></p>
+<p>这里用的是格式化. %s代表的是以字符串格式进行输出.常见的如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">%s 字符串</span><br><span class="line">%c 字符</span><br><span class="line">%d 证书</span><br><span class="line">%f 浮点数</span><br><span class="line">%x 16进制数</span><br><span class="line">%.2f 两位小数</span><br></pre></td></tr></table></figure></p>
+<p>其实这里的格式化就是引用的是c语言的格式化.我们可以参考<a href="https://www.runoob.com/python/att-string-format.html" target="_blank" rel="noopener">这篇文章</a>.当然,我们可以换一种写法.如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;hello &#123;0&#125;&apos;.format(&apos;world&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>不过通常不建议用这种形式, 因为这种如果是变量的话, 就不能具体表明这个变量的类型了.</p>
+<h3 id="识别变量类型"><a href="#识别变量类型" class="headerlink" title="识别变量类型"></a>识别变量类型</h3><p>在python中, 如何来识别变量的类型.可以使用type函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(type(1))</span><br></pre></td></tr></table></figure></p>
+<h3 id="list"><a href="#list" class="headerlink" title="list"></a>list</h3><p>在我们python中, 如何来表明一系列同类型的数据呢,这里就要用到列表了. 如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = [0, 1, 2, 3, 4]</span><br></pre></td></tr></table></figure></p>
+<p>注意,数组里面可以存放任何数据. 例如对象, 列表,等等等等. 这里有一些常用的数组函数.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[0,1,2,3,4].pop() // 弹出列表中的最后一个数据</span><br><span class="line">[0].append(1) // 往列表最后增加一个数据</span><br><span class="line">len([0,1,2]) // 获取列表的长度</span><br><span class="line">[0,2].insert(1, 1) // 插入列表的指定位置</span><br><span class="line">[0,1,2,3,4] + [5,6] // 合并列表</span><br><span class="line">[0,1,2,3,4].extend([5,6]) // 合并列表</span><br><span class="line">[0,2,3,4,5].sort() // 排序</span><br></pre></td></tr></table></figure></p>
+<p>在python中,可以通过下标来取值,也可以通过倒数第几个下标来进行取值,例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = [0,1,2]</span><br><span class="line">a[0] // 0</span><br><span class="line">a[-1] // 2</span><br><span class="line">a[-2] // 1</span><br></pre></td></tr></table></figure></p>
+<p>可以说是很灵活的了.但是, 列表一旦申明. 不能直接通过索引的方式来直接进行赋值.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = [0,1,2]</span><br><span class="line">a[3]  = 3</span><br></pre></td></tr></table></figure></p>
+<p>这种方式是错误的.会直接提示超出列表的索引范围.</p>
+<h3 id="tuple-元祖"><a href="#tuple-元祖" class="headerlink" title="tuple 元祖"></a>tuple 元祖</h3><p>元祖跟列表类似.但是,元祖在声明后就不允许改动了. 注意,这里指的是指向不变. 例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = ( 1, 2, [3, 4] )</span><br><span class="line">a[0] = 1 // error</span><br><span class="line">a[2][0] = 4 // a = (1,2,[4,4])</span><br></pre></td></tr></table></figure></p>
+<p>tuple常用的方法如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tuple([1,3,4,5,6]) // 将数组专为元祖</span><br><span class="line">tuple([1,3,4,5,6]).count(1) // 统计1在元祖中出现的次数. 也可以统计数组.</span><br><span class="line">tuple([1,3,4,[1,5],[1,6]]).count([1,6])</span><br></pre></td></tr></table></figure></p>
+<h3 id="字典dict"><a href="#字典dict" class="headerlink" title="字典dict"></a>字典dict</h3><p>字典就是我们的map. 可以理解为就是json数据. 但比json更为强大, 可以存储的东西更多. 声明如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;&quot;name&quot;:&quot;adolph&quot;,&quot;age&quot; : 1&#125;</span><br></pre></td></tr></table></figure></p>
+<p>常用函数如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">d1.get(key, default = None)</span><br><span class="line">d1.update(d2) // 将字典2中的数据更新到字典1中或者&#123;**d1, **d2&#125;</span><br><span class="line">d1.keys() // 返回字典中所有的键</span><br><span class="line">d1.values() // 返回字典中所有的值</span><br><span class="line">d1.items() // 以列表返回可遍历的(键, 值) 元组数组.</span><br><span class="line">d1.formkeys(seq[, values]) // 创建一个新的字典, 以序列 seq 中元素做字典的,values为字典所有键对应的初始值.</span><br></pre></td></tr></table></figure></p>
+<h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>set跟字段类似.不过不能存储相同的key值.声明如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s = set([1,1,2,2,3,3]) // s = &#123;1,2,3&#125;</span><br></pre></td></tr></table></figure></p>
+<p>常用方法如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s.add(4) // 追加到最后,可以重复添加,但不生效</span><br><span class="line">s.remove(key) // 删除元素</span><br><span class="line">s1 &amp; s2     // s1和s2的交集</span><br><span class="line">s1 | s2    // s1和s2的并集</span><br></pre></td></tr></table></figure></p>
+<h3 id="通常约定"><a href="#通常约定" class="headerlink" title="通常约定"></a>通常约定</h3><p>在python,注意通常约定. 例如常量的表示, 在python中是没有常量的. 所以我们约定大写的就是常量,例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PI = 3.14</span><br></pre></td></tr></table></figure></p>
+<p>没有什么强制性的. 所以就特别注重约定. 我们可以参考<a href="https://www.cnblogs.com/chanix/p/12737670.html" target="_blank" rel="noopener">这篇文章</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://cdn.blogme.club/blog/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://cdn.blogme.club/blog/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/29/mysql中间件之maxscale/" class="archive-article-date">
-  	<time datetime="2019-01-29T07:12:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/29/mysql中间件之maxscale/">mysql中间件之maxscale</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2020/08/18/python基础学习/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/28/mysql架构之mha搭建/" class="archive-article-date">
-  	<time datetime="2019-01-28T09:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-28</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/28/mysql架构之mha搭建/">mysql架构之mha搭建</a>
-    </h1>
+  
+    <a href="/2020/08/13/初学bulma/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">初学bulma</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/25/mysql架构之mmm搭建/" class="archive-article-date">
-  	<time datetime="2019-01-25T08:24:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/25/mysql架构之mmm搭建/">mysql架构之mmm搭建</a>
-    </h1>
+  <div id="SOHUCS" sid="python基础学习"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/22/centos下安装mongodb/" class="archive-article-date">
-  	<time datetime="2019-01-22T09:36:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/22/centos下安装mongodb/">centos下安装mongodb</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/21/mysql常见拓补和复制优化/" class="archive-article-date">
-  	<time datetime="2019-01-21T09:57:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/21/mysql常见拓补和复制优化/">mysql常见拓补和复制优化</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/18/mysql基于GTID的主从/" class="archive-article-date">
-  	<time datetime="2019-01-18T07:43:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/18/mysql基于GTID的主从/">mysql基于GTID的主从</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/18/mysql基于日志点的主从/" class="archive-article-date">
-  	<time datetime="2019-01-18T07:41:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/18/mysql基于日志点的主从/">mysql基于日志点的主从</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/18/mysql之binlog日志/" class="archive-article-date">
-  	<time datetime="2019-01-18T07:39:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/18/mysql之binlog日志/">mysql之binlog日志</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/17/sysbench压力测试工具/" class="archive-article-date">
-  	<time datetime="2019-01-17T09:45:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/17/sysbench压力测试工具/">sysbench压力测试工具</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sysbench</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/17/mysql之mysqlslap/" class="archive-article-date">
-  	<time datetime="2019-01-17T09:35:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/17/mysql之mysqlslap/">mysql之mysqlslap</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/3/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/11/">11</a><a class="extend next" rel="next" href="/archives/page/5/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -581,8 +384,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
