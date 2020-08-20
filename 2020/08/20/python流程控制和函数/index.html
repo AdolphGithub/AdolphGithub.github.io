@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Archives: 2017/12 | adolph blog</title>
+  <title>python流程控制和函数 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/archives/2017/12/index.html">
+  <meta name="description" content="我们对python的基础类型有了一定的概念. 在计算机的世界. 如果我们一直做某些重复的事情, 我们就会用工程化的思想来处理. 例如手机的芯片制作. 谁做哪一步. 哪里是机器处理. 这些就需要我们的流程控制.">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python流程控制和函数">
+<meta property="og:url" content="http://www.blogme.club/2020/08/20/python流程控制和函数/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="我们对python的基础类型有了一定的概念. 在计算机的世界. 如果我们一直做某些重复的事情, 我们就会用工程化的思想来处理. 例如手机的芯片制作. 谁做哪一步. 哪里是机器处理. 这些就需要我们的流程控制.">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-08-20T11:34:55.670Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="python流程控制和函数">
+<meta name="twitter:description" content="我们对python的基础类型有了一定的概念. 在计算机的世界. 如果我们一直做某些重复的事情, 我们就会用工程化的思想来处理. 例如手机的芯片制作. 谁做哪一步. 哪里是机器处理. 这些就需要我们的流程控制.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -150,125 +155,195 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-python流程控制和函数" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/26/mysql的悲观锁和乐观锁/" class="archive-article-date">
-  	<time datetime="2017-12-26T09:26:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-26</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/26/mysql的悲观锁和乐观锁/">mysql的悲观锁和乐观锁</a>
+    <h1 class="article-title" itemprop="name">
+      python流程控制和函数
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/08/20/python流程控制和函数/" class="archive-article-date">
+  	<time datetime="2020-08-20T11:26:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们对python的基础类型有了一定的概念. 在计算机的世界. 如果我们一直做某些重复的事情, 我们就会用工程化的思想来处理. 例如手机的芯片制作. 谁做哪一步. 哪里是机器处理. 这些就需要我们的流程控制.<br><a id="more"></a></p>
+<h3 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h3><p>python. 如何判断对错. 就可以用if.满足条件执行. 否则else.就执行另外的.如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = 20</span><br><span class="line">if a &gt;= 18:</span><br><span class="line">   print(&apos;&gt;18&apos;)</span><br><span class="line">else:</span><br><span class="line">   print(&apos;&lt;18&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>这里就会输出&gt;18. 当a &lt; 18时. 就会输出&lt;18. 如何进行多个判断.可以使用elif<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if a &gt;= 18:</span><br><span class="line">    print(&apos;&gt;18&apos;)</span><br><span class="line">elif a &lt; 18 and a &gt; 16:</span><br><span class="line">    print(a)</span><br><span class="line">else:</span><br><span class="line">    print(0)</span><br></pre></td></tr></table></figure></p>
+<h3 id="循环控制"><a href="#循环控制" class="headerlink" title="循环控制"></a>循环控制</h3><p>在python循环有两种循环方式. for in,和while. 例如.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ages = [0,1,2,3]</span><br><span class="line">for age in ages:</span><br><span class="line">    print(age)</span><br><span class="line">// while</span><br><span class="line">while age = ages.pop():</span><br><span class="line">    print(age)</span><br></pre></td></tr></table></figure></p>
+<p>for…in是将ages里面的所有元素循环出来. 而while则是条件. 当条件为True则会一直执行. 如何来提前结束循环.则需要使用break<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ages = [0,1,2,3]</span><br><span class="line">for age in ages:</span><br><span class="line">    print(age)</span><br><span class="line">    if age &gt; 1:</span><br><span class="line">        break</span><br></pre></td></tr></table></figure></p>
+<p>以上程序当age大于1时就会退出循环. 既然有退出当然也有跳过continue.例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ages = [0,1,2,3]</span><br><span class="line">for age in ages:</span><br><span class="line">    if age == 1:</span><br><span class="line">        continue</span><br><span class="line">    print(age)</span><br></pre></td></tr></table></figure></p>
+<h3 id="函数的定义"><a href="#函数的定义" class="headerlink" title="函数的定义"></a>函数的定义</h3><p>在python中. 如果我们重复处理一些数据.那我们就需要使用函数来处理了.我们就来学习函数. 通常函数的定义如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def my_add(a, b):</span><br><span class="line">    return a + b</span><br></pre></td></tr></table></figure></p>
+<p>其中,my_add为函数名.a,b为函数的参数. return表示返回的值.这个函数我们需要传递两个参数,并得到两个数的和. 我们的调用就按照如下来调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">my_add(1, 2)</span><br></pre></td></tr></table></figure></p>
+<p>一个完整的函数有以下几个部分组成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">函数名</span><br><span class="line">函数的参数</span><br><span class="line">返回值</span><br></pre></td></tr></table></figure></p>
+<p>我们的my_add就是一个标准函数. 在python定义的函数可以撒都不返回. 如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def my():</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></p>
+<p>pass可以用来做占位符,撒都不做. 当然pass也可以用到其他语句.  例如 if.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if a &gt; b:</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></p>
+<h3 id="函数的参数"><a href="#函数的参数" class="headerlink" title="函数的参数"></a>函数的参数</h3><p>在python中,通常会遇到如下几种函数参数.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def my_add(a, b=1): pass</span><br><span class="line">def my_add(a, *params): pass</span><br><span class="line">def my_add(a, **params): pass</span><br></pre></td></tr></table></figure></p>
+<p>其中. b=1这种为默认参数. 默认参数一般都是写在必选参数的后面.因为默认参数在调用时是可以不需要传值的. 如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def my_add(a, b = 1):</span><br><span class="line">    return a + b</span><br><span class="line">print(my_add(1))  // 2</span><br></pre></td></tr></table></figure></p>
+<p>*params这种在传递的时候.收到的参数会是一个tuple(元祖). 例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def my_add(a, *params):</span><br><span class="line">    total = 0</span><br><span class="line">    for param in params:</span><br><span class="line">        total =  total + param</span><br><span class="line">    return a + total</span><br><span class="line">print(my_add(1, 2, 3, 4))  // 10, 其中, params = (2, 3, 4). 按缺省来算.</span><br></pre></td></tr></table></figure></p>
+<p>而**params这种则是dict类型. 如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def my_add(a, **params):</span><br><span class="line">    total = 0</span><br><span class="line">    for param in params.values():</span><br><span class="line">        total = total + param</span><br><span class="line">    return a + total</span><br><span class="line">print(my_add(1, c=2, d=3,  e=4)) // 10. 其中params = &#123;&quot;c&quot; : 2, &quot;d&quot; : 3, &quot;e&quot;: 4&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="参数组合"><a href="#参数组合" class="headerlink" title="参数组合"></a>参数组合</h3><p>在python中,参数的定义顺序必须是,必选参数,默认参数,可变参数,命名关键字参数和关键字参数. 例如.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def f1(a, b, c=0, *args, **kw):</span><br><span class="line">    print(&apos;a =&apos;, a, &apos;b =&apos;, b, &apos;c =&apos;, c, &apos;args =&apos;, args, &apos;kw =&apos;, kw)</span><br></pre></td></tr></table></figure></p>
+<p>调用是则按照顺序匹配<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f1(1, 2) // a = 1 b = 2 c = 0 args = () kw = &#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当前,你也可以使用tuple和dict来使用扩展符来进行调用.例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">args = (1, 2, 3, 4)</span><br><span class="line">kw = &#123;&apos;d&apos;: 99, &apos;x&apos;: &apos;#&apos;&#125;</span><br><span class="line">f1(*args, **kw)</span><br></pre></td></tr></table></figure></p>
+<p>当然, 初期我建议你们使用这种函数来进行.可读性非常查.</p>
+<h3 id="函数的返回值"><a href="#函数的返回值" class="headerlink" title="函数的返回值"></a>函数的返回值</h3><p>在python, 函数是可以拥有多个返回值的. 例如.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def my_add(a, b=1):</span><br><span class="line">    return a, b</span><br></pre></td></tr></table></figure></p>
+<p>在调用时,则需要使用两个参数来进行接收. 例如.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a, b = my_add(2) // a = 2, b =1</span><br></pre></td></tr></table></figure></p>
+<h3 id="函数的参数判断"><a href="#函数的参数判断" class="headerlink" title="函数的参数判断."></a>函数的参数判断.</h3><p>在调用函数之前, 我们需要确保调用函数时的参数类型要一致. 如果不确定一致. 可以使用isinstance来进行判断. 例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">isinstance(1, (int, float))</span><br></pre></td></tr></table></figure></p>
+<p>当然, 我们不确定参数的时候还可以用强制转换.例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int(&apos;123&apos;) // 转为整数123</span><br><span class="line">float(&apos;12.34&apos;) // 转为浮点数</span><br><span class="line">str(1.23) // 转为字符串</span><br><span class="line">bool(1) // 转为bool类型</span><br></pre></td></tr></table></figure></p>
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><p>在函数中, 有一类特殊的函数. 自己调用自己. 这种形式我们称之为递归.任何循环都可以使用递归来处理. 我们来试试.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def my_add(a, b = 1):</span><br><span class="line">    if b &gt;= 100:</span><br><span class="line">        return a + b</span><br><span class="line">    return my_add( a + b, b + 1)</span><br><span class="line">print(my_add(0)) // 5050</span><br></pre></td></tr></table></figure></p>
+<p>我们换成for.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">total = 0</span><br><span class="line">for i in range(1,101):</span><br><span class="line">    total = total + i</span><br><span class="line">print(total)</span><br></pre></td></tr></table></figure></p>
+<p>对比一下. 在简单的计算中. for更简单.但是某些特殊的情况就需要使用到递归了.例如比较著名的Fibonacci数列.阶乘等.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://cdn.blogme.club/blog/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://cdn.blogme.club/blog/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2020/08/20/python流程控制和函数/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/26/redis悲观锁和乐观锁/" class="archive-article-date">
-  	<time datetime="2017-12-26T07:07:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-26</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/26/redis悲观锁和乐观锁/">redis悲观锁和乐观锁</a>
-    </h1>
+  
+    <a href="/2020/08/18/python基础学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">python基础学习</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/22/Walle配置-最详细的安装/" class="archive-article-date">
-  	<time datetime="2017-12-22T04:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/22/Walle配置-最详细的安装/">Walle配置-最详细的安装</a>
-    </h1>
+  <div id="SOHUCS" sid="python流程控制和函数"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -300,8 +375,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
