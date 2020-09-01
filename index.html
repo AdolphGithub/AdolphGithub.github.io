@@ -152,6 +152,86 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-python类和示例" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/01/python类和示例/">python类和示例</a>
+    </h1>
+  
+
+        
+        <a href="/2020/09/01/python类和示例/" class="archive-article-date">
+  	<time datetime="2020-09-01T12:54:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有了最基础的python基础和函数式编程. 剩下我们将引入我们的编程中最重要的思想. 面向对象.我们来看看在python中是如何来实现面向对象的.</p>
+<h3 id="类和实例"><a href="#类和实例" class="headerlink" title="类和实例"></a>类和实例</h3><p>在python中,我们通过class 来申明对应的类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class Person(object):</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></p>
+<p>这样,我们就声明了一个. 然后通过类生成的就是实例. 例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">person = Person()</span><br><span class="line">print(person)</span><br></pre></td></tr></table></figure></p>
+<p>这个就是我们实例的类了. 那如何在类实例化的时候进行一些初始化操作呢. 这里就有一个特殊的方法.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Person(object):</span><br><span class="line">    def __init__(self, name, age = 18):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></p>
+<p>这样我们就完成了类的初始化了. 我们在调用这个类时,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">person = Person(&apos;余袁刚&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>就会自动给属性进行赋值.</p>
+<h3 id="属性访问"><a href="#属性访问" class="headerlink" title="属性访问"></a>属性访问</h3><p>前面我们说了. 在python中. 我们实例化Person时. 设置了两个属性.name和age.我们可以通过如下方式进行调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">person = Person(&apos;余袁刚&apos;)</span><br><span class="line">print(person.name)</span><br><span class="line">print(person.age)</span><br></pre></td></tr></table></figure></p>
+<p>这样就能访问到里面的变量了. 如果不想让实例直接访问呢. 可以在变量面前加__就能阻止访问了. 例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Person(object):</span><br><span class="line">    def __init__(self, name, age = 18):</span><br><span class="line">        self.__name = name</span><br><span class="line">        self.__age = age</span><br><span class="line">    pass</span><br><span class="line">    </span><br><span class="line">person = Person(&apos;余袁刚&apos;)</span><br><span class="line">print(person.__name)</span><br><span class="line">print(person.__age)</span><br></pre></td></tr></table></figure></p>
+<p>这里将直接报错如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person&apos; object has no attribute &apos;__name&apos;</span><br></pre></td></tr></table></figure></p>
+<p>前面我们说了. python实际没有私有变量这一说法. 那如何来进行访问呢.我们可以采用如下形式即可.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">person = Person(&apos;余袁刚&apos;)</span><br><span class="line">print(person._Person__name)</span><br><span class="line">print(person._Person__age)</span><br></pre></td></tr></table></figure></p>
+<p>所以. python最注重的是约定. 一定要注重约定.</p>
+<h3 id="类的继承和多态"><a href="#类的继承和多态" class="headerlink" title="类的继承和多态"></a>类的继承和多态</h3><p>在python中, 我们也可以继承类. 如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Person(object):</span><br><span class="line">    def __init__(self, name, age = 18):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line">    pass</span><br><span class="line"> </span><br><span class="line">class Man(Person):</span><br><span class="line">    def call(self):</span><br><span class="line">        print(self.name)</span><br><span class="line"> </span><br><span class="line">person = Man(&apos;余袁刚&apos;)</span><br><span class="line">person.call()</span><br></pre></td></tr></table></figure></p>
+<p>这样我们就相当于继承了Person的属性.如果是Person的私有属性呢.例如__name. 那我们是否还能像之前那样调用. 答案是可以的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Person(object):</span><br><span class="line">    def __init__(self, name, age = 18):</span><br><span class="line">        self.__name = name</span><br><span class="line">        self.age = age</span><br><span class="line">    pass</span><br><span class="line"> </span><br><span class="line">class Man(Person):</span><br><span class="line">    def call(self):</span><br><span class="line">        print(self._Person__name)</span><br><span class="line"> </span><br><span class="line">person = Man(&apos;余袁刚&apos;)</span><br><span class="line">person.call()</span><br></pre></td></tr></table></figure></p>
+<p>所以这里再一次证明了. 约定比撒都重要. 如果call在person中存在.调用链是如何的呢.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Person(object):</span><br><span class="line">    def __init__(self, name, age = 18):</span><br><span class="line">        self.__name = name</span><br><span class="line">        self.age = age</span><br><span class="line">    def call(self):</span><br><span class="line">        print(self.age)</span><br><span class="line">    pass</span><br><span class="line"> </span><br><span class="line">class Man(Person):</span><br><span class="line">    def call(self):</span><br><span class="line">        print(self._Person__name)</span><br><span class="line"> </span><br><span class="line">person = Man(&apos;余袁刚&apos;)</span><br><span class="line">person.call()</span><br></pre></td></tr></table></figure></p>
+<p>结果还是以子类的优先. 如果子类要调用父类的方法呢. 则使用如下方法.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">super().call() //即可调用父类的call方法.</span><br></pre></td></tr></table></figure></p>
+<p>如果要调用父类的私有方法. 如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Person(object):</span><br><span class="line">    def __init__(self, name, age = 18):</span><br><span class="line">        self.__name = name</span><br><span class="line">        self.age = age</span><br><span class="line">    def __call(self):</span><br><span class="line">        print(self.age)</span><br><span class="line">    pass</span><br><span class="line"> </span><br><span class="line">class Man(Person):</span><br><span class="line">    def call(self):</span><br><span class="line">        print(self._Person__name)</span><br><span class="line">        print(super()._Person__call()) // 注意这里这样调用即可</span><br><span class="line"> </span><br><span class="line">person = Man(&apos;余袁刚&apos;)</span><br><span class="line">person.call()</span><br></pre></td></tr></table></figure></p>
+<p>所以. 通常我们约定__开始的变量都是私有变量和方法.不允许直接调用.</p>
+<h3 id="类的实例属性和类属性"><a href="#类的实例属性和类属性" class="headerlink" title="类的实例属性和类属性"></a>类的实例属性和类属性</h3><p>在python.类的属性分为两种. 一种是实例属性. 只存在实例化过后的类. 一种是类的属性. 有点类似于我们的静态方法.例如.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Person(object):</span><br><span class="line">    num = 0 // 这里就是类的属性</span><br><span class="line">    def __init__(self, name, age = 18):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line">        Student.num = Student.num + 1</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></p>
+<p>这里我们的num就是类的属性. 每次初始化就自增一次.</p>
+<h3 id="获取对象的信息"><a href="#获取对象的信息" class="headerlink" title="获取对象的信息"></a>获取对象的信息</h3><p>有了实例过后,我们如何来获取这个类有哪些方法和属性呢. 第一种, 直接使用编辑器. 这种我就不多说了. 另外一种. 使用dir函数.例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Person(object):</span><br><span class="line">    def __init__(self, name, age = 18):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">person = Person(&apos;余袁刚&apos;)</span><br><span class="line">dir(person) // 即可打印出所有的类的方法和属性</span><br></pre></td></tr></table></figure></p>
+<p>那我们如何来判断是否属于某一个类呢. 我们可以使用如下的方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">isinstance(person,Person) // True</span><br></pre></td></tr></table></figure></p>
+<h3 id="类的特殊方法"><a href="#类的特殊方法" class="headerlink" title="类的特殊方法"></a>类的特殊方法</h3><p>前面我们讲了类的<strong>init</strong>初始化方法. 我们接下来讲几个特殊的方法. 如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">__getitem__(self, item)  // 对象通过 object[key] 触发</span><br><span class="line">__setitem__(self, key, value)  // 对象通过 object[key] = value 触发</span><br><span class="line">__delitem__(self, key)  // 对象通过 del object[key] 触发</span><br><span class="line">__delattr__(self, item)  // 使用del object.item时触发</span><br><span class="line">__str__(self)  // 打印时直接调用,需返回一个值</span><br><span class="line">__repr__(self)  // 不管是直接打印对象还是通过print打印对象,都是走的__repr__中定义的格式.</span><br><span class="line"> __new__(cls, *args, **kwargs) // 在初始化__init__之前调用. 用来决定是否进行初始化.</span><br><span class="line">__del__(self)  // 删除对象时使用</span><br><span class="line">__call__(self,  *args, **kwargs)  // 当对象+()时候[object()] 触发</span><br><span class="line">__len__(self)  // 使用len函数时自动调用</span><br><span class="line">__hash__(self)  // 调用hash(object)时调用</span><br><span class="line">__eq__(self, other)  // 判断两个对象相等时调用</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/01/python类和示例/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-python模块的导入和自定义" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -717,67 +797,6 @@
 
 
   
-    <article id="post-workerman源码-workerman监控子进程" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/06/workerman源码-workerman监控子进程/">workerman源码-workerman监控子进程</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/06/workerman源码-workerman监控子进程/" class="archive-article-date">
-  	<time datetime="2020-01-06T07:37:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我们在fork子进程最后一步,就开始监控子进程了.我们来看一下workerman是如何对子进程完成监控的.以及是对子进程重启.<br>
-        
-          <a class="article-more-a" href="/2020/01/06/workerman源码-workerman监控子进程/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">workerman</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/06/workerman源码-workerman监控子进程/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -927,15 +946,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
