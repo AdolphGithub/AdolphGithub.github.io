@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>记一次YII的内存溢出 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我们公司的内部框架使用的是YII2, 这套框架在安全性和扩展性上面都非常的强. 有些问题还是对框架要有一定的了解. 下面就记录一次Yii2内存溢出的过程.已经解决方案. 起因因为我们有个站点的日志文件非常大，且需要对日志进行分析,溯源等一系列操作. 所以我们决定对每日的日志文件进行数据库导入, 然后同时分析出我们正常请求等. 下面就是我们在这个任务中对数据入库时所使用的方法.123DomainAc">
+  <meta name="description" content="我们公司的内部框架使用的是YII2, 这套框架在安全性和扩展性上面都非常的强. 有些问题还是对框架要有一定的了解. 下面就记录一次Yii2内存溢出的过程.已经解决方案.">
 <meta name="keywords" content="php,yii">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记一次YII的内存溢出">
 <meta property="og:url" content="http://www.blogme.club/2021/07/07/记一次YII的内存溢出/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="我们公司的内部框架使用的是YII2, 这套框架在安全性和扩展性上面都非常的强. 有些问题还是对框架要有一定的了解. 下面就记录一次Yii2内存溢出的过程.已经解决方案. 起因因为我们有个站点的日志文件非常大，且需要对日志进行分析,溯源等一系列操作. 所以我们决定对每日的日志文件进行数据库导入, 然后同时分析出我们正常请求等. 下面就是我们在这个任务中对数据入库时所使用的方法.123DomainAc">
+<meta property="og:description" content="我们公司的内部框架使用的是YII2, 这套框架在安全性和扩展性上面都非常的强. 有些问题还是对框架要有一定的了解. 下面就记录一次Yii2内存溢出的过程.已经解决方案.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2021-07-07T06:50:34.156Z">
+<meta property="og:updated_time" content="2021-07-07T06:53:28.427Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次YII的内存溢出">
-<meta name="twitter:description" content="我们公司的内部框架使用的是YII2, 这套框架在安全性和扩展性上面都非常的强. 有些问题还是对框架要有一定的了解. 下面就记录一次Yii2内存溢出的过程.已经解决方案. 起因因为我们有个站点的日志文件非常大，且需要对日志进行分析,溯源等一系列操作. 所以我们决定对每日的日志文件进行数据库导入, 然后同时分析出我们正常请求等. 下面就是我们在这个任务中对数据入库时所使用的方法.123DomainAc">
+<meta name="twitter:description" content="我们公司的内部框架使用的是YII2, 这套框架在安全性和扩展性上面都非常的强. 有些问题还是对框架要有一定的了解. 下面就记录一次Yii2内存溢出的过程.已经解决方案.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -175,7 +175,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我们公司的内部框架使用的是YII2, 这套框架在安全性和扩展性上面都非常的强. 有些问题还是对框架要有一定的了解. 下面就记录一次Yii2内存溢出的过程.已经解决方案.</p>
+        <p>我们公司的内部框架使用的是YII2, 这套框架在安全性和扩展性上面都非常的强. 有些问题还是对框架要有一定的了解. 下面就记录一次Yii2内存溢出的过程.已经解决方案.<br><a id="more"></a></p>
 <h3 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h3><p>因为我们有个站点的日志文件非常大，且需要对日志进行分析,溯源等一系列操作. 所以我们决定对每日的日志文件进行数据库导入, 然后同时分析出我们正常请求等. 下面就是我们在这个任务中对数据入库时所使用的方法.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DomainAccessRaw::getDb()-&gt;createCommand()</span><br><span class="line">    -&gt;batchInsert(DomainAccessRaw::tableName(), array_keys($data[0]), $data)</span><br><span class="line">    -&gt;execute();</span><br></pre></td></tr></table></figure></p>
 <p>使用了批量入库的形式. 然后在执行job的过程中，我们发现当执行到一段时间过后，任务就会因为内存过大而导致job停止执行. 就会出现下面这个错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PHP Fatal error:  Allowed memory size of 134217728 bytesexhausted (tried toallocate 135168 bytes)</span><br></pre></td></tr></table></figure></p>
 <h3 id="排错"><a href="#排错" class="headerlink" title="排错"></a>排错</h3><p>当定义到这段代码时，首先getDb()-&gt;createCommand()肯定没问题. 因为仅仅是创建了一个对象. 不会造成大量的内存溢出. 而我们在执行循环时，循环才几次. 就绝对不是这个问题了. 其实我们查一下batchInsert这个方法. 发现也仅仅是生成了一条sql和绑定相关的参数. 所以也被排除掉. 及最有可能就只剩下一个execute.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// vendor/yiisoft/yii2/db/Command.php 1088行</span><br><span class="line">public function execute()</span><br><span class="line">&#123;</span><br><span class="line">    $sql = $this-&gt;getSql();</span><br><span class="line">    list($profile, $rawSql) = $this-&gt;logQuery(__METHOD__);</span><br><span class="line"></span><br><span class="line">    if ($sql == &apos;&apos;) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $this-&gt;prepare(false);</span><br><span class="line"></span><br><span class="line">    try &#123;</span><br><span class="line">        $profile and Yii::beginProfile($rawSql, __METHOD__);</span><br><span class="line"></span><br><span class="line">        $this-&gt;internalExecute($rawSql);</span><br><span class="line">        $n = $this-&gt;pdoStatement-&gt;rowCount();</span><br><span class="line"></span><br><span class="line">        $profile and Yii::endProfile($rawSql, __METHOD__);</span><br><span class="line"></span><br><span class="line">        $this-&gt;refreshTableSchema();</span><br><span class="line"></span><br><span class="line">        return $n;</span><br><span class="line">    &#125; catch (Exception $e) &#123;</span><br><span class="line">        $profile and Yii::endProfile($rawSql, __METHOD__);</span><br><span class="line">        throw $e;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -430,15 +430,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ssl</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">acme</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -462,11 +462,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php</a>
+                <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">expect</a>
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -486,11 +486,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
