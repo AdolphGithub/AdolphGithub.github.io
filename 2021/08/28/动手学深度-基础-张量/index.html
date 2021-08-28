@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://www.blogme.club">
   <title>动手学深度-基础-张量 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="由于几年没有学过数学了，只能从基础开始处理了．没有办法．痛也只能忍着．所幸一直在做开发，所以就业务和理解能力上还没有降低．第一章就是张量.  初识张量1234567#!/usr/bin/env python# -*- coding: utf-8 -*-import torchif __name__ == &amp;apos;__main__&amp;apos;:    x = torch.arange(12) x">
+  <meta name="description" content="由于几年没有学过数学了，只能从基础开始处理了．没有办法．痛也只能忍着．所幸一直在做开发，所以就业务和理解能力上还没有降低．第一章就是张量.">
 <meta name="keywords" content="python,pytorch,ai">
 <meta property="og:type" content="article">
 <meta property="og:title" content="动手学深度-基础-张量">
 <meta property="og:url" content="http://www.blogme.club/2021/08/28/动手学深度-基础-张量/index.html">
 <meta property="og:site_name" content="adolph blog">
-<meta property="og:description" content="由于几年没有学过数学了，只能从基础开始处理了．没有办法．痛也只能忍着．所幸一直在做开发，所以就业务和理解能力上还没有降低．第一章就是张量.  初识张量1234567#!/usr/bin/env python# -*- coding: utf-8 -*-import torchif __name__ == &amp;apos;__main__&amp;apos;:    x = torch.arange(12) x">
+<meta property="og:description" content="由于几年没有学过数学了，只能从基础开始处理了．没有办法．痛也只能忍着．所幸一直在做开发，所以就业务和理解能力上还没有降低．第一章就是张量.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2021-08-28T09:52:05.553Z">
+<meta property="og:updated_time" content="2021-08-28T09:53:29.327Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动手学深度-基础-张量">
-<meta name="twitter:description" content="由于几年没有学过数学了，只能从基础开始处理了．没有办法．痛也只能忍着．所幸一直在做开发，所以就业务和理解能力上还没有降低．第一章就是张量.  初识张量1234567#!/usr/bin/env python# -*- coding: utf-8 -*-import torchif __name__ == &amp;apos;__main__&amp;apos;:    x = torch.arange(12) x">
+<meta name="twitter:description" content="由于几年没有学过数学了，只能从基础开始处理了．没有办法．痛也只能忍着．所幸一直在做开发，所以就业务和理解能力上还没有降低．第一章就是张量.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -175,7 +175,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>由于几年没有学过数学了，只能从基础开始处理了．没有办法．痛也只能忍着．所幸一直在做开发，所以就业务和理解能力上还没有降低．第一章就是张量. </p>
+        <p>由于几年没有学过数学了，只能从基础开始处理了．没有办法．痛也只能忍着．所幸一直在做开发，所以就业务和理解能力上还没有降低．第一章就是张量.<br><a id="more"></a></p>
 <h3 id="初识张量"><a href="#初识张量" class="headerlink" title="初识张量"></a>初识张量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"></span><br><span class="line">import torch</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    x = torch.arange(12)</span><br></pre></td></tr></table></figure>
 <p>x就变成了一个张量. 打印一看. 对于我来说. 张量就是个数组. 一维乃至多维. 不同的是还可以做运算. 例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x = torch.tensor([1.0, 2, 4, 8])</span><br><span class="line">y = torch.tensor([2, 2, 2, 2])</span><br><span class="line"># 张量相-. 即所在索引相减.</span><br><span class="line">print(x - y)</span><br><span class="line"># 张量的幂.</span><br><span class="line">print(x ** y)</span><br></pre></td></tr></table></figure></p>
 <p>输出结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tensor([-1.,  0.,  2.,  6.])</span><br><span class="line">tensor([ 1.,  4., 16., 64.])</span><br></pre></td></tr></table></figure></p>
@@ -186,6 +186,8 @@
 <p>输出结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 张量不同, 则按a的来进行复制. 复制为b的行. 例如 2 * 3. 然后在针对b的行进行元素相加. 只有1维可以相加.</span><br><span class="line">tensor([[0, 1],</span><br><span class="line">        [1, 2],</span><br><span class="line">        [2, 3]])</span><br></pre></td></tr></table></figure></p>
 <h3 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h3><p>跟数组切片类似，直接用就行</p>
 <h3 id="处理数据"><a href="#处理数据" class="headerlink" title="处理数据"></a>处理数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">import os, pandas, torch</span><br><span class="line"></span><br><span class="line">os.makedirs(os.path.join(&apos;.&apos;, &apos;data&apos;), exist_ok=True)</span><br><span class="line">data_file = os.path.join(&apos;.&apos;, &apos;data&apos;, &apos;house_tiny.csv&apos;)</span><br><span class="line"></span><br><span class="line">with open(data_file, &apos;w&apos;) as f:</span><br><span class="line">    f.write(&apos;NumRooms,Alley,Price\n&apos;)  # 列名</span><br><span class="line">    f.write(&apos;NA,Pave,127500\n&apos;)  # 每行表示一个数据样本</span><br><span class="line">    f.write(&apos;2,NA,106000\n&apos;)</span><br><span class="line">    f.write(&apos;4,NA,178100\n&apos;)</span><br><span class="line">    f.write(&apos;NA,NA,140000\n&apos;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    # 读取csv文件.</span><br><span class="line">    data = pandas.read_csv(data_file)</span><br><span class="line">    print(data)</span><br><span class="line">    # inputs 读取表的所有行中的第1,2列. outputs读取所有行的第3列数据.</span><br><span class="line">    inputs, outputs = data.iloc[:, 0:2], data.iloc[:, 2]</span><br><span class="line">    # 开始自动填充. 如果是数值则以平均数填充. 如果是bool则以存在的进行填充</span><br><span class="line">    inputs = inputs.fillna(inputs.mean(numeric_only=True))</span><br><span class="line">    print(inputs)</span><br><span class="line">    # 处理缺失值, 我们是以插入值来代替缺失值.</span><br><span class="line">    inputs = pandas.get_dummies(inputs, dummy_na=True)</span><br><span class="line">    print(inputs)</span><br><span class="line">    print(outputs)</span><br><span class="line">    # 转成张量的格式</span><br><span class="line">    x, y = torch.tensor(inputs.values, dtype=torch.float32), torch.tensor(outputs.values, dtype=torch.float32)</span><br><span class="line">    print(x, y)</span><br></pre></td></tr></table></figure>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>下一章，线性代数</p>
+
       
 
       
@@ -486,15 +488,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -610,11 +612,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yii</a>
+                <a href="javascript:void(0)" class="js-tag color3">跨域</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">跨域</a>
+                <a href="javascript:void(0)" class="js-tag color4">yii</a>
               </li>
              
               <li class="article-tag-list-item">
