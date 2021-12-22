@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="Walle 一个web部署系统工具，配置简单、功能完善、界面流畅、开箱即用！支持git、svn版本管理，支持各种web代码发布，PHP，Python，JAVA等代码的发布、回滚，可以通过web来一键完成。以下是安装教程.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2017-12-27T13:03:56.000Z">
+<meta property="og:updated_time" content="2021-12-22T09:52:37.786Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Walle配置-最详细的安装">
 <meta name="twitter:description" content="Walle 一个web部署系统工具，配置简单、功能完善、界面流畅、开箱即用！支持git、svn版本管理，支持各种web代码发布，PHP，Python，JAVA等代码的发布、回滚，可以通过web来一键完成。以下是安装教程.">
@@ -177,7 +177,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Walle 一个web部署系统工具，配置简单、功能完善、界面流畅、开箱即用！支持git、svn版本管理，支持各种web代码发布，PHP，Python，JAVA等代码的发布、回滚，可以通过web来一键完成。以下是安装教程.<br><a id="more"></a></p>
-<h3 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Bash(git、ssh)Bash(git、ssh)	// 意味着不支持win、mac的zsh</span><br><span class="line">LNMP/LAMP(php5.4+)	// 意味着不支持win、mac的zsh</span><br><span class="line">// php需要开启pdo_mysql，exec函数执行</span><br><span class="line">Composer // 如果国内环境安装极慢，可以直接下载vendor解压到项目根目录</span><br><span class="line">ansible</span><br></pre></td></tr></table></figure>
+<h3 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Bash(git、ssh)	// 意味着不支持win、mac的zsh</span><br><span class="line">LNMP/LAMP(php5.4+)</span><br><span class="line">// php需要开启pdo_mysql，exec函数执行</span><br><span class="line">Composer // 如果国内环境安装极慢，可以直接下载vendor解压到项目根目录</span><br><span class="line">ansible</span><br></pre></td></tr></table></figure>
 <h4 id="Bash"><a href="#Bash" class="headerlink" title="Bash"></a>Bash</h4><p>这个默认的linux用自带的就行了,如果说是win,请自行查找解决方案.这里的是linux安装,本人用的电脑系统为ubuntu.这个Bash为Unix shell脚本的命令.linux都有自带的.</p>
 <h4 id="LNMP-LAMP"><a href="#LNMP-LAMP" class="headerlink" title="LNMP/LAMP"></a>LNMP/LAMP</h4><p>如果说是ubuntu,请自行查找我以前的<a href="https://adolphgithub.github.io/2017/05/11/%E5%B8%B8%E7%94%A8%E5%A4%87%E4%BB%BD/" target="_blank" rel="noopener">博客的备份</a>,如果你实在是不会安装,没有问题.<a href="https://oneinstack.com/" target="_blank" rel="noopener">OneinStack</a>您的一键环境安装包.<a href="https://oneinstack.com/install/" target="_blank" rel="noopener">图形化教程</a>,是如此方便.当然,如果你用windows也不介意.<a href="http://www.phpstudy.net/" target="_blank" rel="noopener">phpstudy</a>,<a href="http://www.wampserver.com/en/" target="_blank" rel="noopener">wamp</a>,这些都可以的.</p>
 <h4 id="Composer"><a href="#Composer" class="headerlink" title="Composer"></a>Composer</h4><p>windows下请先配置<a href="http://blog.csdn.net/small_rice_/article/details/45268451" target="_blank" rel="noopener">php的环境变量</a>.然后在下载<a href="https://getcomposer.org/Composer-Setup.exe" target="_blank" rel="noopener">composer.exe</a>,双击就可以安装.linux就查看下教程.ubuntu就用以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install composer</span><br></pre></td></tr></table></figure></p>
@@ -436,18 +436,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vpn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">openvpnas</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ssl</a>
               </li>
              
@@ -457,6 +445,18 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">activeMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vpn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">openvpnas</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -476,15 +476,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">expect</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">php</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -500,11 +500,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -540,11 +540,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">word</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color5">pypi</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">word</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -564,10 +568,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">win10</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">socket rpc</a>
               </li>
              
@@ -584,6 +584,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">win10</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
@@ -593,6 +597,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">workerman</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">css</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">bulma</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -612,14 +624,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">css</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">bulma</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">备份</a>
               </li>
              
@@ -632,14 +636,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yii</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">跨域</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">GatewayWorker</a>
               </li>
              
@@ -649,6 +645,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">yii</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">跨域</a>
               </li>
             
             <div class="clearfix"></div>
