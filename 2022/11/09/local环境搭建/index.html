@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="adolph blog">
 <meta property="og:description" content="最近新买了一台电脑，忙着处理新电脑的开发环境. 本人由于是做php/python开发的. 所以对系统的开发环境就要求有点高. 但是开发的项目环境也比较复杂. 语言种类也较多. 所以想着能否有一套可以通行的标准. 来构建一个我们自己的开发环境. 所以就有了这篇文章.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2022-11-09T06:17:08.387Z">
+<meta property="og:updated_time" content="2022-11-09T06:25:11.739Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php开发环境搭建">
 <meta name="twitter:description" content="最近新买了一台电脑，忙着处理新电脑的开发环境. 本人由于是做php/python开发的. 所以对系统的开发环境就要求有点高. 但是开发的项目环境也比较复杂. 语言种类也较多. 所以想着能否有一套可以通行的标准. 来构建一个我们自己的开发环境. 所以就有了这篇文章.">
@@ -180,27 +180,24 @@
         <p>最近新买了一台电脑，忙着处理新电脑的开发环境. 本人由于是做php/python开发的. 所以对系统的开发环境就要求有点高. 但是开发的项目环境也比较复杂. 语言种类也较多. 所以想着能否有一套可以通行的标准. 来构建一个我们自己的开发环境. 所以就有了这篇文章.<br><a id="more"></a></p>
 <h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><p>首先，我们得了解自己开发环境的需求. 我大概整理了下面这几个需求.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 支持多版本php.</span><br><span class="line">2. 支持多版本python.</span><br><span class="line">3. 数据库支持8.0.</span><br><span class="line">4. 支持ubuntu22.04.</span><br><span class="line">5. 完美支持php扩展.</span><br><span class="line">6. 电脑能随意带走. 且不影响环境和代码.</span><br></pre></td></tr></table></figure></p>
 <p>有了以上的需求. 就有了一个大概需要的东西. 首先. ubuntu22.04很正常. 大部分都支持. python有着virtualenv的加持也支持多版本. mysql直接安装8.0的. 剩下的就是php扩展的支持程度和多版本php了. 怎样才算完成支持扩展呢. 肯定是虚拟环境了. 这里我们就采用docker吧.</p>
-<h4 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h4><p>有了上面的需求. 我们确定一下技术栈.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git</span><br><span class="line">mysql8.0</span><br><span class="line">docker</span><br><span class="line">nginx</span><br><span class="line">python3.11</span><br><span class="line">``` </span><br><span class="line">#### 安装基础软件</span><br></pre></td></tr></table></figure></p>
-<p>sudo apt install nginx git<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#### 安装python</span><br></pre></td></tr></table></figure></p>
-<p>sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev pkg-config make -y<br>wget <a href="https://www.python.org/ftp/python/3.11.0/Python-3.11.0a7.tar.xz" target="_blank" rel="noopener">https://www.python.org/ftp/python/3.11.0/Python-3.11.0a7.tar.xz</a><br>tar -xf Python-3.11.0a7.tar.xz<br>sudo mv Python3.11.0a7 /opt/<br>./configure –enable-optimizations –enable-shared<br>make &amp;&amp; make altinstall<br>sudo ldconfig /opt/Python3.11.a07<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装pip</span><br></pre></td></tr></table></figure></p>
-<p>wget <a href="https://bootstrap.pypa.io/get-pip.py" target="_blank" rel="noopener">https://bootstrap.pypa.io/get-pip.py</a><br>python3.11 get-pip.py<br>python3.11 -m pip install –upgrade pip<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装完过后，就处理我们的虚拟环境</span><br></pre></td></tr></table></figure></p>
-<p>python3.11 -m pip install virtualenv<br>python3.11 -m virtualenv venv<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python就安装完了. 剩下需要什么就编译什么就可以了.</span><br><span class="line">#### 安装php</span><br><span class="line">安装php得先安装docker.</span><br></pre></td></tr></table></figure></p>
-<p>sudo apt-get remove docker docker-engine docker.io containerd runc<br>sudo apt-get install \<br>    ca-certificates \<br>    curl \<br>    gnupg \<br>    lsb-release<br>sudo mkdir -p /etc/apt/keyrings<br>curl -fsSL <a href="https://download.docker.com/linux/ubuntu/gpg" target="_blank" rel="noopener">https://download.docker.com/linux/ubuntu/gpg</a> | sudo gpg –dearmor -o /etc/apt/keyrings/docker.gpg<br>echo \<br>  “deb [arch=$(dpkg –print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] <a href="https://download.docker.com/linux/ubuntu" target="_blank" rel="noopener">https://download.docker.com/linux/ubuntu</a> \<br>  $(lsb_release -cs) stable” | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null<br>sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装docker-desktop</span><br></pre></td></tr></table></figure></p>
-<p>wget <a href="https://desktop.docker.com/linux/main/amd64/docker-desktop-4.13.1-amd64.deb?utm_source=docker&amp;utm_medium=webreferral&amp;utm_campaign=docs-driven-download-linux-amd64" target="_blank" rel="noopener">https://desktop.docker.com/linux/main/amd64/docker-desktop-4.13.1-amd64.deb?utm_source=docker&amp;utm_medium=webreferral&amp;utm_campaign=docs-driven-download-linux-amd64</a><br>sudo apt install ./docker-desktop-4.13.1-amd64.deb<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker安装完过后, 就需要设置我们docker的镜像代理.</span><br></pre></td></tr></table></figure></p>
-<p>sudo mkdir -p /etc/docker<br>sudo tee /etc/docker/daemon.json &lt;&lt;-‘EOF’<br>{<br>  “registry-mirrors”: [“<a href="https://xxxxxxxxx.mirror.aliyuncs.com&quot;]" target="_blank" rel="noopener">https://xxxxxxxxx.mirror.aliyuncs.com&quot;]</a><br>}<br>EOF</p>
-<p>sudo usermod -aG docker 用户名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装完过后, 就需要处理我们的php环境了. 首先使用php官方的镜像</span><br></pre></td></tr></table></figure></p>
-<p>php:7.4.33-fpm-alpine3.16<br>php:8.1-fpm-alpine3.16<br>php:8.0-fpm-alpine<br>php:7.3-fpm-alpine3.14<br>php:7.3-fpm-alpine3.14<br>php:7.1.33-fpm-alpine3.10<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">直接使用docker pull拉取下来就可以了. 然后先创建我们的容器.</span><br></pre></td></tr></table></figure></p>
-<p>docker run -d -p 10081:9000 -v /data/www:/data/www php8.1的镜像id<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">监听端口和挂载我们的项目目录就可以了. 后续我们只需求修改fastcgi-pass的监听和端口就可以了.</span><br><span class="line">#### php扩展安装</span><br><span class="line">php的docker镜像分为三种安装方式.</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>源码安装</li>
-<li>pecl安装</li>
-<li>docker-php-ext-install 扩展名<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">编译和pecl得依赖于环境. 所以得根据所需要的依赖进行安装. 而docker-php-ext-install只能安装固定扩展. 不过无论是编译和pecl都得更换apline的软件源.</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>echo <a href="http://mirrors.aliyun.com/alpine/v3.16/main/" target="_blank" rel="noopener">http://mirrors.aliyun.com/alpine/v3.16/main/</a> &gt; /etc/apk/repositories &amp;&amp; \<br>       echo <a href="http://mirrors.aliyun.com/alpine/v3.16/community/" target="_blank" rel="noopener">http://mirrors.aliyun.com/alpine/v3.16/community/</a> &gt;&gt; /etc/apk/repositories<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">同时还得注意我们的基础环境. 可以先用以下命令先行构建初始环境.</span><br></pre></td></tr></table></figure></p>
-<p>apk –update add –virtual build-dependencies build-base openssl-dev autoconf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">最后构建完了过后需要启用我们的扩展. 直接使用.</span><br></pre></td></tr></table></figure></p>
-<p>docker-php-ext-enable 扩展名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#### 电脑切换网络</span><br><span class="line">为什么会需要呢, 打个比方. 你的容器里面需要访问你本地的数据库. 而如果采用私有IP地址则每换一个网络环境就得手动改一下. 这样子就非常麻烦了. 所以我们需要一个策略. 那就是创建一个虚拟网卡出来桥接到主网卡上并且设置为固定的ip.</span><br></pre></td></tr></table></figure></p>
-<p>nm-connection-editor<br><code>`</code><br>添加一个新的网桥,并设置固定的IP地址就可以了.</p>
+<h4 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h4><p>有了上面的需求. 我们确定一下技术栈.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git</span><br><span class="line">mysql8.0</span><br><span class="line">docker</span><br><span class="line">nginx</span><br><span class="line">python3.11</span><br></pre></td></tr></table></figure></p>
+<h4 id="安装基础软件"><a href="#安装基础软件" class="headerlink" title="安装基础软件"></a>安装基础软件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nginx git</span><br></pre></td></tr></table></figure>
+<h4 id="安装python"><a href="#安装python" class="headerlink" title="安装python"></a>安装python</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev pkg-config make -y</span><br><span class="line">wget https://www.python.org/ftp/python/3.11.0/Python-3.11.0a7.tar.xz</span><br><span class="line">tar -xf Python-3.11.0a7.tar.xz</span><br><span class="line">sudo mv Python3.11.0a7 /opt/</span><br><span class="line">./configure --enable-optimizations --enable-shared</span><br><span class="line">make &amp;&amp; make altinstall</span><br><span class="line">sudo ldconfig /opt/Python3.11.a07</span><br></pre></td></tr></table></figure>
+<p>安装pip<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://bootstrap.pypa.io/get-pip.py</span><br><span class="line">python3.11 get-pip.py</span><br><span class="line">python3.11 -m pip install --upgrade pip</span><br></pre></td></tr></table></figure></p>
+<p>安装完过后，就处理我们的虚拟环境<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3.11 -m pip install virtualenv</span><br><span class="line">python3.11 -m virtualenv venv</span><br></pre></td></tr></table></figure></p>
+<p>python就安装完了. 剩下需要什么就编译什么就可以了.</p>
+<h4 id="安装php"><a href="#安装php" class="headerlink" title="安装php"></a>安装php</h4><p>安装php得先安装docker.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove docker docker-engine docker.io containerd runc</span><br><span class="line">sudo apt-get install \</span><br><span class="line">    ca-certificates \</span><br><span class="line">    curl \</span><br><span class="line">    gnupg \</span><br><span class="line">    lsb-release</span><br><span class="line">sudo mkdir -p /etc/apt/keyrings</span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span><br><span class="line">echo \</span><br><span class="line">  &quot;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \</span><br><span class="line">  $(lsb_release -cs) stable&quot; | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br><span class="line">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span><br></pre></td></tr></table></figure></p>
+<p>安装docker-desktop<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.13.1-amd64.deb?utm_source=docker&amp;utm_medium=webreferral&amp;utm_campaign=docs-driven-download-linux-amd64</span><br><span class="line">sudo apt install ./docker-desktop-4.13.1-amd64.deb</span><br></pre></td></tr></table></figure></p>
+<p>docker安装完过后, 就需要设置我们docker的镜像代理.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&apos;EOF&apos;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://xxxxxxxxx.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo usermod -aG docker 用户名</span><br></pre></td></tr></table></figure></p>
+<p>安装完过后, 就需要处理我们的php环境了. 首先使用php官方的镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">php:7.4.33-fpm-alpine3.16	</span><br><span class="line">php:8.1-fpm-alpine3.16	</span><br><span class="line">php:8.0-fpm-alpine	</span><br><span class="line">php:7.3-fpm-alpine3.14	</span><br><span class="line">php:7.3-fpm-alpine3.14	</span><br><span class="line">php:7.1.33-fpm-alpine3.10</span><br></pre></td></tr></table></figure></p>
+<p>直接使用docker pull拉取下来就可以了. 然后先创建我们的容器.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 10081:9000 -v /data/www:/data/www php8.1的镜像id</span><br></pre></td></tr></table></figure></p>
+<p>监听端口和挂载我们的项目目录就可以了. 后续我们只需求修改fastcgi-pass的监听和端口就可以了.</p>
+<h4 id="php扩展安装"><a href="#php扩展安装" class="headerlink" title="php扩展安装"></a>php扩展安装</h4><p>php的docker镜像分为三种安装方式.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 源码安装</span><br><span class="line">2. pecl安装</span><br><span class="line">3. docker-php-ext-install 扩展名</span><br></pre></td></tr></table></figure></p>
+<p>编译和pecl得依赖于环境. 所以得根据所需要的依赖进行安装. 而docker-php-ext-install只能安装固定扩展. 不过无论是编译和pecl都得更换apline的软件源.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo http://mirrors.aliyun.com/alpine/v3.16/main/ &gt; /etc/apk/repositories &amp;&amp; \</span><br><span class="line">       echo http://mirrors.aliyun.com/alpine/v3.16/community/ &gt;&gt; /etc/apk/repositories</span><br></pre></td></tr></table></figure></p>
+<p>同时还得注意我们的基础环境. 可以先用以下命令先行构建初始环境.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apk --update add --virtual build-dependencies build-base openssl-dev autoconf</span><br></pre></td></tr></table></figure></p>
+<p>最后构建完了过后需要启用我们的扩展. 直接使用.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-php-ext-enable 扩展名</span><br></pre></td></tr></table></figure></p>
+<h4 id="电脑切换网络"><a href="#电脑切换网络" class="headerlink" title="电脑切换网络"></a>电脑切换网络</h4><p>为什么会需要呢, 打个比方. 你的容器里面需要访问你本地的数据库. 而如果采用私有IP地址则每换一个网络环境就得手动改一下. 这样子就非常麻烦了. 所以我们需要一个策略. 那就是创建一个虚拟网卡出来桥接到主网卡上并且设置为固定的ip.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nm-connection-editor</span><br></pre></td></tr></table></figure></p>
+<p>添加一个新的网桥,并设置固定的IP地址就可以了.</p>
 
       
 
@@ -522,11 +519,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -566,11 +563,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">pypi</a>
+                <a href="javascript:void(0)" class="js-tag color5">word</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">word</a>
+                <a href="javascript:void(0)" class="js-tag color5">pypi</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -598,11 +595,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">win10</a>
+                <a href="javascript:void(0)" class="js-tag color4">sysbench</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sysbench</a>
+                <a href="javascript:void(0)" class="js-tag color1">win10</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -610,11 +607,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+                <a href="javascript:void(0)" class="js-tag color3">vagrant</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">vagrant</a>
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -650,15 +647,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">备份</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ubunut</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -678,11 +675,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">跨域</a>
+                <a href="javascript:void(0)" class="js-tag color4">yii</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yii</a>
+                <a href="javascript:void(0)" class="js-tag color3">跨域</a>
               </li>
             
             <div class="clearfix"></div>
