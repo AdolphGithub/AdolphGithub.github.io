@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.blogme.club">
-  <title>Tag: cache | adolph blog</title>
+  <title>chrome插件-如何注入表单元素 | adolph blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="adolph blog">
-<meta property="og:url" content="http://www.blogme.club/tags/cache/index.html">
+  <meta name="description" content="在chrome插件中. 我们可以通过content-script来对页面的元素进行修改和填值操作. 那如何会有这个命题呢.">
+<meta name="keywords" content="chrome,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chrome插件-如何注入表单元素">
+<meta property="og:url" content="http://www.blogme.club/2024/01/02/chrome插件-如何注入表单元素/index.html">
 <meta property="og:site_name" content="adolph blog">
+<meta property="og:description" content="在chrome插件中. 我们可以通过content-script来对页面的元素进行修改和填值操作. 那如何会有这个命题呢.">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2024-01-02T08:46:31.270Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adolph blog">
+<meta name="twitter:title" content="chrome插件-如何注入表单元素">
+<meta name="twitter:description" content="在chrome插件中. 我们可以通过content-script来对页面的元素进行修改和填值操作. 那如何会有这个命题呢.">
   
     <link rel="alternative" href="/atom.xml" title="adolph blog" type="application/atom+xml">
   
@@ -152,64 +157,179 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-chrome插件-如何注入表单元素" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/11/浏览器缓存/" class="archive-article-date">
-  	<time datetime="2018-05-11T05:14:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-11</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/11/浏览器缓存/">浏览器缓存</a>
+    <h1 class="article-title" itemprop="name">
+      chrome插件-如何注入表单元素
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2024/01/02/chrome插件-如何注入表单元素/" class="archive-article-date">
+  	<time datetime="2024-01-02T08:32:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在chrome插件中. 我们可以通过content-script来对页面的元素进行修改和填值操作. 那如何会有这个命题呢.<br><a id="more"></a></p>
+<h3 id="普通页面"><a href="#普通页面" class="headerlink" title="普通页面"></a>普通页面</h3><p>当我们使用html+javascript+css来构建的页面. 我们可以直接通过如下方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.querySelector(&apos;&apos;).value</span><br></pre></td></tr></table></figure></p>
+<p>这种形式来处理就可以了.</p>
+<h3 id="vue-react等打包页面"><a href="#vue-react等打包页面" class="headerlink" title="vue/react等打包页面"></a>vue/react等打包页面</h3><p>如果采用普通页面的形式,对于这种页面就不行. 因为变量存在于一个特殊变量中. 普通的赋值形式会在页面元素有变动时. 将值重新赋予. 在新的js框架打包的页面通常都是通过Object.defineProperty来声明一个属性. 例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let person = &#123;&#125;;  </span><br><span class="line">  </span><br><span class="line">Object.defineProperty(person, &apos;firstName&apos;, &#123;  </span><br><span class="line">  value: &apos;John&apos;,  </span><br><span class="line">  writable: false,  </span><br><span class="line">  enumerable: true,  </span><br><span class="line">  configurable: true  </span><br><span class="line">&#125;);  </span><br><span class="line">  </span><br><span class="line">console.log(person.firstName);</span><br></pre></td></tr></table></figure></p>
+<p>这样子我们就能对属性值是否能够更改等一系列进行监控. 所以我们就可以采用如下的形式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let ele = document.querySelecotr(&apos;xxxx&apos;)</span><br><span class="line">let w = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, &apos;value&apos;).set</span><br><span class="line"></span><br><span class="line">w.call(ele, &apos;值&apos;)</span><br><span class="line">ele.dispatchEvent(new Event(&apos;input&apos;, &#123;bubbles: true&#125;))</span><br></pre></td></tr></table></figure></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>由于新的js基本都采用了第二种方式. 所以在调试的时候. 可以通过MutationObserver的形式来监听. 如下.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const observer = new MutationObserver(mutations =&gt; &#123;  </span><br><span class="line">  mutations.forEach(mutation =&gt; &#123;  </span><br><span class="line">    console.log(mutation.type); // 打印出如 &apos;attributes&apos;, &apos;childList&apos;, &apos;characterData&apos; 等更改类型  </span><br><span class="line">    console.log(mutation.target); // 打印出发生更改的元素  </span><br><span class="line">  &#125;);  </span><br><span class="line">&#125;);  </span><br><span class="line">  </span><br><span class="line">// 开始观察指定的DOM节点  </span><br><span class="line">observer.observe(document.body, &#123; attributes: true, childList: true, subtree: true &#125;);</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>多谢客官打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://cdn.blogme.club/blog/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://cdn.blogme.club/blog/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">chrome</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">cache</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.blogme.club/2024/01/02/chrome插件-如何注入表单元素/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2024/01/02/chrome扩展webrequest的生命周期/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">chrome扩展webrequest的生命周期</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+  <div id="SOHUCS" sid="chrome插件-如何注入表单元素"></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = "cytl0R24B"; 
+var conf = "prod_d2bfa312a3ef06ddd2946bfd6115fdf9"; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
+  
+
+  
 
 
           </div>
@@ -239,9 +359,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
